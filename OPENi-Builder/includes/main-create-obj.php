@@ -15,24 +15,15 @@
                 <div class="form-group">
                     <p>Please select a <u>name</u> for the new object <input type="text" placeholder="New Object" class="form-control-static"></p>
                 </div>
-                <div class="radio">
-                    <label>
-                        <input type="radio" name="inheritance" id="inheritance" value="nope" checked>
-                        I don't want my object to inherit from any existing object
-                    </label>
-                </div>
-                <div class="radio">
-                    <label>
-                        <input type="radio" name="inheritance" id="inheritance" value="yeap">
-                        I want my object to inherit from the following object:
-                        <select class="form-control-inline">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                        </select>
-                    </label>
+                <div class="form-group">
+                    I want my object to inherit from the following object:
+                    <select class="form-control-inline">
+                        <option>None</option>
+                        <option>Account</option>
+                        <option>Place</option>
+                        <option>Event</option>
+                        <option>Photo</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <p>Please provide some <u>information</u> about the proposed usage of the new object</p>
@@ -44,22 +35,22 @@
                         <h3><u>Privacy</u></h3>
                     </div>
                     <div class="col-lg-10">
-                        <div class="checkbox">
+                        <div class="radio">
                             <label>
-                                <input type="checkbox" value="Private">
+                                <input type="radio" name="Privacy" id="Private" value="Private" checked>
                                 private - nobody except you can view/use the object
                             </label>
                         </div>
-                        <div class="checkbox">
+                        <div class="radio">
                             <label>
-                                <input type="checkbox" value="Public">
-                                public - all access granted - every OPENi developer can view/use/edit the object
+                                <input type="radio" name="Privacy" id="Restricted" value="Restricted">
+                                public - view/use only - every OPENi developer can view and use the object, but cannot edit it
                             </label>
                         </div>
-                        <div class="checkbox">
+                        <div class="radio">
                             <label>
-                                <input type="checkbox" value="Restricted">
-                                public - view/use only - every OPENi developer can view and use the object, but cannot edit it
+                                <input type="radio" name="Privacy" id="Public" value="Public">
+                                public - all access granted - every OPENi developer can view/use/edit the object
                             </label>
                         </div>
                     </div>
