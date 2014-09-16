@@ -10,6 +10,7 @@
     <p>Customizing, etc... There are 3 options for creating the method that best suits your needs.</p>
 
     <h3>So, let's start... What do you want to do?</h3>
+	<br/>
 
     <div class="container">
       <div class="row">
@@ -19,10 +20,7 @@
                     <h4>Combine 2 or more existing methods into one new method</h4>
                     <p>You can select a set of methods to be called with just one call and also filter the parameters of the second method based on the response of the first</p>
                 </li>
-                <li>
-                    <h4>Build a new method</h4>
-                    <p>Create a new method by using the fields and alternatives you see fit!</p>
-                </li>
+               
                 <li>
                     <h4>Change an existing method</h4>
                     <p>OK, we need some more information... Why do you want to change the method?</p>
@@ -41,14 +39,12 @@
         </div>
         <div class="col-lg-4">
             <br /><br />
-            <p>Let's do that!</p>
-            <br /><br />
-            <p>You are my hero!</p>
+            <p><a class="btn btn-primary" href="combine-methods">Let's do that!</a></p>
             <br /><br />
             <br /><br />
-            <p>I wanna help!</p>
+            <p><a class="btn btn-primary" href="#">I wanna help!</a></p>
             <br /><br />
-            <p>That's exactly what I wanted!</p>
+            <p><a class="btn btn-primary" href="create-method-2">That's perfect!</a></p>
         </div>
       </div>
     </div>

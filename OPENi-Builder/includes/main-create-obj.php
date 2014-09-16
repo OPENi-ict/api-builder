@@ -18,11 +18,7 @@
                 <div class="form-group">
                     I want my object to inherit from the following object:
                     <select class="form-control-inline">
-                        <option>None</option>
-                        <option>Account</option>
-                        <option>Place</option>
-                        <option>Event</option>
-                        <option>Photo</option>
+                       <option>-</option><option>SocialAccount</option><option>SocialToken</option><option>account</option><option>application</option><option>article</option><option>audio</option><option>badge</option><option>card</option><option>checkin</option><option>contact</option><option>context</option><option>device</option><option>event</option><option>file</option><option>game</option><option>Insect_Photo</option><option>measurement</option><option>note</option><option>nutrition</option><option>order</option><option>photo</option><option>place</option><option>product</option><option>question</option><option>registeredapplication</option><option>route</option><option>service</option><option>shop</option><option>sleep</option><option>socialapp</option><option>status</option><option>user</option><option>video</option><option>workout</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -55,6 +51,13 @@
                         </div>
                     </div>
                 </div>
+				<div class="text-right">
+				<h4>
+				
+				<a href="create-object-2"><b>Continue &raquo;</b></a></li>
+				</h4>
+				</div>
+
         </div>
         <div class="col-lg-4">
             <h3>Other objects that inherit from Photo</h3>
