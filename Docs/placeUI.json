@@ -1,0 +1,98 @@
+{
+    "id":"object_place",
+    "name":"place",
+    "type":"openi basic object",
+    "created_at":"Mon Mar 10 10:42:46 +0000 2014",
+    "up_votes":5,
+    "down_votes":0,
+    "used_in":10,
+    "privacy":{
+        "level":0,
+        "description":"public, all access granted- every openi developer can view, use, edit the object"
+    },
+    "developers":[
+        {
+        "name":"mpetyx",
+        "uri":"http://imagineryURI.com",
+        "role":"creator"
+    }],
+    "fields":[
+        {
+            "name":"name",
+            "field_type":{
+                "name":"string",
+                "schema.org_map":"http://schema.org/name"
+            }
+        },
+        {
+            "name":"id",
+            "field_type":{
+                "name":"string"
+            }
+        },
+        {
+            "name":"url",
+            "field_type":{
+                "name":"string",
+                "schema.org_map":"http://schema.org/URL"
+            }
+        },
+        {
+            "name":"service",
+            "field_type":{
+                "name":"string",
+                "comment":"the cbs from which the place was taken"
+            }
+        },
+        {
+            "name":"description",
+            "field_type":{
+                "name":"string",
+                "schema.org_map":"http://schema.org/description"
+            }
+        },
+        {
+            "name":"category",
+            "field_type":{
+                "name":"array of string",
+                "comment":"array of place categories, i.e. ['restaurant','chinese food']"
+            }
+        },
+        {
+            "name":"picture",
+            "field_type":{
+                "name":"string",
+                "schema.org_map":"http://schema.org/image",
+                "comment":"url of the picture"
+            }
+        },
+        {
+            "name":"address.street",
+            "field_type":{
+                "name":"string",
+                "schema.org_map":"http://schema.org/streetAddress"
+            }
+        },
+        {
+            "name":"address.zip",
+            "field_type":{
+                "name":"string",
+                "schema.org_map":"http://schema.org/postalCode"
+            }
+        },
+        {
+            "name":"location.longitude",
+            "field_type":{
+                "name":"string",
+                "schema.org_map":"http://schema.org/longitude"
+            }
+        },
+        {
+            "name":"location.latitude",
+            "field_type":{
+                "name":"string",
+                "schema.org_map":"http://schema.org/latitude"
+            }
+        }
+        ]
+}

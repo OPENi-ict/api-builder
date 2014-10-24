@@ -1,0 +1,43 @@
+{
+    "id":"'fields_'+object unique id in string format",
+    
+    "fields":[
+        {
+            "name":"name1",
+            "field_type":{
+                "name":"place",
+                "link":"linkToPlaceURI"
+            },
+            "used_in_methods":[
+                    {
+                       "name":"methodName",
+                       "link":"methodURI"
+                    },
+                    {
+                       "name":"methodName",
+                       "link":"methodURI"
+                    }
+                ]
+        },
+        {
+            "name":"name1",
+            "field_type":{
+                "name":"string"
+            },
+            "used_in_methods":[
+                    {
+                       "name":"methodName",
+                       "link":"methodURI"
+                    },
+                    {
+                       "name":"methodName",
+                       "link":"methodURI"
+                    },
+                    {
+                       "name":"methodName",
+                       "link":"methodURI"
+                    }
+                ]
+        }
+        ]
+}

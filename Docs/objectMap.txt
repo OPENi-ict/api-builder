@@ -1,0 +1,10 @@
+{
+    "id":"object_map",
+    "description":"map each object name with its unique URI. Sort of stupid, because we have unique names, unique ids and unique URIs, so it would make sense to use either name or uri as id, but anyway I followed the model.The idea is that when user clicks an object, you find the corresponding id and retrieve the json with that id.",
+    "map":{
+        "place":"placeJsonUniqueID",
+        "event":"eventJsonUniqueID",
+        "otherObject":"etc etc"
+    }
+    
+}

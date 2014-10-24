@@ -1,0 +1,24 @@
+{
+    "id":"object unique id in string format",
+    "name":"object_name",
+    "type":"openi basic object",
+    "created_at":"Mon Mar 10 10:42:46 +0000 2014 an de sou aresei to date format to allazoume",
+    "up_votes":5,
+    "down_votes":0,
+    "used_in":10,
+    "privacy":{
+        "level":0,
+        "description":"public, all access granted- every openi developer can view, use, edit the object"
+    },
+    "developers":[
+        {
+        "name":"mpetyx",
+        "uri":"http://imagineryURI.com",
+        "role":"creator"
+    },
+    {
+        "name":"rom-dim",
+        "uri":"http://anotherImagineryURI.com",
+        "role":"editor" 
+    }]
+}
