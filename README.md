@@ -3,12 +3,6 @@ OPENi API Builder
 
 OPENi API Builder is a web project that allows developers to add Objects
 and combine methods for use with the official [OPENi API Framework](https://github.com/OPENi-ict/api-framework).
-Yii 2 Basic Application Template is a skeleton Yii 2 application best for
-rapidly creating small projects.
-
-The template contains the basic features including user login/logout and a contact page.
-It includes all commonly used configurations that would allow you to focus on adding new
-features to your application.
 
 
 DIRECTORY STRUCTURE
