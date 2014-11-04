@@ -39,7 +39,9 @@ Download and extract the zipped master source code from [api-builder](https://gi
 into a directory named `api-builder` that is directly under the Web root.
 
 Run a command prompt in that directory and type:
+~~~
 composer install
+~~~
 
 This will fetch all the required packages and save them in your vendor folder.
 
