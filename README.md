@@ -79,7 +79,11 @@ TECH STACK USED FOR DEVELOPMENT - MANY THANKS!
 ---------------------------------------------
 
 [yii 2](yiiframework.com)
+
 [composer](https://getcomposer.org/)
+
 [bootstrap](http://getbootstrap.com/)
+
 [bootstrap-material-design](https://github.com/FezVrasta/bootstrap-material-design/)
+
 [Krajee Yii Extensions](http://demos.krajee.com/)
