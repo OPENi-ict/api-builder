@@ -78,7 +78,7 @@ Also check and edit the other files in the `config/` directory to customize your
 TECH STACK USED FOR DEVELOPMENT - MANY THANKS!
 ---------------------------------------------
 
-[yii 2](yiiframework.com)
+[yii 2](http://www.yiiframework.com)
 
 [composer](https://getcomposer.org/)
 
