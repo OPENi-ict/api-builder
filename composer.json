@@ -23,16 +23,21 @@
         "yiisoft/yii2": "*",
         "yiisoft/yii2-bootstrap": "*",
         "kartik-v/yii2-widgets": "*",
+        "kartik-v/yii2-money": "dev-master",
+        "kartik-v/yii2-checkbox-x": "dev-master",
         "kartik-v/yii2-grid": "*",
-        "kartik-v/yii2-money": "*",
-        "kartik-v/yii2-checkbox-x": "*",
-        "yiisoft/yii2-swiftmailer": "*"
+        "kartik-v/yii2-icons": "dev-master",
+        "yiisoft/yii2-swiftmailer": "*",
+        "zircote/swagger-php": "*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
         "yiisoft/yii2-debug": "*",
         "yiisoft/yii2-gii": "*",
-        "yiisoft/yii2-faker": "*"
+        "warrence/yii2-kartikgii": "dev-master",
+        "yiisoft/yii2-faker": "*",
+        "c006/yii2-migration-utility": "dev-master",
+        "c006/yii2-auto-crud": "dev-master"
     },
     "suggest": {
         "raoul2000/yii2-bootswatch-asset": "Easily choose bootstrap theme for bootswatch."

@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0f6438bc6d97268f76d4039b93d5ddf1",
+    "hash": "37162d4a0c233212a5d81d32da0baaf7",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -101,17 +101,42 @@
             ]
         },
         {
-            "name": "bower-asset/jquery.inputmask",
-            "version": "3.1.34",
+            "name": "bower-asset/jquery-ui",
+            "version": "1.11.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/RobinHerbots/jquery.inputmask.git",
-                "reference": "f48d10463039a23469e65cc4b5c0b4409e8fb596"
+                "url": "https://github.com/components/jqueryui.git",
+                "reference": "396781474d936959061271505f506b78398fe6a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/RobinHerbots/jquery.inputmask/zipball/f48d10463039a23469e65cc4b5c0b4409e8fb596",
-                "reference": "f48d10463039a23469e65cc4b5c0b4409e8fb596",
+                "url": "https://api.github.com/repos/components/jqueryui/zipball/396781474d936959061271505f506b78398fe6a2",
+                "reference": "396781474d936959061271505f506b78398fe6a2",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/jquery": ">=1.6"
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": [
+                    "jquery-ui.js"
+                ],
+                "bower-asset-ignore": []
+            }
+        },
+        {
+            "name": "bower-asset/jquery.inputmask",
+            "version": "3.1.36",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/RobinHerbots/jquery.inputmask.git",
+                "reference": "1e667db21e878105686e636efea883fa23b54fb2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/RobinHerbots/jquery.inputmask/zipball/1e667db21e878105686e636efea883fa23b54fb2",
+                "reference": "1e667db21e878105686e636efea883fa23b54fb2",
                 "shasum": ""
             },
             "require": {
@@ -267,6 +292,126 @@
             "time": "2014-10-25 16:16:49"
         },
         {
+            "name": "doctrine/annotations",
+            "version": "v1.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/annotations.git",
+                "reference": "6a6bec0670bb6e71a263b08bc1b98ea242928633"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/doctrine/annotations/zipball/6a6bec0670bb6e71a263b08bc1b98ea242928633",
+                "reference": "6a6bec0670bb6e71a263b08bc1b98ea242928633",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/lexer": "1.*",
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "doctrine/cache": "1.*",
+                "phpunit/phpunit": "4.*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.3.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Doctrine\\Common\\Annotations\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Roman Borschel",
+                    "email": "roman@code-factory.org"
+                },
+                {
+                    "name": "Benjamin Eberlei",
+                    "email": "kontakt@beberlei.de"
+                },
+                {
+                    "name": "Guilherme Blanco",
+                    "email": "guilhermeblanco@gmail.com"
+                },
+                {
+                    "name": "Jonathan Wage",
+                    "email": "jonwage@gmail.com"
+                },
+                {
+                    "name": "Johannes Schmitt",
+                    "email": "schmittjoh@gmail.com"
+                }
+            ],
+            "description": "Docblock Annotations Parser",
+            "homepage": "http://www.doctrine-project.org",
+            "keywords": [
+                "annotations",
+                "docblock",
+                "parser"
+            ],
+            "time": "2014-09-25 16:45:30"
+        },
+        {
+            "name": "doctrine/lexer",
+            "version": "v1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/lexer.git",
+                "reference": "2f708a85bb3aab5d99dab8be435abd73e0b18acb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/doctrine/lexer/zipball/2f708a85bb3aab5d99dab8be435abd73e0b18acb",
+                "reference": "2f708a85bb3aab5d99dab8be435abd73e0b18acb",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Doctrine\\Common\\Lexer\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Guilherme Blanco",
+                    "email": "guilhermeblanco@gmail.com",
+                    "homepage": "http://www.instaclick.com"
+                },
+                {
+                    "name": "Roman Borschel",
+                    "email": "roman@code-factory.org"
+                },
+                {
+                    "name": "Johannes Schmitt",
+                    "email": "schmittjoh@gmail.com",
+                    "homepage": "https://github.com/schmittjoh",
+                    "role": "Developer of wrapped JMSSerializerBundle"
+                }
+            ],
+            "description": "Base library for a lexer that can be used in Top-Down, Recursive Descent Parsers.",
+            "homepage": "http://www.doctrine-project.org",
+            "keywords": [
+                "lexer",
+                "parser"
+            ],
+            "time": "2013-01-12 18:59:04"
+        },
+        {
             "name": "ezyang/htmlpurifier",
             "version": "v4.6.0",
             "source": {
@@ -310,6 +455,54 @@
                 "html"
             ],
             "time": "2013-11-30 08:25:19"
+        },
+        {
+            "name": "fortawesome/font-awesome",
+            "version": "v4.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FortAwesome/Font-Awesome.git",
+                "reference": "a65bd93d81e9e6bd5ebfa41757a4474960b973b4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FortAwesome/Font-Awesome/zipball/a65bd93d81e9e6bd5ebfa41757a4474960b973b4",
+                "reference": "a65bd93d81e9e6bd5ebfa41757a4474960b973b4",
+                "shasum": ""
+            },
+            "require-dev": {
+                "jekyll": "1.0.2",
+                "lessc": "1.4.2"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.0.x-dev"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "OFL-1.1",
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dave Gandy",
+                    "email": "dave@fontawesome.io",
+                    "homepage": "http://twitter.com/davegandy",
+                    "role": "Developer"
+                }
+            ],
+            "description": "The iconic font and CSS framework",
+            "homepage": "http://fontawesome.io/",
+            "keywords": [
+                "FontAwesome",
+                "awesome",
+                "bootstrap",
+                "font",
+                "icon"
+            ],
+            "time": "2014-08-26 16:36:44"
         },
         {
             "name": "kartik-v/bootstrap-checkbox-x",
@@ -446,16 +639,16 @@
         },
         {
             "name": "kartik-v/bootstrap-star-rating",
-            "version": "v3.0.0",
+            "version": "v3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/bootstrap-star-rating.git",
-                "reference": "3562bf0f1929076da6c3f961d82021cb5d3e9159"
+                "reference": "fbeaef730ceb76da7877097650be7f0e2d19e412"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/bootstrap-star-rating/zipball/3562bf0f1929076da6c3f961d82021cb5d3e9159",
-                "reference": "3562bf0f1929076da6c3f961d82021cb5d3e9159",
+                "url": "https://api.github.com/repos/kartik-v/bootstrap-star-rating/zipball/fbeaef730ceb76da7877097650be7f0e2d19e412",
+                "reference": "fbeaef730ceb76da7877097650be7f0e2d19e412",
                 "shasum": ""
             },
             "type": "library",
@@ -483,7 +676,7 @@
                 "jquery",
                 "star"
             ],
-            "time": "2014-10-17 04:19:30"
+            "time": "2014-11-04 04:41:29"
         },
         {
             "name": "kartik-v/dependent-dropdown",
@@ -625,7 +818,7 @@
         },
         {
             "name": "kartik-v/yii2-grid",
-            "version": "dev-master",
+            "version": "v2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-grid.git",
@@ -670,6 +863,53 @@
                 "yii2"
             ],
             "time": "2014-10-29 08:18:11"
+        },
+        {
+            "name": "kartik-v/yii2-icons",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kartik-v/yii2-icons.git",
+                "reference": "fe73a406bc67770bb959b93b2362e9177e7c48a6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kartik-v/yii2-icons/zipball/fe73a406bc67770bb959b93b2362e9177e7c48a6",
+                "reference": "fe73a406bc67770bb959b93b2362e9177e7c48a6",
+                "shasum": ""
+            },
+            "require": {
+                "fortawesome/font-awesome": "*",
+                "kartik-v/yii2-widgets": "*",
+                "yiisoft/yii2-jui": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "kartik\\icons\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD 3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Kartik Visweswaran",
+                    "email": "kartikv2@gmail.com",
+                    "homepage": "http://demos.krajee.com/"
+                }
+            ],
+            "description": "Set of icon frameworks for use in Yii Framework 2.0",
+            "homepage": "https://github.com/kartik-v/yii2-icons",
+            "keywords": [
+                "extension",
+                "font",
+                "icon",
+                "yii",
+                "yii2"
+            ],
+            "time": "2014-10-05 15:34:14"
         },
         {
             "name": "kartik-v/yii2-money",
@@ -818,16 +1058,16 @@
         },
         {
             "name": "kartik-v/yii2-widgets",
-            "version": "v3.1.0",
+            "version": "v3.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-widgets.git",
-                "reference": "a51a4651c6b6fce146f0dcfb63260c4442efc0f1"
+                "reference": "c4147402834befe30d6d0d1bc6652bfef6cc74ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-widgets/zipball/a51a4651c6b6fce146f0dcfb63260c4442efc0f1",
-                "reference": "a51a4651c6b6fce146f0dcfb63260c4442efc0f1",
+                "url": "https://api.github.com/repos/kartik-v/yii2-widgets/zipball/c4147402834befe30d6d0d1bc6652bfef6cc74ef",
+                "reference": "c4147402834befe30d6d0d1bc6652bfef6cc74ef",
                 "shasum": ""
             },
             "require": {
@@ -861,7 +1101,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2014-10-24 03:34:03"
+            "time": "2014-10-27 06:54:57"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -1097,6 +1337,52 @@
             "time": "2014-10-12 17:09:06"
         },
         {
+            "name": "yiisoft/yii2-jui",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yiisoft/yii2-jui.git",
+                "reference": "354ce4155448f9d438397cbccfd7ec984b910245"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yiisoft/yii2-jui/zipball/354ce4155448f9d438397cbccfd7ec984b910245",
+                "reference": "354ce4155448f9d438397cbccfd7ec984b910245",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/jquery-ui": "1.11.*@stable",
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "yii\\jui\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Qiang Xue",
+                    "email": "qiang.xue@gmail.com"
+                }
+            ],
+            "description": "The Jquery UI extension for the Yii framework",
+            "keywords": [
+                "jQuery UI",
+                "yii2"
+            ],
+            "time": "2014-10-12 17:09:06"
+        },
+        {
             "name": "yiisoft/yii2-swiftmailer",
             "version": "2.0.0",
             "source": {
@@ -1145,6 +1431,62 @@
                 "yii2"
             ],
             "time": "2014-10-12 17:09:06"
+        },
+        {
+            "name": "zircote/swagger-php",
+            "version": "0.9.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zircote/swagger-php.git",
+                "reference": "4ba5d73eeb068dc590162ea367ef94853011bb36"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zircote/swagger-php/zipball/4ba5d73eeb068dc590162ea367ef94853011bb36",
+                "reference": "4ba5d73eeb068dc590162ea367ef94853011bb36",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/annotations": "*",
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "symfony/finder": "*",
+                "symfony/process": "*"
+            },
+            "bin": [
+                "bin/swagger"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Swagger": "library"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache2"
+            ],
+            "authors": [
+                {
+                    "name": "Robert Allen",
+                    "email": "zircote@gmail.com",
+                    "homepage": "http://www.zircote.com"
+                },
+                {
+                    "name": "Bob Fanger",
+                    "email": "bfanger@gmail.com",
+                    "homepage": "http://bfanger.nl"
+                }
+            ],
+            "description": "Swagger-PHP library implementing the swagger.wordnik.com specification to describe web services, operations/actions and models enabling a uniform means of producing, consuming, and visualizing RESTful web services.",
+            "homepage": "https://github.com/zircote/swagger-php/",
+            "keywords": [
+                "api",
+                "json",
+                "service discovery"
+            ],
+            "time": "2014-10-11 11:14:09"
         }
     ],
     "packages-dev": [
@@ -1174,6 +1516,85 @@
             "extra": {
                 "bower-asset-main": "dist/typeahead.bundle.js"
             }
+        },
+        {
+            "name": "c006/yii2-auto-crud",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/c006/yii2-auto-crud.git",
+                "reference": "d0e54132bde6e21650e39f3a0aa2896b9e61e763"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/c006/yii2-auto-crud/zipball/d0e54132bde6e21650e39f3a0aa2896b9e61e763",
+                "reference": "d0e54132bde6e21650e39f3a0aa2896b9e61e763",
+                "shasum": ""
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "c006\\crud\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jon Chambers",
+                    "email": "jchambers.dev@gmail.com"
+                }
+            ],
+            "description": "Adds a model and crud for each table in the database",
+            "keywords": [
+                "crud",
+                "extension",
+                "gii",
+                "widgets",
+                "yii2"
+            ],
+            "time": "2014-07-20 17:40:13"
+        },
+        {
+            "name": "c006/yii2-migration-utility",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/c006/yii2-migration-utility.git",
+                "reference": "76c637cdfc672ebb19387e9957a9e2b95853239c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/c006/yii2-migration-utility/zipball/76c637cdfc672ebb19387e9957a9e2b95853239c",
+                "reference": "76c637cdfc672ebb19387e9957a9e2b95853239c",
+                "shasum": ""
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "c006\\utility\\migration\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jon Chambers",
+                    "email": "jchambers.dev@gmail.com"
+                }
+            ],
+            "description": "Automatically writes the create tables for migrations or create tables in general. Uses MySQL",
+            "keywords": [
+                "extension",
+                "migration",
+                "tables",
+                "yii2"
+            ],
+            "time": "2014-08-20 17:03:06"
         },
         {
             "name": "fzaninotto/faker",
@@ -1224,6 +1645,195 @@
             "time": "2014-06-04 14:43:02"
         },
         {
+            "name": "kartik-v/yii2-builder",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kartik-v/yii2-builder.git",
+                "reference": "634b1d2e1ae18ee5b4922dba53b1e2b8e0a66d5d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kartik-v/yii2-builder/zipball/634b1d2e1ae18ee5b4922dba53b1e2b8e0a66d5d",
+                "reference": "634b1d2e1ae18ee5b4922dba53b1e2b8e0a66d5d",
+                "shasum": ""
+            },
+            "require": {
+                "kartik-v/yii2-grid": "*",
+                "kartik-v/yii2-widgets": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "kartik\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD 3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Kartik Visweswaran",
+                    "email": "kartikv2@gmail.com",
+                    "homepage": "http://www.krajee.com/"
+                }
+            ],
+            "description": "Build forms (single-row or multi-row/tabular) easily for Yii Framework 2.0",
+            "homepage": "https://github.com/kartik-v/yii2-builder",
+            "keywords": [
+                "builder",
+                "extension",
+                "form",
+                "widget",
+                "yii2"
+            ],
+            "time": "2014-06-11 14:08:20"
+        },
+        {
+            "name": "kartik-v/yii2-datecontrol",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kartik-v/yii2-datecontrol.git",
+                "reference": "c03042d5a67c78cbda854882ae07a6455dca4cb3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kartik-v/yii2-datecontrol/zipball/c03042d5a67c78cbda854882ae07a6455dca4cb3",
+                "reference": "c03042d5a67c78cbda854882ae07a6455dca4cb3",
+                "shasum": ""
+            },
+            "require": {
+                "kartik-v/yii2-widgets": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "kartik\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD 3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Kartik Visweswaran",
+                    "email": "kartikv2@gmail.com",
+                    "homepage": "http://www.krajee.com/"
+                }
+            ],
+            "description": "Date control module allowing separation of formats for View and Model for Yii Framework 2.0",
+            "homepage": "https://github.com/kartik-v/yii2-datecontrol",
+            "keywords": [
+                "control",
+                "date",
+                "extension",
+                "format",
+                "yii",
+                "yii2"
+            ],
+            "time": "2014-07-24 14:14:30"
+        },
+        {
+            "name": "kartik-v/yii2-detail-view",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kartik-v/yii2-detail-view.git",
+                "reference": "cf7dd4d05b8c35669448b744f57f2f24bb9fb596"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kartik-v/yii2-detail-view/zipball/cf7dd4d05b8c35669448b744f57f2f24bb9fb596",
+                "reference": "cf7dd4d05b8c35669448b744f57f2f24bb9fb596",
+                "shasum": ""
+            },
+            "require": {
+                "kartik-v/yii2-checkbox-x": "*",
+                "kartik-v/yii2-helpers": "*",
+                "kartik-v/yii2-money": "*",
+                "kartik-v/yii2-slider": "*",
+                "kartik-v/yii2-widgets": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "kartik\\detail\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD 3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Kartik Visweswaran",
+                    "email": "kartikv2@gmail.com",
+                    "homepage": "http://www.krajee.com/"
+                }
+            ],
+            "description": "Various enhancements to the Yii 2 Detail View with ability to edit data and manage Bootstrap 3 styles.",
+            "homepage": "https://github.com/kartik-v/yii2-detail-view",
+            "keywords": [
+                "detail",
+                "detail view",
+                "extension",
+                "form",
+                "grid",
+                "widget",
+                "yii2"
+            ],
+            "time": "2014-10-05 15:08:52"
+        },
+        {
+            "name": "kartik-v/yii2-helpers",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kartik-v/yii2-helpers.git",
+                "reference": "9898011b8f79a1ecedec70897f0b2195770663bc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kartik-v/yii2-helpers/zipball/9898011b8f79a1ecedec70897f0b2195770663bc",
+                "reference": "9898011b8f79a1ecedec70897f0b2195770663bc",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2-bootstrap": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "kartik\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD 3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Kartik Visweswaran",
+                    "email": "kartikv2@gmail.com",
+                    "homepage": "http://www.krajee.com/"
+                }
+            ],
+            "description": "A collection of useful helper functions for Yii Framework 2.0",
+            "homepage": "https://github.com/kartik-v/yii2-helpers",
+            "keywords": [
+                "bootstrap",
+                "extension",
+                "helper",
+                "utilities",
+                "yii",
+                "yii2"
+            ],
+            "time": "2014-07-17 18:09:42"
+        },
+        {
             "name": "phpspec/php-diff",
             "version": "v1.0.2",
             "source": {
@@ -1256,6 +1866,46 @@
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
             "time": "2013-11-01 13:02:21"
+        },
+        {
+            "name": "warrence/yii2-kartikgii",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/warrence/yii2-kartikgii.git",
+                "reference": "0d80b429240c87d909e3915a363235908108ee8e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/warrence/yii2-kartikgii/zipball/0d80b429240c87d909e3915a363235908108ee8e",
+                "reference": "0d80b429240c87d909e3915a363235908108ee8e",
+                "shasum": ""
+            },
+            "require": {
+                "kartik-v/yii2-builder": "*",
+                "kartik-v/yii2-datecontrol": "*",
+                "kartik-v/yii2-detail-view": "*",
+                "kartik-v/yii2-grid": "*",
+                "kartik-v/yii2-helpers": "*",
+                "kartik-v/yii2-icons": "*",
+                "kartik-v/yii2-widgets": "*",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "warrence\\kartikgii\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Warrence",
+                    "email": "warrence@gmail.com"
+                }
+            ],
+            "description": "Gii Generator base on Kartik-V extension https://github.com/kartik-v",
+            "time": "2014-05-29 07:30:14"
         },
         {
             "name": "yiisoft/yii2-codeception",
@@ -1449,9 +2099,12 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "kartik-v/yii2-grid": 20,
         "kartik-v/yii2-money": 20,
-        "kartik-v/yii2-checkbox-x": 20
+        "kartik-v/yii2-checkbox-x": 20,
+        "kartik-v/yii2-icons": 20,
+        "warrence/yii2-kartikgii": 20,
+        "c006/yii2-migration-utility": 20,
+        "c006/yii2-auto-crud": 20
     },
     "prefer-stable": false,
     "platform": {
