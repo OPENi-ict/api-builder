@@ -36,8 +36,7 @@
         "yiisoft/yii2-gii": "*",
         "warrence/yii2-kartikgii": "dev-master",
         "yiisoft/yii2-faker": "*",
-        "c006/yii2-migration-utility": "dev-master",
-        "c006/yii2-auto-crud": "dev-master"
+        "c006/yii2-migration-utility": "dev-master"
     },
     "suggest": {
         "raoul2000/yii2-bootswatch-asset": "Easily choose bootstrap theme for bootswatch."

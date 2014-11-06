@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "37162d4a0c233212a5d81d32da0baaf7",
+    "hash": "76508fcde34c1baae99f7d49ad9c6159",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -1597,6 +1597,45 @@
             "time": "2014-08-20 17:03:06"
         },
         {
+            "name": "c006/yii2-submit-spinner",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/c006/yii2-submit-spinner.git",
+                "reference": "c9182d790c5e9a4430614ce429e9fdec7198ed23"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/c006/yii2-submit-spinner/zipball/c9182d790c5e9a4430614ce429e9fdec7198ed23",
+                "reference": "c9182d790c5e9a4430614ce429e9fdec7198ed23",
+                "shasum": ""
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "c006\\spinner\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jon Chambers",
+                    "email": "jchambers.dev@gmail.com"
+                }
+            ],
+            "description": "Adds a div overlay with a spinning loader on submit",
+            "keywords": [
+                "extension",
+                "form",
+                "widgets",
+                "yii2"
+            ],
+            "time": "2014-07-20 09:17:06"
+        },
+        {
             "name": "fzaninotto/faker",
             "version": "v1.4.0",
             "source": {
@@ -2104,6 +2143,7 @@
         "kartik-v/yii2-icons": 20,
         "warrence/yii2-kartikgii": 20,
         "c006/yii2-migration-utility": 20,
+        "c006/yii2-submit-spinner": 20,
         "c006/yii2-auto-crud": 20
     },
     "prefer-stable": false,

@@ -18,6 +18,10 @@ $config = [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
         ],
+		'authManager' => [
+			'class' => 'yii\rbac\DbManager',
+			'defaultRoles' => ['guest'],
+		],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
@@ -79,9 +83,6 @@ $config = [
 			'autoWidget' => true,
 
 		],
-		'crud' => [
-			'class' => 'c006\crud\Module',
-		],
 		'utility' => [
 			'class' => 'c006\utility\migration\Module',
 		],
@@ -96,10 +97,6 @@ if (YII_ENV_DEV) {
 
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii']['class'] = 'yii\gii\Module';
-
-	$config['modules']['gii']['generators'] = [
-		'kartikgii-crud' => ['class' => 'warrence\kartikgii\crud\Generator'],
-	];
 }
 
 return $config;
