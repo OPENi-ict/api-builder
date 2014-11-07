@@ -5,8 +5,6 @@ namespace app\helpers;
 
 class FetchSwaggerCore {
 
-	CONST SCHEMA = 'schema';
-
 	private $_resource;
 	private $_schemas = array();
 
@@ -15,6 +13,7 @@ class FetchSwaggerCore {
 		$ch = curl_init();
 		$timeout = 5;
 		curl_setopt($ch, CURLOPT_URL, $url);
+		// Set so curl_exec returns the result instead of outputting it.
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
 		$data = curl_exec($ch);
@@ -24,6 +23,7 @@ class FetchSwaggerCore {
 
 	private function _isJson($string)
 	{
+		if ($string === false) return false;
 		json_decode($string);
 		return (json_last_error() == JSON_ERROR_NONE);
 	}
@@ -51,16 +51,15 @@ class FetchSwaggerCore {
 		return $this->_resource;
 	}
 
-	public function setSchemas($url)
+	public function setSchemas()
 	{
 		foreach ($this->_resource->apis as $api)
 		{
-			$_encodedSchemas = $this->_getData($url.$api->path.'/');
+			$_encodedSchemas = $this->_getData($this->_resource->basePath . substr($api->path, 1) . '/');
 			if ($this->_isJson($_encodedSchemas))
 			{
 				$_decodedSchemas = json_decode($_encodedSchemas);
 				$this->_schemas[] = $_decodedSchemas;
-				return true;
 			}
 			else
 				return false;

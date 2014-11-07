@@ -20,7 +20,7 @@ class FileManipulation {
 	public function write_file($input)
 	{
 		$file = new SplFileObject(__DIR__ . $this->_filename, 'w');
-		$file->fwrite($input.'a');
+		$file->fwrite($input);
 	}
 
 	public function get_md5()

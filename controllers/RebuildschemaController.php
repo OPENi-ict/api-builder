@@ -32,41 +32,47 @@ class RebuildschemaController extends Controller
 		];
 	}
 
-//	private $api_path = "https://demo1.openi-ict.eu:1988/api/doc/";
-	private $_apiPath = "http://localhost:1988/api/doc/";
+//	private $_apiPath = "https://demo1.openi-ict.eu:1988/api/doc/";
+	private $_apiDomain = "http://localhost:1988";
+	private $_docPath = "/api/doc/";
 	private $_resourcesPath = "resources/";
-	private $_schemaPath = "schema";
 
 	public function actionIndex()
 	{
-		$_resourcesPath = $this->_apiPath . $this->_resourcesPath;
-		$_schemaPath = $this->_apiPath . $this->_schemaPath;
+		$_resourcesPath = $this->_apiDomain . $this->_docPath . $this->_resourcesPath;
 
 		$site = new FetchSwaggerCore();
 		if (!$site->setResource($_resourcesPath))
 			$message = "Something went wrong!";
-		if (!$site->setSchemas($_schemaPath))
+		if (!$site->setSchemas())
 			$message = "Something went wrong!";
 
 		$_resource = $site->getResource();
 		$_schemas = $site->getSchemas();
 
 		$swaggerJSON = new BuildSwaggerJSON();
-		$swaggerJSON->BuildResource($_resource->apiVersion, $_resource->swaggerVersion, $_resource->basePath);
+		$swaggerJSON->BuildJSON();
 		foreach ($_schemas as $schema)
 		{
+			//$_resource->basePath
+			$swaggerJSON->BuildResource($_resource->apiVersion, $_resource->swaggerVersion, $this->_apiDomain, $schema->resource);
 			//$swaggerJSON->BuildClass($schema->resource);
 			foreach ($schema->apis as $api)
 			{
+				$swaggerJSON->BuildAPI($api->path, NULL);
 				foreach ($api->operations as $operation)
 				{
-					$swaggerJSON->BuildAPI($api->path, NULL, $operation->httpMethod, $operation->summary, $operation->notes, $operation->responseClass, $operation->nickname);
+					$_notes = property_exists($operation, 'notes') ? ($operation->notes) : "";
+					$swaggerJSON->BuildOperation($operation->httpMethod, $operation->summary, $_notes, $operation->responseClass, $operation->nickname);
 					foreach ($operation->parameters as $parameter)
 					{
 						$swaggerJSON->BuildParameter($parameter->name, $parameter->description, $parameter->required, $parameter->dataType, $parameter->paramType);
 					}
+					$swaggerJSON->CloseOperation();
 				}
+				$swaggerJSON->CloseAPI();
 			}
+			$swaggerJSON->CloseResource();
 
 			foreach ($schema->models as $model)
 			{
@@ -78,9 +84,10 @@ class RebuildschemaController extends Controller
 				$swaggerJSON->CloseModel();
 			}
 		}
+		$swaggerJSON->CloseJSON();
 
 		$file = new FileManipulation();
-		$file->setFilename('\example.txt');
+		$file->setFilename('\example.php');
 		$file->write_file($swaggerJSON->getSwaggerJSON());
 
 //		$helper->setFilename('\example.txt');

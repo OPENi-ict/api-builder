@@ -5,19 +5,24 @@ namespace app\helpers;
 
 class BuildSwaggerJSON {
 
-	private $_swaggerJSON;
+	private $_swaggerJSON = '';
 
-	public function BuildResource($apiVersion, $swaggerVersion, $basePath)
+	public function BuildJSON()
 	{
-		$this->_swaggerJSON = '
+		$this->_swaggerJSON .=
+'<?php
 namespace app\Resources;
-/**
+/**';
+	}
+
+	public function BuildResource($apiVersion, $swaggerVersion, $basePath, $resourcePath)
+	{
+		$this->_swaggerJSON .= '
  * @SWG\Resource(
  *   apiVersion="'.$apiVersion.'",
  *   swaggerVersion="'.$swaggerVersion.'",
  *   basePath="'.$basePath.'",
- *   produces="[\'application/json\']"
- ';
+ *   resourcePath="'.$resourcePath.'"';
 	}
 
 //	public function BuildClass($apiName)
@@ -28,76 +33,95 @@ namespace app\Resources;
 //';
 //	}
 
-	public function BuildAPI($path, $apiDesc, $method, $summary, $notes, $responseClass, $nickname)
+	public function BuildAPI($path, $apiDesc)
 	{
-		$this->_swaggerJSON .= ',
-	 * @SWG\Api(
-	 *   path="'.$path.'",
-	 *   description='.$apiDesc.'
-	 *   @SWG\Operation(
-	 *     method="'.$method.'",
-	 *     summary="'.$summary.'",
-	 *     notes="'.$notes.'",
-	 *     type="'.$responseClass.'",
-	 *     nickname="'.$nickname.'"
-';
+		$this->_swaggerJSON .= '
+ * ,@SWG\Api(
+ *   path="'.$path.'",
+ *   description="'.$apiDesc.'"';
+	}
+
+	public function BuildOperation($method, $summary, $notes, $responseClass, $nickname)
+	{
+		$responseClass = ($responseClass === 'Object') ? strtolower($responseClass) : $responseClass;
+		$this->_swaggerJSON .= '
+ *   ,@SWG\Operation(
+ *     method="'.$method.'",
+ *     summary="'.$summary.'",
+ *     notes="'.$notes.'",
+ *     type="'.$responseClass.'",
+ *     nickname="'.$nickname.'"';
 	}
 
 	public function BuildParameter($name, $description, $required, $dataType, $paramType)
 	{
+		$dataType = ($dataType === 'int') ? "integer" : $dataType;
+		$dataType = ($dataType === 'Object') ? strtolower($dataType) : $dataType;
 		$required = ($required) ? "true" : "false";
-		$this->_swaggerJSON .= ',
-	*     @SWG\Parameter(
-	*       name="'.$name.'",
-	*       description="'.$description.'",
-	*       required='.$required.',
-	*       type="'.$dataType.'",
-	*       paramType="'.$paramType.'"
-	*     )
-';
+		$this->_swaggerJSON .= '
+ *     ,@SWG\Parameter(
+ *       name="'.$name.'",
+ *       description="'.$description.'",
+ *       required='.$required.',
+ *       type="'.$dataType.'",
+ *       paramType="'.$paramType.'"
+ *     )';
 	}
 
-	public function CloseAPI($method)
+	public function CloseOperation()
 	{
 		$this->_swaggerJSON .= '
-	*   )
-	* )
-	*/
-';
+ *    )';
+	}
+
+	public function CloseAPI()
+	{
+		$this->_swaggerJSON .= '
+ *  )';
 	}
 
 	public function CloseResource()
 	{
 		$this->_swaggerJSON .= '
-* )
-*
-';
+ *)
+ *';
 	}
 
 	public function BuildModel($id)
 	{
 		$this->_swaggerJSON .= '
  * @SWG\Model(
- *   id="'.$id.'"
-';
+ *   id="'.$id.'"';
 	}
 
 	public function BuildProperty($name, $desc, $type)
 	{
-		$this->_swaggerJSON .= ',
- *   @SWG\Property(
+		$_format = "";
+		$type = ($type === 'int') ? "integer" : $type;
+		if ($type === 'datetime')
+		{
+			$type = "string";
+			$_format = "date-format";
+		}
+		$this->_swaggerJSON .= '
+ *   ,@SWG\Property(
  *     name="'.$name.'",
  *     type="'.$type.'",
- *     description="'.$desc.'"
- *   )
-';
+ *     format="'.$_format.'",
+ *     description="'.htmlspecialchars($desc).'"
+ *   )';
 	}
 
-	public function CloseModel(){
+	public function CloseModel()
+	{
 		$this->_swaggerJSON .= '
- * )
- */
-';
+ * )';
+	}
+
+	public function CloseJSON()
+	{
+		$this->_swaggerJSON .= '
+*/';
 	}
 
 	/**
