@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "76508fcde34c1baae99f7d49ad9c6159",
+    "hash": "934e299f3cabc48a2c826366fc4cd0cc",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -127,16 +127,16 @@
         },
         {
             "name": "bower-asset/jquery.inputmask",
-            "version": "3.1.36",
+            "version": "3.1.37",
             "source": {
                 "type": "git",
                 "url": "https://github.com/RobinHerbots/jquery.inputmask.git",
-                "reference": "1e667db21e878105686e636efea883fa23b54fb2"
+                "reference": "c40c5c0abaf42b35139cdf97569b1ef1fad3a3d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/RobinHerbots/jquery.inputmask/zipball/1e667db21e878105686e636efea883fa23b54fb2",
-                "reference": "1e667db21e878105686e636efea883fa23b54fb2",
+                "url": "https://api.github.com/repos/RobinHerbots/jquery.inputmask/zipball/c40c5c0abaf42b35139cdf97569b1ef1fad3a3d9",
+                "reference": "c40c5c0abaf42b35139cdf97569b1ef1fad3a3d9",
                 "shasum": ""
             },
             "require": {
@@ -1518,46 +1518,6 @@
             }
         },
         {
-            "name": "c006/yii2-auto-crud",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/c006/yii2-auto-crud.git",
-                "reference": "d0e54132bde6e21650e39f3a0aa2896b9e61e763"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/c006/yii2-auto-crud/zipball/d0e54132bde6e21650e39f3a0aa2896b9e61e763",
-                "reference": "d0e54132bde6e21650e39f3a0aa2896b9e61e763",
-                "shasum": ""
-            },
-            "type": "yii2-extension",
-            "autoload": {
-                "psr-4": {
-                    "c006\\crud\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jon Chambers",
-                    "email": "jchambers.dev@gmail.com"
-                }
-            ],
-            "description": "Adds a model and crud for each table in the database",
-            "keywords": [
-                "crud",
-                "extension",
-                "gii",
-                "widgets",
-                "yii2"
-            ],
-            "time": "2014-07-20 17:40:13"
-        },
-        {
             "name": "c006/yii2-migration-utility",
             "version": "dev-master",
             "source": {
@@ -1595,45 +1555,6 @@
                 "yii2"
             ],
             "time": "2014-08-20 17:03:06"
-        },
-        {
-            "name": "c006/yii2-submit-spinner",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/c006/yii2-submit-spinner.git",
-                "reference": "c9182d790c5e9a4430614ce429e9fdec7198ed23"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/c006/yii2-submit-spinner/zipball/c9182d790c5e9a4430614ce429e9fdec7198ed23",
-                "reference": "c9182d790c5e9a4430614ce429e9fdec7198ed23",
-                "shasum": ""
-            },
-            "type": "yii2-extension",
-            "autoload": {
-                "psr-4": {
-                    "c006\\spinner\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jon Chambers",
-                    "email": "jchambers.dev@gmail.com"
-                }
-            ],
-            "description": "Adds a div overlay with a spinning loader on submit",
-            "keywords": [
-                "extension",
-                "form",
-                "widgets",
-                "yii2"
-            ],
-            "time": "2014-07-20 09:17:06"
         },
         {
             "name": "fzaninotto/faker",
@@ -1685,16 +1606,16 @@
         },
         {
             "name": "kartik-v/yii2-builder",
-            "version": "v1.0.0",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-builder.git",
-                "reference": "634b1d2e1ae18ee5b4922dba53b1e2b8e0a66d5d"
+                "reference": "11ef2fc21ddce05c2fb453c2f7fb57822bfc26f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-builder/zipball/634b1d2e1ae18ee5b4922dba53b1e2b8e0a66d5d",
-                "reference": "634b1d2e1ae18ee5b4922dba53b1e2b8e0a66d5d",
+                "url": "https://api.github.com/repos/kartik-v/yii2-builder/zipball/11ef2fc21ddce05c2fb453c2f7fb57822bfc26f3",
+                "reference": "11ef2fc21ddce05c2fb453c2f7fb57822bfc26f3",
                 "shasum": ""
             },
             "require": {
@@ -1704,7 +1625,7 @@
             "type": "yii2-extension",
             "autoload": {
                 "psr-4": {
-                    "kartik\\": ""
+                    "kartik\\builder\\": ""
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1727,7 +1648,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2014-06-11 14:08:20"
+            "time": "2014-10-05 14:40:40"
         },
         {
             "name": "kartik-v/yii2-datecontrol",
@@ -2142,9 +2063,7 @@
         "kartik-v/yii2-checkbox-x": 20,
         "kartik-v/yii2-icons": 20,
         "warrence/yii2-kartikgii": 20,
-        "c006/yii2-migration-utility": 20,
-        "c006/yii2-submit-spinner": 20,
-        "c006/yii2-auto-crud": 20
+        "c006/yii2-migration-utility": 20
     },
     "prefer-stable": false,
     "platform": {
