@@ -31,6 +31,7 @@ class m141109_192126_objects extends Migration
 		], $tableOptions);
 		$this->addForeignKey('fk_objects_user', '{{%objects}}', 'author', '{{%user}}', 'id', 'CASCADE', 'SET NULL');
 		$this->addForeignKey('fk_objects_fields', '{{%objects}}', 'fields', '{{%fields}}', 'id', 'CASCADE', 'NO ACTION');
+		$this->addForeignKey('fk_objects_objects', '{{%objects}}', 'inherited', '{{%objects}}', 'id', 'CASCADE', 'NO ACTION');
     }
 
 	/**
