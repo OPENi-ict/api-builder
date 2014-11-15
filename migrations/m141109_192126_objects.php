@@ -23,14 +23,16 @@ class m141109_192126_objects extends Migration
 			'api' => Schema::TYPE_INTEGER . ' NOT NULL',
 			'inherited' => Schema::TYPE_INTEGER,
 			'privacy' => 'ENUM("public", "private") NOT NULL',
-			'fields' => Schema::TYPE_INTEGER,
+			'properties' => Schema::TYPE_INTEGER,
 			'methods' => Schema::TYPE_TEXT,
-			'author' => Schema::TYPE_INTEGER,
+			'created_by' => Schema::TYPE_INTEGER,
+			'updated_by' => Schema::TYPE_INTEGER,
 			'created_at' => Schema::TYPE_INTEGER . ' NOT NULL',
 			'updated_at' => Schema::TYPE_INTEGER . ' NOT NULL',
 		], $tableOptions);
-		$this->addForeignKey('fk_objects_user', '{{%objects}}', 'author', '{{%user}}', 'id', 'CASCADE', 'SET NULL');
-		$this->addForeignKey('fk_objects_fields', '{{%objects}}', 'fields', '{{%fields}}', 'id', 'CASCADE', 'NO ACTION');
+		$this->addForeignKey('fk_objects_user_created', '{{%objects}}', 'created_by', '{{%user}}', 'id', 'CASCADE', 'SET NULL');
+		$this->addForeignKey('fk_objects_user_updated', '{{%objects}}', 'updated_by', '{{%user}}', 'id', 'CASCADE', 'SET NULL');
+		$this->addForeignKey('fk_objects_fields', '{{%objects}}', 'properties', '{{%properties}}', 'id', 'CASCADE', 'NO ACTION');
 		$this->addForeignKey('fk_objects_objects', '{{%objects}}', 'inherited', '{{%objects}}', 'id', 'CASCADE', 'NO ACTION');
     }
 

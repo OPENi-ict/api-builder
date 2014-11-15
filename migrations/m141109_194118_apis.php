@@ -22,13 +22,15 @@ class m141109_194118_apis extends Migration
 			'description' => Schema::TYPE_STRING,
 			'version' => Schema::TYPE_STRING,
 			'objects' => Schema::TYPE_INTEGER,
-			'author' => Schema::TYPE_INTEGER,
+			'created_by' => Schema::TYPE_INTEGER,
+			'updated_by' => Schema::TYPE_INTEGER,
 			'likes' => Schema::TYPE_INTEGER . ' NOT NULL',
 			'dislikes' => Schema::TYPE_INTEGER . ' NOT NULL',
 			'created_at' => Schema::TYPE_INTEGER . ' NOT NULL',
 			'updated_at' => Schema::TYPE_INTEGER . ' NOT NULL',
 		], $tableOptions);
-		$this->addForeignKey('fk_apis_user_author', '{{%apis}}', 'author', '{{%user}}', 'id', 'CASCADE', 'SET NULL');
+		$this->addForeignKey('fk_apis_user_created', '{{%apis}}', 'created_by', '{{%user}}', 'id', 'CASCADE', 'SET NULL');
+		$this->addForeignKey('fk_apis_user_updated', '{{%apis}}', 'updated_by', '{{%user}}', 'id', 'CASCADE', 'SET NULL');
 		$this->addForeignKey('fk_apis_objects', '{{%apis}}', 'objects', '{{%objects}}', 'id', 'CASCADE', 'NO ACTION');
 	}
 

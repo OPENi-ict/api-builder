@@ -3,7 +3,7 @@
 use yii\db\Schema;
 use yii\db\Migration;
 
-class m141109_190204_fields extends Migration
+class m141109_190204_properties extends Migration
 {
 	/**
 	 *	Create the Fields Table for keeping the fields of the Objects.
@@ -16,16 +16,18 @@ class m141109_190204_fields extends Migration
 			$tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
 		}
 
-		$this->createTable('{{%fields}}', [
+		$this->createTable('{{%properties}}', [
 			'id' => Schema::TYPE_PK,
 			'name' => Schema::TYPE_STRING . ' NOT NULL',
 			'description' => Schema::TYPE_STRING,
 			'type' => Schema::TYPE_STRING . ' NOT NULL',
-			'author' => Schema::TYPE_INTEGER,
+			'created_by' => Schema::TYPE_INTEGER,
+			'updated_by' => Schema::TYPE_INTEGER,
 			'created_at' => Schema::TYPE_INTEGER . ' NOT NULL',
 			'updated_at' => Schema::TYPE_INTEGER . ' NOT NULL',
 		], $tableOptions);
-		$this->addForeignKey('fk_fields_user', '{{%fields}}', 'author', '{{%user}}', 'id', 'CASCADE', 'SET NULL');
+		$this->addForeignKey('fk_fields_user_created', '{{%properties}}', 'created_by', '{{%user}}', 'id', 'CASCADE', 'SET NULL');
+		$this->addForeignKey('fk_fields_user_updated', '{{%properties}}', 'updated_by', '{{%user}}', 'id', 'CASCADE', 'SET NULL');
 	}
 
 	/**
@@ -33,6 +35,6 @@ class m141109_190204_fields extends Migration
 	 */
 	public function down()
 	{
-		$this->dropTable('{{%fields}}');
+		$this->dropTable('{{%properties}}');
 	}
 }
