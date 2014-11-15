@@ -31,9 +31,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'api',
             'inherited',
             // 'privacy',
-            // 'fields',
+            // 'properties',
             // 'methods:ntext',
-            // 'author',
+            // 'created_by',
+            // 'updated_by',
             // 'created_at',
             // 'updated_at',
 

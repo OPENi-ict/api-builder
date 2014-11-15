@@ -4,13 +4,13 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Fields */
+/* @var $model app\models\Properties */
 
-$this->title = 'Create Fields';
-$this->params['breadcrumbs'][] = ['label' => 'Fields', 'url' => ['index']];
+$this->title = 'Create Properties';
+$this->params['breadcrumbs'][] = ['label' => 'Properties', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="fields-create">
+<div class="properties-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

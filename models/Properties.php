@@ -3,30 +3,33 @@
 namespace app\models;
 
 use Yii;
+use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 
 /**
- * This is the model class for table "fields".
+ * This is the model class for table "properties".
  *
  * @property integer $id
  * @property string $name
  * @property string $description
  * @property string $type
- * @property integer $author
+ * @property integer $created_by
+ * @property integer $updated_by
  * @property integer $created_at
  * @property integer $updated_at
  *
- * @property User $author0
  * @property Objects[] $objects
+ * @property User $createdBy
+ * @property User $updatedBy
  */
-class Fields extends \yii\db\ActiveRecord
+class Properties extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'fields';
+        return 'properties';
     }
 
     /**
@@ -35,11 +38,10 @@ class Fields extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'type', 'created_at', 'updated_at'], 'required'],
-            [['author', 'created_at', 'updated_at'], 'integer'],
+            [['name', 'type'], 'required'],
+            [['created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
             [['name', 'description', 'type'], 'string', 'max' => 255],
-			[['author'], 'default', 'value' => Yii::$app->user->identity->username],
-			[['name', 'description', 'type'], 'safe']
+			[['name'], 'unique', 'targetClass' => '\app\models\Properties', 'message' => 'This Property name has already been taken.']
         ];
     }
 
@@ -50,6 +52,7 @@ class Fields extends \yii\db\ActiveRecord
 	{
 		return [
 			TimestampBehavior::className(),
+			BlameableBehavior::className()
 		];
 	}
 
@@ -63,7 +66,8 @@ class Fields extends \yii\db\ActiveRecord
             'name' => 'Name',
             'description' => 'Description',
             'type' => 'Type',
-            'author' => 'Author',
+            'created_by' => 'Created By',
+            'updated_by' => 'Updated By',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
@@ -72,16 +76,24 @@ class Fields extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAuthor0()
+    public function getObjects()
     {
-        return $this->hasOne(User::className(), ['id' => 'author']);
+        return $this->hasMany(Objects::className(), ['properties' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getObjects()
+    public function getCreatedBy()
     {
-        return $this->hasMany(Objects::className(), ['fields' => 'id']);
+        return $this->hasOne(User::className(), ['id' => 'created_by']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUpdatedBy()
+    {
+        return $this->hasOne(User::className(), ['id' => 'updated_by']);
     }
 }

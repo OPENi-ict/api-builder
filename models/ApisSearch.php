@@ -18,7 +18,7 @@ class ApisSearch extends Apis
     public function rules()
     {
         return [
-            [['id', 'objects', 'author', 'likes', 'dislikes', 'created_at', 'updated_at'], 'integer'],
+            [['id', 'objects', 'created_by', 'updated_by', 'likes', 'dislikes', 'created_at', 'updated_at'], 'integer'],
             [['name', 'description', 'version'], 'safe'],
         ];
     }
@@ -42,10 +42,22 @@ class ApisSearch extends Apis
     public function search($params)
     {
         $query = Apis::find();
+//			->joinWith(['createdBy' => function($query) { $query->from(['user' => 'user']);}])
+//			->joinWith(['updatedBy' => function($query) { $query->from(['user' => 'user']);}]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+
+//		$dataProvider->sort->attributes['createdBy.username'] = [
+//			'asc' => ['createdBy.username' => SORT_ASC],
+//			'desc' => ['createdBy.username' => SORT_DESC],
+//		];
+//
+//		$dataProvider->sort->attributes['updatedBy.username'] = [
+//			'asc' => ['updatedBy.username' => SORT_ASC],
+//			'desc' => ['updatedBy.username' => SORT_DESC],
+//		];
 
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
@@ -54,7 +66,8 @@ class ApisSearch extends Apis
         $query->andFilterWhere([
             'id' => $this->id,
             'objects' => $this->objects,
-            'author' => $this->author,
+            'created_by' => $this->created_by,
+            'updated_by' => $this->updated_by,
             'likes' => $this->likes,
             'dislikes' => $this->dislikes,
             'created_at' => $this->created_at,
@@ -62,8 +75,8 @@ class ApisSearch extends Apis
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
-			->andFilterWhere(['like', 'description', $this->description])
-			->andFilterWhere(['like', 'version', $this->version]);
+            ->andFilterWhere(['like', 'description', $this->description])
+            ->andFilterWhere(['like', 'version', $this->version]);
 
         return $dataProvider;
     }

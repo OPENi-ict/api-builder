@@ -3,30 +3,20 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Fields;
-use app\models\FieldsSearch;
-use yii\filters\AccessControl;
+use app\models\Properties;
+use app\models\PropertiesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * FieldsController implements the CRUD actions for Fields model.
+ * PropertiesController implements the CRUD actions for Properties model.
  */
-class FieldsController extends Controller
+class PropertiesController extends Controller
 {
     public function behaviors()
     {
         return [
-			'access' => [
-				'class' => AccessControl::className(),
-				'rules' => [
-					[
-						'allow' => true,
-						'roles' => ['@'],
-					],
-				],
-			],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -37,12 +27,12 @@ class FieldsController extends Controller
     }
 
     /**
-     * Lists all Fields models.
+     * Lists all Properties models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new FieldsSearch();
+        $searchModel = new PropertiesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -52,7 +42,7 @@ class FieldsController extends Controller
     }
 
     /**
-     * Displays a single Fields model.
+     * Displays a single Properties model.
      * @param integer $id
      * @return mixed
      */
@@ -64,13 +54,13 @@ class FieldsController extends Controller
     }
 
     /**
-     * Creates a new Fields model.
+     * Creates a new Properties model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Fields();
+        $model = new Properties();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -82,7 +72,7 @@ class FieldsController extends Controller
     }
 
     /**
-     * Updates an existing Fields model.
+     * Updates an existing Properties model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -101,7 +91,7 @@ class FieldsController extends Controller
     }
 
     /**
-     * Deletes an existing Fields model.
+     * Deletes an existing Properties model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -114,15 +104,15 @@ class FieldsController extends Controller
     }
 
     /**
-     * Finds the Fields model based on its primary key value.
+     * Finds the Properties model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Fields the loaded model
+     * @return Properties the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Fields::findOne($id)) !== null) {
+        if (($model = Properties::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

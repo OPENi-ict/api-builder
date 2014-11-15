@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 
 /**
@@ -13,16 +14,16 @@ use yii\behaviors\TimestampBehavior;
  * @property string $description
  * @property string $version
  * @property integer $objects
- * @property integer $author
+ * @property integer $created_by
+ * @property integer $updated_by
  * @property integer $likes
  * @property integer $dislikes
  * @property integer $created_at
  * @property integer $updated_at
  *
  * @property Objects $objects0
- * @property User $author0
- * @property User $dislikes0
- * @property User $likes0
+ * @property User $createdBy
+ * @property User $updatedBy
  */
 class Apis extends \yii\db\ActiveRecord
 {
@@ -41,9 +42,8 @@ class Apis extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
-            [['objects', 'author', 'likes', 'dislikes', 'created_at', 'updated_at'], 'integer'],
+            [['objects', 'created_by', 'updated_by', 'likes', 'dislikes', 'created_at', 'updated_at'], 'integer'],
             [['name', 'description', 'version'], 'string', 'max' => 255],
-			[['author'], 'default', 'value' => Yii::$app->user->identity->getId()],
 			[['version'], 'default', 'value' => '1.0'],
 			[['likes', 'dislikes'], 'default', 'value' => '0'],
 			[['name'], 'unique', 'targetClass' => '\app\models\Apis', 'message' => 'This API name has already been taken.']
@@ -57,6 +57,7 @@ class Apis extends \yii\db\ActiveRecord
 	{
 		return [
 			TimestampBehavior::className(),
+			BlameableBehavior::className()
 		];
 	}
 
@@ -69,9 +70,12 @@ class Apis extends \yii\db\ActiveRecord
             'id' => 'ID',
             'name' => 'Name',
             'description' => 'Description',
-			'version' => 'Version',
+            'version' => 'Version',
             'objects' => 'Objects',
-            'author' => 'Author',
+            'created_by' => 'Created By',
+            'updated_by' => 'Updated By',
+			'createdBy.username' => 'Created By',
+			'updatedBy.username' => 'Updated By',
             'likes' => 'Likes',
             'dislikes' => 'Dislikes',
             'created_at' => 'Created At',
@@ -90,24 +94,16 @@ class Apis extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAuthor0()
+    public function getCreatedBy()
     {
-        return $this->hasOne(User::className(), ['id' => 'author']);
+        return $this->hasOne(User::className(), ['id' => 'created_by']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getDislikes0()
+    public function getUpdatedBy()
     {
-        return $this->hasOne(User::className(), ['id' => 'dislikes']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getLikes0()
-    {
-        return $this->hasOne(User::className(), ['id' => 'likes']);
+        return $this->hasOne(User::className(), ['id' => 'updated_by']);
     }
 }

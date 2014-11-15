@@ -22,11 +22,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'privacy')->dropDownList([ 'public' => 'Public', 'private' => 'Private', ], ['prompt' => '']) ?>
 
-    <?= $form->field($model, 'fields')->textInput() ?>
+    <?= $form->field($model, 'properties')->textInput() ?>
 
     <?= $form->field($model, 'methods')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'author')->textInput() ?>
+    <?= $form->field($model, 'created_by')->textInput() ?>
+
+    <?= $form->field($model, 'updated_by')->textInput() ?>
 
     <?= $form->field($model, 'created_at')->textInput() ?>
 

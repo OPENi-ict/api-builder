@@ -12,17 +12,19 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => 255, 'placeholder' => 'Graph API']) ?>
+	<?= $form->field($model, 'name')->textInput(['maxlength' => 255, 'placeholder' => 'Graph API']) ?>
 
 	<?= $form->field($model, 'description')->textInput(['maxlength' => 255, 'placeholder' => 'The best API in the world!']) ?>
 
 	<?= $form->field($model, 'version')->textInput(['maxlength' => 255, 'placeholder' => '1.0']) ?>
 
-    <?php // $form->field($model, 'objects')->textInput() ?>
+	<?php // $form->field($model, 'objects')->textInput() ?>
 
-    <?php // $form->field($model, 'author')->textInput() ?>
+	<?php // $form->field($model, 'created_by')->textInput() ?>
 
-    <?php // $form->field($model, 'likes')->textInput() ?>
+	<?php // $form->field($model, 'updated_by')->textInput() ?>
+
+	<?php // $form->field($model, 'likes')->textInput() ?>
 
 	<?php // $form->field($model, 'dislikes')->textInput() ?>
 

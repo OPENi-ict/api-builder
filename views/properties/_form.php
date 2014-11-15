@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Fields */
+/* @var $model app\models\Properties */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="fields-form">
+<div class="properties-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
@@ -18,7 +18,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'type')->textInput(['maxlength' => 255]) ?>
 
-    <?= $form->field($model, 'author')->textInput() ?>
+    <?= $form->field($model, 'created_by')->textInput() ?>
+
+    <?= $form->field($model, 'updated_by')->textInput() ?>
 
     <?= $form->field($model, 'created_at')->textInput() ?>
 

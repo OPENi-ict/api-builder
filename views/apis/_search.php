@@ -21,9 +21,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'description') ?>
 
+    <?= $form->field($model, 'version') ?>
+
     <?= $form->field($model, 'objects') ?>
 
-    <?= $form->field($model, 'author') ?>
+    <?php // echo $form->field($model, 'created_by') ?>
+
+    <?php // echo $form->field($model, 'updated_by') ?>
 
     <?php // echo $form->field($model, 'likes') ?>
 

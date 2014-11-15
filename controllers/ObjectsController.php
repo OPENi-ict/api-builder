@@ -5,7 +5,6 @@ namespace app\controllers;
 use Yii;
 use app\models\Objects;
 use app\models\ObjectsSearch;
-use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -18,15 +17,6 @@ class ObjectsController extends Controller
     public function behaviors()
     {
         return [
-			'access' => [
-				'class' => AccessControl::className(),
-				'rules' => [
-					[
-						'allow' => true,
-						'roles' => ['@'],
-					],
-				],
-			],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

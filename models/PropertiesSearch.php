@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Fields;
+use app\models\Properties;
 
 /**
- * FieldsSearch represents the model behind the search form about `app\models\Fields`.
+ * PropertiesSearch represents the model behind the search form about `app\models\Properties`.
  */
-class FieldsSearch extends Fields
+class PropertiesSearch extends Properties
 {
     /**
      * @inheritdoc
@@ -18,7 +18,7 @@ class FieldsSearch extends Fields
     public function rules()
     {
         return [
-            [['id', 'author', 'created_at', 'updated_at'], 'integer'],
+            [['id', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
             [['name', 'description', 'type'], 'safe'],
         ];
     }
@@ -41,7 +41,7 @@ class FieldsSearch extends Fields
      */
     public function search($params)
     {
-        $query = Fields::find();
+        $query = Properties::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -53,7 +53,8 @@ class FieldsSearch extends Fields
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'author' => $this->author,
+            'created_by' => $this->created_by,
+            'updated_by' => $this->updated_by,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);

@@ -27,11 +27,13 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'privacy') ?>
 
-    <?php // echo $form->field($model, 'fields') ?>
+    <?php // echo $form->field($model, 'properties') ?>
 
     <?php // echo $form->field($model, 'methods') ?>
 
-    <?php // echo $form->field($model, 'author') ?>
+    <?php // echo $form->field($model, 'created_by') ?>
+
+    <?php // echo $form->field($model, 'updated_by') ?>
 
     <?php // echo $form->field($model, 'created_at') ?>
 
