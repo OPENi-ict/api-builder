@@ -23,7 +23,6 @@ class m141109_192126_objects extends Migration
 			'api' => Schema::TYPE_INTEGER . ' NOT NULL',
 			'inherited' => Schema::TYPE_INTEGER,
 			'privacy' => 'ENUM("public", "private") NOT NULL',
-			'properties' => Schema::TYPE_INTEGER,
 			'methods' => Schema::TYPE_TEXT,
 			'created_by' => Schema::TYPE_INTEGER,
 			'updated_by' => Schema::TYPE_INTEGER,
@@ -32,8 +31,8 @@ class m141109_192126_objects extends Migration
 		], $tableOptions);
 		$this->addForeignKey('fk_objects_user_created', '{{%objects}}', 'created_by', '{{%user}}', 'id', 'CASCADE', 'SET NULL');
 		$this->addForeignKey('fk_objects_user_updated', '{{%objects}}', 'updated_by', '{{%user}}', 'id', 'CASCADE', 'SET NULL');
-		$this->addForeignKey('fk_objects_fields', '{{%objects}}', 'properties', '{{%properties}}', 'id', 'CASCADE', 'NO ACTION');
 		$this->addForeignKey('fk_objects_objects', '{{%objects}}', 'inherited', '{{%objects}}', 'id', 'CASCADE', 'NO ACTION');
+		$this->addForeignKey('fk_objects_apis', '{{%objects}}', 'api', '{{%apis}}', 'id', 'CASCADE', 'NO ACTION');
     }
 
 	/**

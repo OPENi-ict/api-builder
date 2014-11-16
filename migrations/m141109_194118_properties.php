@@ -3,7 +3,7 @@
 use yii\db\Schema;
 use yii\db\Migration;
 
-class m141109_190204_properties extends Migration
+class m141109_194118_properties extends Migration
 {
 	/**
 	 *	Create the Fields Table for keeping the fields of the Objects.
@@ -21,6 +21,7 @@ class m141109_190204_properties extends Migration
 			'name' => Schema::TYPE_STRING . ' NOT NULL',
 			'description' => Schema::TYPE_STRING,
 			'type' => Schema::TYPE_STRING . ' NOT NULL',
+			'object' => Schema::TYPE_INTEGER,
 			'created_by' => Schema::TYPE_INTEGER,
 			'updated_by' => Schema::TYPE_INTEGER,
 			'created_at' => Schema::TYPE_INTEGER . ' NOT NULL',
@@ -28,6 +29,7 @@ class m141109_190204_properties extends Migration
 		], $tableOptions);
 		$this->addForeignKey('fk_fields_user_created', '{{%properties}}', 'created_by', '{{%user}}', 'id', 'CASCADE', 'SET NULL');
 		$this->addForeignKey('fk_fields_user_updated', '{{%properties}}', 'updated_by', '{{%user}}', 'id', 'CASCADE', 'SET NULL');
+		$this->addForeignKey('fk_properties_objects', '{{%properties}}', 'object', '{{%objects}}', 'id', 'CASCADE', 'NO ACTION');
 	}
 
 	/**

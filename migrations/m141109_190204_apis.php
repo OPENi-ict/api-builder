@@ -3,7 +3,7 @@
 use yii\db\Schema;
 use yii\db\Migration;
 
-class m141109_194118_apis extends Migration
+class m141109_190204_apis extends Migration
 {
 	/**
 	 *	Create the APIs Table for keeping the APIs.
@@ -21,7 +21,6 @@ class m141109_194118_apis extends Migration
 			'name' => Schema::TYPE_STRING . ' NOT NULL',
 			'description' => Schema::TYPE_STRING,
 			'version' => Schema::TYPE_STRING,
-			'objects' => Schema::TYPE_INTEGER,
 			'created_by' => Schema::TYPE_INTEGER,
 			'updated_by' => Schema::TYPE_INTEGER,
 			'likes' => Schema::TYPE_INTEGER . ' NOT NULL',
@@ -31,7 +30,6 @@ class m141109_194118_apis extends Migration
 		], $tableOptions);
 		$this->addForeignKey('fk_apis_user_created', '{{%apis}}', 'created_by', '{{%user}}', 'id', 'CASCADE', 'SET NULL');
 		$this->addForeignKey('fk_apis_user_updated', '{{%apis}}', 'updated_by', '{{%user}}', 'id', 'CASCADE', 'SET NULL');
-		$this->addForeignKey('fk_apis_objects', '{{%apis}}', 'objects', '{{%objects}}', 'id', 'CASCADE', 'NO ACTION');
 	}
 
 	/**
