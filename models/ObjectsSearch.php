@@ -18,7 +18,7 @@ class ObjectsSearch extends Objects
     public function rules()
     {
         return [
-            [['id', 'api', 'inherited', 'properties', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
+            [['id', 'api', 'inherited', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
             [['name', 'description', 'privacy', 'methods'], 'safe'],
         ];
     }
@@ -55,7 +55,6 @@ class ObjectsSearch extends Objects
             'id' => $this->id,
             'api' => $this->api,
             'inherited' => $this->inherited,
-            'properties' => $this->properties,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
             'created_at' => $this->created_at,

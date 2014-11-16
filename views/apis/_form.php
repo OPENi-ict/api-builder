@@ -18,8 +18,6 @@ use yii\widgets\ActiveForm;
 
 	<?= $form->field($model, 'version')->textInput(['maxlength' => 255, 'placeholder' => '1.0']) ?>
 
-	<?php // $form->field($model, 'objects')->textInput() ?>
-
 	<?php // $form->field($model, 'created_by')->textInput() ?>
 
 	<?php // $form->field($model, 'updated_by')->textInput() ?>

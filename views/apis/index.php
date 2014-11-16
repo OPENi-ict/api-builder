@@ -29,7 +29,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'description',
             'version',
-            'objects',
 			'createdBy.username',
 			'updatedBy.username',
 			'likes',

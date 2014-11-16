@@ -27,8 +27,6 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'privacy') ?>
 
-    <?php // echo $form->field($model, 'properties') ?>
-
     <?php // echo $form->field($model, 'methods') ?>
 
     <?php // echo $form->field($model, 'created_by') ?>

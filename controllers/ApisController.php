@@ -4,10 +4,8 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Apis;
-use app\models\Objects;
 use app\models\ApisSearch;
 use app\models\ObjectsSearch;
-use yii\base\Object;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -66,51 +64,24 @@ class ApisController extends Controller
 		]);
 	}
 
-	/**
-	 * Displays a single Apis model.
-	 * @param integer $id
-	 * @return mixed
-	 */
-	public function actionView($id)
-	{
+    /**
+     * Displays a grid containing all Objects of this API.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionView($id)
+    {
 		$searchModel = new ObjectsSearch();
-		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+		$dataProvider = $searchModel->search([
+			'PropertiesSearch' => ['api' => $id]
+		]);
 
 		return $this->render('view', [
 			'model' => $this->findModel($id),
 			'searchModel' => $searchModel,
 			'dataProvider' => $dataProvider,
 		]);
-	}
-
-	/**
-	 * Creates a new Object model under this API.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 * If the Object has inheritance then retrieve all the Properties and Methods of the parent.
-	 * @return mixed
-	 */
-	public function actionCreateobject($id, $inherited = null)
-	{
-		$objectModel = new Objects();
-		$ApiModel = $this->findModel($id);
-
-		$objectModel->inherited = $inherited;
-		if ($inherited != null)
-		{
-			$parentObjectModel = $this->findObjectModel($inherited);
-			$objectModel->properties = $parentObjectModel->properties;
-			$objectModel->methods = $parentObjectModel->methods;
-		}
-
-		if ($objectModel->load(Yii::$app->request->post()) && $objectModel->save()) {
-			return $this->redirect(['view', 'id' => $objectModel->id]);
-		} else {
-			return $this->render('createObject', [
-				'model' => $objectModel,
-				'api' => $ApiModel
-			]);
-		}
-	}
+    }
 
     /**
      * Creates a new Apis model.
@@ -177,20 +148,4 @@ class ApisController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-
-	/**
-	 * Finds the Objects model based on its primary key value.
-	 * If the model is not found, a 404 HTTP exception will be thrown.
-	 * @param integer $id
-	 * @return Objects the loaded model
-	 * @throws NotFoundHttpException if the model cannot be found
-	 */
-	protected function findObjectModel($id)
-	{
-		if (($model = Objects::findOne($id)) !== null) {
-			return $model;
-		} else {
-			throw new NotFoundHttpException('The requested page does not exist.');
-		}
-	}
 }

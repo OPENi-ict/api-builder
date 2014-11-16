@@ -13,14 +13,15 @@ use yii\behaviors\TimestampBehavior;
  * @property string $name
  * @property string $description
  * @property string $type
+ * @property integer $object
  * @property integer $created_by
  * @property integer $updated_by
  * @property integer $created_at
  * @property integer $updated_at
  *
- * @property Objects[] $objects
  * @property User $createdBy
  * @property User $updatedBy
+ * @property Objects $object0
  */
 class Properties extends \yii\db\ActiveRecord
 {
@@ -39,7 +40,7 @@ class Properties extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'type'], 'required'],
-            [['created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
+            [['object', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
             [['name', 'description', 'type'], 'string', 'max' => 255],
 			[['name'], 'unique', 'targetClass' => '\app\models\Properties', 'message' => 'This Property name has already been taken.']
         ];
@@ -66,19 +67,14 @@ class Properties extends \yii\db\ActiveRecord
             'name' => 'Name',
             'description' => 'Description',
             'type' => 'Type',
-            'created_by' => 'Created By',
-            'updated_by' => 'Updated By',
+            'object' => 'Object',
+			'created_by' => 'Created By ID',
+			'updated_by' => 'Updated By ID',
+			'createdBy.username' => 'Created By',
+			'updatedBy.username' => 'Updated By',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getObjects()
-    {
-        return $this->hasMany(Objects::className(), ['properties' => 'id']);
     }
 
     /**
@@ -95,5 +91,13 @@ class Properties extends \yii\db\ActiveRecord
     public function getUpdatedBy()
     {
         return $this->hasOne(User::className(), ['id' => 'updated_by']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getObject0()
+    {
+        return $this->hasOne(Objects::className(), ['id' => 'object']);
     }
 }

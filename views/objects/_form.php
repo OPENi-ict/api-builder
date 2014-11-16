@@ -10,34 +10,32 @@ use yii\widgets\ActiveForm;
 
 <div class="objects-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+	<?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => 255]) ?>
+	<?= $form->field($model, 'name')->textInput(['maxlength' => 255, 'placeholder' => 'Object Name']) ?>
 
-    <?= $form->field($model, 'description')->textInput(['maxlength' => 255]) ?>
+	<?= $form->field($model, 'description')->textInput(['maxlength' => 255, 'placeholder' => 'Object Description']) ?>
 
-    <?= $form->field($model, 'api')->textInput() ?>
+	<?php // $form->field($model, 'api')->textInput() ?>
 
-    <?= $form->field($model, 'inherited')->textInput() ?>
+	<?php // $form->field($model, 'inherited')->textInput(['readonly' => true]) ?>
 
-    <?= $form->field($model, 'privacy')->dropDownList([ 'public' => 'Public', 'private' => 'Private', ], ['prompt' => '']) ?>
+	<?= $form->field($model, 'privacy')->dropDownList([ 'public' => 'Public', 'private' => 'Private', ], ['options' => ['public' => ['selected' => true]]]) ?>
 
-    <?= $form->field($model, 'properties')->textInput() ?>
+	<?php // $form->field($model, 'methods')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'methods')->textarea(['rows' => 6]) ?>
+	<?php // $form->field($model, 'created_by')->textInput() ?>
 
-    <?= $form->field($model, 'created_by')->textInput() ?>
+	<?php // $form->field($model, 'updated_by')->textInput() ?>
 
-    <?= $form->field($model, 'updated_by')->textInput() ?>
+	<?php // $form->field($model, 'created_at')->textInput() ?>
 
-    <?= $form->field($model, 'created_at')->textInput() ?>
+	<?php // $form->field($model, 'updated_at')->textInput() ?>
 
-    <?= $form->field($model, 'updated_at')->textInput() ?>
+	<div class="form-group">
+		<?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+	</div>
 
-    <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-    </div>
-
-    <?php ActiveForm::end(); ?>
+	<?php ActiveForm::end(); ?>
 
 </div>

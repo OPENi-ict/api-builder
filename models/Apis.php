@@ -13,7 +13,6 @@ use yii\behaviors\TimestampBehavior;
  * @property string $name
  * @property string $description
  * @property string $version
- * @property integer $objects
  * @property integer $created_by
  * @property integer $updated_by
  * @property integer $likes
@@ -21,9 +20,9 @@ use yii\behaviors\TimestampBehavior;
  * @property integer $created_at
  * @property integer $updated_at
  *
- * @property Objects $objects0
  * @property User $createdBy
  * @property User $updatedBy
+ * @property Objects[] $objects
  */
 class Apis extends \yii\db\ActiveRecord
 {
@@ -42,7 +41,7 @@ class Apis extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
-            [['objects', 'created_by', 'updated_by', 'likes', 'dislikes', 'created_at', 'updated_at'], 'integer'],
+            [['created_by', 'updated_by', 'likes', 'dislikes', 'created_at', 'updated_at'], 'integer'],
             [['name', 'description', 'version'], 'string', 'max' => 255],
 			[['version'], 'default', 'value' => '1.0'],
 			[['likes', 'dislikes'], 'default', 'value' => '0'],
@@ -71,9 +70,8 @@ class Apis extends \yii\db\ActiveRecord
             'name' => 'Name',
             'description' => 'Description',
             'version' => 'Version',
-            'objects' => 'Objects',
-            'created_by' => 'Created By',
-            'updated_by' => 'Updated By',
+            'created_by' => 'Created By ID',
+            'updated_by' => 'Updated By ID',
 			'createdBy.username' => 'Created By',
 			'updatedBy.username' => 'Updated By',
             'likes' => 'Likes',
@@ -81,14 +79,6 @@ class Apis extends \yii\db\ActiveRecord
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getObjects0()
-    {
-        return $this->hasOne(Objects::className(), ['id' => 'objects']);
     }
 
     /**
@@ -105,5 +95,13 @@ class Apis extends \yii\db\ActiveRecord
     public function getUpdatedBy()
     {
         return $this->hasOne(User::className(), ['id' => 'updated_by']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getObjects()
+    {
+        return $this->hasMany(Objects::className(), ['api' => 'id']);
     }
 }

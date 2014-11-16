@@ -31,7 +31,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'api',
             'inherited',
             // 'privacy',
-            // 'properties',
             // 'methods:ntext',
             // 'created_by',
             // 'updated_by',
