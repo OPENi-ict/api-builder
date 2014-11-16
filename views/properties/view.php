@@ -7,7 +7,9 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Properties */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Properties', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Apis', 'url' => ['apis/index']];
+$this->params['breadcrumbs'][] = ['label' => $model->object0->api0->name, 'url' => ['apis/view', 'id' => $model->object0->api]];
+$this->params['breadcrumbs'][] = ['label' => $model->object0->name, 'url' => ['objects/view', 'id' => $model->object]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="properties-view">

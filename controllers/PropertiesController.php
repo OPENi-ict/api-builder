@@ -2,9 +2,12 @@
 
 namespace app\controllers;
 
+use app\models\Apis;
+use app\models\Objects;
 use Yii;
 use app\models\Properties;
 use app\models\PropertiesSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -17,6 +20,15 @@ class PropertiesController extends Controller
     public function behaviors()
     {
         return [
+			'access' => [
+				'class' => AccessControl::className(),
+				'rules' => [
+					[
+						'allow' => true,
+						'roles' => ['@'],
+					],
+				],
+			],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -58,15 +70,22 @@ class PropertiesController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id)
     {
         $model = new Properties();
 
+		$objectModel = $this->findObjectModel($id);
+		$apiModel = $this->findAPIModel($objectModel->api);
+
+		$model->object = $id;
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['objects/view', 'id' => $id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+				'object' => $objectModel,
+				'api' => $apiModel,
             ]);
         }
     }
@@ -80,12 +99,16 @@ class PropertiesController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+		$objectModel = $this->findObjectModel($model->object);
+		$apiModel = $this->findAPIModel($objectModel->api);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+			return $this->redirect(['objects/view', 'id' => $objectModel->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+				'object' => $objectModel,
+				'api' => $apiModel,
             ]);
         }
     }
@@ -103,6 +126,36 @@ class PropertiesController extends Controller
         return $this->redirect(['index']);
     }
 
+	/**
+	 * Duplicates a Property model under this Object and API.
+	 * If duplication is successful, the browser will be redirected to the 'view' page.
+	 * @param integer $id
+	 * @return mixed
+	 */
+	public function actionDuplicate($id)
+	{
+		$model = new Properties();
+
+		$objectModel = $this->findObjectModel($id);
+
+		if ($model->load(Yii::$app->request->post()) && $model->inherited != '')
+		{
+			$parentModel = $this->findModel($model->inherited);
+			$model->inherited = $parentModel->id;
+			$model->api = $id;
+			$model->name = $parentModel->name . '_for_' . $objectModel->name;
+			$model->description = $parentModel->description;
+			$model->privacy = $parentModel->privacy;
+			$model->methods = $parentModel->methods;
+			if ($model->save())
+				return $this->redirect(['view', 'id' => $model->id]);
+		}
+		return $this->render('duplicate', [
+			'model' => $model,
+			'object' => $objectModel
+		]);
+	}
+
     /**
      * Finds the Properties model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -118,4 +171,36 @@ class PropertiesController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+	/**
+	 * Finds the Objects model based on its primary key value.
+	 * If the model is not found, a 404 HTTP exception will be thrown.
+	 * @param integer $id
+	 * @return Objects the loaded model
+	 * @throws NotFoundHttpException if the model cannot be found
+	 */
+	protected function findObjectModel($id)
+	{
+		if (($model = Objects::findOne($id)) !== null) {
+			return $model;
+		} else {
+			throw new NotFoundHttpException('The requested page does not exist.');
+		}
+	}
+
+	/**
+	 * Finds the Apis model based on its primary key value.
+	 * If the model is not found, a 404 HTTP exception will be thrown.
+	 * @param integer $id
+	 * @return Apis the loaded model
+	 * @throws NotFoundHttpException if the model cannot be found
+	 */
+	protected function findAPIModel($id)
+	{
+		if (($model = Apis::findOne($id)) !== null) {
+			return $model;
+		} else {
+			throw new NotFoundHttpException('The requested page does not exist.');
+		}
+	}
 }

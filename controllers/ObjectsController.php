@@ -3,7 +3,6 @@
 namespace app\controllers;
 
 use app\models\Apis;
-use app\models\Properties;
 use app\models\PropertiesSearch;
 use Yii;
 use app\models\Objects;

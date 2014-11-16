@@ -21,7 +21,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
 	<p>
 		<?= Html::a('Create Property', ['properties/create', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
-		<?= Html::a('Duplicate Property', ['properties/duplicate', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
 	</p>
 
 	<?= GridView::widget([

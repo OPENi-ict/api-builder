@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Objects;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -9,7 +10,19 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 /* @var $objectDropdownList yii\helpers\ArrayHelper */
 
-$propertyDropdownList = ArrayHelper::map( Objects::find()->where('privacy=:privacy', [':privacy' => 'public'])->all(), 'id', 'name' );
+$propertyDropdownList = ArrayHelper::map( Objects::find()->where('privacy=:privacy', [':privacy' => 'public'])->all(), 'name', 'name' );
+$propertyDropdownList = ArrayHelper::merge([
+	'integer' => 'integer',
+	'long' => 'long',
+	'float' => 'float',
+	'double' => 'double',
+	'string' => 'string',
+	'byte' => 'byte',
+	'boolean' => 'boolean',
+	'date' => 'date',
+	'dateTime' => 'dateTime',
+	'--------' => '--------',
+], $propertyDropdownList);
 ?>
 
 <div class="properties-form">
@@ -20,7 +33,10 @@ $propertyDropdownList = ArrayHelper::map( Objects::find()->where('privacy=:priva
 
     <?= $form->field($model, 'description')->textInput(['maxlength' => 255, 'placeholder' => 'Property Description']) ?>
 
-    <?= $form->field($model, 'type')->dropDownList($propertyDropdownList, [ 'prompt' => '' ]) ?>
+    <?= $form->field($model, 'type')->dropDownList($propertyDropdownList, [
+		'prompt' => '',
+		'options' => ['--------' => ['disabled' => true]]
+	]) ?>
 
     <?php // $form->field($model, 'object')->textInput() ?>
 
