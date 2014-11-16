@@ -14,10 +14,25 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="apis-view">
 
-	<h1><?= Html::encode($this->title) ?></h1>
-	<h4><?= Html::encode($model->description) ?></h4>
+	<h1>
+		<?= Html::encode($this->title) ?>
+		<small><?= Html::encode($model->description) ?></small>
+
+		<span class="pull-right">
+			<?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+			<?= Html::a('Delete', ['delete', 'id' => $model->id], [
+				'class' => 'btn btn-danger',
+				'data' => [
+					'confirm' => 'Are you sure you want to delete this item?',
+					'method' => 'post',
+				],
+			]) ?>
+		</span>
+	</h1>
 
 	<?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+
+	<h3>Objects</h3>
 
 	<p>
 		<?= Html::a('Create Object', ['objects/create', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
