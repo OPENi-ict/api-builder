@@ -72,13 +72,17 @@ class ObjectsController extends Controller
 	 */
 	public function actionView($id)
 	{
+		$model = $this->findModel($id);
 		$searchModel = new PropertiesSearch();
 		$dataProvider = $searchModel->search([
 			'PropertiesSearch' => ['object' => $id]
 		]);
 
+		if ($model->load(Yii::$app->request->post()) && $model->save())
+		{}
+
 		return $this->render('view', [
-			'model' => $this->findModel($id),
+			'model' => $model,
 			'searchModel' => $searchModel,
 			'dataProvider' => $dataProvider,
 		]);

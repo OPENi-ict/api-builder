@@ -1,7 +1,6 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\DetailView;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
@@ -59,4 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		],
 	]); ?>
 
+	<?= $this->render('_formMethods', [
+		'model' => $model,
+	]) ?>
 </div>

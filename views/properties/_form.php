@@ -3,14 +3,14 @@
 use app\models\Objects;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Properties */
 /* @var $form yii\widgets\ActiveForm */
-/* @var $objectDropdownList yii\helpers\ArrayHelper */
+/* @var $propertyDropdownList yii\helpers\ArrayHelper | Has all the available datatypes (string, integer, etc.) and the public objects but itself to make foreign keys.*/
 
-$propertyDropdownList = ArrayHelper::map( Objects::find()->where('privacy=:privacy', [':privacy' => 'public'])->all(), 'name', 'name' );
+$propertyDropdownList = ArrayHelper::map( Objects::find()->where(['and', ['not in', 'id', [$model->object]], ['privacy' => 'public']])->all(), 'name', 'name' );
 $propertyDropdownList = ArrayHelper::merge([
 	'integer' => 'integer',
 	'long' => 'long',
