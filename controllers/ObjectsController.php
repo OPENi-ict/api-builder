@@ -99,6 +99,8 @@ class ObjectsController extends Controller
         $model = new Objects();
 		$apiModel = $this->findAPIModel($id);
 
+		$model->api = $id;
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {

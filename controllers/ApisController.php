@@ -73,7 +73,7 @@ class ApisController extends Controller
     {
 		$searchModel = new ObjectsSearch();
 		$dataProvider = $searchModel->search([
-			'PropertiesSearch' => ['api' => $id]
+			'ObjectsSearch' => ['api' => $id]
 		]);
 
 		return $this->render('view', [
