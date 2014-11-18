@@ -1,43 +1,57 @@
 <?php
 
+use kartik\helpers\Html;
 use kartik\widgets\Select2;
 use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $resourcesModel \app\models\Resources */
-/* @var $resourcesData array */
+/* @var $apisModel \app\models\Resources */
+/* @var $apisData array */
 /* @var $searchModel app\models\ResourcesSearch */
-/* @var $resourcesUsedDataProvider yii\data\ActiveDataProvider */
-/* @var $resourcesRecentDataProvider yii\data\ActiveDataProvider */
-/* @var $resourcesLikedDataProvider yii\data\ActiveDataProvider */
+/* @var $apisRecentDataProvider yii\data\ActiveDataProvider */
+/* @var $apisLikedDataProvider yii\data\ActiveDataProvider */
 
 $columns = [
 	[
-		'attribute' => 'resource_name',
+		'attribute' => 'name',
 		'value'=>function ($model, $key, $index, $widget) {
-			return "<a href='$model->resource_url'>$model->resource_name</a>";
+			return Html::a($model->name, ['/apis/view', 'id' => $model->id]);
 		},
 		'format'=> 'raw',
+		'hAlign' => GridView::ALIGN_CENTER
 	],
 	//'resource_url:url',
 	[
 		'attribute' => '',
+		'label' => 'Likes',
 		'value'=>function ($model, $key, $index, $widget) {
-			return "<span class='glyphicon glyphicon-thumbs-up'> </span>" .
-			$model->likes;
+			return
+				"<span class='glyphicon glyphicon-thumbs-up'> </span>" .
+					$model->likes .
+				' / ' .
+				"<span class='glyphicon glyphicon-thumbs-down'> </span>" .
+				$model->dislikes;
 		},
 		'format'=>'raw',
+		'hAlign' => GridView::ALIGN_CENTER
 	],
+//	[
+//		'attribute' => '',
+//		'value'=>function ($model, $key, $index, $widget) {
+//			return "<span class='glyphicon glyphicon-thumbs-down'> </span>" .
+//			$model->dislikes;
+//		},
+//		'format'=>'raw',
+//	],
+	//'used',
+//	[
+//		'label' => 'author',
+//		'value' =>
+//	],
 	[
-		'attribute' => '',
-		'value'=>function ($model, $key, $index, $widget) {
-			return "<span class='glyphicon glyphicon-thumbs-down'> </span>" .
-			$model->dislikes;
-		},
-		'format'=>'raw',
-	],
-	'used',
-	'author'
+		'attribute' => 'createdBy.username',
+		'hAlign' => GridView::ALIGN_CENTER
+	]
 ];
 
 $this->title = 'My Yii Application';
@@ -50,43 +64,43 @@ $this->title = 'My Yii Application';
         <p class="lead">Create, use and recommend your favorite API with immediate connection to Cloud Based Services.</p>
     </div>
 
-    <div class="body-content">
+    <div class="body-content text-center">
 
 		<?php
 			echo Select2::widget([
-				'model' => $resourcesModel,
-				'attribute' => 'resource_name',
-				'data' => array_merge(["" => ""], $resourcesData),
-				'options' => ['placeholder' => 'Search for Objects ...'],
+				'model' => $apisModel,
+				'attribute' => 'name',
+				'data' => array_merge(["" => ""], $apisData),
+				'options' => ['placeholder' => 'Search for Apis ...'],
 				'pluginOptions' => [
 					'allowClear' => true
 				],
 			]);
 		?>
         <div class="row text-center">
-            <div class="col-lg-4">
-                <h2>Most Used</h2>
+<!--            <div class="col-lg-4">-->
+<!--                <h2>Most Used</h2>-->
 
-				<?= GridView::widget([
-					'dataProvider' => $resourcesUsedDataProvider,
-					'hover' => true,
-					'columns' => $columns
-				]); ?>
-            </div>
-            <div class="col-lg-4">
+<!--				--><?php //GridView::widget([
+//					'dataProvider' => $resourcesUsedDataProvider,
+//					'hover' => true,
+//					'columns' => $columns
+//				]); ?>
+<!--            </div>-->
+            <div class="col-lg-6">
                 <h2>Most Recent</h2>
 
 				<?= GridView::widget([
-					'dataProvider' => $resourcesRecentDataProvider,
+					'dataProvider' => $apisRecentDataProvider,
 					'hover' => true,
 					'columns' => $columns
 				]); ?>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-6">
                 <h2>Most Liked</h2>
 
 				<?= GridView::widget([
-					'dataProvider' => $resourcesLikedDataProvider,
+					'dataProvider' => $apisLikedDataProvider,
 					'hover' => true,
 					'columns' => $columns
 				]); ?>

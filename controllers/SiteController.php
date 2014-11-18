@@ -1,7 +1,7 @@
 <?php
 namespace app\controllers;
 
-use app\models\Resources;
+use app\models\Apis;
 use Yii;
 use app\models\LoginForm;
 use app\models\PasswordResetRequestForm;
@@ -69,34 +69,34 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-		$resourcesModel = new Resources();
-		$resourcesData = $resourcesModel::find()
-			->select('resource_name')
+		$apisModel = new Apis();
+		$apisData = $apisModel::find()
+			->select('name')
 			->asArray()
 			->all();
 		//$data = implode(', ', $data);
-		$resourcesData = array_column($resourcesData, 'resource_name');
+		$apisData = array_column($apisData, 'name');
 
-		$resourcesUsedDataProvider = new ActiveDataProvider([
-			'query' => $resourcesModel::find()->orderBy(['used' => SORT_DESC]),
+//		$resourcesUsedDataProvider = new ActiveDataProvider([
+//			'query' => $apiModel::find()->orderBy(['used' => SORT_DESC]),
+//			'sort' => false
+//		]);
+
+		$apisRecentDataProvider = new ActiveDataProvider([
+			'query' => $apisModel::find()->orderBy(['created_at' => SORT_DESC]),
 			'sort' => false
 		]);
 
-		$resourcesRecentDataProvider = new ActiveDataProvider([
-			'query' => $resourcesModel::find()->orderBy(['created_at' => SORT_DESC]),
-			'sort' => false
-		]);
-
-		$resourcesLikedDataProvider = new ActiveDataProvider([
-			'query' => $resourcesModel::find()->orderBy(['likes' => SORT_DESC]),
+		$apisLikedDataProvider = new ActiveDataProvider([
+			'query' => $apisModel::find()->orderBy(['likes' => SORT_DESC]),
 			'sort' => false
 		]);
 		return $this->render('index', [
-			'resourcesModel' => $resourcesModel,
-			'resourcesData' => $resourcesData,
-			'resourcesUsedDataProvider' => $resourcesUsedDataProvider,
-			'resourcesRecentDataProvider' => $resourcesRecentDataProvider,
-			'resourcesLikedDataProvider' => $resourcesLikedDataProvider,
+			'apisModel' => $apisModel,
+			'apisData' => $apisData,
+			//'resourcesUsedDataProvider' => $resourcesUsedDataProvider,
+			'apisRecentDataProvider' => $apisRecentDataProvider,
+			'apisLikedDataProvider' => $apisLikedDataProvider,
 		]);
 //        return $this->render('index');
     }
