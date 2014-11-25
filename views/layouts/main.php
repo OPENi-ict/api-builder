@@ -26,10 +26,10 @@ AppAsset::register($this);
     <div class="wrap">
         <?php
             NavBar::begin([
-                'brandLabel' => 'OPENi API Builder',
+				'brandLabel' => '<img src="/api-builder/web/OPENi_logo.png">',
                 'brandUrl' => Yii::$app->homeUrl,
                 'options' => [
-                    'class' => 'navbar-inverse navbar-fixed-top',
+                    'class' => 'navbar-inverse navbar-default navbar-fixed-top',
                 ],
             ]);
             $menuItems = [
