@@ -31,8 +31,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'version',
 			'createdBy.username',
 			'updatedBy.username',
-			'likes',
-			'dislikes',
+			'votes_up',
+			'votes_down',
 			'created_at:date',
 			'updated_at:date',
 

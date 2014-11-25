@@ -5,11 +5,11 @@ use kartik\widgets\Select2;
 use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $apisModel \app\models\Resources */
-/* @var $apisData array */
-/* @var $searchModel app\models\ResourcesSearch */
-/* @var $apisRecentDataProvider yii\data\ActiveDataProvider */
-/* @var $apisLikedDataProvider yii\data\ActiveDataProvider */
+/* @var $objectsModel \app\models\Objects */
+/* @var $objectsData array */
+/* @var $searchModel app\models\ObjectsSearch */
+/* @var $objectsRecentDataProvider yii\data\ActiveDataProvider */
+/* @var $objectsLikedDataProvider yii\data\ActiveDataProvider */
 
 $columns = [
 	[
@@ -27,10 +27,10 @@ $columns = [
 		'value'=>function ($model, $key, $index, $widget) {
 			return
 				"<span class='glyphicon glyphicon-thumbs-up'> </span>" .
-					$model->likes .
+					$model->votes_up .
 				' / ' .
 				"<span class='glyphicon glyphicon-thumbs-down'> </span>" .
-				$model->dislikes;
+				$model->votes_down;
 		},
 		'format'=>'raw',
 		'hAlign' => GridView::ALIGN_CENTER
@@ -67,15 +67,15 @@ $this->title = 'My Yii Application';
     <div class="body-content text-center">
 
 		<?php
-			echo Select2::widget([
-				'model' => $apisModel,
-				'attribute' => 'name',
-				'data' => array_merge(["" => ""], $apisData),
-				'options' => ['placeholder' => 'Search for Apis ...'],
-				'pluginOptions' => [
-					'allowClear' => true
-				],
-			]);
+//			echo Select2::widget([
+//				'model' => $objectsModel,
+//				'attribute' => 'name',
+//				'data' => array_merge(["" => ""], $objectsData),
+//				'options' => ['placeholder' => 'Search for Objects ...'],
+//				'pluginOptions' => [
+//					'allowClear' => true
+//				],
+//			]);
 		?>
         <div class="row text-center">
 <!--            <div class="col-lg-4">-->
@@ -91,7 +91,7 @@ $this->title = 'My Yii Application';
                 <h2>Most Recent</h2>
 
 				<?= GridView::widget([
-					'dataProvider' => $apisRecentDataProvider,
+					'dataProvider' => $objectsRecentDataProvider,
 					'hover' => true,
 					'columns' => $columns
 				]); ?>
@@ -100,7 +100,7 @@ $this->title = 'My Yii Application';
                 <h2>Most Liked</h2>
 
 				<?= GridView::widget([
-					'dataProvider' => $apisLikedDataProvider,
+					'dataProvider' => $objectsLikedDataProvider,
 					'hover' => true,
 					'columns' => $columns
 				]); ?>

@@ -5,7 +5,6 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Objects;
 
 /**
  * ObjectsSearch represents the model behind the search form about `app\models\Objects`.
@@ -18,7 +17,7 @@ class ObjectsSearch extends Objects
     public function rules()
     {
         return [
-            [['id', 'api', 'inherited', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
+            [['id', 'api', 'inherited', 'created_by', 'updated_by', 'created_at', 'updated_at', 'votes_up', 'votes_down'], 'integer'],
             [['name', 'description', 'privacy', 'methods'], 'safe'],
         ];
     }
@@ -59,7 +58,9 @@ class ObjectsSearch extends Objects
             'updated_by' => $this->updated_by,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-        ]);
+			'votes_up' => $this->votes_up,
+			'votes_down' => $this->votes_down,
+		]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'description', $this->description])

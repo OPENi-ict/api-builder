@@ -21,7 +21,6 @@ $propertyDropdownList = [
 //	'--------' => '--------',
 ];
 
-$methods = 'skata';
 $properties = \app\models\Properties::find()->where('type=:type', [':type' => $model->name])->all();
 foreach($properties as $property)
 {

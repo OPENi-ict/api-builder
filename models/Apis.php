@@ -15,8 +15,8 @@ use yii\behaviors\TimestampBehavior;
  * @property string $version
  * @property integer $created_by
  * @property integer $updated_by
- * @property integer $likes
- * @property integer $dislikes
+ * @property integer $votes_up
+ * @property integer $votes_down
  * @property integer $created_at
  * @property integer $updated_at
  *
@@ -41,10 +41,10 @@ class Apis extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
-            [['created_by', 'updated_by', 'likes', 'dislikes', 'created_at', 'updated_at'], 'integer'],
+            [['created_by', 'updated_by', 'votes_up', 'votes_down', 'created_at', 'updated_at'], 'integer'],
             [['name', 'description', 'version'], 'string', 'max' => 255],
 			[['version'], 'default', 'value' => '1.0'],
-			[['likes', 'dislikes'], 'default', 'value' => '0'],
+			[['votes_up', 'votes_down'], 'default', 'value' => '0'],
 			[['name'], 'unique', 'targetClass' => '\app\models\Apis', 'message' => 'This API name has already been taken.']
         ];
     }
@@ -74,8 +74,8 @@ class Apis extends \yii\db\ActiveRecord
             'updated_by' => 'Updated By ID',
 			'createdBy.username' => 'Created By',
 			'updatedBy.username' => 'Updated By',
-            'likes' => 'Likes',
-            'dislikes' => 'Dislikes',
+			'votes_up' => 'Votes Up',
+			'votes_down' => 'Votes Down',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];

@@ -5,7 +5,6 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Apis;
 
 /**
  * ApisSearch represents the model behind the search form about `app\models\Apis`.
@@ -18,7 +17,7 @@ class ApisSearch extends Apis
     public function rules()
     {
         return [
-            [['id', 'created_by', 'updated_by', 'likes', 'dislikes', 'created_at', 'updated_at'], 'integer'],
+            [['id', 'created_by', 'updated_by', 'votes_up', 'votes_down', 'created_at', 'updated_at'], 'integer'],
             [['name', 'description', 'version'], 'safe'],
         ];
     }
@@ -67,8 +66,8 @@ class ApisSearch extends Apis
             'id' => $this->id,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
-            'likes' => $this->likes,
-            'dislikes' => $this->dislikes,
+			'votes_up' => $this->votes_up,
+			'votes_down' => $this->votes_down,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);

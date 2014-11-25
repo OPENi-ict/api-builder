@@ -22,9 +22,9 @@ use yii\widgets\ActiveForm;
 
 	<?php // $form->field($model, 'updated_by')->textInput() ?>
 
-	<?php // $form->field($model, 'likes')->textInput() ?>
+	<?php // $form->field($model, 'votes_up')->textInput() ?>
 
-	<?php // $form->field($model, 'dislikes')->textInput() ?>
+	<?php // $form->field($model, 'votes_down')->textInput() ?>
 
 	<?php // $form->field($model, 'created_at')->textInput() ?>
 

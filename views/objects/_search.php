@@ -37,7 +37,11 @@ use yii\bootstrap\ActiveForm;
 
     <?php // echo $form->field($model, 'updated_at') ?>
 
-    <div class="form-group">
+	<?php // echo $form->field($model, 'votes_up') ?>
+
+	<?php // echo $form->field($model, 'votes_down') ?>
+
+	<div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
         <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>
     </div>

@@ -16,29 +16,33 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Objects', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Objects', ['create', 'id' => 1], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+	<?= GridView::widget([
+		'tableOptions' => ['class' => 'table table-striped table-bordered text-center'],
+		'headerRowOptions' => ['class' => 'text-center'],
+		'dataProvider' => $dataProvider,
+		'filterModel' => $searchModel,
+		'columns' => [
+			['class' => 'yii\grid\SerialColumn'],
 
-            //'id',
-            'name',
-            'description',
-            'api',
-            'inherited',
-            // 'privacy',
-            // 'methods:ntext',
-            // 'created_by',
-            // 'updated_by',
-            // 'created_at',
-            // 'updated_at',
+			//'id',
+			'name',
+			'description',
+			'api0.name',
+			'inherited0.name',
+			'privacy',
+			// 'methods:ntext',
+			'createdBy.username',
+			// 'updated_by',
+			'created_at:date',
+			// 'updated_at',
+			'votes_up',
+			'votes_down',
 
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+			['class' => 'yii\grid\ActionColumn'],
+		],
+	]); ?>
 
 </div>

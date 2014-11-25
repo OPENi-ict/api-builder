@@ -2,6 +2,7 @@
 namespace app\controllers;
 
 use app\models\Apis;
+use app\models\Objects;
 use Yii;
 use app\models\LoginForm;
 use app\models\PasswordResetRequestForm;
@@ -69,34 +70,34 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-		$apisModel = new Apis();
-		$apisData = $apisModel::find()
+		$objectsModel = new Objects();
+		$objectsData = $objectsModel::find()->where(['privacy' => 'public'])
 			->select('name')
 			->asArray()
 			->all();
 		//$data = implode(', ', $data);
-		$apisData = array_column($apisData, 'name');
+		$objectsData = array_column($objectsData, 'name');
 
 //		$resourcesUsedDataProvider = new ActiveDataProvider([
 //			'query' => $apiModel::find()->orderBy(['used' => SORT_DESC]),
 //			'sort' => false
 //		]);
 
-		$apisRecentDataProvider = new ActiveDataProvider([
-			'query' => $apisModel::find()->orderBy(['created_at' => SORT_DESC]),
+		$objectsRecentDataProvider = new ActiveDataProvider([
+			'query' => $objectsModel::find()->where(['privacy' => 'public'])->orderBy(['created_at' => SORT_DESC]),
 			'sort' => false
 		]);
 
-		$apisLikedDataProvider = new ActiveDataProvider([
-			'query' => $apisModel::find()->orderBy(['likes' => SORT_DESC]),
+		$objectsLikedDataProvider = new ActiveDataProvider([
+			'query' => $objectsModel::find()->where(['privacy' => 'public'])->orderBy(['votes_up' => SORT_DESC]),
 			'sort' => false
 		]);
 		return $this->render('index', [
-			'apisModel' => $apisModel,
-			'apisData' => $apisData,
+			'objectsModel' => $objectsModel,
+			'objectsData' => $objectsData,
 			//'resourcesUsedDataProvider' => $resourcesUsedDataProvider,
-			'apisRecentDataProvider' => $apisRecentDataProvider,
-			'apisLikedDataProvider' => $apisLikedDataProvider,
+			'objectsRecentDataProvider' => $objectsRecentDataProvider,
+			'objectsLikedDataProvider' => $objectsLikedDataProvider,
 		]);
 //        return $this->render('index');
     }

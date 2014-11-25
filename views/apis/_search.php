@@ -27,9 +27,9 @@ use yii\bootstrap\ActiveForm;
 
     <?php // echo $form->field($model, 'updated_by') ?>
 
-    <?php // echo $form->field($model, 'likes') ?>
+    <?php // echo $form->field($model, 'votes_up') ?>
 
-    <?php // echo $form->field($model, 'dislikes') ?>
+    <?php // echo $form->field($model, 'votes_down') ?>
 
     <?php // echo $form->field($model, 'created_at') ?>
 
