@@ -1,0 +1,211 @@
+{
+    "basePath": "https://demo2.openi-ict.eu",
+    "swaggerVersion": "1.2",
+    "apiVersion": "Unknown",
+    "resourcePath": "SocialToken",
+    "apis": [
+        {
+            "path": "/v.04/SocialToken/",
+            "description": "",
+            "operations": [
+                {
+                    "method": "GET",
+                    "summary": "Retrieve a list of social application tokens",
+                    "nickname": "SocialToken_list",
+                    "type": "ListView",
+                    "parameters": [
+                        {
+                            "paramType": "query",
+                            "name": "limit",
+                            "type": "integer",
+                            "required": false,
+                            "description": "Specify the number of element to display per page."
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "offset",
+                            "type": "integer",
+                            "required": false,
+                            "description": "Specify the offset to start displaying element on a page."
+                        }
+                    ],
+                    "notes": ""
+                },
+                {
+                    "method": "POST",
+                    "summary": "Create a new social application token",
+                    "nickname": "SocialToken_list",
+                    "type": "SocialToken",
+                    "parameters": [
+                        {
+                            "paramType": "body",
+                            "name": "SocialToken",
+                            "type": "SocialToken_post",
+                            "required": true,
+                            "description": ""
+                        }
+                    ],
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/v.04/SocialToken/{id}/",
+            "description": "",
+            "operations": [
+                {
+                    "method": "GET",
+                    "summary": "Retrieve a single social application token by ID",
+                    "nickname": "SocialToken_detail",
+                    "type": "SocialToken",
+                    "notes": ""
+                },
+                {
+                    "method": "PUT",
+                    "summary": "Update an existing social application token",
+                    "nickname": "SocialToken_detail",
+                    "type": "SocialToken",
+                    "parameters": [
+                        {
+                            "paramType": "body",
+                            "name": "SocialToken",
+                            "type": "SocialToken_put",
+                            "required": true,
+                            "description": ""
+                        }
+                    ],
+                    "notes": ""
+                },
+                {
+                    "method": "DELETE",
+                    "summary": "Delete an existing social application token",
+                    "nickname": "SocialToken_detail",
+                    "type": "SocialToken",
+                    "notes": ""
+                }
+            ]
+        }
+    ],
+    "models": {
+        "ListView": {
+            "id": "ListView",
+            "properties": {
+                "meta": {
+                    "description": "",
+                    "format": "",
+                    "$ref": "Meta"
+                },
+                "objects": {
+                    "description": "",
+                    "format": "",
+                    "$ref": "Objects"
+                }
+            }
+        },
+        "SocialToken": {
+            "id": "SocialToken",
+            "properties": {
+                "token": {
+                    "description": "&quot;oauth_token&quot; (OAuth1) or access token (OAuth2)",
+                    "type": "string",
+                    "format": ""
+                },
+                "expires_at": {
+                    "description": "A date &amp; time as a string. Ex: &quot;2010-11-10T03:07:43&quot;",
+                    "type": "string",
+                    "format": "date-format"
+                },
+                "token_secret": {
+                    "description": "&quot;oauth_token_secret&quot; (OAuth1) or refresh token (OAuth2)",
+                    "type": "string",
+                    "format": ""
+                },
+                "resource_uri": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                }
+            }
+        },
+        "SocialToken_post": {
+            "id": "SocialToken_post",
+            "properties": {
+                "token": {
+                    "description": "&quot;oauth_token&quot; (OAuth1) or access token (OAuth2)",
+                    "type": "string",
+                    "format": ""
+                },
+                "expires_at": {
+                    "description": "A date &amp; time as a string. Ex: &quot;2010-11-10T03:07:43&quot;",
+                    "type": "string",
+                    "format": "date-format"
+                },
+                "token_secret": {
+                    "description": "&quot;oauth_token_secret&quot; (OAuth1) or refresh token (OAuth2)",
+                    "type": "string",
+                    "format": ""
+                }
+            }
+        },
+        "Meta": {
+            "id": "Meta",
+            "properties": {
+                "previous": {
+                    "description": "Uri of the previous page relative to the current page settings.",
+                    "type": "string",
+                    "format": ""
+                },
+                "total_count": {
+                    "description": "Total items count for the all collection",
+                    "type": "integer",
+                    "format": ""
+                },
+                "offset": {
+                    "description": "Specify the offset to start displaying element on a page.",
+                    "type": "integer",
+                    "format": ""
+                },
+                "limit": {
+                    "description": "Specify the number of element to display per page.",
+                    "type": "integer",
+                    "format": ""
+                },
+                "next": {
+                    "description": "Uri of the next page relative to the current page settings.",
+                    "type": "string",
+                    "format": ""
+                }
+            }
+        },
+        "Objects": {
+            "id": "Objects",
+            "properties": {
+                "Workout": {
+                    "description": "",
+                    "format": "",
+                    "$ref": "List"
+                }
+            }
+        },
+        "SocialToken_put": {
+            "id": "SocialToken_put",
+            "properties": {
+                "token": {
+                    "description": "&quot;oauth_token&quot; (OAuth1) or access token (OAuth2)",
+                    "type": "string",
+                    "format": ""
+                },
+                "expires_at": {
+                    "description": "A date &amp; time as a string. Ex: &quot;2010-11-10T03:07:43&quot;",
+                    "type": "string",
+                    "format": "date-format"
+                },
+                "token_secret": {
+                    "description": "&quot;oauth_token_secret&quot; (OAuth1) or refresh token (OAuth2)",
+                    "type": "string",
+                    "format": ""
+                }
+            }
+        }
+    }
+}

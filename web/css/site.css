@@ -102,3 +102,7 @@ a.desc:after {
 .navbar-brand img {
     height:100%;
 }
+
+.navbar-default {
+    font-size: 14px;
+}

@@ -1,0 +1,311 @@
+{
+    "basePath": "https://demo2.openi-ict.eu",
+    "swaggerVersion": "1.2",
+    "apiVersion": "Unknown",
+    "resourcePath": "Like",
+    "apis": [
+        {
+            "path": "/v.04/Like/",
+            "description": "",
+            "operations": [
+                {
+                    "method": "GET",
+                    "summary": "Retrieve a list of openi likes",
+                    "nickname": "Like_list",
+                    "type": "ListView",
+                    "parameters": [
+                        {
+                            "paramType": "query",
+                            "name": "limit",
+                            "type": "integer",
+                            "required": false,
+                            "description": "Specify the number of element to display per page."
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "offset",
+                            "type": "integer",
+                            "required": false,
+                            "description": "Specify the offset to start displaying element on a page."
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "cbs",
+                            "type": "string",
+                            "required": false,
+                            "description": "OPENi"
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "user",
+                            "type": "string",
+                            "required": false,
+                            "description": "Registered and authenicated user"
+                        }
+                    ],
+                    "notes": ""
+                },
+                {
+                    "method": "POST",
+                    "summary": "Create a new openi like",
+                    "nickname": "Like_list",
+                    "type": "Like",
+                    "parameters": [
+                        {
+                            "paramType": "body",
+                            "name": "Like",
+                            "type": "Like_post",
+                            "required": true,
+                            "description": ""
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "cbs",
+                            "type": "string",
+                            "required": false,
+                            "description": "OPENi"
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "user",
+                            "type": "string",
+                            "required": false,
+                            "description": "Registered and authenicated user"
+                        }
+                    ],
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/v.04/Like/{id}/",
+            "description": "",
+            "operations": [
+                {
+                    "method": "GET",
+                    "summary": "Retrieve a single openi like by ID",
+                    "nickname": "Like_detail",
+                    "type": "Like",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "id",
+                            "type": "undefined",
+                            "required": true,
+                            "description": "Primary key of resource"
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "cbs",
+                            "type": "string",
+                            "required": false,
+                            "description": "OPENi"
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "user",
+                            "type": "string",
+                            "required": false,
+                            "description": "Registered and authenicated user"
+                        }
+                    ],
+                    "notes": ""
+                },
+                {
+                    "method": "PUT",
+                    "summary": "Update an existing openi like",
+                    "nickname": "Like_detail",
+                    "type": "Like",
+                    "parameters": [
+                        {
+                            "paramType": "body",
+                            "name": "Like",
+                            "type": "Like_put",
+                            "required": true,
+                            "description": ""
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "id",
+                            "type": "undefined",
+                            "required": true,
+                            "description": "Primary key of resource"
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "cbs",
+                            "type": "string",
+                            "required": false,
+                            "description": "OPENi"
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "user",
+                            "type": "string",
+                            "required": false,
+                            "description": "Registered and authenicated user"
+                        }
+                    ],
+                    "notes": ""
+                },
+                {
+                    "method": "DELETE",
+                    "summary": "Delete an existing openi like",
+                    "nickname": "Like_detail",
+                    "type": "Like",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "id",
+                            "type": "undefined",
+                            "required": true,
+                            "description": "Primary key of resource"
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "cbs",
+                            "type": "string",
+                            "required": false,
+                            "description": "OPENi"
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "user",
+                            "type": "string",
+                            "required": false,
+                            "description": "Registered and authenicated user"
+                        }
+                    ],
+                    "notes": ""
+                }
+            ]
+        }
+    ],
+    "models": {
+        "ListView": {
+            "id": "ListView",
+            "properties": {
+                "meta": {
+                    "description": "",
+                    "format": "",
+                    "$ref": "Meta"
+                },
+                "objects": {
+                    "description": "",
+                    "format": "",
+                    "$ref": "Objects"
+                }
+            }
+        },
+        "Like": {
+            "id": "Like",
+            "properties": {
+                "From": {
+                    "description": "A single related resource. Can be either a URI or set of nested resource data.",
+                    "format": "",
+                    "$ref": "related"
+                },
+                "context": {
+                    "description": "A single related resource. Can be either a URI or set of nested resource data.",
+                    "format": "",
+                    "$ref": "related"
+                },
+                "service": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "url": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "object_type": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "target_id": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "resource_uri": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                }
+            }
+        },
+        "Like_post": {
+            "id": "Like_post",
+            "properties": {
+                "target_id": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "context": {
+                    "description": "A single related resource. Can be either a URI or set of nested resource data.",
+                    "format": "",
+                    "$ref": "related"
+                }
+            }
+        },
+        "Meta": {
+            "id": "Meta",
+            "properties": {
+                "previous": {
+                    "description": "Uri of the previous page relative to the current page settings.",
+                    "type": "string",
+                    "format": ""
+                },
+                "total_count": {
+                    "description": "Total items count for the all collection",
+                    "type": "integer",
+                    "format": ""
+                },
+                "offset": {
+                    "description": "Specify the offset to start displaying element on a page.",
+                    "type": "integer",
+                    "format": ""
+                },
+                "limit": {
+                    "description": "Specify the number of element to display per page.",
+                    "type": "integer",
+                    "format": ""
+                },
+                "next": {
+                    "description": "Uri of the next page relative to the current page settings.",
+                    "type": "string",
+                    "format": ""
+                }
+            }
+        },
+        "Objects": {
+            "id": "Objects",
+            "properties": {
+                "Workout": {
+                    "description": "",
+                    "format": "",
+                    "$ref": "List"
+                }
+            }
+        },
+        "Like_put": {
+            "id": "Like_put",
+            "properties": {
+                "target_id": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "context": {
+                    "description": "A single related resource. Can be either a URI or set of nested resource data.",
+                    "format": "",
+                    "$ref": "related"
+                }
+            }
+        }
+    }
+}

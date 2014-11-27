@@ -1,0 +1,246 @@
+{
+    "basePath": "https://demo2.openi-ict.eu",
+    "swaggerVersion": "1.2",
+    "apiVersion": "Unknown",
+    "resourcePath": "BaseProduct",
+    "apis": [
+        {
+            "path": "/v.04/BaseProduct/",
+            "description": "",
+            "operations": [
+                {
+                    "method": "GET",
+                    "summary": "Retrieve a list of product models",
+                    "nickname": "BaseProduct_list",
+                    "type": "ListView",
+                    "parameters": [
+                        {
+                            "paramType": "query",
+                            "name": "limit",
+                            "type": "integer",
+                            "required": false,
+                            "description": "Specify the number of element to display per page."
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "offset",
+                            "type": "integer",
+                            "required": false,
+                            "description": "Specify the offset to start displaying element on a page."
+                        }
+                    ],
+                    "notes": ""
+                },
+                {
+                    "method": "POST",
+                    "summary": "Create a new product model",
+                    "nickname": "BaseProduct_list",
+                    "type": "BaseProduct",
+                    "parameters": [
+                        {
+                            "paramType": "body",
+                            "name": "BaseProduct",
+                            "type": "BaseProduct_post",
+                            "required": true,
+                            "description": ""
+                        }
+                    ],
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/v.04/BaseProduct/{id}/",
+            "description": "",
+            "operations": [
+                {
+                    "method": "GET",
+                    "summary": "Retrieve a single product model by ID",
+                    "nickname": "BaseProduct_detail",
+                    "type": "BaseProduct",
+                    "notes": ""
+                },
+                {
+                    "method": "PUT",
+                    "summary": "Update an existing product model",
+                    "nickname": "BaseProduct_detail",
+                    "type": "BaseProduct",
+                    "parameters": [
+                        {
+                            "paramType": "body",
+                            "name": "BaseProduct",
+                            "type": "BaseProduct_put",
+                            "required": true,
+                            "description": ""
+                        }
+                    ],
+                    "notes": ""
+                },
+                {
+                    "method": "DELETE",
+                    "summary": "Delete an existing product model",
+                    "nickname": "BaseProduct_detail",
+                    "type": "BaseProduct",
+                    "notes": ""
+                }
+            ]
+        }
+    ],
+    "models": {
+        "ListView": {
+            "id": "ListView",
+            "properties": {
+                "meta": {
+                    "description": "",
+                    "format": "",
+                    "$ref": "Meta"
+                },
+                "objects": {
+                    "description": "",
+                    "format": "",
+                    "$ref": "Objects"
+                }
+            }
+        },
+        "BaseProduct": {
+            "id": "BaseProduct",
+            "properties": {
+                "category": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "picture": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "description": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "year": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "resource_uri": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "id": {
+                    "description": "Integer data. Ex: 2673",
+                    "type": "integer",
+                    "format": ""
+                },
+                "name": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                }
+            }
+        },
+        "BaseProduct_post": {
+            "id": "BaseProduct_post",
+            "properties": {
+                "category": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "picture": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "year": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "description": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "name": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                }
+            }
+        },
+        "Meta": {
+            "id": "Meta",
+            "properties": {
+                "previous": {
+                    "description": "Uri of the previous page relative to the current page settings.",
+                    "type": "string",
+                    "format": ""
+                },
+                "total_count": {
+                    "description": "Total items count for the all collection",
+                    "type": "integer",
+                    "format": ""
+                },
+                "offset": {
+                    "description": "Specify the offset to start displaying element on a page.",
+                    "type": "integer",
+                    "format": ""
+                },
+                "limit": {
+                    "description": "Specify the number of element to display per page.",
+                    "type": "integer",
+                    "format": ""
+                },
+                "next": {
+                    "description": "Uri of the next page relative to the current page settings.",
+                    "type": "string",
+                    "format": ""
+                }
+            }
+        },
+        "Objects": {
+            "id": "Objects",
+            "properties": {
+                "Workout": {
+                    "description": "",
+                    "format": "",
+                    "$ref": "List"
+                }
+            }
+        },
+        "BaseProduct_put": {
+            "id": "BaseProduct_put",
+            "properties": {
+                "category": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "picture": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "year": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "description": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "name": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                }
+            }
+        }
+    }
+}

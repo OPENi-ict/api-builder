@@ -1,0 +1,269 @@
+{
+    "basePath": "https://demo2.openi-ict.eu",
+    "swaggerVersion": "1.2",
+    "apiVersion": "Unknown",
+    "resourcePath": "Notebook",
+    "apis": [
+        {
+            "path": "/v.04/Notebook/",
+            "description": "",
+            "operations": [
+                {
+                    "method": "GET",
+                    "summary": "Retrieve a list of openi notebooks",
+                    "nickname": "Notebook_list",
+                    "type": "ListView",
+                    "parameters": [
+                        {
+                            "paramType": "query",
+                            "name": "limit",
+                            "type": "integer",
+                            "required": false,
+                            "description": "Specify the number of element to display per page."
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "offset",
+                            "type": "integer",
+                            "required": false,
+                            "description": "Specify the offset to start displaying element on a page."
+                        }
+                    ],
+                    "notes": ""
+                },
+                {
+                    "method": "POST",
+                    "summary": "Create a new openi notebook",
+                    "nickname": "Notebook_list",
+                    "type": "Notebook",
+                    "parameters": [
+                        {
+                            "paramType": "body",
+                            "name": "Notebook",
+                            "type": "Notebook_post",
+                            "required": true,
+                            "description": ""
+                        }
+                    ],
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/v.04/Notebook/{id}/",
+            "description": "",
+            "operations": [
+                {
+                    "method": "GET",
+                    "summary": "Retrieve a single openi notebook by ID",
+                    "nickname": "Notebook_detail",
+                    "type": "Notebook",
+                    "notes": ""
+                },
+                {
+                    "method": "PUT",
+                    "summary": "Update an existing openi notebook",
+                    "nickname": "Notebook_detail",
+                    "type": "Notebook",
+                    "parameters": [
+                        {
+                            "paramType": "body",
+                            "name": "Notebook",
+                            "type": "Notebook_put",
+                            "required": true,
+                            "description": ""
+                        }
+                    ],
+                    "notes": ""
+                },
+                {
+                    "method": "DELETE",
+                    "summary": "Delete an existing openi notebook",
+                    "nickname": "Notebook_detail",
+                    "type": "Notebook",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "id",
+                            "type": "undefined",
+                            "required": true,
+                            "description": "Primary key of resource"
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "cbs",
+                            "type": "string",
+                            "required": false,
+                            "description": "The CBS you want to make a call to"
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "user",
+                            "type": "string",
+                            "required": false,
+                            "description": "Registered and authenicated user"
+                        }
+                    ],
+                    "notes": ""
+                }
+            ]
+        }
+    ],
+    "models": {
+        "ListView": {
+            "id": "ListView",
+            "properties": {
+                "meta": {
+                    "description": "",
+                    "format": "",
+                    "$ref": "Meta"
+                },
+                "objects": {
+                    "description": "",
+                    "format": "",
+                    "$ref": "Objects"
+                }
+            }
+        },
+        "Notebook": {
+            "id": "Notebook",
+            "properties": {
+                "context": {
+                    "description": "A single related resource. Can be either a URI or set of nested resource data.",
+                    "format": "",
+                    "$ref": "related"
+                },
+                "From": {
+                    "description": "A single related resource. Can be either a URI or set of nested resource data.",
+                    "format": "",
+                    "$ref": "related"
+                },
+                "description": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "service": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "title": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "url": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "Notes": {
+                    "description": "A single related resource. Can be either a URI or set of nested resource data.",
+                    "format": "",
+                    "$ref": "related"
+                },
+                "object_type": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "resource_uri": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                }
+            }
+        },
+        "Notebook_post": {
+            "id": "Notebook_post",
+            "properties": {
+                "Notes": {
+                    "description": "A single related resource. Can be either a URI or set of nested resource data.",
+                    "format": "",
+                    "$ref": "related"
+                },
+                "description": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "context": {
+                    "description": "A single related resource. Can be either a URI or set of nested resource data.",
+                    "format": "",
+                    "$ref": "related"
+                },
+                "title": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                }
+            }
+        },
+        "Meta": {
+            "id": "Meta",
+            "properties": {
+                "previous": {
+                    "description": "Uri of the previous page relative to the current page settings.",
+                    "type": "string",
+                    "format": ""
+                },
+                "total_count": {
+                    "description": "Total items count for the all collection",
+                    "type": "integer",
+                    "format": ""
+                },
+                "offset": {
+                    "description": "Specify the offset to start displaying element on a page.",
+                    "type": "integer",
+                    "format": ""
+                },
+                "limit": {
+                    "description": "Specify the number of element to display per page.",
+                    "type": "integer",
+                    "format": ""
+                },
+                "next": {
+                    "description": "Uri of the next page relative to the current page settings.",
+                    "type": "string",
+                    "format": ""
+                }
+            }
+        },
+        "Objects": {
+            "id": "Objects",
+            "properties": {
+                "Workout": {
+                    "description": "",
+                    "format": "",
+                    "$ref": "List"
+                }
+            }
+        },
+        "Notebook_put": {
+            "id": "Notebook_put",
+            "properties": {
+                "Notes": {
+                    "description": "A single related resource. Can be either a URI or set of nested resource data.",
+                    "format": "",
+                    "$ref": "related"
+                },
+                "description": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "context": {
+                    "description": "A single related resource. Can be either a URI or set of nested resource data.",
+                    "format": "",
+                    "$ref": "related"
+                },
+                "title": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                }
+            }
+        }
+    }
+}

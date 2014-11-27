@@ -1,0 +1,216 @@
+{
+    "basePath": "https://demo2.openi-ict.eu",
+    "swaggerVersion": "1.2",
+    "apiVersion": "Unknown",
+    "resourcePath": "Location",
+    "apis": [
+        {
+            "path": "/v.04/Location/",
+            "description": "",
+            "operations": [
+                {
+                    "method": "GET",
+                    "summary": "Retrieve a list of location models",
+                    "nickname": "Location_list",
+                    "type": "ListView",
+                    "parameters": [
+                        {
+                            "paramType": "query",
+                            "name": "limit",
+                            "type": "integer",
+                            "required": false,
+                            "description": "Specify the number of element to display per page."
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "offset",
+                            "type": "integer",
+                            "required": false,
+                            "description": "Specify the offset to start displaying element on a page."
+                        }
+                    ],
+                    "notes": ""
+                },
+                {
+                    "method": "POST",
+                    "summary": "Create a new location model",
+                    "nickname": "Location_list",
+                    "type": "Location",
+                    "parameters": [
+                        {
+                            "paramType": "body",
+                            "name": "Location",
+                            "type": "Location_post",
+                            "required": true,
+                            "description": ""
+                        }
+                    ],
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/v.04/Location/{id}/",
+            "description": "",
+            "operations": [
+                {
+                    "method": "GET",
+                    "summary": "Retrieve a single location model by ID",
+                    "nickname": "Location_detail",
+                    "type": "Location",
+                    "notes": ""
+                },
+                {
+                    "method": "PUT",
+                    "summary": "Update an existing location model",
+                    "nickname": "Location_detail",
+                    "type": "Location",
+                    "parameters": [
+                        {
+                            "paramType": "body",
+                            "name": "Location",
+                            "type": "Location_put",
+                            "required": true,
+                            "description": ""
+                        }
+                    ],
+                    "notes": ""
+                },
+                {
+                    "method": "DELETE",
+                    "summary": "Delete an existing location model",
+                    "nickname": "Location_detail",
+                    "type": "Location",
+                    "notes": ""
+                }
+            ]
+        }
+    ],
+    "models": {
+        "ListView": {
+            "id": "ListView",
+            "properties": {
+                "meta": {
+                    "description": "",
+                    "format": "",
+                    "$ref": "Meta"
+                },
+                "objects": {
+                    "description": "",
+                    "format": "",
+                    "$ref": "Objects"
+                }
+            }
+        },
+        "Location": {
+            "id": "Location",
+            "properties": {
+                "latitude": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "resource_uri": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "id": {
+                    "description": "Integer data. Ex: 2673",
+                    "type": "integer",
+                    "format": ""
+                },
+                "longitude": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "height": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                }
+            }
+        },
+        "Location_post": {
+            "id": "Location_post",
+            "properties": {
+                "latitude": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "longitude": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "height": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                }
+            }
+        },
+        "Meta": {
+            "id": "Meta",
+            "properties": {
+                "previous": {
+                    "description": "Uri of the previous page relative to the current page settings.",
+                    "type": "string",
+                    "format": ""
+                },
+                "total_count": {
+                    "description": "Total items count for the all collection",
+                    "type": "integer",
+                    "format": ""
+                },
+                "offset": {
+                    "description": "Specify the offset to start displaying element on a page.",
+                    "type": "integer",
+                    "format": ""
+                },
+                "limit": {
+                    "description": "Specify the number of element to display per page.",
+                    "type": "integer",
+                    "format": ""
+                },
+                "next": {
+                    "description": "Uri of the next page relative to the current page settings.",
+                    "type": "string",
+                    "format": ""
+                }
+            }
+        },
+        "Objects": {
+            "id": "Objects",
+            "properties": {
+                "Workout": {
+                    "description": "",
+                    "format": "",
+                    "$ref": "List"
+                }
+            }
+        },
+        "Location_put": {
+            "id": "Location_put",
+            "properties": {
+                "latitude": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "longitude": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "height": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                }
+            }
+        }
+    }
+}

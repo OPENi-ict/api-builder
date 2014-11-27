@@ -1,0 +1,261 @@
+{
+    "basePath": "https://demo2.openi-ict.eu",
+    "swaggerVersion": "1.2",
+    "apiVersion": "Unknown",
+    "resourcePath": "Audio",
+    "apis": [
+        {
+            "path": "/v.04/Audio/",
+            "description": "",
+            "operations": [
+                {
+                    "method": "GET",
+                    "summary": "Retrieve a list of Audio",
+                    "nickname": "Audio_list",
+                    "type": "ListView",
+                    "parameters": [
+                        {
+                            "paramType": "query",
+                            "name": "limit",
+                            "type": "integer",
+                            "required": false,
+                            "description": "Specify the number of element to display per page."
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "offset",
+                            "type": "integer",
+                            "required": false,
+                            "description": "Specify the offset to start displaying element on a page."
+                        }
+                    ],
+                    "notes": ""
+                },
+                {
+                    "method": "POST",
+                    "summary": "Create a new Audio",
+                    "nickname": "Audio_list",
+                    "type": "Audio",
+                    "parameters": [
+                        {
+                            "paramType": "body",
+                            "name": "Audio",
+                            "type": "Audio_post",
+                            "required": true,
+                            "description": ""
+                        }
+                    ],
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/v.04/Audio/{id}/",
+            "description": "",
+            "operations": [
+                {
+                    "method": "GET",
+                    "summary": "Retrieve a single Audio by ID",
+                    "nickname": "Audio_detail",
+                    "type": "Audio",
+                    "notes": ""
+                },
+                {
+                    "method": "PUT",
+                    "summary": "Update an existing Audio",
+                    "nickname": "Audio_detail",
+                    "type": "Audio",
+                    "parameters": [
+                        {
+                            "paramType": "body",
+                            "name": "Audio",
+                            "type": "Audio_put",
+                            "required": true,
+                            "description": ""
+                        }
+                    ],
+                    "notes": ""
+                },
+                {
+                    "method": "DELETE",
+                    "summary": "Delete an existing Audio",
+                    "nickname": "Audio_detail",
+                    "type": "Audio",
+                    "notes": ""
+                }
+            ]
+        }
+    ],
+    "models": {
+        "ListView": {
+            "id": "ListView",
+            "properties": {
+                "meta": {
+                    "description": "",
+                    "format": "",
+                    "$ref": "Meta"
+                },
+                "objects": {
+                    "description": "",
+                    "format": "",
+                    "$ref": "Objects"
+                }
+            }
+        },
+        "Audio": {
+            "id": "Audio",
+            "properties": {
+                "BaseTag": {
+                    "description": "A single related resource. Can be either a URI or set of nested resource data.",
+                    "format": "",
+                    "$ref": "related"
+                },
+                "From": {
+                    "description": "A single related resource. Can be either a URI or set of nested resource data.",
+                    "format": "",
+                    "$ref": "related"
+                },
+                "context": {
+                    "description": "A single related resource. Can be either a URI or set of nested resource data.",
+                    "format": "",
+                    "$ref": "related"
+                },
+                "service": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "BaseFile": {
+                    "description": "A single related resource. Can be either a URI or set of nested resource data.",
+                    "format": "",
+                    "$ref": "related"
+                },
+                "url": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "text": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "Duration": {
+                    "description": "A single related resource. Can be either a URI or set of nested resource data.",
+                    "format": "",
+                    "$ref": "related"
+                },
+                "object_type": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "resource_uri": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                }
+            }
+        },
+        "Audio_post": {
+            "id": "Audio_post",
+            "properties": {
+                "Duration": {
+                    "description": "A single related resource. Can be either a URI or set of nested resource data.",
+                    "format": "",
+                    "$ref": "related"
+                },
+                "text": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "BaseTag": {
+                    "description": "A single related resource. Can be either a URI or set of nested resource data.",
+                    "format": "",
+                    "$ref": "related"
+                },
+                "context": {
+                    "description": "A single related resource. Can be either a URI or set of nested resource data.",
+                    "format": "",
+                    "$ref": "related"
+                },
+                "BaseFile": {
+                    "description": "A single related resource. Can be either a URI or set of nested resource data.",
+                    "format": "",
+                    "$ref": "related"
+                }
+            }
+        },
+        "Meta": {
+            "id": "Meta",
+            "properties": {
+                "previous": {
+                    "description": "Uri of the previous page relative to the current page settings.",
+                    "type": "string",
+                    "format": ""
+                },
+                "total_count": {
+                    "description": "Total items count for the all collection",
+                    "type": "integer",
+                    "format": ""
+                },
+                "offset": {
+                    "description": "Specify the offset to start displaying element on a page.",
+                    "type": "integer",
+                    "format": ""
+                },
+                "limit": {
+                    "description": "Specify the number of element to display per page.",
+                    "type": "integer",
+                    "format": ""
+                },
+                "next": {
+                    "description": "Uri of the next page relative to the current page settings.",
+                    "type": "string",
+                    "format": ""
+                }
+            }
+        },
+        "Objects": {
+            "id": "Objects",
+            "properties": {
+                "Workout": {
+                    "description": "",
+                    "format": "",
+                    "$ref": "List"
+                }
+            }
+        },
+        "Audio_put": {
+            "id": "Audio_put",
+            "properties": {
+                "Duration": {
+                    "description": "A single related resource. Can be either a URI or set of nested resource data.",
+                    "format": "",
+                    "$ref": "related"
+                },
+                "text": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "BaseTag": {
+                    "description": "A single related resource. Can be either a URI or set of nested resource data.",
+                    "format": "",
+                    "$ref": "related"
+                },
+                "context": {
+                    "description": "A single related resource. Can be either a URI or set of nested resource data.",
+                    "format": "",
+                    "$ref": "related"
+                },
+                "BaseFile": {
+                    "description": "A single related resource. Can be either a URI or set of nested resource data.",
+                    "format": "",
+                    "$ref": "related"
+                }
+            }
+        }
+    }
+}

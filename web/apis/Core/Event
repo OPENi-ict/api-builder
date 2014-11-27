@@ -1,0 +1,437 @@
+{
+    "basePath": "https://demo2.openi-ict.eu",
+    "swaggerVersion": "1.2",
+    "apiVersion": "Unknown",
+    "resourcePath": "Event",
+    "apis": [
+        {
+            "path": "/v.04/Event/",
+            "description": "",
+            "operations": [
+                {
+                    "method": "GET",
+                    "summary": "Retrieve a list of openi events",
+                    "nickname": "Event_list",
+                    "type": "ListView",
+                    "parameters": [
+                        {
+                            "paramType": "query",
+                            "name": "limit",
+                            "type": "integer",
+                            "required": false,
+                            "description": "Specify the number of element to display per page."
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "offset",
+                            "type": "integer",
+                            "required": false,
+                            "description": "Specify the offset to start displaying element on a page."
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "cbs",
+                            "type": "string",
+                            "required": false,
+                            "description": "Facebook"
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "user",
+                            "type": "string",
+                            "required": false,
+                            "description": "Registered and authenicated user"
+                        }
+                    ],
+                    "notes": ""
+                },
+                {
+                    "method": "POST",
+                    "summary": "Create a new openi event",
+                    "nickname": "Event_list",
+                    "type": "Event",
+                    "parameters": [
+                        {
+                            "paramType": "body",
+                            "name": "Event",
+                            "type": "Event_post",
+                            "required": true,
+                            "description": ""
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "cbs",
+                            "type": "string",
+                            "required": false,
+                            "description": "OPENi"
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "user",
+                            "type": "string",
+                            "required": false,
+                            "description": "Registered and authenicated user"
+                        }
+                    ],
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/v.04/Event/{id}/",
+            "description": "",
+            "operations": [
+                {
+                    "method": "GET",
+                    "summary": "Retrieve a single openi event by ID",
+                    "nickname": "Event_detail",
+                    "type": "Event",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "id",
+                            "type": "undefined",
+                            "required": true,
+                            "description": "Primary key of resource"
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "cbs",
+                            "type": "string",
+                            "required": false,
+                            "description": "Facebook, Foursquare"
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "user",
+                            "type": "string",
+                            "required": false,
+                            "description": "Registered and authenicated user"
+                        }
+                    ],
+                    "notes": ""
+                },
+                {
+                    "method": "PUT",
+                    "summary": "Update an existing openi event",
+                    "nickname": "Event_detail",
+                    "type": "Event",
+                    "parameters": [
+                        {
+                            "paramType": "body",
+                            "name": "Event",
+                            "type": "Event_put",
+                            "required": true,
+                            "description": ""
+                        },
+                        {
+                            "paramType": "path",
+                            "name": "id",
+                            "type": "undefined",
+                            "required": true,
+                            "description": "Primary key of resource"
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "cbs",
+                            "type": "string",
+                            "required": false,
+                            "description": "OPENi"
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "user",
+                            "type": "string",
+                            "required": false,
+                            "description": "Registered and authenicated user"
+                        }
+                    ],
+                    "notes": ""
+                },
+                {
+                    "method": "DELETE",
+                    "summary": "Delete an existing openi event",
+                    "nickname": "Event_detail",
+                    "type": "Event",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "id",
+                            "type": "undefined",
+                            "required": true,
+                            "description": "Primary key of resource"
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "cbs",
+                            "type": "string",
+                            "required": false,
+                            "description": "OPENi"
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "user",
+                            "type": "string",
+                            "required": false,
+                            "description": "Registered and authenicated user"
+                        }
+                    ],
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/v.04/Event/{id}/rsvp",
+            "description": "",
+            "operations": [
+                {
+                    "method": "GET",
+                    "summary": "Retrieve rsvp for an event",
+                    "nickname": "rsvp",
+                    "type": "object",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "id",
+                            "type": "undefined",
+                            "required": true,
+                            "description": "Primary key of resource"
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "cbs",
+                            "type": "string",
+                            "required": false,
+                            "description": "Facebook"
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "user",
+                            "type": "string",
+                            "required": false,
+                            "description": "Registered and authenicated user"
+                        }
+                    ],
+                    "notes": ""
+                },
+                {
+                    "method": "POST",
+                    "summary": "Create rsvp for an event",
+                    "nickname": "rsvp",
+                    "type": "object",
+                    "parameters": [
+                        {
+                            "paramType": "path",
+                            "name": "id",
+                            "type": "undefined",
+                            "required": true,
+                            "description": "Primary key of resource"
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "cbs",
+                            "type": "string",
+                            "required": false,
+                            "description": "Facebook"
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "user",
+                            "type": "string",
+                            "required": false,
+                            "description": "Registered and authenicated user"
+                        }
+                    ],
+                    "notes": ""
+                }
+            ]
+        }
+    ],
+    "models": {
+        "ListView": {
+            "id": "ListView",
+            "properties": {
+                "meta": {
+                    "description": "",
+                    "format": "",
+                    "$ref": "Meta"
+                },
+                "objects": {
+                    "description": "",
+                    "format": "",
+                    "$ref": "Objects"
+                }
+            }
+        },
+        "Event": {
+            "id": "Event",
+            "properties": {
+                "picture": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "From": {
+                    "description": "A single related resource. Can be either a URI or set of nested resource data.",
+                    "format": "",
+                    "$ref": "related"
+                },
+                "description": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "service": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "title": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "url": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "object_type": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "Place": {
+                    "description": "A single related resource. Can be either a URI or set of nested resource data.",
+                    "format": "",
+                    "$ref": "related"
+                },
+                "context": {
+                    "description": "A single related resource. Can be either a URI or set of nested resource data.",
+                    "format": "",
+                    "$ref": "related"
+                },
+                "Duration": {
+                    "description": "A single related resource. Can be either a URI or set of nested resource data.",
+                    "format": "",
+                    "$ref": "related"
+                },
+                "resource_uri": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                }
+            }
+        },
+        "Event_post": {
+            "id": "Event_post",
+            "properties": {
+                "picture": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "Place": {
+                    "description": "A single related resource. Can be either a URI or set of nested resource data.",
+                    "format": "",
+                    "$ref": "related"
+                },
+                "description": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "context": {
+                    "description": "A single related resource. Can be either a URI or set of nested resource data.",
+                    "format": "",
+                    "$ref": "related"
+                },
+                "title": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "Duration": {
+                    "description": "A single related resource. Can be either a URI or set of nested resource data.",
+                    "format": "",
+                    "$ref": "related"
+                }
+            }
+        },
+        "Meta": {
+            "id": "Meta",
+            "properties": {
+                "previous": {
+                    "description": "Uri of the previous page relative to the current page settings.",
+                    "type": "string",
+                    "format": ""
+                },
+                "total_count": {
+                    "description": "Total items count for the all collection",
+                    "type": "integer",
+                    "format": ""
+                },
+                "offset": {
+                    "description": "Specify the offset to start displaying element on a page.",
+                    "type": "integer",
+                    "format": ""
+                },
+                "limit": {
+                    "description": "Specify the number of element to display per page.",
+                    "type": "integer",
+                    "format": ""
+                },
+                "next": {
+                    "description": "Uri of the next page relative to the current page settings.",
+                    "type": "string",
+                    "format": ""
+                }
+            }
+        },
+        "Objects": {
+            "id": "Objects",
+            "properties": {
+                "Workout": {
+                    "description": "",
+                    "format": "",
+                    "$ref": "List"
+                }
+            }
+        },
+        "Event_put": {
+            "id": "Event_put",
+            "properties": {
+                "picture": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "Place": {
+                    "description": "A single related resource. Can be either a URI or set of nested resource data.",
+                    "format": "",
+                    "$ref": "related"
+                },
+                "description": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "context": {
+                    "description": "A single related resource. Can be either a URI or set of nested resource data.",
+                    "format": "",
+                    "$ref": "related"
+                },
+                "title": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "Duration": {
+                    "description": "A single related resource. Can be either a URI or set of nested resource data.",
+                    "format": "",
+                    "$ref": "related"
+                }
+            }
+        }
+    }
+}

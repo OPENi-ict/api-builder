@@ -1,0 +1,241 @@
+{
+    "basePath": "https://demo2.openi-ict.eu",
+    "swaggerVersion": "1.2",
+    "apiVersion": "Unknown",
+    "resourcePath": "SocialAccount",
+    "apis": [
+        {
+            "path": "/v.04/SocialAccount/",
+            "description": "",
+            "operations": [
+                {
+                    "method": "GET",
+                    "summary": "Retrieve a list of social accounts",
+                    "nickname": "SocialAccount_list",
+                    "type": "ListView",
+                    "parameters": [
+                        {
+                            "paramType": "query",
+                            "name": "limit",
+                            "type": "integer",
+                            "required": false,
+                            "description": "Specify the number of element to display per page."
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "offset",
+                            "type": "integer",
+                            "required": false,
+                            "description": "Specify the offset to start displaying element on a page."
+                        }
+                    ],
+                    "notes": ""
+                },
+                {
+                    "method": "POST",
+                    "summary": "Create a new social account",
+                    "nickname": "SocialAccount_list",
+                    "type": "SocialAccount",
+                    "parameters": [
+                        {
+                            "paramType": "body",
+                            "name": "SocialAccount",
+                            "type": "SocialAccount_post",
+                            "required": true,
+                            "description": ""
+                        }
+                    ],
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "/v.04/SocialAccount/{id}/",
+            "description": "",
+            "operations": [
+                {
+                    "method": "GET",
+                    "summary": "Retrieve a single social account by ID",
+                    "nickname": "SocialAccount_detail",
+                    "type": "SocialAccount",
+                    "notes": ""
+                },
+                {
+                    "method": "PUT",
+                    "summary": "Update an existing social account",
+                    "nickname": "SocialAccount_detail",
+                    "type": "SocialAccount",
+                    "parameters": [
+                        {
+                            "paramType": "body",
+                            "name": "SocialAccount",
+                            "type": "SocialAccount_put",
+                            "required": true,
+                            "description": ""
+                        }
+                    ],
+                    "notes": ""
+                },
+                {
+                    "method": "DELETE",
+                    "summary": "Delete an existing social account",
+                    "nickname": "SocialAccount_detail",
+                    "type": "SocialAccount",
+                    "notes": ""
+                }
+            ]
+        }
+    ],
+    "models": {
+        "ListView": {
+            "id": "ListView",
+            "properties": {
+                "meta": {
+                    "description": "",
+                    "format": "",
+                    "$ref": "Meta"
+                },
+                "objects": {
+                    "description": "",
+                    "format": "",
+                    "$ref": "Objects"
+                }
+            }
+        },
+        "SocialAccount": {
+            "id": "SocialAccount",
+            "properties": {
+                "last_login": {
+                    "description": "A date &amp; time as a string. Ex: &quot;2010-11-10T03:07:43&quot;",
+                    "type": "string",
+                    "format": "date-format"
+                },
+                "uid": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "provider": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "extra_data": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "resource_uri": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "date_joined": {
+                    "description": "A date &amp; time as a string. Ex: &quot;2010-11-10T03:07:43&quot;",
+                    "type": "string",
+                    "format": "date-format"
+                }
+            }
+        },
+        "SocialAccount_post": {
+            "id": "SocialAccount_post",
+            "properties": {
+                "extra_data": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "provider": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "last_login": {
+                    "description": "A date &amp; time as a string. Ex: &quot;2010-11-10T03:07:43&quot;",
+                    "type": "string",
+                    "format": "date-format"
+                },
+                "uid": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "date_joined": {
+                    "description": "A date &amp; time as a string. Ex: &quot;2010-11-10T03:07:43&quot;",
+                    "type": "string",
+                    "format": "date-format"
+                }
+            }
+        },
+        "Meta": {
+            "id": "Meta",
+            "properties": {
+                "previous": {
+                    "description": "Uri of the previous page relative to the current page settings.",
+                    "type": "string",
+                    "format": ""
+                },
+                "total_count": {
+                    "description": "Total items count for the all collection",
+                    "type": "integer",
+                    "format": ""
+                },
+                "offset": {
+                    "description": "Specify the offset to start displaying element on a page.",
+                    "type": "integer",
+                    "format": ""
+                },
+                "limit": {
+                    "description": "Specify the number of element to display per page.",
+                    "type": "integer",
+                    "format": ""
+                },
+                "next": {
+                    "description": "Uri of the next page relative to the current page settings.",
+                    "type": "string",
+                    "format": ""
+                }
+            }
+        },
+        "Objects": {
+            "id": "Objects",
+            "properties": {
+                "Workout": {
+                    "description": "",
+                    "format": "",
+                    "$ref": "List"
+                }
+            }
+        },
+        "SocialAccount_put": {
+            "id": "SocialAccount_put",
+            "properties": {
+                "extra_data": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "provider": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "last_login": {
+                    "description": "A date &amp; time as a string. Ex: &quot;2010-11-10T03:07:43&quot;",
+                    "type": "string",
+                    "format": "date-format"
+                },
+                "uid": {
+                    "description": "Unicode string data. Ex: &quot;Hello World&quot;",
+                    "type": "string",
+                    "format": ""
+                },
+                "date_joined": {
+                    "description": "A date &amp; time as a string. Ex: &quot;2010-11-10T03:07:43&quot;",
+                    "type": "string",
+                    "format": "date-format"
+                }
+            }
+        }
+    }
+}
