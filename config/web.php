@@ -28,9 +28,9 @@ $config = [
 		'urlManager' => [
 			'enablePrettyUrl' => true,
 			'showScriptName' => false,
-//			'rules' => [
-//				['class' => 'yii\rest\UrlRule', 'controller' => 'user'],
-//			],
+			'rules' => [
+				['class' => 'yii\rest\UrlRule', 'controller' => 'user'],
+			],
 		],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
@@ -49,6 +49,7 @@ $config = [
             ],
         ],
         'db' => require(__DIR__ . '/db.php'),
+		'sqlite' => require(__DIR__ . '/sqlite.php'),
 		//'db' => require(__DIR__ . '/sqlite.php'),
     ],
 	'modules' => [
@@ -77,11 +78,8 @@ $config = [
 				'datetime' => 'Y-m-d H:i:s',
 			],
 
-
-
 			// automatically use kartik\widgets for each of the above formats
 			'autoWidget' => true,
-
 		],
 		'utility' => [
 			'class' => 'c006\utility\migration\Module',
