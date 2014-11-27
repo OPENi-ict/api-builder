@@ -1,7 +1,7 @@
 <?php
 
 Yii::setAlias('@rootDirectory', realpath(dirname(__FILE__).'/../'));
-Yii::setAlias('@apisDirectory', realpath(dirname(__FILE__).'/../web/apis/'));
+Yii::setAlias('@apisDirectory', realpath(dirname(__FILE__).'/../web/api-docs/'));
 
 return [
     'adminEmail' => 'rom-dim@hotmail.com',

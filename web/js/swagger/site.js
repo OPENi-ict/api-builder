@@ -7,14 +7,14 @@ $(function () {
             url = url.substr(0, url.indexOf('#'));
 
         if (url.indexOf('?') != -1)
-            url = url.replace('swagger/?url=', 'apis/');
+            url = url.replace('swagger/?url=', 'api-docs/');
         else if (url.indexOf('swagger/') != -1)
-            url = url.replace('swagger/', 'apis/Core');
+            url = url.replace('swagger/', 'api-docs/Core');
         else
-            url = url.replace('swagger', 'apis/Core');
+            url = url.replace('swagger', 'api-docs/Core');
         url = url + '/api-docs.json';
     } else {
-        url = "http://localhost/api-builder/web/swagger/Core/api-docs.json";
+        url = "http://localhost/api-builder/web/api-docs/Core/api-docs.json";
     }
     window.swaggerUi = new SwaggerUi({
         url: url,
