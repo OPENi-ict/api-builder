@@ -40,8 +40,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'object',
             'created_by',
             'updated_by',
-            'created_at',
-            'updated_at',
+            'created_at:date',
+            'updated_at:date',
         ],
     ]) ?>
 
