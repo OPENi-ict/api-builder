@@ -41,8 +41,7 @@ class Properties extends \yii\db\ActiveRecord
         return [
             [['name', 'type'], 'required'],
             [['object', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
-            [['name', 'description', 'type'], 'string', 'max' => 255],
-			[['name'], 'unique', 'targetClass' => '\app\models\Properties', 'message' => 'This Property name has already been taken.']
+            [['name', 'description', 'type'], 'string', 'max' => 255]
         ];
     }
 
