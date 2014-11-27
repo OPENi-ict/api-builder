@@ -3,8 +3,16 @@ $(function () {
     //var url = window.location.search.match(/url=([^&]+)/);
     if (url && url.length > 1) {
         //url = url[1];
-        url = url.substr(0, url.indexOf('#'));
-        url = url.replace('swagger/?url=', 'apis/') + '/api-docs.json';
+        if (url.indexOf('#') != -1)
+            url = url.substr(0, url.indexOf('#'));
+
+        if (url.indexOf('?') != -1)
+            url = url.replace('swagger/?url=', 'apis/');
+        else if (url.indexOf('swagger/') != -1)
+            url = url.replace('swagger/', 'apis/Core');
+        else
+            url = url.replace('swagger', 'apis/Core');
+        url = url + '/api-docs.json';
     } else {
         url = "http://localhost/api-builder/web/swagger/Core/api-docs.json";
     }
