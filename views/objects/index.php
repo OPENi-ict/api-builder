@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		'tableOptions' => ['class' => 'table table-striped table-bordered text-center'],
 		'headerRowOptions' => ['class' => 'text-center'],
 		'dataProvider' => $dataProvider,
-		'filterModel' => $searchModel,
+		//'filterModel' => $searchModel,
 		'columns' => [
 			['class' => 'yii\grid\SerialColumn'],
 
