@@ -2,8 +2,7 @@
 
 namespace app\helpers;
 
-
-class BuildSwaggerJSON {
+class BuildSwaggerAnnotationsOnly {
 
 	private $_swaggerJSON = '';
 
@@ -11,7 +10,6 @@ class BuildSwaggerJSON {
 	{
 		$this->_swaggerJSON .=
 '<?php
-namespace app\Resources;
 /**';
 	}
 
@@ -20,7 +18,7 @@ namespace app\Resources;
 		$this->_swaggerJSON .= '
  * @SWG\Resource(
  *   apiVersion="'.$apiVersion.'",
- *   swaggerVersion="'.$swaggerVersion.'",
+ *   swaggerVersion="1.2",
  *   basePath="'.$basePath.'",
  *   resourcePath="'.$resourcePath.'"';
 	}
