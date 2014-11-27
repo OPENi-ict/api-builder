@@ -15,7 +15,7 @@ $columns = [
 	[
 		'attribute' => 'name',
 		'value'=>function ($model, $key, $index, $widget) {
-			return Html::a($model->name, ['/apis/view', 'id' => $model->id]);
+			return Html::a($model->name, ['/objects/view', 'id' => $model->id]);
 		},
 		'format'=> 'raw',
 		'hAlign' => GridView::ALIGN_CENTER
@@ -54,7 +54,7 @@ $columns = [
 	]
 ];
 
-$this->title = 'My Yii Application';
+$this->title = 'API Builder';
 ?>
 <div class="site-index">
 
