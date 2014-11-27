@@ -85,12 +85,18 @@ class SiteController extends Controller
 
 		$objectsRecentDataProvider = new ActiveDataProvider([
 			'query' => $objectsModel::find()->where(['privacy' => 'public'])->orderBy(['created_at' => SORT_DESC]),
-			'sort' => false
+			'sort' => false,
+			'pagination' => array(
+				'pageSize' => 10,
+			),
 		]);
 
 		$objectsLikedDataProvider = new ActiveDataProvider([
 			'query' => $objectsModel::find()->where(['privacy' => 'public'])->orderBy(['votes_up' => SORT_DESC]),
-			'sort' => false
+			'sort' => false,
+			'pagination' => array(
+				'pageSize' => 10,
+			),
 		]);
 		return $this->render('index', [
 			'objectsModel' => $objectsModel,
