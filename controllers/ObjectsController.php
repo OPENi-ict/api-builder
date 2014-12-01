@@ -3,14 +3,16 @@
 namespace app\controllers;
 
 use app\models\Apis;
+use app\models\Properties;
 use app\models\PropertiesSearch;
 use Yii;
 use app\models\Objects;
 use app\models\ObjectsSearch;
 use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * ObjectsController implements the CRUD actions for Objects model.
@@ -78,13 +80,44 @@ class ObjectsController extends Controller
 			'PropertiesSearch' => ['object' => $id]
 		]);
 
-		if ($model->load(Yii::$app->request->post()) && $model->save())
-		{}
+		// Dropdown List for the methods
+		// First come the Methods for the Object
+		$propertyDropdownList = [
+			'Get '.$model->name => 'Get '.$model->name,
+			'Post '.$model->name => 'Post '.$model->name,
+			'Delete '.$model->name => 'Delete '.$model->name,
+			'Get '.$model->name.'/{id}' => 'Get '.$model->name.'/{id}',
+			'Put '.$model->name.'/{id}' => 'Put '.$model->name.'/{id}',
+			'Delete '.$model->name.'/{id}' => 'Delete '.$model->name.'/{id}'
+		];
+
+		// Then all the methods for the connections
+		$properties = Properties::findAll(['type' => $model->name]);
+		foreach($properties as $property)
+		{
+			$one = $property->getAttribute('object');
+			$newObject = Objects::findOne($one);
+
+			$propertyDropdownList = ArrayHelper::merge($propertyDropdownList,[
+				'Get '.$model->name.'/{id}/'.$newObject->name => 'Get '.$model->name.'/{id}/'.$newObject->name,
+				'Post '.$model->name.'/{id}/'.$newObject->name => 'Post '.$model->name.'/{id}/'.$newObject->name,
+				'Delete '.$model->name.'/{id}/'.$newObject->name => 'Delete '.$model->name.'/{id}/'.$newObject->name
+			]);
+		};
+
+		if ($model->load(Yii::$app->request->post()))
+		{
+			$model->methods = implode(",", $model->methods);
+			$model->save();
+		}
+
+		$model->methods = explode(',', $model->methods);
 
 		return $this->render('view', [
 			'model' => $model,
 			'searchModel' => $searchModel,
 			'dataProvider' => $dataProvider,
+			'propertyDropdownList' => $propertyDropdownList
 		]);
 	}
 
