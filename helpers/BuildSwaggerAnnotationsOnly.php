@@ -92,7 +92,7 @@ class BuildSwaggerAnnotationsOnly {
  *   id="'.$id.'"';
 	}
 
-	public function BuildProperty($name, $desc, $type)
+	public function BuildProperty($name, $desc, $type, $items = "")
 	{
 		$_format = "";
 		$type = ($type === 'int') ? "integer" : $type;
@@ -106,7 +106,13 @@ class BuildSwaggerAnnotationsOnly {
  *     name="'.$name.'",
  *     type="'.$type.'",
  *     format="'.$_format.'",
- *     description="'.htmlspecialchars($desc).'"
+ *     description="'.htmlspecialchars($desc).'"';
+
+		if ($items != "")
+			$this->_swaggerJSON .= ',
+ *     @SWG\Items("'.$items.'")';
+
+		$this->_swaggerJSON .= '
  *   )';
 	}
 
