@@ -28,9 +28,9 @@ $config = [
 		'urlManager' => [
 			'enablePrettyUrl' => true,
 			'showScriptName' => false,
-			'rules' => [
-				['class' => 'yii\rest\UrlRule', 'controller' => 'user'],
-			],
+//			'rules' => [
+//				['class' => 'yii\rest\UrlRule', 'controller' => 'user'],
+//			],
 		],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
