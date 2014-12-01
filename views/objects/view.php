@@ -7,6 +7,7 @@ use yii\grid\GridView;
 /* @var $model app\models\Objects */
 /* @var $searchModel app\models\PropertiesSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $propertyDropdownList array */
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Apis', 'url' => ['apis/index']];
@@ -60,5 +61,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
 	<?= $this->render('_formMethods', [
 		'model' => $model,
+		'propertyDropdownList' => $propertyDropdownList
 	]) ?>
 </div>
