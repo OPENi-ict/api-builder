@@ -12,7 +12,7 @@
                     "method": "GET",
                     "summary": "Retrieve a list of openi deliverys",
                     "nickname": "Delivery_list",
-                    "type": "ListView",
+                    "type": "ListView_Delivery",
                     "parameters": [
                         {
                             "paramType": "query",
@@ -182,8 +182,8 @@
         }
     ],
     "models": {
-        "ListView": {
-            "id": "ListView",
+        "ListView_Delivery": {
+            "id": "ListView_Delivery",
             "properties": {
                 "meta": {
                     "description": "",
@@ -193,7 +193,7 @@
                 "objects": {
                     "description": "",
                     "format": "",
-                    "$ref": "Objects"
+                    "$ref": "Objects_Delivery"
                 }
             }
         },
@@ -282,10 +282,10 @@
                 }
             }
         },
-        "Objects": {
-            "id": "Objects",
+        "Objects_Delivery": {
+            "id": "Objects_Delivery",
             "properties": {
-                "Workout": {
+                "Delivery": {
                     "description": "",
                     "format": "",
                     "$ref": "List"

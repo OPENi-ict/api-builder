@@ -12,7 +12,7 @@
                     "method": "GET",
                     "summary": "Retrieve a list of Playlist",
                     "nickname": "Playlist_list",
-                    "type": "ListView",
+                    "type": "ListView_Playlist",
                     "parameters": [
                         {
                             "paramType": "query",
@@ -87,8 +87,8 @@
         }
     ],
     "models": {
-        "ListView": {
-            "id": "ListView",
+        "ListView_Playlist": {
+            "id": "ListView_Playlist",
             "properties": {
                 "meta": {
                     "description": "",
@@ -98,7 +98,7 @@
                 "objects": {
                     "description": "",
                     "format": "",
-                    "$ref": "Objects"
+                    "$ref": "Objects_Playlist"
                 }
             }
         },
@@ -187,10 +187,10 @@
                 }
             }
         },
-        "Objects": {
-            "id": "Objects",
+        "Objects_Playlist": {
+            "id": "Objects_Playlist",
             "properties": {
-                "Workout": {
+                "Playlist": {
                     "description": "",
                     "format": "",
                     "$ref": "List"

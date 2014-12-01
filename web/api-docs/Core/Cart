@@ -12,7 +12,7 @@
                     "method": "GET",
                     "summary": "Retrieve a list of openi carts",
                     "nickname": "Cart_list",
-                    "type": "ListView",
+                    "type": "ListView_Cart",
                     "parameters": [
                         {
                             "paramType": "query",
@@ -182,8 +182,8 @@
         }
     ],
     "models": {
-        "ListView": {
-            "id": "ListView",
+        "ListView_Cart": {
+            "id": "ListView_Cart",
             "properties": {
                 "meta": {
                     "description": "",
@@ -193,7 +193,7 @@
                 "objects": {
                     "description": "",
                     "format": "",
-                    "$ref": "Objects"
+                    "$ref": "Objects_Cart"
                 }
             }
         },
@@ -272,10 +272,10 @@
                 }
             }
         },
-        "Objects": {
-            "id": "Objects",
+        "Objects_Cart": {
+            "id": "Objects_Cart",
             "properties": {
-                "Workout": {
+                "Cart": {
                     "description": "",
                     "format": "",
                     "$ref": "List"

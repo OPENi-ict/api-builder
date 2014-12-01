@@ -12,7 +12,7 @@
                     "method": "GET",
                     "summary": "Retrieve a list of openi events",
                     "nickname": "Event_list",
-                    "type": "ListView",
+                    "type": "ListView_Event",
                     "parameters": [
                         {
                             "paramType": "query",
@@ -248,8 +248,8 @@
         }
     ],
     "models": {
-        "ListView": {
-            "id": "ListView",
+        "ListView_Event": {
+            "id": "ListView_Event",
             "properties": {
                 "meta": {
                     "description": "",
@@ -259,7 +259,7 @@
                 "objects": {
                     "description": "",
                     "format": "",
-                    "$ref": "Objects"
+                    "$ref": "Objects_Event"
                 }
             }
         },
@@ -388,10 +388,10 @@
                 }
             }
         },
-        "Objects": {
-            "id": "Objects",
+        "Objects_Event": {
+            "id": "Objects_Event",
             "properties": {
-                "Workout": {
+                "Event": {
                     "description": "",
                     "format": "",
                     "$ref": "List"

@@ -12,7 +12,7 @@
                     "method": "GET",
                     "summary": "Retrieve a list of users",
                     "nickname": "User_list",
-                    "type": "ListView",
+                    "type": "ListView_User",
                     "parameters": [
                         {
                             "paramType": "query",
@@ -182,8 +182,8 @@
         }
     ],
     "models": {
-        "ListView": {
-            "id": "ListView",
+        "ListView_User": {
+            "id": "ListView_User",
             "properties": {
                 "meta": {
                     "description": "",
@@ -193,7 +193,7 @@
                 "objects": {
                     "description": "",
                     "format": "",
-                    "$ref": "Objects"
+                    "$ref": "Objects_User"
                 }
             }
         },
@@ -357,10 +357,10 @@
                 }
             }
         },
-        "Objects": {
-            "id": "Objects",
+        "Objects_User": {
+            "id": "Objects_User",
             "properties": {
-                "Workout": {
+                "User": {
                     "description": "",
                     "format": "",
                     "$ref": "List"

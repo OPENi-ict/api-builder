@@ -12,7 +12,7 @@
                     "method": "GET",
                     "summary": "Retrieve a list of social accounts",
                     "nickname": "SocialAccount_list",
-                    "type": "ListView",
+                    "type": "ListView_SocialAccount",
                     "parameters": [
                         {
                             "paramType": "query",
@@ -87,8 +87,8 @@
         }
     ],
     "models": {
-        "ListView": {
-            "id": "ListView",
+        "ListView_SocialAccount": {
+            "id": "ListView_SocialAccount",
             "properties": {
                 "meta": {
                     "description": "",
@@ -98,7 +98,7 @@
                 "objects": {
                     "description": "",
                     "format": "",
-                    "$ref": "Objects"
+                    "$ref": "Objects_SocialAccount"
                 }
             }
         },
@@ -197,10 +197,10 @@
                 }
             }
         },
-        "Objects": {
-            "id": "Objects",
+        "Objects_SocialAccount": {
+            "id": "Objects_SocialAccount",
             "properties": {
-                "Workout": {
+                "SocialAccount": {
                     "description": "",
                     "format": "",
                     "$ref": "List"

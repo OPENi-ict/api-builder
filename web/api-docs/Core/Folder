@@ -12,7 +12,7 @@
                     "method": "GET",
                     "summary": "Retrieve a list of Folder",
                     "nickname": "Folder_list",
-                    "type": "ListView",
+                    "type": "ListView_Folder",
                     "parameters": [
                         {
                             "paramType": "query",
@@ -115,8 +115,8 @@
         }
     ],
     "models": {
-        "ListView": {
-            "id": "ListView",
+        "ListView_Folder": {
+            "id": "ListView_Folder",
             "properties": {
                 "meta": {
                     "description": "",
@@ -126,7 +126,7 @@
                 "objects": {
                     "description": "",
                     "format": "",
-                    "$ref": "Objects"
+                    "$ref": "Objects_Folder"
                 }
             }
         },
@@ -225,10 +225,10 @@
                 }
             }
         },
-        "Objects": {
-            "id": "Objects",
+        "Objects_Folder": {
+            "id": "Objects_Folder",
             "properties": {
-                "Workout": {
+                "Folder": {
                     "description": "",
                     "format": "",
                     "$ref": "List"

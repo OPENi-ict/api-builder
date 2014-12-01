@@ -12,7 +12,7 @@
                     "method": "GET",
                     "summary": "Retrieve a list of openi friendships",
                     "nickname": "Friendship_list",
-                    "type": "ListView",
+                    "type": "ListView_Friendship",
                     "parameters": [
                         {
                             "paramType": "query",
@@ -182,8 +182,8 @@
         }
     ],
     "models": {
-        "ListView": {
-            "id": "ListView",
+        "ListView_Friendship": {
+            "id": "ListView_Friendship",
             "properties": {
                 "meta": {
                     "description": "",
@@ -193,7 +193,7 @@
                 "objects": {
                     "description": "",
                     "format": "",
-                    "$ref": "Objects"
+                    "$ref": "Objects_Friendship"
                 }
             }
         },
@@ -282,10 +282,10 @@
                 }
             }
         },
-        "Objects": {
-            "id": "Objects",
+        "Objects_Friendship": {
+            "id": "Objects_Friendship",
             "properties": {
-                "Workout": {
+                "Friendship": {
                     "description": "",
                     "format": "",
                     "$ref": "List"

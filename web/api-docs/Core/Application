@@ -12,7 +12,7 @@
                     "method": "GET",
                     "summary": "Retrieve a list of organization models",
                     "nickname": "Application_list",
-                    "type": "ListView",
+                    "type": "ListView_Application",
                     "parameters": [
                         {
                             "paramType": "query",
@@ -87,8 +87,8 @@
         }
     ],
     "models": {
-        "ListView": {
-            "id": "ListView",
+        "ListView_Application": {
+            "id": "ListView_Application",
             "properties": {
                 "meta": {
                     "description": "",
@@ -98,7 +98,7 @@
                 "objects": {
                     "description": "",
                     "format": "",
-                    "$ref": "Objects"
+                    "$ref": "Objects_Application"
                 }
             }
         },
@@ -192,10 +192,10 @@
                 }
             }
         },
-        "Objects": {
-            "id": "Objects",
+        "Objects_Application": {
+            "id": "Objects_Application",
             "properties": {
-                "Workout": {
+                "Application": {
                     "description": "",
                     "format": "",
                     "$ref": "List"

@@ -12,7 +12,7 @@
                     "method": "GET",
                     "summary": "Retrieve a list of openi tags",
                     "nickname": "Tag_list",
-                    "type": "ListView",
+                    "type": "ListView_Tag",
                     "parameters": [
                         {
                             "paramType": "query",
@@ -182,8 +182,8 @@
         }
     ],
     "models": {
-        "ListView": {
-            "id": "ListView",
+        "ListView_Tag": {
+            "id": "ListView_Tag",
             "properties": {
                 "meta": {
                     "description": "",
@@ -193,7 +193,7 @@
                 "objects": {
                     "description": "",
                     "format": "",
-                    "$ref": "Objects"
+                    "$ref": "Objects_Tag"
                 }
             }
         },
@@ -302,10 +302,10 @@
                 }
             }
         },
-        "Objects": {
-            "id": "Objects",
+        "Objects_Tag": {
+            "id": "Objects_Tag",
             "properties": {
-                "Workout": {
+                "Tag": {
                     "description": "",
                     "format": "",
                     "$ref": "List"

@@ -12,7 +12,7 @@
                     "method": "GET",
                     "summary": "Retrieve a list of Audio",
                     "nickname": "Audio_list",
-                    "type": "ListView",
+                    "type": "ListView_Audio",
                     "parameters": [
                         {
                             "paramType": "query",
@@ -87,8 +87,8 @@
         }
     ],
     "models": {
-        "ListView": {
-            "id": "ListView",
+        "ListView_Audio": {
+            "id": "ListView_Audio",
             "properties": {
                 "meta": {
                     "description": "",
@@ -98,7 +98,7 @@
                 "objects": {
                     "description": "",
                     "format": "",
-                    "$ref": "Objects"
+                    "$ref": "Objects_Audio"
                 }
             }
         },
@@ -217,10 +217,10 @@
                 }
             }
         },
-        "Objects": {
-            "id": "Objects",
+        "Objects_Audio": {
+            "id": "Objects_Audio",
             "properties": {
-                "Workout": {
+                "Audio": {
                     "description": "",
                     "format": "",
                     "$ref": "List"

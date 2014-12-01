@@ -12,7 +12,7 @@
                     "method": "GET",
                     "summary": "Retrieve a list of openi checkins",
                     "nickname": "Checkin_list",
-                    "type": "ListView",
+                    "type": "ListView_Checkin",
                     "parameters": [
                         {
                             "paramType": "query",
@@ -328,8 +328,8 @@
         }
     ],
     "models": {
-        "ListView": {
-            "id": "ListView",
+        "ListView_Checkin": {
+            "id": "ListView_Checkin",
             "properties": {
                 "meta": {
                     "description": "",
@@ -339,7 +339,7 @@
                 "objects": {
                     "description": "",
                     "format": "",
-                    "$ref": "Objects"
+                    "$ref": "Objects_Checkin"
                 }
             }
         },
@@ -438,10 +438,10 @@
                 }
             }
         },
-        "Objects": {
-            "id": "Objects",
+        "Objects_Checkin": {
+            "id": "Objects_Checkin",
             "properties": {
-                "Workout": {
+                "Checkin": {
                     "description": "",
                     "format": "",
                     "$ref": "List"

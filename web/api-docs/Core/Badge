@@ -12,7 +12,7 @@
                     "method": "GET",
                     "summary": "Retrieve a list of Badge",
                     "nickname": "Badge_list",
-                    "type": "ListView",
+                    "type": "ListView_Badge",
                     "parameters": [
                         {
                             "paramType": "query",
@@ -182,8 +182,8 @@
         }
     ],
     "models": {
-        "ListView": {
-            "id": "ListView",
+        "ListView_Badge": {
+            "id": "ListView_Badge",
             "properties": {
                 "meta": {
                     "description": "",
@@ -193,7 +193,7 @@
                 "objects": {
                     "description": "",
                     "format": "",
-                    "$ref": "Objects"
+                    "$ref": "Objects_Badge"
                 }
             }
         },
@@ -302,10 +302,10 @@
                 }
             }
         },
-        "Objects": {
-            "id": "Objects",
+        "Objects_Badge": {
+            "id": "Objects_Badge",
             "properties": {
-                "Workout": {
+                "Badge": {
                     "description": "",
                     "format": "",
                     "$ref": "List"

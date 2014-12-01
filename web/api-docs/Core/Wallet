@@ -12,7 +12,7 @@
                     "method": "GET",
                     "summary": "Retrieve a list of openi wallets",
                     "nickname": "Wallet_list",
-                    "type": "ListView",
+                    "type": "ListView_Wallet",
                     "parameters": [
                         {
                             "paramType": "query",
@@ -182,8 +182,8 @@
         }
     ],
     "models": {
-        "ListView": {
-            "id": "ListView",
+        "ListView_Wallet": {
+            "id": "ListView_Wallet",
             "properties": {
                 "meta": {
                     "description": "",
@@ -193,7 +193,7 @@
                 "objects": {
                     "description": "",
                     "format": "",
-                    "$ref": "Objects"
+                    "$ref": "Objects_Wallet"
                 }
             }
         },
@@ -292,10 +292,10 @@
                 }
             }
         },
-        "Objects": {
-            "id": "Objects",
+        "Objects_Wallet": {
+            "id": "Objects_Wallet",
             "properties": {
-                "Workout": {
+                "Wallet": {
                     "description": "",
                     "format": "",
                     "$ref": "List"

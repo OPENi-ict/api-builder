@@ -12,7 +12,7 @@
                     "method": "GET",
                     "summary": "Retrieve a list of openi rsvps",
                     "nickname": "RSVP_list",
-                    "type": "ListView",
+                    "type": "ListView_RSVP",
                     "parameters": [
                         {
                             "paramType": "query",
@@ -182,8 +182,8 @@
         }
     ],
     "models": {
-        "ListView": {
-            "id": "ListView",
+        "ListView_RSVP": {
+            "id": "ListView_RSVP",
             "properties": {
                 "meta": {
                     "description": "",
@@ -193,7 +193,7 @@
                 "objects": {
                     "description": "",
                     "format": "",
-                    "$ref": "Objects"
+                    "$ref": "Objects_RSVP"
                 }
             }
         },
@@ -292,10 +292,10 @@
                 }
             }
         },
-        "Objects": {
-            "id": "Objects",
+        "Objects_RSVP": {
+            "id": "Objects_RSVP",
             "properties": {
-                "Workout": {
+                "RSVP": {
                     "description": "",
                     "format": "",
                     "$ref": "List"

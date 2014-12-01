@@ -12,12 +12,13 @@
                     "method": "GET",
                     "summary": "Retrieve a list of openi accounts",
                     "nickname": "Account_list",
-                    "type": "ListView",
+                    "type": "ListView_Account",
                     "parameters": [
                         {
-                            "paramType": "query",
+                            "paramType": "path",
                             "name": "limit",
                             "type": "integer",
+                            "format": "int64",
                             "required": false,
                             "description": "Specify the number of element to display per page."
                         },
@@ -147,8 +148,8 @@
         }
     ],
     "models": {
-        "ListView": {
-            "id": "ListView",
+        "ListView_Account": {
+            "id": "ListView_Account",
             "properties": {
                 "meta": {
                     "description": "",
@@ -158,7 +159,7 @@
                 "objects": {
                     "description": "",
                     "format": "",
-                    "$ref": "Objects"
+                    "$ref": "Objects_Account"
                 }
             }
         },
@@ -297,13 +298,16 @@
                 }
             }
         },
-        "Objects": {
-            "id": "Objects",
+        "Objects_Account": {
+            "id": "Objects_Account",
             "properties": {
-                "Workout": {
+                "Account": {
                     "description": "",
                     "format": "",
-                    "$ref": "List"
+                    "type": "List",
+                    "items":{
+                        "$ref":"Account"
+                    }
                 }
             }
         },

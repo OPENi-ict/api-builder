@@ -12,7 +12,7 @@
                     "method": "GET",
                     "summary": "Retrieve a list of openi notes",
                     "nickname": "Note_list",
-                    "type": "ListView",
+                    "type": "ListView_Note",
                     "parameters": [
                         {
                             "paramType": "query",
@@ -328,8 +328,8 @@
         }
     ],
     "models": {
-        "ListView": {
-            "id": "ListView",
+        "ListView_Note": {
+            "id": "ListView_Note",
             "properties": {
                 "meta": {
                     "description": "",
@@ -339,7 +339,7 @@
                 "objects": {
                     "description": "",
                     "format": "",
-                    "$ref": "Objects"
+                    "$ref": "Objects_Note"
                 }
             }
         },
@@ -438,10 +438,10 @@
                 }
             }
         },
-        "Objects": {
-            "id": "Objects",
+        "Objects_Note": {
+            "id": "Objects_Note",
             "properties": {
-                "Workout": {
+                "Note": {
                     "description": "",
                     "format": "",
                     "$ref": "List"

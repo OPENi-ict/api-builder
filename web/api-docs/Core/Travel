@@ -12,7 +12,7 @@
                     "method": "GET",
                     "summary": "Retrieve a list of openi travels",
                     "nickname": "Travel_list",
-                    "type": "ListView",
+                    "type": "ListView_Travel",
                     "parameters": [
                         {
                             "paramType": "query",
@@ -182,8 +182,8 @@
         }
     ],
     "models": {
-        "ListView": {
-            "id": "ListView",
+        "ListView_Travel": {
+            "id": "ListView_Travel",
             "properties": {
                 "meta": {
                     "description": "",
@@ -193,7 +193,7 @@
                 "objects": {
                     "description": "",
                     "format": "",
-                    "$ref": "Objects"
+                    "$ref": "Objects_Travel"
                 }
             }
         },
@@ -302,10 +302,10 @@
                 }
             }
         },
-        "Objects": {
-            "id": "Objects",
+        "Objects_Travel": {
+            "id": "Objects_Travel",
             "properties": {
-                "Workout": {
+                "Travel": {
                     "description": "",
                     "format": "",
                     "$ref": "List"
