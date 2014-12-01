@@ -6,10 +6,16 @@ $(function () {
         if (url.indexOf('#') != -1)
             url = url.substr(0, url.indexOf('#'));
 
-        if (url.indexOf('?') != -1)
+        if (url.indexOf('swagger/?url=') != -1)
             url = url.replace('swagger/?url=', 'api-docs/');
+        else if (url.indexOf('swagger?url=') != -1)
+            url = url.replace('swagger?url=', 'api-docs/');
+        else if (url.indexOf('swagger/index?url=') != -1)
+            url = url.replace('swagger/index?url=', 'api-docs/');
         else if (url.indexOf('swagger/') != -1)
             url = url.replace('swagger/', 'api-docs/Core');
+        else if (url.indexOf('swagger/index') != -1)
+            url = url.replace('swagger/index', 'api-docs/Core');
         else
             url = url.replace('swagger', 'api-docs/Core');
         url = url + '/api-docs.json';
