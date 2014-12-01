@@ -58,6 +58,8 @@ class RebuildschemaController extends Controller
 		$coreAPI->setApiDescription($this->_description);
 		$coreAPI->BuildAPI();
 		$coreAPI->BuildModels();
+
+		return $this->redirect(['index']);
 	}
 
 	public function actionSwagger()
@@ -87,6 +89,7 @@ class RebuildschemaController extends Controller
 				foreach ($api->operations as $operation)
 				{
 					$_notes = property_exists($operation, 'notes') ? ($operation->notes) : "";
+					$operation->responseClass = $operation->responseClass === 'ListView' ? $operation->responseClass . '_' . $schema->resource : $operation->responseClass;
 					$swaggerJSON->BuildOperation($operation->httpMethod, $operation->summary, $_notes, $operation->responseClass, $operation->nickname);
 					foreach ($operation->parameters as $parameter)
 					{
@@ -100,10 +103,20 @@ class RebuildschemaController extends Controller
 
 			foreach ($schema->models as $model)
 			{
-				$swaggerJSON->BuildModel($model->id);
+				// Here we had the problem of having the same name for all the resources.
+				// Objects is used to describe a list of objects. So I renamed it here and in the type used below.
+				if ($model->id === 'Objects')
+					$swaggerJSON->BuildModel($model->id . '_' . $schema->resource);
+				else if ($model->id === 'ListView')
+					$swaggerJSON->BuildModel($model->id . '_' . $schema->resource);
+				else
+					$swaggerJSON->BuildModel($model->id);
 				foreach ($model->properties as $name => $property)
 				{
-					$swaggerJSON->BuildProperty($name, $property->description, $property->type);
+					if ($property->type === 'Objects')
+						$swaggerJSON->BuildProperty($name, $property->description, $property->type . '_' . $schema->resource);
+					else
+						$swaggerJSON->BuildProperty($name, $property->description, $property->type);
 				}
 				$swaggerJSON->CloseModel();
 			}
@@ -113,6 +126,8 @@ class RebuildschemaController extends Controller
 		$file = new FileManipulation();
 		$file->setFilename(ucfirst($this->_core) . '/' . $this->_core . '.php');
 		$file->write_file($swaggerJSON->getSwaggerJSON());
+
+		return $this->redirect(['index']);
 	}
 
 	public function actionPublish()
@@ -126,13 +141,15 @@ class RebuildschemaController extends Controller
 
 		$writeFiles = new FileManipulation();
 		$writeFiles->setFilename(ucfirst($this->_core) . '/api-docs.json');
-		$writeFiles->write_file($swagger->getResourceList(array('output' => 'json', 'basePath' => $actual_link . '/apis/Core/')));
+		$writeFiles->write_file($swagger->getResourceList(array('output' => 'json', 'basePath' => $actual_link . '/api-docs/Core')));
 
 		foreach($swagger->registry as $api_name => $api)
 		{
 			$writeFiles->setFilename(ucfirst($this->_core) . '/'.$api_name);
 			$writeFiles->write_file($swagger->getResource($api_name, array('output' => 'json')));
 		}
+
+		return $this->redirect(['index']);
 	}
 
 //	public function actionCreate()
