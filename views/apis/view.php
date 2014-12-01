@@ -20,6 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 		<span class="pull-right">
 			<?= Html::a('Publish <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>', ['publish', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
+			<?= Html::a('View Swagger', ['swagger/', 'url' => $model->name], ['class' => 'btn btn-success']) ?>
 			<?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
 			<?= Html::a('Delete', ['delete', 'id' => $model->id], [
 				'class' => 'btn btn-danger',
