@@ -362,8 +362,11 @@
             "properties": {
                 "User": {
                     "description": "",
+                    "type": "array",
                     "format": "",
-                    "$ref": "List"
+                    "items": {
+                        "$ref": "User"
+                    }
                 }
             }
         },

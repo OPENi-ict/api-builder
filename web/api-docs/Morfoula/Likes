@@ -1,0 +1,161 @@
+{
+    "basePath": "http://localhost/api-builder/web/apis/Morfoula/",
+    "swaggerVersion": "1.2",
+    "apiVersion": "2.3",
+    "resourcePath": "Likes",
+    "apis": [
+        {
+            "path": "Likes",
+            "description": "",
+            "operations": [
+                {
+                    "method": "GET",
+                    "summary": "Retrieve a list of Likes",
+                    "nickname": "Get_all_Likes",
+                    "type": "list_Likes",
+                    "notes": ""
+                },
+                {
+                    "method": "DELETE",
+                    "summary": "Delete all Likes",
+                    "nickname": "Delete_all_Likes",
+                    "type": "list_Likes",
+                    "notes": ""
+                }
+            ]
+        },
+        {
+            "path": "Likes/{id}",
+            "description": "",
+            "operations": [
+                {
+                    "method": "GET",
+                    "summary": "Retrieve one Likes",
+                    "nickname": "Get_one_Likes",
+                    "type": "Likes",
+                    "parameters": [
+                        {
+                            "paramType": "body",
+                            "name": "id",
+                            "type": "integer",
+                            "required": true,
+                            "description": "Primary key of resource"
+                        }
+                    ],
+                    "notes": ""
+                },
+                {
+                    "method": "DELETE",
+                    "summary": "Delete one Likes",
+                    "nickname": "Delete_one_Likes",
+                    "type": "boolean",
+                    "parameters": [
+                        {
+                            "paramType": "body",
+                            "name": "id",
+                            "type": "integer",
+                            "required": true,
+                            "description": "Primary key of resource"
+                        }
+                    ],
+                    "notes": ""
+                }
+            ]
+        }
+    ],
+    "models": {
+        "list_Likes": {
+            "id": "list_Likes",
+            "properties": {
+                "meta": {
+                    "description": "",
+                    "format": "",
+                    "$ref": "Meta"
+                },
+                "objects": {
+                    "description": "",
+                    "format": "",
+                    "$ref": "Objects_Likes"
+                }
+            }
+        },
+        "Meta": {
+            "id": "Meta",
+            "properties": {
+                "previous": {
+                    "description": "Uri of the previous page relative to the current page settings.",
+                    "type": "string",
+                    "format": ""
+                },
+                "next": {
+                    "description": "Uri of the next page relative to the current page settings.",
+                    "type": "string",
+                    "format": ""
+                },
+                "total_count": {
+                    "description": "Total items count for all the collection.",
+                    "type": "integer",
+                    "format": ""
+                },
+                "offset": {
+                    "description": "Specify the offset to start displaying element on a page.",
+                    "type": "integer",
+                    "format": ""
+                },
+                "limit": {
+                    "description": "Specify the number of element to display per page.",
+                    "type": "integer",
+                    "format": ""
+                }
+            }
+        },
+        "Objects_Likes": {
+            "id": "Objects_Likes",
+            "properties": {
+                "Likes": {
+                    "description": "",
+                    "type": "array",
+                    "format": "",
+                    "items": {
+                        "$ref": "Likes"
+                    }
+                }
+            }
+        },
+        "Likes": {
+            "id": "Likes",
+            "properties": {
+                "Photo-Likes": {
+                    "description": "These are the Likes of a particular Photo",
+                    "format": "",
+                    "$ref": "Photos"
+                },
+                "User": {
+                    "description": "Who liked it",
+                    "type": "integer",
+                    "format": ""
+                },
+                "meta": {
+                    "description": "",
+                    "format": "",
+                    "$ref": "Meta"
+                }
+            }
+        },
+        "Photos": {
+            "id": "Photos",
+            "properties": {
+                "Source": {
+                    "description": "Source for file",
+                    "type": "string",
+                    "format": ""
+                },
+                "meta": {
+                    "description": "",
+                    "format": "",
+                    "$ref": "Meta"
+                }
+            }
+        }
+    }
+}

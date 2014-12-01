@@ -15,10 +15,9 @@
                     "type": "ListView_Account",
                     "parameters": [
                         {
-                            "paramType": "path",
+                            "paramType": "query",
                             "name": "limit",
                             "type": "integer",
-                            "format": "int64",
                             "required": false,
                             "description": "Specify the number of element to display per page."
                         },
@@ -303,10 +302,10 @@
             "properties": {
                 "Account": {
                     "description": "",
+                    "type": "array",
                     "format": "",
-                    "type": "List",
-                    "items":{
-                        "$ref":"Account"
+                    "items": {
+                        "$ref": "Account"
                     }
                 }
             }

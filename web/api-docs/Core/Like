@@ -287,8 +287,11 @@
             "properties": {
                 "Like": {
                     "description": "",
+                    "type": "array",
                     "format": "",
-                    "$ref": "List"
+                    "items": {
+                        "$ref": "Like"
+                    }
                 }
             }
         },

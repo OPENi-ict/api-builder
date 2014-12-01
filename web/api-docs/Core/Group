@@ -177,8 +177,11 @@
             "properties": {
                 "Group": {
                     "description": "",
+                    "type": "array",
                     "format": "",
-                    "$ref": "List"
+                    "items": {
+                        "$ref": "Group"
+                    }
                 }
             }
         },

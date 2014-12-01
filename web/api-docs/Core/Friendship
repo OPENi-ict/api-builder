@@ -287,8 +287,11 @@
             "properties": {
                 "Friendship": {
                     "description": "",
+                    "type": "array",
                     "format": "",
-                    "$ref": "List"
+                    "items": {
+                        "$ref": "Friendship"
+                    }
                 }
             }
         },

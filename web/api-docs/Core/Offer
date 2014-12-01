@@ -307,8 +307,11 @@
             "properties": {
                 "Offer": {
                     "description": "",
+                    "type": "array",
                     "format": "",
-                    "$ref": "List"
+                    "items": {
+                        "$ref": "Offer"
+                    }
                 }
             }
         },

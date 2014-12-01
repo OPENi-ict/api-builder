@@ -287,8 +287,11 @@
             "properties": {
                 "Dislike": {
                     "description": "",
+                    "type": "array",
                     "format": "",
-                    "$ref": "List"
+                    "items": {
+                        "$ref": "Dislike"
+                    }
                 }
             }
         },

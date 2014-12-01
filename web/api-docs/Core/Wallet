@@ -297,8 +297,11 @@
             "properties": {
                 "Wallet": {
                     "description": "",
+                    "type": "array",
                     "format": "",
-                    "$ref": "List"
+                    "items": {
+                        "$ref": "Wallet"
+                    }
                 }
             }
         },

@@ -297,8 +297,11 @@
             "properties": {
                 "RSVP": {
                     "description": "",
+                    "type": "array",
                     "format": "",
-                    "$ref": "List"
+                    "items": {
+                        "$ref": "RSVP"
+                    }
                 }
             }
         },

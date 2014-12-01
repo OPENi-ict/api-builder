@@ -307,8 +307,11 @@
             "properties": {
                 "Comment": {
                     "description": "",
+                    "type": "array",
                     "format": "",
-                    "$ref": "List"
+                    "items": {
+                        "$ref": "Comment"
+                    }
                 }
             }
         },

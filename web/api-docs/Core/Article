@@ -222,8 +222,11 @@
             "properties": {
                 "Article": {
                     "description": "",
+                    "type": "array",
                     "format": "",
-                    "$ref": "List"
+                    "items": {
+                        "$ref": "Article"
+                    }
                 }
             }
         },

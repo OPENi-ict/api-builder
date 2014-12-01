@@ -327,8 +327,11 @@
             "properties": {
                 "Card": {
                     "description": "",
+                    "type": "array",
                     "format": "",
-                    "$ref": "List"
+                    "items": {
+                        "$ref": "Card"
+                    }
                 }
             }
         },

@@ -317,8 +317,11 @@
             "properties": {
                 "Product": {
                     "description": "",
+                    "type": "array",
                     "format": "",
-                    "$ref": "List"
+                    "items": {
+                        "$ref": "Product"
+                    }
                 }
             }
         },

@@ -423,8 +423,11 @@
             "properties": {
                 "Workout": {
                     "description": "",
+                    "type": "array",
                     "format": "",
-                    "$ref": "List"
+                    "items": {
+                        "$ref": "Workout"
+                    }
                 }
             }
         },

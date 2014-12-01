@@ -1,0 +1,15 @@
+{
+    "basePath": "http://localhost/api-builder/web/api-docs/Morfoula",
+    "apiVersion": "2.3",
+    "swaggerVersion": "1.2",
+    "apis": [
+        {
+            "path": "/Likes",
+            "description": ""
+        },
+        {
+            "path": "/Photos",
+            "description": ""
+        }
+    ]
+}

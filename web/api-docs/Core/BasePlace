@@ -197,8 +197,11 @@
             "properties": {
                 "BasePlace": {
                     "description": "",
+                    "type": "array",
                     "format": "",
-                    "$ref": "List"
+                    "items": {
+                        "$ref": "BasePlace"
+                    }
                 }
             }
         },

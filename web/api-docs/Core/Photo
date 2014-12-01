@@ -538,8 +538,11 @@
             "properties": {
                 "Photo": {
                     "description": "",
+                    "type": "array",
                     "format": "",
-                    "$ref": "List"
+                    "items": {
+                        "$ref": "Photo"
+                    }
                 }
             }
         },

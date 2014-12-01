@@ -197,8 +197,11 @@
             "properties": {
                 "BaseTags": {
                     "description": "",
+                    "type": "array",
                     "format": "",
-                    "$ref": "List"
+                    "items": {
+                        "$ref": "BaseTags"
+                    }
                 }
             }
         },

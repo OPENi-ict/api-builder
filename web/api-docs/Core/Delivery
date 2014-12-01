@@ -287,8 +287,11 @@
             "properties": {
                 "Delivery": {
                     "description": "",
+                    "type": "array",
                     "format": "",
-                    "$ref": "List"
+                    "items": {
+                        "$ref": "Delivery"
+                    }
                 }
             }
         },

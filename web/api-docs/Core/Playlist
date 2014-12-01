@@ -192,8 +192,11 @@
             "properties": {
                 "Playlist": {
                     "description": "",
+                    "type": "array",
                     "format": "",
-                    "$ref": "List"
+                    "items": {
+                        "$ref": "Playlist"
+                    }
                 }
             }
         },

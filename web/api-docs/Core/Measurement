@@ -317,8 +317,11 @@
             "properties": {
                 "Measurement": {
                     "description": "",
+                    "type": "array",
                     "format": "",
-                    "$ref": "List"
+                    "items": {
+                        "$ref": "Measurement"
+                    }
                 }
             }
         },
