@@ -105,16 +105,21 @@ class RebuildschemaController extends Controller
 			{
 				// Here we had the problem of having the same name for all the resources.
 				// Objects is used to describe a list of objects. So I renamed it here and in the type used below.
-				if ($model->id === 'Objects')
+				if ($model->id === 'Objects') {
 					$swaggerJSON->BuildModel($model->id . '_' . $schema->resource);
+				}
 				else if ($model->id === 'ListView')
 					$swaggerJSON->BuildModel($model->id . '_' . $schema->resource);
 				else
 					$swaggerJSON->BuildModel($model->id);
 				foreach ($model->properties as $name => $property)
 				{
-					if ($property->type === 'Objects')
+					if ($model->id === 'Objects') {
+						$swaggerJSON->BuildProperty($name, $property->description, 'array', $schema->resource);
+					}
+					else if ($property->type === 'Objects') {
 						$swaggerJSON->BuildProperty($name, $property->description, $property->type . '_' . $schema->resource);
+					}
 					else
 						$swaggerJSON->BuildProperty($name, $property->description, $property->type);
 				}
@@ -125,6 +130,7 @@ class RebuildschemaController extends Controller
 
 		$file = new FileManipulation();
 		$file->setFilename(ucfirst($this->_core) . '/' . $this->_core . '.php');
+		$file->makeDirectory(ucfirst($this->_core) . '/');
 		$file->write_file($swaggerJSON->getSwaggerJSON());
 
 		return $this->redirect(['index']);
