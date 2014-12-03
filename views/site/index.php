@@ -58,7 +58,7 @@ $this->title = 'API Builder';
 <div class="site-index">
 
     <div class="jumbotron">
-        <h1>Welcome to the OPENi API Builder!</h1>
+        <h2>OPENi API Builder</h2>
 
         <p class="lead">Create, use and recommend your favorite API with immediate connection to Cloud Based Services.</p>
     </div>

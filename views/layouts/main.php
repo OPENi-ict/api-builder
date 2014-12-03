@@ -74,8 +74,8 @@ AppAsset::register($this);
 
     <footer class="footer">
         <div class="container">
-        <p class="pull-left">API Builder <?= date('Y') ?></p>
-<!--        <p class="pull-right">--><?//= Yii::powered() ?><!--</p>-->
+			<p class="pull-left"><span class="glyphicon glyphicon-copyright-mark" aria-hidden="true"></span> <?= date('Y') ?> - DSS Lab NTUA - All Rights Reserved</p>
+<!--			<p class="pull-right">--><?//= Yii::powered() ?><!--</p>-->
         </div>
     </footer>
 
