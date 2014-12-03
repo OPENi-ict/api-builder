@@ -26,7 +26,7 @@ SwaggerAsset::register($this);
 <div class="wrap">
 	<?php
 	NavBar::begin([
-		'brandLabel' => '<img src="/api-builder/web/OPENi_logo.png">',
+		'brandLabel' => '<img src="/api-builder/web/OPENi_logo.png"> API Builder',
 		'brandUrl' => Yii::$app->homeUrl,
 		'options' => [
 			'class' => 'navbar-inverse navbar-default navbar-fixed-top',
@@ -34,8 +34,6 @@ SwaggerAsset::register($this);
 	]);
 	$menuItems = [
 		['label' => 'Home', 'url' => ['/site/index']],
-		['label' => 'About', 'url' => ['/site/about']],
-		['label' => 'Swagger', 'url' => ['/swagger']],
 		['label' => 'Browse', 'url' => ['/apis/'], 'items' => [
 			['label' => 'APIs', 'url' => ['/apis/']],
 			['label' => 'Objects', 'url' => ['/objects/']]
@@ -44,6 +42,8 @@ SwaggerAsset::register($this);
 			['label' => 'API', 'url' => ['/apis/create']],
 			['label' => 'Object', 'url' => ['/objects/create']]
 		]],
+		['label' => 'Swagger', 'url' => ['/swagger']],
+		['label' => 'About', 'url' => ['/site/about']],
 		//['label' => 'Contact', 'url' => ['/site/contact']],
 	];
 	if (Yii::$app->user->isGuest) {
