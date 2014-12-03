@@ -349,13 +349,13 @@ class ApisController extends Controller
 	 * @param integer $id
 	 * @return mixed
 	 */
-	public function actionVoteup($id)
+	public function actionVoteup($id, $redirect = 'index')
 	{
 		$model = $this->findModel($id);
 		$model->votes_up = $model->votes_up + 1;
 		$model->save();
 
-		return $this->redirect(['index']);
+		return $this->redirect([$redirect]);
 	}
 
 	/**
@@ -364,13 +364,13 @@ class ApisController extends Controller
 	 * @param integer $id
 	 * @return mixed
 	 */
-	public function actionVotedown($id)
+	public function actionVotedown($id, $redirect = 'index')
 	{
 		$model = $this->findModel($id);
 		$model->votes_down = $model->votes_down + 1;
 		$model->save();
 
-		return $this->redirect(['index']);
+		return $this->redirect([$redirect]);
 	}
 
     /**

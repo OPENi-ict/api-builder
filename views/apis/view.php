@@ -16,7 +16,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
 	<h1>
 		<?= Html::encode($this->title) ?>
-		<small><?= Html::encode($model->description) ?></small>
+		<small>
+			<?= Html::encode($model->description) ?>
+			<?= Html::a($model->votes_up, ['voteup', 'id' => $model->id, 'redirect' => 'view?id=' . $model->id], ['class' => 'glyphicon glyphicon-thumbs-up nounderline']) ?>
+			<?= Html::a($model->votes_down, ['votedown', 'id' => $model->id, 'redirect' => 'view?id=' . $model->id], ['class' => 'glyphicon glyphicon-thumbs-down nounderline']) ?>
+		</small>
 
 		<?php if ($model->name != 'core') : ?>
 			<span class="pull-right">
