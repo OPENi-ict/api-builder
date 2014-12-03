@@ -139,6 +139,12 @@ class ApisController extends Controller
         return $this->redirect(['index']);
     }
 
+	/**
+	 * Publishes an API Swagger.
+	 * If publish is successful, the browser will be redirected to the 'swagger/index?url=$model->name' page.
+	 * @param integer $id
+	 * @return mixed
+	 */
 	public function actionPublish($id)
 	{
 		$api = $this->findModel($id);
@@ -320,6 +326,51 @@ class ApisController extends Controller
 		}
 
 		return $this->redirect(['swagger/index', 'url' => ucfirst($api->name)]);
+	}
+
+	/**
+	 * Proposes an API to the developers.
+	 * If proposal is successful, the browser will be redirected to the 'view?id=$model->id' page.
+	 * @param integer $id
+	 * @return mixed
+	 */
+	public function actionPropose($id)
+	{
+		$model = $this->findModel($id);
+		$model->proposed = 1;
+		$model->save();
+
+		return $this->redirect(['view', 'id' => $id]);
+	}
+
+	/**
+	 * Votes up an API.
+	 * Immediate return to index.
+	 * @param integer $id
+	 * @return mixed
+	 */
+	public function actionVoteup($id)
+	{
+		$model = $this->findModel($id);
+		$model->votes_up = $model->votes_up + 1;
+		$model->save();
+
+		return $this->redirect(['index']);
+	}
+
+	/**
+	 * Votes Down an API.
+	 * Immediate return to index.
+	 * @param integer $id
+	 * @return mixed
+	 */
+	public function actionVotedown($id)
+	{
+		$model = $this->findModel($id);
+		$model->votes_down = $model->votes_down + 1;
+		$model->save();
+
+		return $this->redirect(['index']);
 	}
 
     /**

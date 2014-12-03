@@ -19,8 +19,6 @@ $this->params['breadcrumbs'][] = $this->title;
 		<small><?= Html::encode($model->description) ?></small>
 
 		<span class="pull-right">
-			<?= Html::a('Publish <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>', ['publish', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
-			<?= Html::a('View Swagger', ['swagger/', 'url' => $model->name], ['class' => 'btn btn-success']) ?>
 			<?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
 			<?= Html::a('Delete', ['delete', 'id' => $model->id], [
 				'class' => 'btn btn-danger',
@@ -31,6 +29,13 @@ $this->params['breadcrumbs'][] = $this->title;
 			]) ?>
 		</span>
 	</h1>
+
+	<?= Html::a('Publish <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>', ['publish', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
+	<?= Html::a('View Swagger', ['swagger/', 'url' => $model->name], ['class' => 'btn btn-primary']) ?>
+	<?php
+		if ($model->proposed === 0)
+			echo Html::a('Propose', ['propose', 'id' => $model->id], ['class' => 'btn btn-success']);
+	?>
 
 	<?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 

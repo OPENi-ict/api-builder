@@ -19,6 +19,7 @@ use yii\behaviors\TimestampBehavior;
  * @property integer $votes_down
  * @property integer $created_at
  * @property integer $updated_at
+ * @property integer $proposed
  *
  * @property User $createdBy
  * @property User $updatedBy
@@ -41,7 +42,7 @@ class Apis extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
-            [['created_by', 'updated_by', 'votes_up', 'votes_down', 'created_at', 'updated_at'], 'integer'],
+            [['created_by', 'updated_by', 'votes_up', 'votes_down', 'created_at', 'updated_at', 'proposed'], 'integer'],
             [['name', 'description', 'version'], 'string', 'max' => 255],
 			[['version'], 'default', 'value' => '1.0'],
 			[['votes_up', 'votes_down'], 'default', 'value' => '0'],
@@ -78,6 +79,7 @@ class Apis extends \yii\db\ActiveRecord
 			'votes_down' => 'Votes Down',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
+			'proposed' => 'Proposed'
         ];
     }
 

@@ -40,6 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'votes_down',
             'created_at',
             'updated_at',
+			'proposed'
         ],
     ]) ?>
 
