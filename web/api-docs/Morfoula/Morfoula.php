@@ -77,6 +77,24 @@
  *     )
  *    )
  *  )
+ * ,@SWG\Api(
+ *   path="Photos/{id}/Openi-Demo",
+ *   description=""
+ *   ,@SWG\Operation(
+ *     method="GET",
+ *     summary="Retrieve a list of Photos Openi-Demo",
+ *     notes="",
+ *     type="list_Openi-Demo",
+ *     nickname="Get_all_Openi-Demo"
+ *     ,@SWG\Parameter(
+ *       name="id",
+ *       description="Primary key of resource",
+ *       required=true,
+ *       type="integer",
+ *       paramType="body"
+ *     )
+ *    )
+ *  )
  *)
  *
  * @SWG\Model(
@@ -316,6 +334,124 @@
  *   ,@SWG\Property(
  *     name="objects",
  *     type="Objects_Likes",
+ *     format="",
+ *     description=""
+ *   )
+ * )
+ * @SWG\Resource(
+ *   apiVersion="2.3",
+ *   swaggerVersion="1.2",
+ *   basePath="http://localhost/api-builder/web/apis/Morfoula/",
+ *   resourcePath="Openi-Demo"
+ * ,@SWG\Api(
+ *   path="Openi-Demo",
+ *   description=""
+ *   ,@SWG\Operation(
+ *     method="GET",
+ *     summary="Retrieve a list of Openi-Demo",
+ *     notes="",
+ *     type="list_Openi-Demo",
+ *     nickname="Get_all_Openi-Demo"
+ *    )
+ *  )
+ * ,@SWG\Api(
+ *   path="Openi-Demo",
+ *   description=""
+ *   ,@SWG\Operation(
+ *     method="POST",
+ *     summary="Create a new Openi-Demo object",
+ *     notes="",
+ *     type="Openi-Demo",
+ *     nickname="Post_one_Openi-Demo"
+ *     ,@SWG\Parameter(
+ *       name="Openi-Demo",
+ *       description="Model of resource",
+ *       required=true,
+ *       type="Openi-Demo_post_put",
+ *       paramType="query"
+ *     )
+ *    )
+ *  )
+ *)
+ *
+ * @SWG\Model(
+ *   id="Meta"
+ *   ,@SWG\Property(
+ *     name="previous",
+ *     type="string",
+ *     format="",
+ *     description="Uri of the previous page relative to the current page settings."
+ *   )
+ *   ,@SWG\Property(
+ *     name="next",
+ *     type="string",
+ *     format="",
+ *     description="Uri of the next page relative to the current page settings."
+ *   )
+ *   ,@SWG\Property(
+ *     name="total_count",
+ *     type="integer",
+ *     format="",
+ *     description="Total items count for all the collection."
+ *   )
+ *   ,@SWG\Property(
+ *     name="offset",
+ *     type="integer",
+ *     format="",
+ *     description="Specify the offset to start displaying element on a page."
+ *   )
+ *   ,@SWG\Property(
+ *     name="limit",
+ *     type="integer",
+ *     format="",
+ *     description="Specify the number of element to display per page."
+ *   )
+ * )
+ * @SWG\Model(
+ *   id="Openi-Demo"
+ *   ,@SWG\Property(
+ *     name="prop1",
+ *     type="Photos",
+ *     format="",
+ *     description="gfs"
+ *   )
+ *   ,@SWG\Property(
+ *     name="meta",
+ *     type="Meta",
+ *     format="",
+ *     description=""
+ *   )
+ * )
+ * @SWG\Model(
+ *   id="Openi-Demo_post_put"
+ *   ,@SWG\Property(
+ *     name="prop1",
+ *     type="Photos",
+ *     format="",
+ *     description="gfs"
+ *   )
+ * )
+ * @SWG\Model(
+ *   id="Objects_Openi-Demo"
+ *   ,@SWG\Property(
+ *     name="Openi-Demo",
+ *     type="array",
+ *     format="",
+ *     description="",
+ *     @SWG\Items("Openi-Demo")
+ *   )
+ * )
+ * @SWG\Model(
+ *   id="list_Openi-Demo"
+ *   ,@SWG\Property(
+ *     name="meta",
+ *     type="Meta",
+ *     format="",
+ *     description=""
+ *   )
+ *   ,@SWG\Property(
+ *     name="objects",
+ *     type="Objects_Openi-Demo",
  *     format="",
  *     description=""
  *   )

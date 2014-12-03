@@ -77,6 +77,28 @@
                     "notes": ""
                 }
             ]
+        },
+        {
+            "path": "Photos/{id}/Openi-Demo",
+            "description": "",
+            "operations": [
+                {
+                    "method": "GET",
+                    "summary": "Retrieve a list of Photos Openi-Demo",
+                    "nickname": "Get_all_Openi-Demo",
+                    "type": "list_Openi-Demo",
+                    "parameters": [
+                        {
+                            "paramType": "body",
+                            "name": "id",
+                            "type": "integer",
+                            "required": true,
+                            "description": "Primary key of resource"
+                        }
+                    ],
+                    "notes": ""
+                }
+            ]
         }
     ],
     "models": {
@@ -160,6 +182,49 @@
                     "description": "Source for file",
                     "type": "string",
                     "format": ""
+                }
+            }
+        },
+        "list_Openi-Demo": {
+            "id": "list_Openi-Demo",
+            "properties": {
+                "meta": {
+                    "description": "",
+                    "format": "",
+                    "$ref": "Meta"
+                },
+                "objects": {
+                    "description": "",
+                    "format": "",
+                    "$ref": "Objects_Openi-Demo"
+                }
+            }
+        },
+        "Objects_Openi-Demo": {
+            "id": "Objects_Openi-Demo",
+            "properties": {
+                "Openi-Demo": {
+                    "description": "",
+                    "type": "array",
+                    "format": "",
+                    "items": {
+                        "$ref": "Openi-Demo"
+                    }
+                }
+            }
+        },
+        "Openi-Demo": {
+            "id": "Openi-Demo",
+            "properties": {
+                "prop1": {
+                    "description": "gfs",
+                    "format": "",
+                    "$ref": "Photos"
+                },
+                "meta": {
+                    "description": "",
+                    "format": "",
+                    "$ref": "Meta"
                 }
             }
         }
