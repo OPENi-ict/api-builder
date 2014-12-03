@@ -67,6 +67,7 @@ class Properties extends \yii\db\ActiveRecord
             'description' => 'Description',
             'type' => 'Type',
             'object' => 'Object',
+			'object0.name' => 'Object',
 			'created_by' => 'Created By ID',
 			'updated_by' => 'Updated By ID',
 			'createdBy.username' => 'Created By',

@@ -56,7 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			'created_at:date',
 			//'updated_at:date',
 
-			($model->api0->name != 'core') ? : ['class' => 'kartik\grid\ActionColumn', 'controller' => 'properties', 'template' => '{view}'],
+			['class' => 'kartik\grid\ActionColumn', 'controller' => 'properties', 'template' => '{view}'],
 		],
 	]); ?>
 

@@ -23,7 +23,7 @@ $columns = [
 	//'resource_url:url',
 	[
 		'attribute' => '',
-		'label' => 'Likes',
+		'label' => 'Votes',
 		'value'=>function ($model, $key, $index, $widget) {
 			return
 				Html::a($model->votes_up, ['objects/voteup', 'id' => $model->id], ['class' => 'glyphicon glyphicon-thumbs-up nounderline'])
@@ -96,7 +96,7 @@ $this->title = 'API Builder';
 				]); ?>
             </div>
             <div class="col-lg-6">
-                <h2>Most Liked</h2>
+                <h2>Most Popular</h2>
 
 				<?= GridView::widget([
 					'dataProvider' => $objectsLikedDataProvider,

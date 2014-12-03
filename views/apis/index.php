@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			'updatedBy.username',
 			[
 				'attribute' => '',
-				'label' => 'Likes',
+				'label' => 'Votes',
 				'value'=>function ($model, $key, $index, $widget) {
 					return
 						Html::a($model->votes_up, ['apis/voteup', 'id' => $model->id], ['class' => 'glyphicon glyphicon-thumbs-up nounderline'])

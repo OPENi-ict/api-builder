@@ -18,16 +18,24 @@ $this->params['breadcrumbs'][] = $this->title;
 		<?= Html::encode($this->title) ?>
 		<small><?= Html::encode($model->description) ?></small>
 
-		<span class="pull-right">
-			<?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-			<?= Html::a('Delete', ['delete', 'id' => $model->id], [
-				'class' => 'btn btn-danger',
-				'data' => [
-					'confirm' => 'Are you sure you want to delete this item?',
-					'method' => 'post',
-				],
-			]) ?>
-		</span>
+		<?php if (
+			($model->object0->api0->name != 'core') and
+			($model->name != 'id') and
+			($model->name != 'resource_uri') and
+			($model->name != 'service') and
+			($model->name != 'object_type')
+		): ?>
+			<span class="pull-right">
+				<?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+				<?= Html::a('Delete', ['delete', 'id' => $model->id], [
+					'class' => 'btn btn-danger',
+					'data' => [
+						'confirm' => 'Are you sure you want to delete this item?',
+						'method' => 'post',
+					],
+				]) ?>
+			</span>
+		<?php endif; ?>
 	</h1>
 
     <?= DetailView::widget([
@@ -37,9 +45,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'description',
             'type',
-            'object',
-            'created_by',
-            'updated_by',
+            //'object',
+			'object0.name',
+			'createdBy.username',
+            'updatedBy.username',
             'created_at:date',
             'updated_at:date',
         ],
