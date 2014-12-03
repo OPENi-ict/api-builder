@@ -1,7 +1,8 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+//use yii\grid\GridView;
+use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ApisSearch */
@@ -22,6 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         //'filterModel' => $searchModel,
+		//'tableOptions' => array('style' => 'text-align: center;'),
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
@@ -31,12 +33,33 @@ $this->params['breadcrumbs'][] = $this->title;
             'version',
 			'createdBy.username',
 			'updatedBy.username',
-			'votes_up',
-			'votes_down',
+			[
+				'attribute' => '',
+				'label' => 'Likes',
+				'value'=>function ($model, $key, $index, $widget) {
+					return
+						Html::a($model->votes_up, ['apis/voteup', 'id' => $model->id], ['class' => 'glyphicon glyphicon-thumbs-up nounderline'])
+						.
+						' / ' .
+						Html::a($model->votes_down, ['apis/votedown', 'id' => $model->id], ['class' => 'glyphicon glyphicon-thumbs-down nounderline']);
+				},
+				'format'=>'raw',
+				'hAlign' => GridView::ALIGN_CENTER
+			],
 			'created_at:date',
 			'updated_at:date',
 
             ['class' => 'yii\grid\ActionColumn'],
+			[
+				'attribute' => '',
+				'label' => 'Swagger Page',
+				'value'=>function ($model, $key, $index, $widget) {
+					return
+						Html::a('Swagger <img src="./images/logo_small.png"/>', ['swagger/', 'url' => $model->name], ['class' => 'btn btn-primary btn-xs']);
+				},
+				'format'=>'raw',
+				'hAlign' => GridView::ALIGN_CENTER
+			],
         ],
     ]); ?>
 

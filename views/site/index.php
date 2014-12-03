@@ -26,11 +26,10 @@ $columns = [
 		'label' => 'Likes',
 		'value'=>function ($model, $key, $index, $widget) {
 			return
-				"<span class='glyphicon glyphicon-thumbs-up'> </span>" .
-					$model->votes_up .
+				Html::a($model->votes_up, ['objects/voteup', 'id' => $model->id], ['class' => 'glyphicon glyphicon-thumbs-up nounderline'])
+				 .
 				' / ' .
-				"<span class='glyphicon glyphicon-thumbs-down'> </span>" .
-				$model->votes_down;
+				Html::a($model->votes_down, ['objects/votedown', 'id' => $model->id], ['class' => 'glyphicon glyphicon-thumbs-down nounderline']);
 		},
 		'format'=>'raw',
 		'hAlign' => GridView::ALIGN_CENTER

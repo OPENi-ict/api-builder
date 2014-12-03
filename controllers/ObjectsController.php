@@ -209,6 +209,36 @@ class ObjectsController extends Controller
 		]);
 	}
 
+	/**
+	 * Votes up an Object.
+	 * Immediate return to index.
+	 * @param integer $id
+	 * @return mixed
+	 */
+	public function actionVoteup($id)
+	{
+		$model = $this->findModel($id);
+		$model->votes_up = $model->votes_up + 1;
+		$model->save();
+
+		return $this->redirect(['site/']);
+	}
+
+	/**
+	 * Votes Down an Object.
+	 * Immediate return to index.
+	 * @param integer $id
+	 * @return mixed
+	 */
+	public function actionVotedown($id)
+	{
+		$model = $this->findModel($id);
+		$model->votes_down = $model->votes_down + 1;
+		$model->save();
+
+		return $this->redirect(['site/']);
+	}
+
     /**
      * Finds the Objects model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

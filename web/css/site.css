@@ -106,3 +106,7 @@ a.desc:after {
 .navbar-default {
     font-size: 14px;
 }
+
+.nounderline {
+    text-decoration: none !important;
+}
