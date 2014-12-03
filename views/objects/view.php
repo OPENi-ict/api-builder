@@ -6,7 +6,8 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Objects */
 /* @var $searchModel app\models\PropertiesSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $dataProviderBasic yii\data\ActiveDataProvider */
+/* @var $dataProviderExceptBasic yii\data\ActiveDataProvider */
 /* @var $propertyDropdownList array */
 
 $this->title = $model->name;
@@ -36,12 +37,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
 	<h3>Properties</h3>
 
-	<p>
-		<?= Html::a('Create Property', ['properties/create', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
-	</p>
+	<h4>Basic Properties</h4>
 
 	<?= GridView::widget([
-		'dataProvider' => $dataProvider,
+		'dataProvider' => $dataProviderBasic,
 		//'filterModel' => $searchModel,
 		'columns' => [
 			['class' => 'yii\grid\SerialColumn'],
@@ -51,9 +50,34 @@ $this->params['breadcrumbs'][] = $this->title;
 			'description',
 			'type',
 			'createdBy.username',
-			'updatedBy.username',
+			//'updatedBy.username',
 			'created_at:date',
-			'updated_at:date',
+			//'updated_at:date',
+
+			//['class' => 'yii\grid\ActionColumn', 'controller' => 'properties'],
+		],
+	]); ?>
+
+	<p>
+		<?= Html::a('Create Property', ['properties/create', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
+	</p>
+
+	<h4>New Properties</h4>
+
+	<?= GridView::widget([
+		'dataProvider' => $dataProviderExceptBasic,
+		//'filterModel' => $searchModel,
+		'columns' => [
+			['class' => 'yii\grid\SerialColumn'],
+
+			//'id',
+			'name',
+			'description',
+			'type',
+			'createdBy.username',
+			//'updatedBy.username',
+			'created_at:date',
+			//'updated_at:date',
 
 			['class' => 'yii\grid\ActionColumn', 'controller' => 'properties'],
 		],

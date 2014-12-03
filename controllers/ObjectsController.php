@@ -76,9 +76,13 @@ class ObjectsController extends Controller
 	{
 		$model = $this->findModel($id);
 		$searchModel = new PropertiesSearch();
-		$dataProvider = $searchModel->search([
-			'PropertiesSearch' => ['object' => $id]
+		$dataProviderExceptBasic = $searchModel->search([
 		]);
+		$dataProviderBasic = $searchModel->search([
+		]);
+
+		$dataProviderExceptBasic->query->where(['and', ['object' => $id], ['not in', 'name', ['id', 'resource_uri', 'object_type', 'service']]]);
+		$dataProviderBasic->query->where(['and', ['object' => $id], ['in', 'name', ['id', 'resource_uri', 'object_type', 'service']]]);
 
 		// Dropdown List for the methods
 		// First come the Methods for the Object
@@ -116,7 +120,8 @@ class ObjectsController extends Controller
 		return $this->render('view', [
 			'model' => $model,
 			'searchModel' => $searchModel,
-			'dataProvider' => $dataProvider,
+			'dataProviderExceptBasic' => $dataProviderExceptBasic,
+			'dataProviderBasic' => $dataProviderBasic,
 			'propertyDropdownList' => $propertyDropdownList
 		]);
 	}
@@ -135,6 +140,35 @@ class ObjectsController extends Controller
 		$model->api = $id;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+			// Create the 4 Properties each Object must have
+			$propID = new Properties();
+			$propID->object = $model->id;
+			$propID->name = 'id';
+			$propID->description = 'Primary key for this Object';
+			$propID->type = 'integer';
+			$propID->save();
+
+			$propUri = new Properties();
+			$propUri->object = $model->id;
+			$propUri->name = 'resource_uri';
+			$propUri->description = 'The url for finding this Object';
+			$propUri->type = 'string';
+			$propUri->save();
+
+			$propServ = new Properties();
+			$propServ->object = $model->id;
+			$propServ->name = 'service';
+			$propServ->description = 'The service that returns this Object';
+			$propServ->type = 'string';
+			$propServ->save();
+
+			$propType = new Properties();
+			$propType->object = $model->id;
+			$propType->name = 'object_type';
+			$propType->description = 'The type of this Object';
+			$propType->type = 'string';
+			$propType->save();
+
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
