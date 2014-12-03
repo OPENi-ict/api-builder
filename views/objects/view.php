@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Objects */
@@ -21,16 +21,18 @@ $this->params['breadcrumbs'][] = $this->title;
 		<?= Html::encode($this->title) ?>
 		<small><?= Html::encode($model->description) ?></small>
 
-		<span class="pull-right">
-			<?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-			<?= Html::a('Delete', ['delete', 'id' => $model->id], [
-				'class' => 'btn btn-danger',
-				'data' => [
-					'confirm' => 'Are you sure you want to delete this item?',
-					'method' => 'post',
-				],
-			]) ?>
-		</span>
+		<?php if ($model->api0->name != 'core') : ?>
+			<span class="pull-right">
+				<?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+				<?= Html::a('Delete', ['delete', 'id' => $model->id], [
+					'class' => 'btn btn-danger',
+					'data' => [
+						'confirm' => 'Are you sure you want to delete this item?',
+						'method' => 'post',
+					],
+				]) ?>
+			</span>
+		<?php endif; ?>
 	</h1>
 
 	<?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -54,37 +56,39 @@ $this->params['breadcrumbs'][] = $this->title;
 			'created_at:date',
 			//'updated_at:date',
 
-			//['class' => 'yii\grid\ActionColumn', 'controller' => 'properties'],
+			($model->api0->name != 'core') ? : ['class' => 'kartik\grid\ActionColumn', 'controller' => 'properties', 'template' => '{view}'],
 		],
 	]); ?>
 
-	<p>
-		<?= Html::a('Create Property', ['properties/create', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
-	</p>
+	<?php if ($model->api0->name != 'core') : ?>
+		<p>
+			<?= Html::a('Create Property', ['properties/create', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
+		</p>
 
-	<h4>New Properties</h4>
+		<h4>New Properties</h4>
 
-	<?= GridView::widget([
-		'dataProvider' => $dataProviderExceptBasic,
-		//'filterModel' => $searchModel,
-		'columns' => [
-			['class' => 'yii\grid\SerialColumn'],
+		<?= GridView::widget([
+			'dataProvider' => $dataProviderExceptBasic,
+			//'filterModel' => $searchModel,
+			'columns' => [
+				['class' => 'yii\grid\SerialColumn'],
 
-			//'id',
-			'name',
-			'description',
-			'type',
-			'createdBy.username',
-			//'updatedBy.username',
-			'created_at:date',
-			//'updated_at:date',
+				//'id',
+				'name',
+				'description',
+				'type',
+				'createdBy.username',
+				//'updatedBy.username',
+				'created_at:date',
+				//'updated_at:date',
 
-			['class' => 'yii\grid\ActionColumn', 'controller' => 'properties'],
-		],
-	]); ?>
+				['class' => 'yii\grid\ActionColumn', 'controller' => 'properties'],
+			],
+		]); ?>
 
-	<?= $this->render('_formMethods', [
-		'model' => $model,
-		'propertyDropdownList' => $propertyDropdownList
-	]) ?>
+		<?= $this->render('_formMethods', [
+			'model' => $model,
+			'propertyDropdownList' => $propertyDropdownList
+		]) ?>
+	<?php endif; ?>
 </div>

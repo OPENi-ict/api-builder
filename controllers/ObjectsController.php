@@ -81,8 +81,12 @@ class ObjectsController extends Controller
 		$dataProviderBasic = $searchModel->search([
 		]);
 
-		$dataProviderExceptBasic->query->where(['and', ['object' => $id], ['not in', 'name', ['id', 'resource_uri', 'object_type', 'service']]]);
-		$dataProviderBasic->query->where(['and', ['object' => $id], ['in', 'name', ['id', 'resource_uri', 'object_type', 'service']]]);
+		if ($model->api0->name != 'core') {
+			$dataProviderExceptBasic->query->where(['and', ['object' => $id], ['not in', 'name', ['id', 'resource_uri', 'object_type', 'service']]]);
+			$dataProviderBasic->query->where(['and', ['object' => $id], ['in', 'name', ['id', 'resource_uri', 'object_type', 'service']]]);
+		}
+		else
+			$dataProviderBasic->query->where(['object' => $id]);
 
 		// Dropdown List for the methods
 		// First come the Methods for the Object
