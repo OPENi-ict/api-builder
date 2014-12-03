@@ -23,7 +23,7 @@ use yii\bootstrap\ActiveForm;
 //	}
 	?>
 
-	<?= $form->field($model, 'methods')->checkboxList(
+	<?= $form->field($model, 'methods')->label('Methods', ['class' => 'h3'])->checkboxList(
 		$propertyDropdownList
 	) ?>
 
