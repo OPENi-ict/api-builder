@@ -151,7 +151,7 @@ class RebuildschemaController extends Controller
 
 		foreach($swagger->registry as $api_name => $api)
 		{
-			$writeFiles->setFilename(ucfirst($this->_core) . '/'.$api_name . '.json');
+			$writeFiles->setFilename(ucfirst($this->_core) . '/'.$api_name);
 			$writeFiles->write_file($swagger->getResource($api_name, array('output' => 'json')));
 		}
 
