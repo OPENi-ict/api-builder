@@ -21,6 +21,10 @@ use yii\web\IdentityInterface;
  * @property integer $created_at
  * @property integer $updated_at
  * @property string $password write-only password
+ * @property string $votes_up_apis
+ * @property string $votes_down_apis
+ * @property string $votes_up_objects
+ * @property string $votes_down_objects
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -57,8 +61,30 @@ class User extends ActiveRecord implements IdentityInterface
 
             ['role', 'default', 'value' => self::ROLE_USER],
             ['role', 'in', 'range' => [self::ROLE_USER]],
+
+			[['votes_up_apis', 'votes_down_apis', 'votes_up_objects', 'votes_down_objects'], 'string'],
         ];
     }
+
+	/**
+	 * @inheritdoc
+	 */
+	public function attributeLabels()
+	{
+		return [
+			'id' => 'ID',
+			'username' => 'Username',
+			'email' => 'email',
+			'role' => 'Role',
+			'status' => 'Status',
+			'created_at' => 'Created At',
+			'updated_at' => 'Updated At',
+			'votes_up_apis' => 'Voted Up APIs',
+			'votes_down_apis' => 'Voted Down APIs',
+			'votes_up_objects' => 'Voted Up Objects',
+			'votes_down_objects' => 'Voted Down Objects'
+		];
+	}
 
     /**
      * @inheritdoc

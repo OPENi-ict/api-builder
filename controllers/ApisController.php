@@ -6,6 +6,7 @@ use app\helpers\BuildSwaggerAnnotationsOnly;
 use app\helpers\FileManipulation;
 use app\models\Objects;
 use app\models\Properties;
+use app\models\User;
 use Yii;
 use app\models\Apis;
 use app\models\ApisSearch;
@@ -51,6 +52,9 @@ class ApisController extends Controller
     {
         $searchModel = new ApisSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+//		$dataProvider->query->where(
+//
+//		);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -352,6 +356,26 @@ class ApisController extends Controller
 	public function actionVoteup($id, $redirect = 'index')
 	{
 		$model = $this->findModel($id);
+
+		$curUser = Yii::$app->getUser();
+		$curUser = User::findOne($curUser->id);
+
+		$votes_up = explode(',', $curUser->votes_up_apis);
+		$votes_down = explode(',', $curUser->votes_down_apis);
+
+		if (in_array($id, $votes_up))
+			return $this->redirect([$redirect]);
+
+		if (($key = array_search($id, $votes_down)) !== false) {
+			unset($votes_down[$key]);
+			$model->votes_down = $model->votes_down - 1;
+			$curUser->votes_down_apis = implode(",", $votes_down);
+		}
+
+		$votes_up[] = $id;
+		$curUser->votes_up_apis = implode(",", $votes_up);
+		$curUser->save();
+
 		$model->votes_up = $model->votes_up + 1;
 		$model->save();
 
@@ -367,6 +391,26 @@ class ApisController extends Controller
 	public function actionVotedown($id, $redirect = 'index')
 	{
 		$model = $this->findModel($id);
+
+		$curUser = Yii::$app->getUser();
+		$curUser = User::findOne($curUser->id);
+
+		$votes_up = explode(',', $curUser->votes_up_apis);
+		$votes_down = explode(',', $curUser->votes_down_apis);
+
+		if (in_array($id, $votes_down))
+			return $this->redirect([$redirect]);
+
+		if (($key = array_search($id, $votes_up)) !== false) {
+			unset($votes_up[$key]);
+			$model->votes_up = $model->votes_up - 1;
+			$curUser->votes_up_apis = implode(",", $votes_up);
+		}
+
+		$votes_down[] = $id;
+		$curUser->votes_down_apis = implode(",", $votes_down);
+		$curUser->save();
+
 		$model->votes_down = $model->votes_down + 1;
 		$model->save();
 

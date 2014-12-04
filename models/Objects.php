@@ -22,6 +22,7 @@ use yii\behaviors\TimestampBehavior;
  * @property integer $updated_at
  * @property integer $votes_up
  * @property integer $votes_down
+ * @property string $cbs
  *
  * @property Apis $api0
  * @property Objects $inherited0
@@ -48,7 +49,7 @@ class Objects extends \yii\db\ActiveRecord
         return [
             [['name', 'privacy'], 'required'],
             [['api', 'inherited', 'created_by', 'updated_by', 'created_at', 'updated_at', 'votes_up', 'votes_down'], 'integer'],
-            [['privacy', 'methods'], 'string'],
+            [['privacy', 'methods', 'cbs'], 'string'],
             [['name', 'description'], 'string', 'max' => 255],
 			[['privacy'], 'default', 'value' => 'public'],
 			[['votes_up', 'votes_down'], 'default', 'value' => '0'],
@@ -80,6 +81,7 @@ class Objects extends \yii\db\ActiveRecord
             'inherited' => 'Inherited',
             'privacy' => 'Privacy',
             'methods' => 'Methods',
+			'cbs' => 'CBS',
             'created_by' => 'Created By ID',
             'updated_by' => 'Updated By ID',
 			'createdBy.username' => 'Created By',

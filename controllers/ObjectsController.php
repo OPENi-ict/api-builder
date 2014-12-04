@@ -3,8 +3,10 @@
 namespace app\controllers;
 
 use app\models\Apis;
+use app\models\Cbs;
 use app\models\Properties;
 use app\models\PropertiesSearch;
+use app\models\User;
 use Yii;
 use app\models\Objects;
 use app\models\ObjectsSearch;
@@ -90,7 +92,7 @@ class ObjectsController extends Controller
 
 		// Dropdown List for the methods
 		// First come the Methods for the Object
-		$propertyDropdownList = [
+		$methodDropdownList = [
 			'Get '.$model->name => 'Get '.$model->name,
 			'Post '.$model->name => 'Post '.$model->name,
 			'Delete '.$model->name => 'Delete '.$model->name,
@@ -106,27 +108,39 @@ class ObjectsController extends Controller
 			$one = $property->getAttribute('object');
 			$newObject = Objects::findOne($one);
 
-			$propertyDropdownList = ArrayHelper::merge($propertyDropdownList,[
+			$methodDropdownList = ArrayHelper::merge($methodDropdownList,[
 				'Get '.$model->name.'/{id}/'.$newObject->name => 'Get '.$model->name.'/{id}/'.$newObject->name,
 				'Post '.$model->name.'/{id}/'.$newObject->name => 'Post '.$model->name.'/{id}/'.$newObject->name,
 				'Delete '.$model->name.'/{id}/'.$newObject->name => 'Delete '.$model->name.'/{id}/'.$newObject->name
 			]);
 		};
 
+		$cbsDropdownList = [];
+		$cbss = Cbs::find()->select('name')->where(['status' => 'approved'])->all();
+		foreach ($cbss as $cbs)
+		{
+			$cbsDropdownList= ArrayHelper::merge($cbsDropdownList, [
+				$cbs->name => $cbs->name
+			]);
+		}
+
 		if ($model->load(Yii::$app->request->post()))
 		{
 			$model->methods = implode(",", $model->methods);
+			$model->cbs = implode(",", $model->cbs);
 			$model->save();
 		}
 
 		$model->methods = explode(',', $model->methods);
+		$model->cbs = explode(',', $model->cbs);
 
 		return $this->render('view', [
 			'model' => $model,
 			'searchModel' => $searchModel,
 			'dataProviderExceptBasic' => $dataProviderExceptBasic,
 			'dataProviderBasic' => $dataProviderBasic,
-			'propertyDropdownList' => $propertyDropdownList
+			'methodDropdownList' => $methodDropdownList,
+			'cbsDropdownList' => $cbsDropdownList
 		]);
 	}
 
@@ -234,12 +248,24 @@ class ObjectsController extends Controller
 			$parentModel = $this->findModel($model->inherited);
 			$model->inherited = $parentModel->id;
 			$model->api = $id;
-			$model->name = $parentModel->name . '_for_' . $apiModel->name;
 			$model->description = $parentModel->description;
 			$model->privacy = $parentModel->privacy;
 			$model->methods = $parentModel->methods;
-			if ($model->save())
-				return $this->redirect(['view', 'id' => $model->id]);
+			$model->cbs = $parentModel->cbs;
+			$model->save();
+
+			$properties = Properties::findAll(['object' => $parentModel->id]);
+			foreach ($properties as $property)
+			{
+				$prop = new Properties();
+				$prop->name = $property->name;
+				$prop->description = $property->description;
+				$prop->type = $property->type;
+				$prop->object = $model->id;
+				$prop->save();
+			}
+
+			return $this->redirect(['view', 'id' => $model->id]);
 		}
 		return $this->render('duplicate', [
 			'model' => $model,
@@ -256,6 +282,26 @@ class ObjectsController extends Controller
 	public function actionVoteup($id, $redirect = 'site/')
 	{
 		$model = $this->findModel($id);
+
+		$curUser = Yii::$app->getUser();
+		$curUser = User::findOne($curUser->id);
+
+		$votes_up = explode(',', $curUser->votes_up_objects);
+		$votes_down = explode(',', $curUser->votes_down_objects);
+
+		if (in_array($id, $votes_up))
+			return $this->redirect([$redirect]);
+
+		if (($key = array_search($id, $votes_down)) !== false) {
+			unset($votes_down[$key]);
+			$model->votes_down = $model->votes_down - 1;
+			$curUser->votes_down_objects = implode(",", $votes_down);
+		}
+
+		$votes_up[] = $id;
+		$curUser->votes_up_objects = implode(",", $votes_up);
+		$curUser->save();
+
 		$model->votes_up = $model->votes_up + 1;
 		$model->save();
 
@@ -271,6 +317,26 @@ class ObjectsController extends Controller
 	public function actionVotedown($id, $redirect = 'site/')
 	{
 		$model = $this->findModel($id);
+
+		$curUser = Yii::$app->getUser();
+		$curUser = User::findOne($curUser->id);
+
+		$votes_up = explode(',', $curUser->votes_up_objects);
+		$votes_down = explode(',', $curUser->votes_down_objects);
+
+		if (in_array($id, $votes_down))
+			return $this->redirect([$redirect]);
+
+		if (($key = array_search($id, $votes_up)) !== false) {
+			unset($votes_up[$key]);
+			$model->votes_up = $model->votes_up - 1;
+			$curUser->votes_up_objects = implode(",", $votes_up);
+		}
+
+		$votes_down[] = $id;
+		$curUser->votes_down_objects = implode(",", $votes_down);
+		$curUser->save();
+
 		$model->votes_down = $model->votes_down + 1;
 		$model->save();
 
