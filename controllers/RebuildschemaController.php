@@ -80,7 +80,7 @@ class RebuildschemaController extends Controller
 		foreach ($_schemas as $schema)
 		{
 			// Build the swagger
-			$swaggerJSON->BuildResource($_resource->apiVersion, $_resource->swaggerVersion, $this->_apiDomain, $schema->resource);
+			$swaggerJSON->BuildResource($_resource->apiVersion, $_resource->swaggerVersion, $this->_apiDomain, $schema->resource . '.json');
 			// Make the Object
 			//$swaggerJSON->BuildClass($schema->resource);
 			foreach ($schema->apis as $api)
@@ -151,7 +151,7 @@ class RebuildschemaController extends Controller
 
 		foreach($swagger->registry as $api_name => $api)
 		{
-			$writeFiles->setFilename(ucfirst($this->_core) . '/'.$api_name);
+			$writeFiles->setFilename(ucfirst($this->_core) . '/'.$api_name . '.json');
 			$writeFiles->write_file($swagger->getResource($api_name, array('output' => 'json')));
 		}
 
