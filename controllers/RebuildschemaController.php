@@ -80,7 +80,7 @@ class RebuildschemaController extends Controller
 		foreach ($_schemas as $schema)
 		{
 			// Build the swagger
-			$swaggerJSON->BuildResource($_resource->apiVersion, $_resource->swaggerVersion, $this->_apiDomain, $schema->resource . '.json');
+			$swaggerJSON->BuildResource($_resource->apiVersion, $_resource->swaggerVersion, $this->_apiDomain, $schema->resource);
 			// Make the Object
 			//$swaggerJSON->BuildClass($schema->resource);
 			foreach ($schema->apis as $api)
