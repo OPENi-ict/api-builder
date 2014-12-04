@@ -37,6 +37,11 @@ $columns = [
 	[
 		'attribute' => 'createdBy.username',
 		'hAlign' => GridView::ALIGN_CENTER
+	],
+	[
+		'attribute' => 'created_at',
+		'format' => 'date',
+		'hAlign' => GridView::ALIGN_CENTER
 	]
 ];
 
