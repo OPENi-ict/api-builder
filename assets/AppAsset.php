@@ -18,11 +18,11 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
 	public $css = [
-		'css/site.css',
 		'css/ripples.min.css',
 		'css/material-wfont.min.css',
 		'css/lavish-bootstrap.css',
 		'css/snackbar.min.css',
+		'css/site.css',
 	];
 	public $js = [
 		'js/ripples.min.js',

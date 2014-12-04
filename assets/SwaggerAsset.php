@@ -23,11 +23,11 @@ class SwaggerAsset extends AssetBundle
 		'css/swagger/screen.css',
 		'http://fonts.googleapis.com/css?family=Droid+Sans:400,700',
 
-		'css/site.css',
 		'css/ripples.min.css',
 		'css/material-wfont.min.css',
 		'css/lavish-bootstrap.css',
 		'css/snackbar.min.css',
+		'css/site.css',
 	];
 	public $js = [
 		'js/ripples.min.js',
