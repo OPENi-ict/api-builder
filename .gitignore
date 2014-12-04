@@ -29,7 +29,7 @@ config/sqlite.php
 web/api-docs
 
 # Swagger site js
-web/js/swagger/site.js
+/web/js/swagger/site.js
 
 # Dev Env
-web/index.php
+/web/index.php
