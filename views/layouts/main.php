@@ -29,7 +29,7 @@ AppAsset::register($this);
 				'brandLabel' => '<img src="/api-builder/web/OPENi_logo.png"> API Builder',
                 'brandUrl' => Yii::$app->homeUrl,
                 'options' => [
-                    'class' => 'navbar-inverse navbar-default navbar-fixed-top',
+                    'class' => 'navbar navbar-default navbar-fixed-top',
                 ],
             ]);
             $menuItems = [

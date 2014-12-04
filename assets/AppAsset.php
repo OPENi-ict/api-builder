@@ -21,6 +21,7 @@ class AppAsset extends AssetBundle
 		'css/site.css',
 		'css/ripples.min.css',
 		'css/material-wfont.min.css',
+		'css/lavish-bootstrap.css',
 		'css/snackbar.min.css',
 	];
 	public $js = [
