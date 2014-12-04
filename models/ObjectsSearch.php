@@ -41,10 +41,16 @@ class ObjectsSearch extends Objects
     public function search($params)
     {
         $query = Objects::find();
+		$query->joinWith(['createdBy']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+
+		$dataProvider->sort->attributes['createdBy.username'] = [
+			'asc' => ['user.username' => SORT_ASC],
+			'desc' => ['user.username' => SORT_DESC],
+		];
 
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;

@@ -41,10 +41,16 @@ class PropertiesSearch extends Properties
     public function search($params)
     {
         $query = Properties::find();
+		$query->joinWith(['createdBy']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+
+		$dataProvider->sort->attributes['createdBy.username'] = [
+			'asc' => ['user.username' => SORT_ASC],
+			'desc' => ['user.username' => SORT_DESC],
+		];
 
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
