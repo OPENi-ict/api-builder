@@ -56,7 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				'label' => 'Swagger Page',
 				'value'=>function ($model, $key, $index, $widget) {
 					return
-						Html::a('Swagger <img src="./images/logo_small.png"/>', ['swagger/', 'url' => $model->name], ['class' => 'btn btn-primary btn-xs']);
+						Html::a('Swagger', ['swagger/', 'url' => $model->name], ['class' => 'btn btn-primary btn-xs']);
 				},
 				'format'=>'raw',
 				'hAlign' => GridView::ALIGN_CENTER
