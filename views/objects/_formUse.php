@@ -10,12 +10,14 @@ use yii\bootstrap\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 /* @var $objectDropdownList yii\helpers\ArrayHelper */
 
-$objectDropdownList = ArrayHelper::map( Objects::find()->where('privacy=:privacy', [':privacy' => 'public'])->all(), 'id', 'name' );
+$objectDropdownList = ArrayHelper::map( Objects::find()->where(['privacy' => 'public'])->all(), 'id', 'name' );
 ?>
 
 <div class="objects-form">
 
 	<?php $form = ActiveForm::begin(); ?>
+
+	<?= $form->field($model, 'name')->textInput(['maxlength' => 255, 'placeholder' => 'Must be a unique name']) ?>
 
 	<?= $form->field($model, 'inherited')->dropDownList(
 		$objectDropdownList,
@@ -23,7 +25,7 @@ $objectDropdownList = ArrayHelper::map( Objects::find()->where('privacy=:privacy
 	) ?>
 
 	<div class="form-group">
-		<?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+		<?= Html::submitButton('Duplicate', ['class' => 'btn btn-success']) ?>
 	</div>
 
 	<?php ActiveForm::end(); ?>
