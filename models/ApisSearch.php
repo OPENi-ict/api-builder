@@ -41,22 +41,16 @@ class ApisSearch extends Apis
     public function search($params)
     {
         $query = Apis::find();
-//			->joinWith(['createdBy' => function($query) { $query->from(['user' => 'user']);}])
-//			->joinWith(['updatedBy' => function($query) { $query->from(['user' => 'user']);}]);
+		$query->joinWith(['createdBy']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
 
-//		$dataProvider->sort->attributes['createdBy.username'] = [
-//			'asc' => ['createdBy.username' => SORT_ASC],
-//			'desc' => ['createdBy.username' => SORT_DESC],
-//		];
-//
-//		$dataProvider->sort->attributes['updatedBy.username'] = [
-//			'asc' => ['updatedBy.username' => SORT_ASC],
-//			'desc' => ['updatedBy.username' => SORT_DESC],
-//		];
+		$dataProvider->sort->attributes['createdBy.username'] = [
+			'asc' => ['user.username' => SORT_ASC],
+			'desc' => ['user.username' => SORT_DESC],
+		];
 
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
