@@ -1,7 +1,7 @@
 <?php
 
 use kartik\helpers\Html;
-use kartik\widgets\Select2;
+//use kartik\widgets\Select2;
 use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
@@ -34,24 +34,17 @@ $columns = [
 		'format'=>'raw',
 		'hAlign' => GridView::ALIGN_CENTER
 	],
-//	[
-//		'attribute' => '',
-//		'value'=>function ($model, $key, $index, $widget) {
-//			return "<span class='glyphicon glyphicon-thumbs-down'> </span>" .
-//			$model->dislikes;
-//		},
-//		'format'=>'raw',
-//	],
-	//'used',
-//	[
-//		'label' => 'author',
-//		'value' =>
-//	],
 	[
 		'attribute' => 'createdBy.username',
 		'hAlign' => GridView::ALIGN_CENTER
 	]
 ];
+
+$objectsRecentDataProvider->pagination->pageParam = 'recent-page';
+//$objectsRecentDataProvider->sort->sortParam = 'recent-sort';
+
+$objectsLikedDataProvider->pagination->pageParam = 'liked-page';
+//$objectsLikedDataProvider->sort->sortParam = 'liked-sort';
 
 $this->title = 'API Builder';
 ?>
