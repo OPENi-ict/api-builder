@@ -36,11 +36,13 @@ SwaggerAsset::register($this);
 		['label' => 'Home', 'url' => ['/site/index']],
 		['label' => 'Browse', 'url' => ['/apis/'], 'items' => [
 			['label' => 'APIs', 'url' => ['/apis/']],
-			['label' => 'Objects', 'url' => ['/objects/']]
+			['label' => 'Objects', 'url' => ['/objects/']],
+			['label' => 'CBS', 'url' => ['/cbs/']],
 		]],
 		['label' => 'Create', 'url' => ['/apis/create'], 'items' => [
 			['label' => 'API', 'url' => ['/apis/create']],
-			['label' => 'Object', 'url' => ['/objects/create']]
+			['label' => 'Object', 'url' => ['/objects/create']],
+			['label' => 'CBS', 'url' => ['/cbs/create']],
 		]],
 		['label' => 'Swagger', 'url' => ['/swagger']],
 		['label' => 'About', 'url' => ['/site/about']],

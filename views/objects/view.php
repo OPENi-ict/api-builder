@@ -8,7 +8,8 @@ use kartik\grid\GridView;
 /* @var $searchModel app\models\PropertiesSearch */
 /* @var $dataProviderBasic yii\data\ActiveDataProvider */
 /* @var $dataProviderExceptBasic yii\data\ActiveDataProvider */
-/* @var $propertyDropdownList array */
+/* @var $methodDropdownList array */
+/* @var $cbsDropdownList array */
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Apis', 'url' => ['apis/index']];
@@ -92,7 +93,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
 		<?= $this->render('_formMethods', [
 			'model' => $model,
-			'propertyDropdownList' => $propertyDropdownList
+			'methodDropdownList' => $methodDropdownList,
+			'cbsDropdownList' => $cbsDropdownList
 		]) ?>
+
+<!--		--><?php // $this->render('_formCBS', [
+//			'model' => $model,
+//			'cbsDropdownList' => $cbsDropdownList
+//		]) ?>
 	<?php endif; ?>
 </div>
