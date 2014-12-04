@@ -20,7 +20,7 @@ $(function () {
             url = url.replace('swagger', 'api-docs/Core');
         url = url + '/api-docs.json';
     } else {
-        url = "http://imagine.epu.ntua.gr:1234/api-builder/web/api-docs/Core/api-docs.json";
+        url = "http://localhost/api-builder/web/api-docs/Core/api-docs.json";
     }
     window.swaggerUi = new SwaggerUi({
         url: url,
