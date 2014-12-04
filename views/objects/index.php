@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ObjectsSearch */
@@ -25,11 +25,17 @@ $this->params['breadcrumbs'][] = $this->title;
 		'dataProvider' => $dataProvider,
 		//'filterModel' => $searchModel,
 		'columns' => [
-			['class' => 'yii\grid\SerialColumn'],
+			['class' => 'kartik\grid\SerialColumn'],
 
 			//'id',
-			'name',
-			'description',
+			[
+				'attribute' => 'name',
+				'hAlign' => GridView::ALIGN_CENTER
+			],
+			[
+				'attribute' => 'description',
+				'hAlign' => GridView::ALIGN_CENTER
+			],
 			'api0.name',
 			'inherited0.name',
 			'privacy',
@@ -38,10 +44,21 @@ $this->params['breadcrumbs'][] = $this->title;
 			// 'updated_by',
 			'created_at:date',
 			// 'updated_at',
-			'votes_up',
-			'votes_down',
+			[
+				'attribute' => '',
+				'label' => 'Votes',
+				'value'=>function ($model, $key, $index, $widget) {
+					return
+						Html::a($model->votes_up, ['objects/voteup', 'id' => $model->id, 'redirect' => 'index'], ['class' => 'glyphicon glyphicon-thumbs-up nounderline'])
+						.
+						' / ' .
+						Html::a($model->votes_down, ['objects/votedown', 'id' => $model->id, 'redirect' => 'index'], ['class' => 'glyphicon glyphicon-thumbs-down nounderline']);
+				},
+				'format'=>'raw',
+				'hAlign' => GridView::ALIGN_CENTER
+			],
 
-			['class' => 'yii\grid\ActionColumn'],
+			['class' => 'kartik\grid\ActionColumn'],
 		],
 	]); ?>
 
