@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'description',
             'version',
 			'createdBy.username',
-			'updatedBy.username',
+			//'updatedBy.username',
 			[
 				'attribute' => '',
 				'label' => 'Votes',
@@ -47,9 +47,10 @@ $this->params['breadcrumbs'][] = $this->title;
 				'hAlign' => GridView::ALIGN_CENTER
 			],
 			'created_at:date',
-			'updated_at:date',
+			//'updated_at:date',
 
-            ['class' => 'yii\grid\ActionColumn'],
+			['class' => 'kartik\grid\ActionColumn'],
+
 			[
 				'attribute' => '',
 				'label' => 'Swagger Page',
@@ -60,7 +61,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				'format'=>'raw',
 				'hAlign' => GridView::ALIGN_CENTER
 			],
-        ],
+		],
     ]); ?>
 
 </div>
