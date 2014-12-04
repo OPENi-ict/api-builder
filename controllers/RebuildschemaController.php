@@ -38,7 +38,8 @@ class RebuildschemaController extends Controller
 		];
 	}
 
-	private $_apiDomain = "https://demo2.openi-ict.eu";
+	private $_apiDomain = "http://imagine.epu.ntua.gr:1988";
+//	private $_apiDomain = "https://demo2.openi-ict.eu";
 //	private $_apiDomain = "http://localhost:1988";
 	private $_docPath = "/api/doc/";
 	private $_resourcesPath = "resources/";
