@@ -113,6 +113,7 @@ $this->params['breadcrumbs'][] = $this->title;
 						Html::a($model->votes_down, ['objects/votedown', 'id' => $model->id], ['class' => 'glyphicon glyphicon-thumbs-down nounderline']);
 				},
 				'format'=>'raw',
+				'width' => '80px',
 				'hAlign' => GridView::ALIGN_CENTER,
 				'vAlign' => GridView::ALIGN_MIDDLE
 			],
