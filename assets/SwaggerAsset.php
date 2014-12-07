@@ -24,7 +24,7 @@ class SwaggerAsset extends AssetBundle
 		'http://fonts.googleapis.com/css?family=Droid+Sans:400,700',
 
 		'css/ripples.min.css',
-		'css/material-wfont.min.css',
+//		'css/material-wfont.min.css',
 		'css/lavish-bootstrap.css',
 		'css/snackbar.min.css',
 		'css/site.css',

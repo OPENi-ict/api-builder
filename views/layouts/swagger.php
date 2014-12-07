@@ -82,11 +82,11 @@ SwaggerAsset::register($this);
 </footer>
 
 <?php $this->endBody() ?>
-<script>
-	$(function() {
-		$.material.init();
-	});
-</script>
+<!--<script>-->
+<!--	$(function() {-->
+<!--		$.material.init();-->
+<!--	});-->
+<!--</script>-->
 </body>
 </html>
 <?php $this->endPage() ?>
