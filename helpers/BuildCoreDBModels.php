@@ -36,6 +36,20 @@ class BuildCoreDBModels {
 		{
 			$model = new Apis();
 		}
+		else
+		{
+			Properties::deleteAll([
+				'object' => null
+			]);
+			$objsToDel = Objects::find()->where(['api' => $model->id])->all();
+			foreach ($objsToDel as $objToDel)
+				Properties::deleteAll([
+					'object' => $objToDel->id
+				]);
+			Objects::deleteAll([
+				'api' => $model->id
+			]);
+		}
 
 		$model->name = $this->_apiName;
 		$model->description = $this->_apiDescription;
@@ -62,9 +76,10 @@ class BuildCoreDBModels {
 
 		// If APIS_addressmodel keep only addressmodel and make it Addressmodel
 		// If Checkin_openicheckin keep only checkin and make it Checkin
-		$pos = strpos($objectName, '_');
-		if ($pos != 0)
-			$model->name = substr($objectName , $pos + 1);
+		$model->name = $objectName;
+		$pos = strpos($model->name, '_');
+		if ($pos !== false)
+			$model->name = substr($model->name , $pos + 1);
 		$model->name = str_replace("openi", "", $model->name);
 		$model->name = ucfirst($model->name);
 
@@ -85,9 +100,10 @@ class BuildCoreDBModels {
 
 		// If APIS_addressmodel keep only addressmodel and make it Addressmodel
 		// If Checkin_openicheckin keep only checkin and make it Checkin
-		$pos = strpos($type, '_');
-		if ($pos != 0)
-			$model->name = substr($type , $pos + 1);
+		$model->type = $type;
+		$pos = strpos($model->type, '_');
+		if ($pos !== false)
+			$model->type = substr($model->type , $pos + 1);
 		$model->type = str_replace("openi", "", $model->type);
 		$model->type = ucfirst($model->type);
 
