@@ -81,6 +81,8 @@ $this->params['breadcrumbs'][] = $this->title;
 			//'updatedBy.username',
 			'created_at:date',
 			//'updated_at:date',
+			//'proposed',
+			//'published',
 
 			($model->name != 'core') ? ['class' => 'kartik\grid\ActionColumn', 'controller' => 'objects'] : ['class' => 'kartik\grid\ActionColumn', 'controller' => 'objects', 'template' => '{view}'],
 		],

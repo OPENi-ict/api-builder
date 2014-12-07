@@ -55,12 +55,19 @@ $this->params['breadcrumbs'][] = $this->title;
 				'attribute' => '',
 				'label' => 'Swagger Page',
 				'value'=>function ($model, $key, $index, $widget) {
-					return
-						Html::a('Swagger', ['swagger/', 'url' => $model->name], ['class' => 'btn btn-primary btn-xs']);
+					if ($model->published)
+						return
+							Html::a('Swagger', ['swagger/', 'url' => $model->name], ['class' => 'btn btn-primary btn-xs']);
+					else
+						return
+							Html::a('Not yet Published', ['/'], ['class' => 'btn btn-primary btn-xs disabled']);
 				},
 				'format'=>'raw',
 				'hAlign' => GridView::ALIGN_CENTER
 			],
+
+			// 'proposed',
+			// 'published',
 		],
     ]); ?>
 

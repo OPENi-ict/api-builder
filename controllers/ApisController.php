@@ -152,6 +152,8 @@ class ApisController extends Controller
 	public function actionPublish($id)
 	{
 		$api = $this->findModel($id);
+		$api->published = 1;
+		$api->save();
 
 		$basePathPart = explode('publish', Url::canonical());
 		$basePath = $basePathPart[0] . $api->name . '/';
