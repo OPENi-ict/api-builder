@@ -39,6 +39,7 @@ class BuildCoreDBModels {
 
 		$model->name = $this->_apiName;
 		$model->description = $this->_apiDescription;
+		$model->published = 1;
 
 		$model->save();
 
