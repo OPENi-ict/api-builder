@@ -41,7 +41,6 @@ SwaggerAsset::register($this);
 		]],
 		['label' => 'Create', 'url' => ['/apis/create'], 'items' => [
 			['label' => 'API', 'url' => ['/apis/create']],
-			['label' => 'Object', 'url' => ['/objects/create']],
 			['label' => 'CBS', 'url' => ['/cbs/create']],
 		]],
 		['label' => 'Swagger', 'url' => ['/swagger']],
