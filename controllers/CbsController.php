@@ -9,6 +9,7 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\User;
 
 /**
  * CbsController implements the CRUD actions for Cbs model.
@@ -81,24 +82,52 @@ class CbsController extends Controller
         }
     }
 
-    /**
-     * Updates an existing Cbs model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
+	/**
+	 * Updates an existing Cbs model.
+	 * If update is successful, the browser will be redirected to the 'view' page.
+	 * @param integer $id
+	 * @return mixed
+	 */
+	public function actionPropose($id)
+	{
+		$model = $this->findModel($id);
+		$new = new Cbs();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        }
-    }
+		if ($new->load(Yii::$app->request->post())) {
+			if (($new->version != $model->version) or ($new->url != $model->url))
+			{
+				$new->name = $model->name . '_v' . $new->version . '_by_' . \app\models\User::findIdentity(Yii::$app->getUser()->getId())->username;
+				$new->description = $model->description;
+				$new->status = 'pending';
+
+				$new->save();
+				return $this->redirect(['view', 'id' => $new->id]);
+			}
+		}
+
+		return $this->render('propose', [
+			'model' => $model,
+		]);
+	}
+
+	/**
+	 * Updates an existing Cbs model.
+	 * If update is successful, the browser will be redirected to the 'view' page.
+	 * @param integer $id
+	 * @return mixed
+	 */
+	public function actionUpdate($id)
+	{
+		$model = $this->findModel($id);
+
+		if ($model->load(Yii::$app->request->post()) && $model->save()) {
+			return $this->redirect(['view', 'id' => $model->id]);
+		} else {
+			return $this->render('update', [
+				'model' => $model,
+			]);
+		}
+	}
 
     /**
      * Deletes an existing Cbs model.

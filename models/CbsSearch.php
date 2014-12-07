@@ -42,6 +42,10 @@ class CbsSearch extends Cbs
     {
         $query = Cbs::find();
 		$query->joinWith(['createdBy']);
+		$query->orderBy([
+			'status' => SORT_ASC,
+			'name' => SORT_DESC,
+		]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

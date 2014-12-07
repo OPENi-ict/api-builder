@@ -5,7 +5,6 @@ namespace app\models;
 use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
-use yii\db\Expression;
 
 /**
  * This is the model class for table "cbs".
@@ -44,6 +43,7 @@ class Cbs extends \yii\db\ActiveRecord
             [['url', 'name', 'description', 'version'], 'string', 'max' => 255],
 			[['version'], 'default', 'value' => '1.0'],
 			[['status'], 'default', 'value' => 'pending'],
+			[['name'], 'unique', 'targetClass' => '\app\models\Cbs', 'message' => 'This CBS name has already been taken. You could propose a new Version though.']
         ];
     }
 
