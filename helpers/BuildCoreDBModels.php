@@ -60,7 +60,14 @@ class BuildCoreDBModels {
 			]);
 		}
 
-		$model->name = $objectName;
+		// If APIS_addressmodel keep only addressmodel and make it Addressmodel
+		// If Checkin_openicheckin keep only checkin and make it Checkin
+		$pos = strpos($objectName, '_');
+		if ($pos != 0)
+			$model->name = substr($objectName , $pos + 1);
+		$model->name = str_replace("openi", "", $model->name);
+		$model->name = ucfirst($model->name);
+
 		$model->description = $objectDescription;
 		$model->api = $this->_apiID;
 		$model->privacy = 'public';
@@ -75,7 +82,15 @@ class BuildCoreDBModels {
 
 		$model->name = $name;
 		$model->description = $desc;
-		$model->type = $type;
+
+		// If APIS_addressmodel keep only addressmodel and make it Addressmodel
+		// If Checkin_openicheckin keep only checkin and make it Checkin
+		$pos = strpos($type, '_');
+		if ($pos != 0)
+			$model->name = substr($type , $pos + 1);
+		$model->type = str_replace("openi", "", $model->type);
+		$model->type = ucfirst($model->type);
+
 		$model->object = $object;
 
 		$model->save();
