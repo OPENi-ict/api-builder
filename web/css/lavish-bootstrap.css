@@ -1533,16 +1533,16 @@ input[type="number"]::-webkit-inner-spin-button {
   height: auto;
 }
 .form-control:-moz-placeholder {
-  color: #3e4a45;
+  color: #76d1ce;
 }
 .form-control::-moz-placeholder {
-  color: #3e4a45;
+  color: #76d1ce;
 }
 .form-control:-ms-input-placeholder {
-  color: #3e4a45;
+  color: #76d1ce;
 }
 .form-control::-webkit-input-placeholder {
-  color: #3e4a45;
+  color: #76d1ce;
 }
 .form-control {
   display: block;
@@ -1551,7 +1551,7 @@ input[type="number"]::-webkit-inner-spin-button {
   padding: 6px 12px;
   font-size: 14px;
   line-height: 1.428571429;
-  color: #76d1ce;
+  color: rgb(85, 85, 85);
   vertical-align: middle;
   background-color: #ffffff;
   border: 1px solid #cccccc;
@@ -2147,8 +2147,8 @@ input[type="button"].btn-block {
 }
 @font-face {
   font-family: 'Glyphicons Halflings';
-  src: url('../fonts/glyphicons-halflings-regular.eot');
-  src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');
+  src: url('../../vendor/bower/bootstrap/fonts/glyphicons-halflings-regular.eot');
+  src: url('../../vendor/bower/bootstrap/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../../vendor/bower/bootstrap/fonts/glyphicons-halflings-regular.woff') format('woff'), url('../../vendor/bower/bootstrap/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../../vendor/bower/bootstrap/fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');
 }
 .glyphicon {
   position: relative;
