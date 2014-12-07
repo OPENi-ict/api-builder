@@ -21,16 +21,35 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
     <?= GridView::widget([
+		'tableOptions' => ['class' => 'text-center'],
+		'headerRowOptions' => ['class' => 'text-center info'],
         'dataProvider' => $dataProvider,
         //'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'kartik\grid\SerialColumn'],
 
             //'id',
-            'name',
-            'description',
-            'version',
-            'url:url',
+			[
+				'attribute' => 'name',
+				'hAlign' => GridView::ALIGN_CENTER,
+				'vAlign' => GridView::ALIGN_MIDDLE
+			],
+			[
+				'attribute' => 'description',
+				'hAlign' => GridView::ALIGN_CENTER,
+				'vAlign' => GridView::ALIGN_MIDDLE
+			],
+			[
+				'attribute' => 'version',
+				'hAlign' => GridView::ALIGN_CENTER,
+				'vAlign' => GridView::ALIGN_MIDDLE
+			],
+			[
+				'attribute' => 'url',
+				'format' => 'url',
+				'hAlign' => GridView::ALIGN_CENTER,
+				'vAlign' => GridView::ALIGN_MIDDLE
+			],
 			//'status',
 			[
 				'attribute' => 'status',
@@ -39,11 +58,21 @@ $this->params['breadcrumbs'][] = $this->title;
 						$model->status == 'pending' ? '<span class="text-warning">pending</span>' : '<span class="text-success">approved</span>';
 				},
 				'format'=>'raw',
-				'hAlign' => GridView::ALIGN_CENTER
+				'hAlign' => GridView::ALIGN_CENTER,
+				'vAlign' => GridView::ALIGN_MIDDLE
+			],
+			[
+				'attribute' => 'createdBy.username',
+				'hAlign' => GridView::ALIGN_CENTER,
+				'vAlign' => GridView::ALIGN_MIDDLE
+			],
+			[
+				'attribute' => 'created_at',
+				'format' => 'date',
+				'hAlign' => GridView::ALIGN_CENTER,
+				'vAlign' => GridView::ALIGN_MIDDLE
 			],
             //'created_by',
-			'createdBy.username',
-            'created_at:date',
 
 			['class' => 'kartik\grid\ActionColumn', 'controller' => 'cbs', 'template' => '{view}'],
 
@@ -55,7 +84,8 @@ $this->params['breadcrumbs'][] = $this->title;
 						Html::a('Propose Version', ['propose', 'id' => $model->id], ['class' => 'btn btn-primary btn-xs']);
 				},
 				'format'=>'raw',
-				'hAlign' => GridView::ALIGN_CENTER
+				'hAlign' => GridView::ALIGN_CENTER,
+				'vAlign' => GridView::ALIGN_MIDDLE
 			],
         ],
     ]); ?>

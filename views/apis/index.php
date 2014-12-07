@@ -21,17 +21,33 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
     <?= GridView::widget([
+		'headerRowOptions' => ['class' => 'info'],
         'dataProvider' => $dataProvider,
         //'filterModel' => $searchModel,
-		//'tableOptions' => array('style' => 'text-align: center;'),
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
             //'id',
-            'name',
-            'description',
-            'version',
-			'createdBy.username',
+			[
+				'attribute' => 'name',
+				'hAlign' => GridView::ALIGN_CENTER,
+				'vAlign' => GridView::ALIGN_MIDDLE
+			],
+			[
+				'attribute' => 'description',
+				'hAlign' => GridView::ALIGN_CENTER,
+				'vAlign' => GridView::ALIGN_MIDDLE
+			],
+			[
+				'attribute' => 'version',
+				'hAlign' => GridView::ALIGN_CENTER,
+				'vAlign' => GridView::ALIGN_MIDDLE
+			],
+			[
+				'attribute' => 'createdBy.username',
+				'hAlign' => GridView::ALIGN_CENTER,
+				'vAlign' => GridView::ALIGN_MIDDLE
+			],
 			//'updatedBy.username',
 			[
 				'attribute' => '',
@@ -44,9 +60,15 @@ $this->params['breadcrumbs'][] = $this->title;
 						Html::a($model->votes_down, ['apis/votedown', 'id' => $model->id], ['class' => 'glyphicon glyphicon-thumbs-down nounderline']);
 				},
 				'format'=>'raw',
-				'hAlign' => GridView::ALIGN_CENTER
+				'hAlign' => GridView::ALIGN_CENTER,
+				'vAlign' => GridView::ALIGN_MIDDLE
 			],
-			'created_at:date',
+			[
+				'attribute' => 'created_at',
+				'format' => 'date',
+				'hAlign' => GridView::ALIGN_CENTER,
+				'vAlign' => GridView::ALIGN_MIDDLE
+			],
 			//'updated_at:date',
 
 			['class' => 'kartik\grid\ActionColumn'],
@@ -63,7 +85,8 @@ $this->params['breadcrumbs'][] = $this->title;
 							Html::a('Not yet Published', ['/'], ['class' => 'btn btn-primary btn-xs disabled']);
 				},
 				'format'=>'raw',
-				'hAlign' => GridView::ALIGN_CENTER
+				'hAlign' => GridView::ALIGN_CENTER,
+				'vAlign' => GridView::ALIGN_MIDDLE
 			],
 
 			// 'proposed',

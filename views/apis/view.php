@@ -85,14 +85,23 @@ $this->params['breadcrumbs'][] = $this->title;
 	<?php endif; ?>
 
 	<?= GridView::widget([
+		'headerRowOptions' => ['class' => 'info'],
 		'dataProvider' => $dataProvider,
 		//'filterModel' => $searchModel,
 		'columns' => [
 			['class' => 'kartik\grid\SerialColumn'],
 
 			//'id',
-			'name',
-			'description',
+			[
+				'attribute' => 'name',
+				'hAlign' => GridView::ALIGN_CENTER,
+				'vAlign' => GridView::ALIGN_MIDDLE
+			],
+			[
+				'attribute' => 'description',
+				'hAlign' => GridView::ALIGN_CENTER,
+				'vAlign' => GridView::ALIGN_MIDDLE
+			],
 			[
 				'attribute' => '',
 				'label' => 'Votes',
@@ -104,11 +113,21 @@ $this->params['breadcrumbs'][] = $this->title;
 						Html::a($model->votes_down, ['objects/votedown', 'id' => $model->id], ['class' => 'glyphicon glyphicon-thumbs-down nounderline']);
 				},
 				'format'=>'raw',
-				'hAlign' => GridView::ALIGN_CENTER
+				'hAlign' => GridView::ALIGN_CENTER,
+				'vAlign' => GridView::ALIGN_MIDDLE
 			],
-			'createdBy.username',
+			[
+				'attribute' => 'createdBy.username',
+				'hAlign' => GridView::ALIGN_CENTER,
+				'vAlign' => GridView::ALIGN_MIDDLE
+			],
+			[
+				'attribute' => 'created_at',
+				'format' => 'date',
+				'hAlign' => GridView::ALIGN_CENTER,
+				'vAlign' => GridView::ALIGN_MIDDLE
+			],
 			//'updatedBy.username',
-			'created_at:date',
 			//'updated_at:date',
 			//'proposed',
 			//'published',

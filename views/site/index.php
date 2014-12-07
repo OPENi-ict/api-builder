@@ -18,7 +18,8 @@ $columns = [
 			return Html::a($model->name, ['/objects/view', 'id' => $model->id]);
 		},
 		'format'=> 'raw',
-		'hAlign' => GridView::ALIGN_CENTER
+		'hAlign' => GridView::ALIGN_CENTER,
+		'vAlign' => GridView::ALIGN_MIDDLE
 	],
 	//'resource_url:url',
 	[
@@ -32,16 +33,19 @@ $columns = [
 				Html::a($model->votes_down, ['objects/votedown', 'id' => $model->id], ['class' => 'glyphicon glyphicon-thumbs-down nounderline']);
 		},
 		'format'=>'raw',
-		'hAlign' => GridView::ALIGN_CENTER
+		'hAlign' => GridView::ALIGN_CENTER,
+		'vAlign' => GridView::ALIGN_MIDDLE
 	],
 	[
 		'attribute' => 'createdBy.username',
-		'hAlign' => GridView::ALIGN_CENTER
+		'hAlign' => GridView::ALIGN_CENTER,
+		'vAlign' => GridView::ALIGN_MIDDLE
 	],
 	[
 		'attribute' => 'created_at',
 		'format' => 'date',
-		'hAlign' => GridView::ALIGN_CENTER
+		'hAlign' => GridView::ALIGN_CENTER,
+		'vAlign' => GridView::ALIGN_MIDDLE
 	]
 ];
 
@@ -88,6 +92,7 @@ $this->title = 'API Builder';
                 <h2>Most Recent</h2>
 
 				<?= GridView::widget([
+					'headerRowOptions' => ['class' => 'info'],
 					'dataProvider' => $objectsRecentDataProvider,
 					'hover' => true,
 					'columns' => $columns
@@ -97,6 +102,7 @@ $this->title = 'API Builder';
                 <h2>Most Popular</h2>
 
 				<?= GridView::widget([
+					'headerRowOptions' => ['class' => 'info'],
 					'dataProvider' => $objectsLikedDataProvider,
 					'hover' => true,
 					'columns' => $columns

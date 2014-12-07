@@ -20,8 +20,9 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
 	<?= GridView::widget([
-		'tableOptions' => ['class' => 'table table-striped table-bordered text-center'],
-		'headerRowOptions' => ['class' => 'text-center'],
+		'tableOptions' => ['class' => 'text-center'],
+		'headerRowOptions' => ['class' => 'text-center info'],
+		'rowOptions' => ['class' => 'text-center'],
 		'dataProvider' => $dataProvider,
 		//'filterModel' => $searchModel,
 		'columns' => [
@@ -30,19 +31,42 @@ $this->params['breadcrumbs'][] = $this->title;
 			//'id',
 			[
 				'attribute' => 'name',
-				'hAlign' => GridView::ALIGN_CENTER
+				'hAlign' => GridView::ALIGN_CENTER,
+				'vAlign' => GridView::ALIGN_MIDDLE
 			],
 			[
 				'attribute' => 'description',
-				'hAlign' => GridView::ALIGN_CENTER
+				'hAlign' => GridView::ALIGN_CENTER,
+				'vAlign' => GridView::ALIGN_MIDDLE
 			],
-			'api0.name',
-			'inherited0.name',
-			'privacy',
+			[
+				'attribute' => 'api0.name',
+				'hAlign' => GridView::ALIGN_CENTER,
+				'vAlign' => GridView::ALIGN_MIDDLE
+			],
+			[
+				'attribute' => 'inherited0.name',
+				'hAlign' => GridView::ALIGN_CENTER,
+				'vAlign' => GridView::ALIGN_MIDDLE
+			],
+			[
+				'attribute' => 'privacy',
+				'hAlign' => GridView::ALIGN_CENTER,
+				'vAlign' => GridView::ALIGN_MIDDLE
+			],
+			[
+				'attribute' => 'createdBy.username',
+				'hAlign' => GridView::ALIGN_CENTER,
+				'vAlign' => GridView::ALIGN_MIDDLE
+			],
+			[
+				'attribute' => 'created_at',
+				'format' => 'date',
+				'hAlign' => GridView::ALIGN_CENTER,
+				'vAlign' => GridView::ALIGN_MIDDLE
+			],
 			// 'methods:ntext',
-			'createdBy.username',
 			// 'updated_by',
-			'created_at:date',
 			// 'updated_at',
 			[
 				'attribute' => '',
@@ -55,7 +79,8 @@ $this->params['breadcrumbs'][] = $this->title;
 						Html::a($model->votes_down, ['objects/votedown', 'id' => $model->id, 'redirect' => 'index'], ['class' => 'glyphicon glyphicon-thumbs-down nounderline']);
 				},
 				'format'=>'raw',
-				'hAlign' => GridView::ALIGN_CENTER
+				'hAlign' => GridView::ALIGN_CENTER,
+				'vAlign' => GridView::ALIGN_MIDDLE
 			],
 
 			['class' => 'kartik\grid\ActionColumn'],

@@ -67,18 +67,41 @@ $this->params['breadcrumbs'][] = $this->title;
 	<h4>Basic Properties</h4>
 
 	<?= GridView::widget([
+		'tableOptions' => ['class' => 'text-center'],
+		'headerRowOptions' => ['class' => 'text-center info'],
 		'dataProvider' => $dataProviderBasic,
 		//'filterModel' => $searchModel,
 		'columns' => [
 			['class' => 'yii\grid\SerialColumn'],
 
 			//'id',
-			'name',
-			'description',
-			'type',
-			'createdBy.username',
+			[
+				'attribute' => 'name',
+				'hAlign' => GridView::ALIGN_CENTER,
+				'vAlign' => GridView::ALIGN_MIDDLE
+			],
+			[
+				'attribute' => 'description',
+				'hAlign' => GridView::ALIGN_CENTER,
+				'vAlign' => GridView::ALIGN_MIDDLE
+			],
+			[
+				'attribute' => 'type',
+				'hAlign' => GridView::ALIGN_CENTER,
+				'vAlign' => GridView::ALIGN_MIDDLE
+			],
+			[
+				'attribute' => 'createdBy.username',
+				'hAlign' => GridView::ALIGN_CENTER,
+				'vAlign' => GridView::ALIGN_MIDDLE
+			],
+			[
+				'attribute' => 'created_at',
+				'format' => 'date',
+				'hAlign' => GridView::ALIGN_CENTER,
+				'vAlign' => GridView::ALIGN_MIDDLE
+			],
 			//'updatedBy.username',
-			'created_at:date',
 			//'updated_at:date',
 
 			['class' => 'kartik\grid\ActionColumn', 'controller' => 'properties', 'template' => '{view}'],
@@ -93,21 +116,44 @@ $this->params['breadcrumbs'][] = $this->title;
 		<h4>New Properties</h4>
 
 		<?= GridView::widget([
+			'tableOptions' => ['class' => 'text-center'],
+			'headerRowOptions' => ['class' => 'text-center info'],
 			'dataProvider' => $dataProviderExceptBasic,
 			//'filterModel' => $searchModel,
 			'columns' => [
 				['class' => 'yii\grid\SerialColumn'],
 
 				//'id',
-				'name',
-				'description',
-				'type',
-				'createdBy.username',
+				[
+					'attribute' => 'name',
+					'hAlign' => GridView::ALIGN_CENTER,
+					'vAlign' => GridView::ALIGN_MIDDLE
+				],
+				[
+					'attribute' => 'description',
+					'hAlign' => GridView::ALIGN_CENTER,
+					'vAlign' => GridView::ALIGN_MIDDLE
+				],
+				[
+					'attribute' => 'type',
+					'hAlign' => GridView::ALIGN_CENTER,
+					'vAlign' => GridView::ALIGN_MIDDLE
+				],
+				[
+					'attribute' => 'createdBy.username',
+					'hAlign' => GridView::ALIGN_CENTER,
+					'vAlign' => GridView::ALIGN_MIDDLE
+				],
+				[
+					'attribute' => 'created_at',
+					'format' => 'date',
+					'hAlign' => GridView::ALIGN_CENTER,
+					'vAlign' => GridView::ALIGN_MIDDLE
+				],
 				//'updatedBy.username',
-				'created_at:date',
 				//'updated_at:date',
 
-				['class' => 'yii\grid\ActionColumn', 'controller' => 'properties'],
+				['class' => 'kartik\grid\ActionColumn', 'controller' => 'properties'],
 			],
 		]); ?>
 
