@@ -45,7 +45,7 @@ class ObjectsSearch extends Objects
 
 		$query->where(['or', ['privacy' => 'public'], ['privacy' => 'protected'], ['privacy' => 'private', 'created_by' => Yii::$app->getUser()->id]]);
 
-		$query->where(['not in', 'name', ['Addressmodel', 'Timemodel', 'Durationmodel', 'Frommodel', 'Locationmodel', 'Sizemodel', 'Tagsmodel', 'Applicationmodel', 'Basefilemodel', 'Organizationmodel', 'Personmodel', 'Placemodel', 'Productmodel', 'Servicemodel', 'Cart_target_id', 'Registeredapplication_user']]);
+		$query->where(['not in', 'name', ['Addressmodel', 'Timemodel', 'Durationmodel', 'Frommodel', 'Locationmodel', 'Sizemodel', 'Tagsmodel', 'Applicationmodel', 'Basefilemodel', 'Organizationmodel', 'Personmodel', 'Placemodel', 'Productmodel', 'Servicemodel', 'Cartproductlist', 'Cartservicelist', 'Cart_target_id', 'Orderproductlist', 'Orderservicelist', 'Registeredapplication_user']]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
