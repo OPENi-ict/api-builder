@@ -10,12 +10,27 @@ use kartik\grid\GridView;
 /* @var $dataProviderExceptBasic yii\data\ActiveDataProvider */
 /* @var $methodDropdownList array */
 /* @var $cbsDropdownList array */
+/* @var $propose integer */
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Apis', 'url' => ['apis/index']];
 $this->params['breadcrumbs'][] = ['label' => $model->api0->name, 'url' => ['apis/view', 'id' => $model->api]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
+<?php if ($propose == 1)
+	$this->registerJs(
+		'
+		var options =  {
+			content: "Your Proposal has been sent for approval to the Administrator", // text of the snackbar
+			style: "toast", // add a custom class to your snackbar
+			timeout: 3000 // time in milliseconds after the snackbar autohides, 0 is disabled
+		};
+
+		$.snackbar(options);'
+	);
+?>
+
 <div class="objects-view">
 
 	<h1>
@@ -28,6 +43,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
 		<?php if ($model->api0->name != 'core') : ?>
 			<span class="pull-right">
+				<?php if ($model->proposed === 0): ?>
+					<?= Html::a('Propose', ['propose', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
+				<?php else : ?>
+					<?= Html::a('Under Review', ['propose', 'id' => $model->id], ['class' => 'btn btn-info disabled']) ?>
+				<?php endif; ?>
 				<?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
 				<?= Html::a('Delete', ['delete', 'id' => $model->id], [
 					'class' => 'btn btn-danger',

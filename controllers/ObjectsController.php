@@ -72,9 +72,10 @@ class ObjectsController extends Controller
 	/**
 	 * Displays a single Objects model.
 	 * @param integer $id
+	 * @param integer $propose
 	 * @return mixed
 	 */
-	public function actionView($id)
+	public function actionView($id, $propose = 0)
 	{
 		$model = $this->findModel($id);
 		$searchModel = new PropertiesSearch();
@@ -140,7 +141,8 @@ class ObjectsController extends Controller
 			'dataProviderExceptBasic' => $dataProviderExceptBasic,
 			'dataProviderBasic' => $dataProviderBasic,
 			'methodDropdownList' => $methodDropdownList,
-			'cbsDropdownList' => $cbsDropdownList
+			'cbsDropdownList' => $cbsDropdownList,
+			'propose' => $propose
 		]);
 	}
 
@@ -195,6 +197,21 @@ class ObjectsController extends Controller
             ]);
         }
     }
+
+	/**
+	 * Proposes an Object to the developers.
+	 * If proposal is successful, the browser will be redirected to the 'view?id=$model->id' page.
+	 * @param integer $id
+	 * @return mixed
+	 */
+	public function actionPropose($id)
+	{
+		$model = $this->findModel($id);
+		$model->proposed = 1;
+		$model->save();
+
+		return $this->redirect(['view', 'id' => $id, 'propose' => 1]);
+	}
 
     /**
      * Updates an existing Objects model.

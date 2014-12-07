@@ -20,7 +20,7 @@ use yii\widgets\ActiveForm;
 
 	<?php // $form->field($model, 'inherited')->textInput(['readonly' => true]) ?>
 
-	<?= $form->field($model, 'privacy')->dropDownList([ 'public' => 'Public', 'private' => 'Private', ], ['options' => ['public' => ['selected' => true]]]) ?>
+	<?= $form->field($model, 'privacy')->dropDownList([ 'public' => 'Public', 'protected' => 'Protected', 'private' => 'Private', ]) ?>
 
 	<?php // $form->field($model, 'methods')->textarea(['rows' => 6]) ?>
 

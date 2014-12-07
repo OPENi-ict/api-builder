@@ -21,6 +21,7 @@ use yii\behaviors\TimestampBehavior;
  * @property integer $updated_at
  * @property integer $proposed
  * @property integer $published
+ * @property string $privacy
  *
  * @property User $createdBy
  * @property User $updatedBy
@@ -44,6 +45,8 @@ class Apis extends \yii\db\ActiveRecord
         return [
             [['name'], 'required'],
             [['created_by', 'updated_by', 'votes_up', 'votes_down', 'created_at', 'updated_at', 'proposed', 'published'], 'integer'],
+			[['privacy'], 'string'],
+			[['privacy'], 'default', 'value' => 'public'],
             [['name', 'description', 'version'], 'string', 'max' => 255],
 			[['version'], 'default', 'value' => '1.0'],
 			[['votes_up', 'votes_down'], 'default', 'value' => '0'],
@@ -82,6 +85,7 @@ class Apis extends \yii\db\ActiveRecord
             'updated_at' => 'Updated At',
 			'proposed' => 'Proposed',
 			'published' => 'Published',
+			'privacy' => 'Privacy',
         ];
     }
 

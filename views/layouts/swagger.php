@@ -8,6 +8,7 @@ use app\widgets\Alert;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
+
 SwaggerAsset::register($this);
 ?>
 <?php $this->beginPage() ?>

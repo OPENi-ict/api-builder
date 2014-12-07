@@ -52,9 +52,6 @@ class ApisController extends Controller
     {
         $searchModel = new ApisSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-//		$dataProvider->query->where(
-//
-//		);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -76,10 +73,11 @@ class ApisController extends Controller
 
     /**
      * Displays a grid containing all Objects of this API.
-     * @param integer $id
+	 * @param integer $id
+	 * @param integer $propose
      * @return mixed
      */
-    public function actionView($id)
+    public function actionView($id, $propose = 0)
     {
 		$searchModel = new ObjectsSearch();
 		$dataProvider = $searchModel->search([
@@ -90,6 +88,7 @@ class ApisController extends Controller
 			'model' => $this->findModel($id),
 			'searchModel' => $searchModel,
 			'dataProvider' => $dataProvider,
+			'propose' => $propose
 		]);
     }
 
@@ -346,7 +345,7 @@ class ApisController extends Controller
 		$model->proposed = 1;
 		$model->save();
 
-		return $this->redirect(['view', 'id' => $id]);
+		return $this->redirect(['view', 'id' => $id, 'propose' => 1]);
 	}
 
 	/**

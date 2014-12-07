@@ -18,7 +18,7 @@ class ApisSearch extends Apis
     {
         return [
             [['id', 'created_by', 'updated_by', 'votes_up', 'votes_down', 'created_at', 'updated_at', 'proposed', 'published'], 'integer'],
-            [['name', 'description', 'version'], 'safe'],
+            [['name', 'description', 'version', 'privacy'], 'safe'],
         ];
     }
 
@@ -42,6 +42,8 @@ class ApisSearch extends Apis
     {
         $query = Apis::find();
 		$query->joinWith(['createdBy']);
+
+		$query->where(['or', ['privacy' => 'public'], ['privacy' => 'protected'], ['privacy' => 'private', 'created_by' => Yii::$app->getUser()->id]]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -70,7 +72,8 @@ class ApisSearch extends Apis
 
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'description', $this->description])
-            ->andFilterWhere(['like', 'version', $this->version]);
+            ->andFilterWhere(['like', 'version', $this->version])
+			->andFilterWhere(['like', 'privacy', $this->privacy]);
 
         return $dataProvider;
     }

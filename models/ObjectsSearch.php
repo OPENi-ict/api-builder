@@ -43,6 +43,8 @@ class ObjectsSearch extends Objects
         $query = Objects::find();
 		$query->joinWith(['createdBy']);
 
+		$query->where(['or', ['privacy' => 'public'], ['privacy' => 'protected'], ['privacy' => 'private', 'created_by' => Yii::$app->getUser()->id]]);
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);

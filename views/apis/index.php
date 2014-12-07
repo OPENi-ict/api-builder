@@ -68,6 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 			// 'proposed',
 			// 'published',
+			// 'privacy',
 		],
     ]); ?>
 
