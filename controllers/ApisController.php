@@ -293,6 +293,11 @@ class ApisController extends Controller
 						$swaggerJSON->BuildProperty($property->name, $property->description, 'integer', '', 'int64');
 					}
 					else {
+						switch ($property->type) {
+							case 'Integer':
+							case 'String':
+								$property->type = strtolower($property->type);
+						}
 						$swaggerJSON->BuildProperty($property->name, $property->description, $property->type);
 					}
 				}
@@ -316,6 +321,11 @@ class ApisController extends Controller
 							$swaggerJSON->BuildProperty($property->name, $property->description, 'integer', '', 'int64');
 						}
 						else {
+							switch ($property->type) {
+								case 'Integer':
+								case 'String':
+									$property->type = strtolower($property->type);
+							}
 							$swaggerJSON->BuildProperty($property->name, $property->description, $property->type);
 						}
 					}
