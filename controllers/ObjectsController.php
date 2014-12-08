@@ -128,7 +128,8 @@ class ObjectsController extends Controller
 		if ($model->load(Yii::$app->request->post()))
 		{
 			$model->methods = implode(",", $model->methods);
-			$model->cbs = implode(",", $model->cbs);
+			if ($model->cbs !== "")
+				$model->cbs = implode(",", $model->cbs);
 			$model->save();
 		}
 
