@@ -280,7 +280,21 @@ class ApisController extends Controller
 				// $pathParts[0] + Meta
 				$swaggerJSON->BuildModel($object->name);
 				foreach ($properties as $property) {
-					$swaggerJSON->BuildProperty($property->name, $property->description, $property->type);
+					if ($property->type === 'byte') {
+						$swaggerJSON->BuildProperty($property->name, $property->description, 'string', '', 'byte');
+					}
+					else if ($property->type === 'date') {
+						$swaggerJSON->BuildProperty($property->name, $property->description, 'string', '', 'date');
+					}
+					else if ($property->type === 'dateTime') {
+						$swaggerJSON->BuildProperty($property->name, $property->description, 'string', '', 'date-format');
+					}
+					else if ($property->type === 'long') {
+						$swaggerJSON->BuildProperty($property->name, $property->description, 'integer', '', 'int64');
+					}
+					else {
+						$swaggerJSON->BuildProperty($property->name, $property->description, $property->type);
+					}
 				}
 				$swaggerJSON->BuildProperty('meta', '', 'Meta');
 				$swaggerJSON->CloseModel();
@@ -288,8 +302,23 @@ class ApisController extends Controller
 				// $pathParts[0] . '_post_put'
 				$swaggerJSON->BuildModel($object->name . '_post_put');
 				foreach ($properties as $property) {
-					if ($property->name != 'id')
-						$swaggerJSON->BuildProperty($property->name, $property->description, $property->type);
+					if ($property->name != 'id') {
+						if ($property->type === 'byte') {
+							$swaggerJSON->BuildProperty($property->name, $property->description, 'string', '', 'byte');
+						}
+						else if ($property->type === 'date') {
+							$swaggerJSON->BuildProperty($property->name, $property->description, 'string', '', 'date');
+						}
+						else if ($property->type === 'dateTime') {
+							$swaggerJSON->BuildProperty($property->name, $property->description, 'string', '', 'date-format');
+						}
+						else if ($property->type === 'long') {
+							$swaggerJSON->BuildProperty($property->name, $property->description, 'integer', '', 'int64');
+						}
+						else {
+							$swaggerJSON->BuildProperty($property->name, $property->description, $property->type);
+						}
+					}
 				}
 				$swaggerJSON->CloseModel();
 

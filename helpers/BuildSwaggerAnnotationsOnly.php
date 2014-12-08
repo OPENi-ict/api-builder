@@ -92,9 +92,8 @@ class BuildSwaggerAnnotationsOnly {
  *   id="'.$id.'"';
 	}
 
-	public function BuildProperty($name, $desc, $type, $items = "")
+	public function BuildProperty($name, $desc, $type, $items = "", $_format = "")
 	{
-		$_format = "";
 		$type = ($type === 'int') ? "integer" : $type;
 		if ($type === 'datetime')
 		{
