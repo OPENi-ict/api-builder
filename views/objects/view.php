@@ -37,6 +37,9 @@ $this->params['breadcrumbs'][] = $this->title;
 		<?= Html::encode($this->title) ?>
 		<small>
 			<?= Html::encode($model->description) ?>
+		</small>
+		<br/>
+		<small>
 			<?= Html::a($model->votes_up, ['voteup', 'id' => $model->id, 'redirect' => 'view?id=' . $model->id], ['class' => 'glyphicon glyphicon-thumbs-up nounderline']) ?>
 			<?= Html::a($model->votes_down, ['votedown', 'id' => $model->id, 'redirect' => 'view?id=' . $model->id], ['class' => 'glyphicon glyphicon-thumbs-down nounderline']) ?>
 		</small>
