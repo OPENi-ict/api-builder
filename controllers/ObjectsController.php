@@ -85,8 +85,8 @@ class ObjectsController extends Controller
 		]);
 
 		if ($model->api0->name != 'core') {
-			$dataProviderExceptBasic->query->where(['and', ['object' => $id], ['not in', 'name', ['id', 'resource_uri', 'object_type', 'service']]]);
-			$dataProviderBasic->query->where(['and', ['object' => $id], ['in', 'name', ['id', 'resource_uri', 'object_type', 'service']]]);
+			$dataProviderExceptBasic->query->where(['and', ['object' => $id], ['not in', 'name', ['id', 'resource_uri', 'url', 'context_id', 'object_type', 'service']]]);
+			$dataProviderBasic->query->where(['and', ['object' => $id], ['in', 'name', ['id', 'resource_uri', 'url', 'context_id', 'object_type', 'service']]]);
 		}
 		else
 			$dataProviderBasic->query->where(['object' => $id]);
@@ -127,7 +127,8 @@ class ObjectsController extends Controller
 
 		if ($model->load(Yii::$app->request->post()))
 		{
-			$model->methods = implode(",", $model->methods);
+			if ($model->methods !== "")
+				$model->methods = implode(",", $model->methods);
 			if ($model->cbs !== "")
 				$model->cbs = implode(",", $model->cbs);
 			$model->save();
