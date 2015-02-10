@@ -147,7 +147,7 @@ TAG;
 		$comment = '';
 
 		// Make the Author Profile Pic
-		$authorProfilePicture = "https://s3.amazonaws.com/uifaces/faces/twitter/dancounsell/128.jpg";
+		$authorProfilePicture = "https://openclipart.org/image/300px/svg_to_png/190113/1389952697.png";
 		$authorImage = Html::img($authorProfilePicture, $this->imageOptions);
 		$comment .= Html::a($authorImage, '#', ['class' => 'pull-left']);
 
