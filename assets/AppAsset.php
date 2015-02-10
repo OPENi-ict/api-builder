@@ -23,11 +23,13 @@ class AppAsset extends AssetBundle
 		'css/lavish-bootstrap.css',
 		'css/snackbar.min.css',
 		'css/site.css',
+		'css/comments.css',
 	];
 	public $js = [
 		'js/ripples.min.js',
 		'js/material.min.js',
-		'js/snackbar.min.js'
+		'js/snackbar.min.js',
+		'js/jquery.timeago.js'
 	];
     public $depends = [
         'yii\web\YiiAsset',

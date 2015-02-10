@@ -68,4 +68,71 @@ class CommentsSearch extends Comments
 
         return $dataProvider;
     }
+
+    /**
+     * Creates data provider instance with search query applied
+     *
+     * @param array $params
+     *
+     * @return ActiveDataProvider
+     */
+    public function findCommentsNotReplies($params)
+    {
+        $query = Comments::find();
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        if (!($this->load($params) && $this->validate())) {
+            return $dataProvider;
+        }
+
+        $query = Comments::find()->where([
+            'api' => $this->api,
+            'object' => $this->object,
+            'property' => $this->property,
+            'reply_to_comment' => null
+        ]);
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        return $dataProvider;
+    }
+
+    /**
+     * Creates data provider instance with search query applied
+     *
+     * @param array $params
+     *
+     * @return ActiveDataProvider
+     */
+    public function findReplies($params)
+    {
+        $query = Comments::find();
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        if (!($this->load($params) && $this->validate())) {
+            return $dataProvider;
+        }
+
+        $query = Comments::find()->andFilterWhere([
+            'api' => $this->api,
+            'object' => $this->object,
+            'property' => $this->property
+        ]);
+
+        $query->andFilterWhere(['not', ['reply_to_comment' => null]]);
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        return $dataProvider;
+    }
 }

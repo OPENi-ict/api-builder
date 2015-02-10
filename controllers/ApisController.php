@@ -4,6 +4,8 @@ namespace app\controllers;
 
 use app\helpers\BuildSwaggerAnnotationsOnly;
 use app\helpers\FileManipulation;
+use app\models\Comments;
+use app\models\CommentsSearch;
 use app\models\Objects;
 use app\models\Properties;
 use app\models\User;
@@ -38,6 +40,7 @@ class ApisController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
+					'view' => ['get', 'post'],
                     'delete' => ['post'],
                 ],
             ],
@@ -84,11 +87,30 @@ class ApisController extends Controller
 			'ObjectsSearch' => ['api' => $id]
 		]);
 
+		$commentSearchModel = new CommentsSearch();
+		$commentsProvider = $commentSearchModel->findCommentsNotReplies([
+			'CommentsSearch' => ['api' => $id]
+		]);
+		$repliesProvider = $commentSearchModel->findReplies([
+			'CommentsSearch' => ['api' => $id]
+		]);
+		$repliesProvider->setPagination(false);
+		$commentsModel = new Comments();
+		$commentsModel->api = $id;
+
+		if ($commentsModel->load(Yii::$app->request->post())) {
+			$commentsModel->save();
+		}
+
 		return $this->render('view', [
 			'model' => $this->findModel($id),
 			'searchModel' => $searchModel,
 			'dataProvider' => $dataProvider,
-			'propose' => $propose
+			'propose' => $propose,
+			// For Comment Box
+			'commentsProvider' => $commentsProvider,
+			'repliesProvider' => $repliesProvider,
+			'commentsModel' => $commentsModel
 		]);
     }
 

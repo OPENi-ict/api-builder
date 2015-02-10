@@ -12,15 +12,15 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?php // $form->field($model, 'api')->textInput() ?>
+    <?= Html::activeHiddenInput($model, 'api') ?>
 
-    <?php // $form->field($model, 'object')->textInput() ?>
+    <?= Html::activeHiddenInput($model, 'object') ?>
 
-    <?php // $form->field($model, 'property')->textInput() ?>
+    <?= Html::activeHiddenInput($model, 'property') ?>
 
     <?= $form->field($model, 'text')->textarea(['rows' => 6]) ?>
 
-    <?php // $form->field($model, 'reply_to_comment')->textInput() ?>
+    <?= Html::activeHiddenInput($model, 'reply_to_comment') ?>
 
     <?php // $form->field($model, 'votes_up')->textInput() ?>
 
@@ -35,7 +35,7 @@ use yii\widgets\ActiveForm;
     <?php // $form->field($model, 'updated_at')->textInput() ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton('Comment', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

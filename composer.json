@@ -28,7 +28,9 @@
         "kartik-v/yii2-grid": "*",
         "kartik-v/yii2-icons": "dev-master",
         "yiisoft/yii2-swiftmailer": "*",
-        "zircote/swagger-php": "*"
+        "kartik-v/yii2-mpdf": "dev-master",
+        "zircote/swagger-php": "*",
+        "yiidoc/yii2-timeago": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

@@ -1,5 +1,6 @@
 <?php
 
+use app\widgets\Comments;
 use yii\helpers\Html;
 use kartik\grid\GridView;
 
@@ -7,6 +8,9 @@ use kartik\grid\GridView;
 /* @var $model app\models\Apis */
 /* @var $searchModel app\models\ObjectsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $commentsModel app\models\Comments */
+/* @var $commentsProvider yii\data\ActiveDataProvider */
+/* @var $repliesProvider yii\data\ActiveDataProvider */
 /* @var $propose integer */
 
 $this->title = $model->name;
@@ -139,5 +143,17 @@ $this->params['breadcrumbs'][] = $this->title;
 			($model->name != 'core') ? ['class' => 'kartik\grid\ActionColumn', 'controller' => 'objects'] : ['class' => 'kartik\grid\ActionColumn', 'controller' => 'objects', 'template' => '{view}'],
 		],
 	]); ?>
+
+	<!-- Comments Section -->
+
+	<h3>Comments</h3>
+
+	<?=
+	Comments::widget([
+		'dataProvider' => $commentsProvider,
+		'repliesProvider' => $repliesProvider,
+		'model' => $commentsModel
+	]);	?>
+	<!-- End Comments Section -->
 
 </div>

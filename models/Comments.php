@@ -45,7 +45,7 @@ class Comments extends \yii\db\ActiveRecord
     {
         return [
             [['api', 'object', 'property', 'reply_to_comment', 'votes_up', 'votes_down', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
-            [['text', 'created_at', 'updated_at'], 'required'],
+            [['text'], 'required'],
             [['text'], 'string']
         ];
     }
@@ -56,14 +56,8 @@ class Comments extends \yii\db\ActiveRecord
     public function behaviors()
     {
         return [
-            [
-                'class' => TimestampBehavior::className(),
-                'updatedAtAttribute' => false,
-            ],
-            [
-                'class' => BlameableBehavior::className(),
-                'updatedByAttribute' => false,
-            ],
+            TimestampBehavior::className(),
+            BlameableBehavior::className()
         ];
     }
 
