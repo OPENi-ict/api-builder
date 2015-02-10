@@ -153,9 +153,6 @@ TAG;
 
 		// Make the Author Name with Date
 		$authorName = Html::tag('h4', $commentModel->createdBy->username, ['class' => 'media-heading reviews']);
-		$day = Yii::$app->formatter->asDate($commentModel->created_at, 'dd');
-		$month = Yii::$app->formatter->asDate($commentModel->created_at, 'MM');
-		$year = Yii::$app->formatter->asDate($commentModel->created_at, 'Y');
 
 		$commentDate = TimeAgo::widget(['timestamp' => $commentModel->created_at]);
 		$commentDate = Html::tag('span', $commentDate, ['class' => 'media-date text-uppercase reviews list-inline']);
