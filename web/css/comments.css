@@ -47,7 +47,7 @@
 .btn-circle span { padding-right: 6px; }
 .embed-responsive { margin-bottom: 20px; }
 .tab-content {
-    padding: 50px 15px;
+    padding: 50px 15px 10px 15px;
     border: 1px solid #49A1BF;
     border-top: 0;
     border-bottom-right-radius: 4px;

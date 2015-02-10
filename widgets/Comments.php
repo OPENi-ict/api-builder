@@ -55,6 +55,8 @@ class Comments extends BaseListView
 		if (!$this->formatter instanceof Formatter) {
 			throw new InvalidConfigException('The "formatter" property must be either a Format object or a configuration array.');
 		}
+		$this->showOnEmpty = true;
+		$this->emptyText = '<p>Currently Empty :(</p><p>Feel free to leave your comment!</p>';
 	}
 
 	public function renderItems()
@@ -92,6 +94,8 @@ TAG;
 				$comments[] = $this->renderCommentWithReplies($model);
 			}
 		}
+		if ($this->dataProvider->getTotalCount() == 0)
+			$comments[] = $this->renderEmpty();
 
 		$commentsUl = Html::ul($comments, [
 			'encode' => false,
