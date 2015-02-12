@@ -147,7 +147,7 @@ TAG;
 		$comment = '';
 
 		// Make the Author Profile Pic
-		$authorProfilePicture = "https://openclipart.org/image/300px/svg_to_png/190113/1389952697.png";
+		$authorProfilePicture = Yii::getAlias('@web') . "/images/def_avatar.png";
 		$authorImage = Html::img($authorProfilePicture, $this->imageOptions);
 		$comment .= Html::a($authorImage, '#', ['class' => 'pull-left']);
 

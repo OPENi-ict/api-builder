@@ -27,7 +27,7 @@ AppAsset::register($this);
     <div class="wrap">
         <?php
             NavBar::begin([
-				'brandLabel' => '<img src="/api-builder/web/images/OPENi_logo.png">',
+				'brandLabel' => '<img src="' . Yii::getAlias('@web') . '/images/OPENi_logo.png">',
                 'brandUrl' => Yii::$app->homeUrl,
                 'options' => [
                     'class' => 'navbar navbar-default navbar-fixed-top',
