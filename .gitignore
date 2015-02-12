@@ -32,4 +32,4 @@ web/api-docs
 /web/js/swagger/site.js
 
 # Dev Env
-/web/index.php
+web/index.php
