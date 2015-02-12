@@ -93,6 +93,7 @@ input[type="file"]{
 .nav-tabs {
     background-color: #009587;
     margin-bottom: -25px;
+    border-radius: 5px;
 }
 .nav-tabs li {
     margin-bottom: -12px;
