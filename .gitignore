@@ -33,3 +33,7 @@ web/api-docs
 
 # Dev Env
 /web/index.php
+
+# User Photos
+/web/images/cache
+/web/images/store
