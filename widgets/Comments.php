@@ -149,7 +149,7 @@ TAG;
 
 		// Make the Author Profile Pic
 		$authorProfilePicture = Yii::getAlias('@web') . "/images/def_avatar.png";
-		$authorImage = Html::img($commentModel->createdBy->getImage()->getUrl('120'), $this->imageOptions);
+		$authorImage = Html::img($commentModel->createdBy->getImage()->getUrl('120x120'), $this->imageOptions);
 		$comment .= Html::a($authorImage, '#', ['class' => 'pull-left']);
 
 		// Make the Author Name with Date
