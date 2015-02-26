@@ -79,10 +79,10 @@ class User extends ActiveRecord implements IdentityInterface
 		return [
 			'id' => 'ID',
 			'username' => 'Username',
-			'email' => 'email',
+			'email' => 'Email',
 			'role' => 'Role',
 			'status' => 'Status',
-			'created_at' => 'Created At',
+			'created_at' => 'Joined At',
 			'updated_at' => 'Updated At',
 			'votes_up_apis' => 'Voted Up APIs',
 			'votes_down_apis' => 'Voted Down APIs',

@@ -15,6 +15,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Create User', ['create'], ['class' => 'btn btn-success']) ?>
+		<?php
+//		echo Html::a('Delete', ['delete', 'id' => $model->id], [
+//				'class' => 'btn btn-danger',
+//				'data' => [
+//					'confirm' => 'Are you sure you want to delete this item?',
+//					'method' => 'post',
+//				],
+//			])
+		?>
     </p>
 
     <?= GridView::widget([

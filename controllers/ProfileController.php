@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Apis;
 use Yii;
 use app\models\User;
 use yii\data\ActiveDataProvider;
@@ -9,6 +10,7 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * ProfileController implements the CRUD actions for User model.
@@ -50,10 +52,57 @@ class ProfileController extends Controller
     {
 		$id = \Yii::$app->user->id;
         $model = $this->findModel($id);
-		$votedUpAPIs = $model->votes_up_apis;
-//        $model->attachImage('C:\Users\Romanos-Dimokritos\Desktop\1378814_10154712484385315_4141034721250377311_n.jpg');
+
+		$votedUpAPIsArray = array_filter(explode(',', $model->votes_up_apis));
+		$votedUpAPIsArrayInt = array_map('intval', $votedUpAPIsArray);
+		$votedUpAPIsQuery = Apis::find()->where(['id' => $votedUpAPIsArrayInt]);
+		$votedUpAPIsDataProvider = new ActiveDataProvider([
+			'query' => $votedUpAPIsQuery
+		]);
+
+		$votedDownAPIsArray = array_filter(explode(',', $model->votes_down_apis));
+		$votedDownAPIsArrayInt = array_map('intval', $votedDownAPIsArray);
+		$votedDownAPIsQuery = Apis::find()->where(['id' => $votedDownAPIsArrayInt]);
+		$votedDownAPIsDataProvider = new ActiveDataProvider([
+			'query' => $votedDownAPIsQuery
+		]);
+
+		$votedUpObjectsArray = array_filter(explode(',', $model->votes_up_objects));
+		$votedUpObjectsArrayInt = array_map('intval', $votedUpObjectsArray);
+		$votedUpObjectsQuery = Apis::find()->where(['id' => $votedUpObjectsArrayInt]);
+		$votedUpObjectsDataProvider = new ActiveDataProvider([
+			'query' => $votedUpObjectsQuery
+		]);
+
+		$votedDownObjectsArray = array_filter(explode(',', $model->votes_down_objects));
+		$votedDownObjectsArrayInt = array_map('intval', $votedDownObjectsArray);
+		$votedDownObjectsQuery = Apis::find()->where(['id' => $votedDownObjectsArrayInt]);
+		$votedDownObjectsDataProvider = new ActiveDataProvider([
+			'query' => $votedDownObjectsQuery
+		]);
+
+		$votedUpCommentsArray = array_filter(explode(',', $model->votes_up_comments));
+		$votedUpCommentsArrayInt = array_map('intval', $votedUpCommentsArray);
+		$votedUpCommentsQuery = Apis::find()->where(['id' => $votedUpCommentsArrayInt]);
+		$votedUpCommentsDataProvider = new ActiveDataProvider([
+			'query' => $votedUpCommentsQuery
+		]);
+
+		$votedDownCommentsArray = array_filter(explode(',', $model->votes_down_comments));
+		$votedDownCommentsArrayInt = array_map('intval', $votedDownCommentsArray);
+		$votedDownCommentsQuery = Apis::find()->where(['id' => $votedDownCommentsArrayInt]);
+		$votedDownCommentsDataProvider = new ActiveDataProvider([
+			'query' => $votedDownCommentsQuery
+		]);
+
         return $this->render('index', [
-            'model' => $model
+            'model' => $model,
+			'votedUpAPIsDataProvider' => $votedUpAPIsDataProvider,
+			'votedDownAPIsDataProvider' => $votedDownAPIsDataProvider,
+			'votedUpObjectsDataProvider' => $votedUpObjectsDataProvider,
+			'votedDownObjectsDataProvider' => $votedDownObjectsDataProvider,
+			'votedUpCommentsDataProvider' => $votedUpCommentsDataProvider,
+			'votedDownCommentsDataProvider' => $votedDownCommentsDataProvider,
         ]);
     }
 
@@ -68,14 +117,25 @@ class ProfileController extends Controller
 		if ($id == \Yii::$app->user->id) {
 			$model = $this->findModel($id);
 
-			if ($model->load(Yii::$app->request->post()) && $model->save()) {
-				return $this->redirect(['view', 'id' => $model->id]);
+			if ($model->load(Yii::$app->request->post())) {
+				$image = UploadedFile::getInstance($model, 'photo_name');
+
+				$imagePath = explode("\\",$image->tempName);
+				array_pop($imagePath);
+				$imagePath = implode("\\",$imagePath);
+				$imagePath = $imagePath . "\\" . $image->name;
+
+				$image->saveAs($imagePath);
+				$model->attachImage($imagePath, true);
+				$model->save();
+				return $this->redirect(['index']);
 			} else {
 				return $this->render('update', [
 					'model' => $model,
 				]);
 			}
 		}
+		return $this->redirect('index');
 	}
 
 	/**
