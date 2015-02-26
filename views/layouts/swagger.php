@@ -27,7 +27,7 @@ SwaggerAsset::register($this);
 <div class="wrap">
 	<?php
 	NavBar::begin([
-		'brandLabel' => '<img src="/api-builder/web/OPENi_logo.png"> API Builder',
+		'brandLabel' => '<img src="' . Yii::getAlias('@web') . '/images/OPENi_logo.png">',
 		'brandUrl' => Yii::$app->homeUrl,
 		'options' => [
 			'class' => 'navbar navbar-default navbar-fixed-top',
@@ -52,6 +52,7 @@ SwaggerAsset::register($this);
 		$menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
 		$menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
 	} else {
+		$menuItems[] = ['label' => 'Profile', 'url' => ['/profile/']];
 		$menuItems[] = [
 			'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
 			'url' => ['/site/logout'],

@@ -98,3 +98,12 @@ input[type="file"]{
 .nav-tabs li {
     margin-bottom: -12px;
 }
+
+.media-object {
+    margin-top: 12%;
+}
+
+.comments-tab {
+    font-weight: bold;
+    margin: 10px auto 20px;
+}

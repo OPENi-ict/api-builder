@@ -4,8 +4,56 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7d81b49bba0e354b289333410da61e96",
+    "hash": "2bedd2cab3adf00b9339718660b70c3c",
     "packages": [
+        {
+            "name": "abeautifulsite/simpleimage",
+            "version": "2.5.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/claviska/SimpleImage.git",
+                "reference": "a56897173e621590ecb59cd93e4bbf5bf46ae186"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/claviska/SimpleImage/zipball/a56897173e621590ecb59cd93e4bbf5bf46ae186",
+                "reference": "a56897173e621590ecb59cd93e4bbf5bf46ae186",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.5-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "abeautifulsite": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nazar Mokrynskyi",
+                    "email": "nazar@mokrynskyi.com",
+                    "homepage": "http://cleverstyle.org/",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Cory LaViska",
+                    "homepage": "http://www.abeautifulsite.net/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A PHP class that simplifies working with images",
+            "time": "2014-03-18 06:42:58"
+        },
         {
             "name": "bower-asset/bootstrap",
             "version": "v3.3.2",
@@ -98,6 +146,35 @@
                 "javascript",
                 "jquery",
                 "library"
+            ]
+        },
+        {
+            "name": "bower-asset/jquery-timeago",
+            "version": "v1.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rmm5t/jquery-timeago.git",
+                "reference": "bf9d361e4e939286777751f4457af54b2e000c7c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rmm5t/jquery-timeago/zipball/bf9d361e4e939286777751f4457af54b2e000c7c",
+                "reference": "bf9d361e4e939286777751f4457af54b2e000c7c",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/jquery": ">=1.4"
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "jquery.timeago.js",
+                "bower-asset-ignore": [
+                    "test",
+                    "vendor"
+                ]
+            },
+            "license": [
+                "MIT"
             ]
         },
         {
@@ -294,6 +371,60 @@
                 "markdown-extra"
             ],
             "time": "2014-10-25 16:16:49"
+        },
+        {
+            "name": "costa-rico/yii2-images",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/CostaRico/yii2-images.git",
+                "reference": "547e96406725a71deef4ec98495b715541a7fbbd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/CostaRico/yii2-images/zipball/547e96406725a71deef4ec98495b715541a7fbbd",
+                "reference": "547e96406725a71deef4ec98495b715541a7fbbd",
+                "shasum": ""
+            },
+            "require": {
+                "abeautifulsite/simpleimage": "*",
+                "yiisoft/yii2": "*"
+            },
+            "require-dev": {
+                "codeception/specify": "*",
+                "codeception/verify": "*",
+                "mikey179/vfsstream": "1.3.*@dev",
+                "yiisoft/yii2-codeception": "*"
+            },
+            "suggest": {
+                "ext-imagick": ""
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "rico\\yii2images\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Costa Rico",
+                    "email": "zetogo@gmail.com"
+                }
+            ],
+            "description": "yii2 images module for storing images",
+            "keywords": [
+                "Costa Rico",
+                "images",
+                "images store",
+                "store",
+                "yii2",
+                "yii2-images"
+            ],
+            "time": "2015-01-28 09:33:48"
         },
         {
             "name": "doctrine/annotations",
@@ -2008,6 +2139,48 @@
             "time": "2014-12-05 14:17:14"
         },
         {
+            "name": "yiidoc/yii2-timeago",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yiidoc/yii2-timeago.git",
+                "reference": "b91f696ee7add04026f9eca231fa5255cdfec781"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yiidoc/yii2-timeago/zipball/b91f696ee7add04026f9eca231fa5255cdfec781",
+                "reference": "b91f696ee7add04026f9eca231fa5255cdfec781",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/jquery-timeago": "1.*",
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "yii\\timeago\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Nghia Nguyen",
+                    "email": "yiidevelop@gmail.com"
+                }
+            ],
+            "description": "Timeago is a jQuery plugin that makes it easy to support automatically updating fuzzy timestamps. Forked from @rmm5t for Yii2 framework.",
+            "keywords": [
+                "jquery",
+                "timeago",
+                "yii"
+            ],
+            "time": "2015-01-31 12:54:19"
+        },
+        {
             "name": "yiisoft/yii2",
             "version": "2.0.2",
             "source": {
@@ -2343,35 +2516,6 @@
         }
     ],
     "packages-dev": [
-        {
-            "name": "bower-asset/jquery-timeago",
-            "version": "v1.4.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/rmm5t/jquery-timeago.git",
-                "reference": "bf9d361e4e939286777751f4457af54b2e000c7c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/rmm5t/jquery-timeago/zipball/bf9d361e4e939286777751f4457af54b2e000c7c",
-                "reference": "bf9d361e4e939286777751f4457af54b2e000c7c",
-                "shasum": ""
-            },
-            "require": {
-                "bower-asset/jquery": ">=1.4"
-            },
-            "type": "bower-asset-library",
-            "extra": {
-                "bower-asset-main": "jquery.timeago.js",
-                "bower-asset-ignore": [
-                    "test",
-                    "vendor"
-                ]
-            },
-            "license": [
-                "MIT"
-            ]
-        },
         {
             "name": "bower-asset/typeahead.js",
             "version": "v0.10.5",
@@ -2794,48 +2938,6 @@
             "time": "2015-01-13 15:55:32"
         },
         {
-            "name": "yiidoc/yii2-timeago",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/yiidoc/yii2-timeago.git",
-                "reference": "b91f696ee7add04026f9eca231fa5255cdfec781"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/yiidoc/yii2-timeago/zipball/b91f696ee7add04026f9eca231fa5255cdfec781",
-                "reference": "b91f696ee7add04026f9eca231fa5255cdfec781",
-                "shasum": ""
-            },
-            "require": {
-                "bower-asset/jquery-timeago": "1.*",
-                "yiisoft/yii2": "*"
-            },
-            "type": "yii2-extension",
-            "autoload": {
-                "psr-4": {
-                    "yii\\timeago\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Nghia Nguyen",
-                    "email": "yiidevelop@gmail.com"
-                }
-            ],
-            "description": "Timeago is a jQuery plugin that makes it easy to support automatically updating fuzzy timestamps. Forked from @rmm5t for Yii2 framework.",
-            "keywords": [
-                "jquery",
-                "timeago",
-                "yii"
-            ],
-            "time": "2015-01-31 12:54:19"
-        },
-        {
             "name": "yiisoft/yii2-codeception",
             "version": "2.0.2",
             "source": {
@@ -3031,9 +3133,10 @@
         "kartik-v/yii2-checkbox-x": 20,
         "kartik-v/yii2-icons": 20,
         "kartik-v/yii2-mpdf": 20,
+        "yiidoc/yii2-timeago": 20,
+        "costa-rico/yii2-images": 20,
         "warrence/yii2-kartikgii": 20,
-        "c006/yii2-migration-utility": 20,
-        "yiidoc/yii2-timeago": 20
+        "c006/yii2-migration-utility": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
