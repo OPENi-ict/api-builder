@@ -73,11 +73,11 @@ TAG;
 		$commentsTabContent .= $this->renderComments();
 
 		$commentsTab = Html::tag('div', $commentsTabContent, ['class' => 'comment-tabs']);
-		$column = Html::tag('div', $commentsTab, ['class' => 'col-sm-10 col-sm-offset-1']);
+		/*$column = Html::tag('div', $commentsTab, ['class' => 'col-sm-10 col-sm-offset-1']);
 		$row = Html::tag('div', $column, ['class' => 'row']);
-		$container = Html::tag('div', $row, ['class' => 'container']);
+		$container = Html::tag('div', $row, ['class' => 'container']);*/
 
-		return $container;
+		return $commentsTab;
 	}
 
 	/**
