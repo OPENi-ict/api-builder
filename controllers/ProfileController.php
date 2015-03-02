@@ -3,6 +3,8 @@
 namespace app\controllers;
 
 use app\models\Apis;
+use app\models\Comments;
+use app\models\Objects;
 use Yii;
 use app\models\User;
 use yii\data\ActiveDataProvider;
@@ -69,28 +71,28 @@ class ProfileController extends Controller
 
 		$votedUpObjectsArray = array_filter(explode(',', $model->votes_up_objects));
 		$votedUpObjectsArrayInt = array_map('intval', $votedUpObjectsArray);
-		$votedUpObjectsQuery = Apis::find()->where(['id' => $votedUpObjectsArrayInt]);
+		$votedUpObjectsQuery = Objects::find()->where(['id' => $votedUpObjectsArrayInt]);
 		$votedUpObjectsDataProvider = new ActiveDataProvider([
 			'query' => $votedUpObjectsQuery
 		]);
 
 		$votedDownObjectsArray = array_filter(explode(',', $model->votes_down_objects));
 		$votedDownObjectsArrayInt = array_map('intval', $votedDownObjectsArray);
-		$votedDownObjectsQuery = Apis::find()->where(['id' => $votedDownObjectsArrayInt]);
+		$votedDownObjectsQuery = Objects::find()->where(['id' => $votedDownObjectsArrayInt]);
 		$votedDownObjectsDataProvider = new ActiveDataProvider([
 			'query' => $votedDownObjectsQuery
 		]);
 
 		$votedUpCommentsArray = array_filter(explode(',', $model->votes_up_comments));
 		$votedUpCommentsArrayInt = array_map('intval', $votedUpCommentsArray);
-		$votedUpCommentsQuery = Apis::find()->where(['id' => $votedUpCommentsArrayInt]);
+		$votedUpCommentsQuery = Comments::find()->where(['id' => $votedUpCommentsArrayInt]);
 		$votedUpCommentsDataProvider = new ActiveDataProvider([
 			'query' => $votedUpCommentsQuery
 		]);
 
 		$votedDownCommentsArray = array_filter(explode(',', $model->votes_down_comments));
 		$votedDownCommentsArrayInt = array_map('intval', $votedDownCommentsArray);
-		$votedDownCommentsQuery = Apis::find()->where(['id' => $votedDownCommentsArrayInt]);
+		$votedDownCommentsQuery = Comments::find()->where(['id' => $votedDownCommentsArrayInt]);
 		$votedDownCommentsDataProvider = new ActiveDataProvider([
 			'query' => $votedDownCommentsQuery
 		]);

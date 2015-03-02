@@ -40,7 +40,7 @@ $objectColumns = [
 		},
 		'format'=>'raw',
 	],
-	'version'
+	'createdBy.username'
 ];
 
 $commentColumns = [
