@@ -72,7 +72,7 @@ TAG;
 
 		$commentsTabContent .= $this->renderComments();
 
-		$commentsTab = Html::tag('div', $commentsTabContent, ['class' => 'comment-tabs']);
+		$commentsTab = Html::tag('div', $commentsTabContent, ['class' => 'comments-tab']);
 		/*$column = Html::tag('div', $commentsTab, ['class' => 'col-sm-10 col-sm-offset-1']);
 		$row = Html::tag('div', $column, ['class' => 'row']);
 		$container = Html::tag('div', $row, ['class' => 'container']);*/
@@ -149,7 +149,7 @@ TAG;
 
 		// Make the Author Profile Pic
 		$authorProfilePicture = Yii::getAlias('@web') . "/images/def_avatar.png";
-		$authorImage = Html::img($commentModel->createdBy->getImage()->getUrl('120x120'), $this->imageOptions);
+		$authorImage = Html::img($commentModel->createdBy->getImage()->getUrl('100x100'), $this->imageOptions);
 		$comment .= Html::a($authorImage, '#', ['class' => 'pull-left']);
 
 		// Make the Author Name with Date
@@ -161,11 +161,11 @@ TAG;
 		$commentText = Html::tag('p', $commentModel->text, ['class' => 'comment']);
 		// Make the Reply Button
 		$replyGlyph = Html::tag('span', '', ['class' => 'glyphicon glyphicon-share-alt']);
-		$replyButton = Html::a($replyGlyph . ' Reply', '#ReplyTo' . $commentModel->id, ['class' => 'btn btn-info btn-circle text-uppercase', 'data' => ['toggle' => 'collapse']]);
+		$replyButton = Html::a($replyGlyph . ' Reply', '#ReplyTo' . $commentModel->id, ['class' => 'btn btn-sm btn-info btn-circle text-uppercase', 'data' => ['toggle' => 'collapse']]);
 		// Make the Show Replies Button if replies do exist
 		$repliesGlyph = Html::tag('span', '', ['class' => 'glyphicon glyphicon-comment']);
 		$howManyReplies = ' ' . count($replies) . ' replies';
-		$repliesButton = Html::a($repliesGlyph . $howManyReplies, '#RepliesTo' . $commentModel->id, ['class' => 'btn btn-warning btn-circle text-uppercase', 'data' => ['toggle' => 'collapse']]);
+		$repliesButton = Html::a($repliesGlyph . $howManyReplies, '#RepliesTo' . $commentModel->id, ['class' => 'btn btn-sm btn-warning btn-circle text-uppercase', 'data' => ['toggle' => 'collapse']]);
 		// Make the Wrapper for all the above
 		$wellDiv = Html::tag('div', $authorName . $commentDate . $commentText . $replyButton . $repliesButton, ['class' => 'well well-lg']);
 
