@@ -92,7 +92,6 @@ $this->params['breadcrumbs'][] = $this->title;
 	<?php endif; ?>
 
 	<?= GridView::widget([
-		'headerRowOptions' => ['class' => 'info'],
 		'dataProvider' => $dataProvider,
 		//'filterModel' => $searchModel,
 		'columns' => [

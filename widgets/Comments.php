@@ -65,7 +65,7 @@ class Comments extends BaseListView
 		// Wrap up the Nav Tabs
 		$commentsTabContent = <<<'TAG'
             <ul class="nav nav-tabs" role="tablist">
-                <li class="active"><a href="#comments" role="tab" data-toggle="tab" class="comments-tab btn"><h4 class="text-capitalize">Comments</h4></a></li>
+                <li class="active"><a href="#comments" role="tab" data-toggle="tab" class="comments-tab btn"><h4 class="text-capitalize">View Comments</h4></a></li>
                 <li><a href="#add-comment" role="tab" data-toggle="tab" class="comments-tab btn"><h4 class="text-capitalize">Add comment</h4></a></li>
             </ul>
 TAG;

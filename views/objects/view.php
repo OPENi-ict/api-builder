@@ -71,7 +71,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 	<?= GridView::widget([
 		'tableOptions' => ['class' => 'text-center'],
-		'headerRowOptions' => ['class' => 'text-center info'],
+		'headerRowOptions' => ['class' => 'text-center'],
 		'dataProvider' => $dataProviderBasic,
 		//'filterModel' => $searchModel,
 		'columns' => [
@@ -120,7 +120,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 		<?= GridView::widget([
 			'tableOptions' => ['class' => 'text-center'],
-			'headerRowOptions' => ['class' => 'text-center info'],
+			'headerRowOptions' => ['class' => 'text-center'],
 			'dataProvider' => $dataProviderExceptBasic,
 			//'filterModel' => $searchModel,
 			'columns' => [

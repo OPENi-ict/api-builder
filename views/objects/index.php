@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 	<?= GridView::widget([
 		'tableOptions' => ['class' => 'text-center'],
-		'headerRowOptions' => ['class' => 'text-center info'],
+		'headerRowOptions' => ['class' => 'text-center'],
 		'rowOptions' => ['class' => 'text-center'],
 		'dataProvider' => $dataProvider,
 		//'filterModel' => $searchModel,

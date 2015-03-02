@@ -119,3 +119,7 @@ a.desc:after {
     margin-top: 0;
     margin-left: 0;
 }
+
+table > thead > tr {
+    background-color: #009587;
+}

@@ -92,7 +92,6 @@ $this->title = 'API Builder';
                 <h2>Most Recent</h2>
 
 				<?= GridView::widget([
-					'headerRowOptions' => ['class' => 'info'],
 					'dataProvider' => $objectsRecentDataProvider,
 					'hover' => true,
 					'columns' => $columns
@@ -102,7 +101,6 @@ $this->title = 'API Builder';
                 <h2>Most Popular</h2>
 
 				<?= GridView::widget([
-					'headerRowOptions' => ['class' => 'info'],
 					'dataProvider' => $objectsLikedDataProvider,
 					'hover' => true,
 					'columns' => $columns
