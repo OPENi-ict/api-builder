@@ -143,6 +143,8 @@ $this->params['breadcrumbs'][] = $this->title;
 		],
 	]); ?>
 
+	<h3>Comments</h3>
+
 	<!-- Comments Section -->
 	<?= Comments::widget([
 		'dataProvider' => $commentsProvider,
