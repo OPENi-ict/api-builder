@@ -45,7 +45,6 @@
     border-radius: 20px;
 }
 .btn-circle span { padding-right: 6px; }
-.embed-responsive { margin-bottom: 20px; }
 .tab-content {
     padding: 30px 15px 10px 15px;
 }
@@ -88,11 +87,8 @@ input[type="file"]{
 
 .nav-tabs {
     background-color: #009587;
-    margin-bottom: 1px;
+    padding-bottom: 1px;
     border-radius: 5px;
-}
-.nav-tabs li {
-    margin-bottom: -12px;
 }
 
 .media-object {
