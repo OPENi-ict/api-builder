@@ -26,6 +26,10 @@ $config = [
 		'cache' => [
 			'class' => 'yii\caching\ApcCache',
 		],
+		'assetManager' => [
+			'class' => 'yii\web\AssetManager',
+			'appendTimestamp' => true,
+		],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
