@@ -32,7 +32,7 @@ class ProfileController extends Controller
 					],
 					[
 						'allow' => true,
-						'actions' => ['index', 'update'],
+						'actions' => ['index', 'updatephoto', 'update'],
 						'roles' => ['@'],
 					]
                 ],
@@ -109,12 +109,12 @@ class ProfileController extends Controller
     }
 
 	/**
-	 * Updates an existing User model.
+	 * Updates an existing User Photo.
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param integer $id
 	 * @return mixed
 	 */
-	public function actionUpdate($id)
+	public function actionUpdatephoto($id)
 	{
 		if ($id == \Yii::$app->user->id) {
 			$model = $this->findModel($id);
@@ -122,22 +122,46 @@ class ProfileController extends Controller
 			if ($model->load(Yii::$app->request->post())) {
 				$image = UploadedFile::getInstance($model, 'photo_name');
 
-				$imagePath = explode("\\",$image->tempName);
-				array_pop($imagePath);
-				$imagePath = implode("\\",$imagePath);
-				$imagePath = $imagePath . "\\" . $image->name;
+				if ($image != null) {
+					$imagePath = explode("\\", $image->tempName);
+					array_pop($imagePath);
+					$imagePath = implode("\\", $imagePath);
+					$imagePath = $imagePath . "\\" . $image->name;
 
-				$image->saveAs($imagePath);
-				$model->attachImage($imagePath, true);
+					$image->saveAs($imagePath);
+					$model->attachImage($imagePath, true);
+				}
+				else {
+					$model->removeImage($model->getImage(), true);
+				}
 				$model->save();
 				return $this->redirect(['index']);
 			} else {
-				return $this->render('update', [
+				return $this->render('updatephoto', [
 					'model' => $model,
 				]);
 			}
 		}
 		return $this->redirect('index');
+	}
+
+	/**
+	 * Updates an existing User social links.
+	 * If update is successful, the browser will be redirected to the 'view' page.
+	 * @param integer $id
+	 * @return mixed
+	 */
+	public function actionUpdate($id)
+	{
+		$model = $this->findModel($id);
+
+		if ($model->load(Yii::$app->request->post()) && $model->save()) {
+			return $this->redirect(['index']);
+		} else {
+			return $this->render('update', [
+				'model' => $model,
+			]);
+		}
 	}
 
 	/**

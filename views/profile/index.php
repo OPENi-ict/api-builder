@@ -60,7 +60,8 @@ $commentColumns = [
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+		<?= Html::a('Update Photo', ['updatephoto', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+		<?= Html::a('Update Profile', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
     </p>
 
 	<?= DetailView::widget([
@@ -73,6 +74,16 @@ $commentColumns = [
 				'format' => ['image',['width'=>'120','height'=>'120']],
 			],
 			'created_at:date',
+			[
+				'attribute'=>'github',
+				'format'=>'raw',
+				'value'=>Html::a($model->github, 'https://github.com/' . $model->github, ['target' => 'blank']),
+			],
+			[
+				'attribute'=>'linkedin',
+				'format'=>'raw',
+				'value'=>Html::a($model->linkedin, 'https://www.linkedin.com/in/' . $model->linkedin, ['target' => 'blank']),
+			],
 		],
 	]) ?>
 
