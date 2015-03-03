@@ -176,7 +176,7 @@ TAG;
 		$this->model->object = $commentModel->object;
 		$this->model->property = $commentModel->property;
 		$this->model->reply_to_comment = $commentModel->id;
-		$replyForm = $this->render('//comments/_form', [
+		$replyForm = $this->render('//comments/_replyForm', [
 			'model' => $this->model,
 		]);
 

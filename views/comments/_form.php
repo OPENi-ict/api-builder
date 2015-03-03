@@ -20,8 +20,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'text')->label("Add your Comment")->textarea(['rows' => 6]) ?>
 
-    <?= Html::activeHiddenInput($model, 'reply_to_comment') ?>
-
     <?php // $form->field($model, 'votes_up')->textInput() ?>
 
     <?php // $form->field($model, 'votes_down')->textInput() ?>
