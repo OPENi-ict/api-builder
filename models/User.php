@@ -27,6 +27,15 @@ use yii\web\IdentityInterface;
  * @property string $votes_down_objects
  * @property string $votes_up_comments
  * @property string $votes_down_comments
+ * @property string $photo_name
+ * @property string $linkedin
+ * @property string $github
+ *
+ * @property Apis[] $apis
+ * @property Cbs[] $cbs
+ * @property Comments[] $comments
+ * @property Objects[] $objects
+ * @property Properties[] $properties
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -67,7 +76,10 @@ class User extends ActiveRecord implements IdentityInterface
             ['role', 'default', 'value' => self::ROLE_USER],
             ['role', 'in', 'range' => [self::ROLE_USER]],
 
-			[['votes_up_apis', 'votes_down_apis', 'votes_up_objects', 'votes_down_objects', 'votes_up_comments', 'votes_down_comments'], 'string'],
+			[['role', 'status', 'created_at', 'updated_at'], 'integer'],
+			[['votes_up_apis', 'votes_down_apis', 'votes_up_objects', 'votes_down_objects', 'votes_up_comments', 'votes_down_comments', 'photo_name'], 'string'],
+			[['username', 'password_hash', 'password_reset_token', 'email', 'linkedin', 'github'], 'string', 'max' => 255],
+			[['auth_key'], 'string', 'max' => 32]
         ];
     }
 
@@ -89,7 +101,9 @@ class User extends ActiveRecord implements IdentityInterface
             'votes_up_objects' => 'Voted Up Objects',
             'votes_down_objects' => 'Voted Down Objects',
             'votes_up_comments' => 'Voted Up Comments',
-            'votes_down_comments' => 'Voted Down Comments'
+            'votes_down_comments' => 'Voted Down Comments',
+			'github' => 'Github',
+			'linkedin' => 'LinkedIn'
 		];
 	}
 
