@@ -21,6 +21,10 @@ $config = [
 		'authManager' => [
 			'class' => 'yii\rbac\DbManager',
 			'defaultRoles' => ['guest'],
+			'cache' => 'cache',   // this enables RBAC caching
+		],
+		'cache' => [
+			'class' => 'yii\caching\ApcCache',
 		],
         'errorHandler' => [
             'errorAction' => 'site/error',
