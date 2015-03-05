@@ -34,8 +34,12 @@ use yii\web\IdentityInterface;
  * @property Apis[] $apis
  * @property Cbs[] $cbs
  * @property Comments[] $comments
+ * @property FollowUserApi[] $followUserApis
+ * @property FollowUserUser $followUserUser
+ * @property FollowUserUser[] $followUserUsers
  * @property Objects[] $objects
  * @property Properties[] $properties
+ *
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -237,4 +241,70 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $this->password_reset_token = null;
     }
+
+
+
+	/**
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getApis()
+	{
+		return $this->hasMany(Apis::className(), ['updated_by' => 'id']);
+	}
+
+	/**
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getCbs()
+	{
+		return $this->hasMany(Cbs::className(), ['created_by' => 'id']);
+	}
+
+	/**
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getComments()
+	{
+		return $this->hasMany(Comments::className(), ['updated_by' => 'id']);
+	}
+
+	/**
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getFollowUserApis()
+	{
+		return $this->hasMany(FollowUserApi::className(), ['follower' => 'id']);
+	}
+
+	/**
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getFollowUserUser()
+	{
+		return $this->hasOne(FollowUserUser::className(), ['followee' => 'id']);
+	}
+
+	/**
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getFollowUserUsers()
+	{
+		return $this->hasMany(FollowUserUser::className(), ['follower' => 'id']);
+	}
+
+	/**
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getObjects()
+	{
+		return $this->hasMany(Objects::className(), ['updated_by' => 'id']);
+	}
+
+	/**
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getProperties()
+	{
+		return $this->hasMany(Properties::className(), ['updated_by' => 'id']);
+	}
 }
