@@ -33,7 +33,7 @@ class ProfileController extends Controller
 					],
 					[
 						'allow' => true,
-						'actions' => ['index', 'updatephoto', 'update', 'follow', 'unfollow'],
+						'actions' => ['index', 'updatephoto', 'update', 'view', 'follow', 'unfollow'],
 						'roles' => ['@'],
 					]
                 ],
@@ -159,6 +159,11 @@ class ProfileController extends Controller
 	 */
 	public function actionView($id)
 	{
+		// If I'm trying to view myself then redirect to index
+		$myId = \Yii::$app->user->id;
+		if ($myId == $id)
+			return $this->redirect(['index']);
+
 		$model = $this->findModel($id);
 
 		$votedUpAPIsArray = array_filter(explode(',', $model->votes_up_apis));
