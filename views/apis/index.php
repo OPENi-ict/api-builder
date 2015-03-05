@@ -44,6 +44,10 @@ $this->params['breadcrumbs'][] = $this->title;
 			],
 			[
 				'attribute' => 'createdBy.username',
+				'value'=>function ($model, $key, $index, $widget) {
+					return Html::a($model->createdBy->username, ['/profile/view', 'id' => $model->createdBy->id]);
+				},
+				'format'=> 'raw',
 				'hAlign' => GridView::ALIGN_CENTER,
 				'vAlign' => GridView::ALIGN_MIDDLE
 			],

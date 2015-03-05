@@ -35,7 +35,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'url:url',
             'status',
             //'created_by',
-			'createdBy.username',
+			[
+				'attribute' => 'createdBy.username',
+				'value'=>Html::a($model->createdBy->username, ['/profile/view', 'id' => $model->createdBy->id]),
+				'format'=> 'raw',
+			],
             'created_at:date',
         ],
     ]) ?>
