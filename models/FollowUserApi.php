@@ -29,8 +29,7 @@ class FollowUserApi extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['follower', 'api'], 'integer'],
-            [['api'], 'required']
+            [['follower', 'api'], 'integer']
         ];
     }
 

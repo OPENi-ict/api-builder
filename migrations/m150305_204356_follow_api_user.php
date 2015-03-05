@@ -16,9 +16,7 @@ class m150305_204356_follow_api_user extends Migration
 		// Create a Many to Many Relationship between users (followers and followees)
 		$this->createTable('{{%follow_user_user}}', [
 			'follower' => Schema::TYPE_INTEGER,
-			'followee' => Schema::TYPE_INTEGER,
-			0 => 'PRIMARY KEY (`follower`)',
-			0 => 'PRIMARY KEY (`followee`)'
+			'followee' => Schema::TYPE_INTEGER
 		], $tableOptions);
 
 		$this->addForeignKey('fk_follow_user_user_follower', '{{%follow_user_user}}', 'follower', '{{%user}}', 'id', 'CASCADE', 'NO ACTION');
@@ -27,9 +25,7 @@ class m150305_204356_follow_api_user extends Migration
 		// Create a Many to Many Relationship between users and apis
 		$this->createTable('{{%follow_user_api}}', [
 			'follower' => Schema::TYPE_INTEGER,
-			'api' => Schema::TYPE_INTEGER,
-			0 => 'PRIMARY KEY (`follower`)',
-			0 => 'PRIMARY KEY (`api`)'
+			'api' => Schema::TYPE_INTEGER
 		], $tableOptions);
 
 		$this->addForeignKey('fk_follow_user_api_follower', '{{%follow_user_api}}', 'follower', '{{%user}}', 'id', 'CASCADE', 'NO ACTION');

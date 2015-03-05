@@ -35,7 +35,6 @@ use yii\web\IdentityInterface;
  * @property Cbs[] $cbs
  * @property Comments[] $comments
  * @property FollowUserApi[] $followUserApis
- * @property FollowUserUser $followUserUser
  * @property FollowUserUser[] $followUserUsers
  * @property Objects[] $objects
  * @property Properties[] $properties
@@ -276,12 +275,10 @@ class User extends ActiveRecord implements IdentityInterface
 		return $this->hasMany(FollowUserApi::className(), ['follower' => 'id']);
 	}
 
-	/**
-	 * @return \yii\db\ActiveQuery
-	 */
-	public function getFollowUserUser()
+	public function getFollowingApis()
 	{
-		return $this->hasOne(FollowUserUser::className(), ['followee' => 'id']);
+		return $this->hasMany(Apis::className(), ['id' => 'apis'])
+			->via('followUserApis');
 	}
 
 	/**
@@ -290,6 +287,12 @@ class User extends ActiveRecord implements IdentityInterface
 	public function getFollowUserUsers()
 	{
 		return $this->hasMany(FollowUserUser::className(), ['follower' => 'id']);
+	}
+
+	public function getFollowees()
+	{
+		return $this->hasMany(User::className(), ['id' => 'followee'])
+			->via('followUserUsers');
 	}
 
 	/**
