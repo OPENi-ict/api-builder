@@ -81,12 +81,7 @@ $commentColumns = [
 ?>
 <div class="user-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-		<?= Html::a('Update Photo', ['updatephoto', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-		<?= Html::a('Update Profile', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-    </p>
+	<h1><?= Html::encode($this->title) ?></h1>
 
 	<?= DetailView::widget([
 		'model' => $model,

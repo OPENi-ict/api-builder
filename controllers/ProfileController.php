@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\Apis;
 use app\models\Comments;
+use app\models\FollowUserUser;
 use app\models\Objects;
 use Yii;
 use app\models\User;
@@ -32,7 +33,7 @@ class ProfileController extends Controller
 					],
 					[
 						'allow' => true,
-						'actions' => ['index', 'updatephoto', 'update'],
+						'actions' => ['index', 'updatephoto', 'update', 'follow', 'unfollow'],
 						'roles' => ['@'],
 					]
                 ],
@@ -46,67 +47,216 @@ class ProfileController extends Controller
         ];
     }
 
-    /**
-     * Displays my User model.
-     * @return mixed
-     */
-    public function actionIndex()
-    {
+	/**
+	 * Displays my User model.
+	 * @return mixed
+	 */
+	public function actionIndex()
+	{
 		$id = \Yii::$app->user->id;
-        $model = $this->findModel($id);
+		$model = $this->findModel($id);
 
 		$votedUpAPIsArray = array_filter(explode(',', $model->votes_up_apis));
 		$votedUpAPIsArrayInt = array_map('intval', $votedUpAPIsArray);
 		$votedUpAPIsQuery = Apis::find()->where(['id' => $votedUpAPIsArrayInt]);
 		$votedUpAPIsDataProvider = new ActiveDataProvider([
-			'query' => $votedUpAPIsQuery
+			'query' => $votedUpAPIsQuery,
+			'sort' => false,
+			'pagination' => [
+				'pageSize' => 5,
+			],
 		]);
 
 		$votedDownAPIsArray = array_filter(explode(',', $model->votes_down_apis));
 		$votedDownAPIsArrayInt = array_map('intval', $votedDownAPIsArray);
 		$votedDownAPIsQuery = Apis::find()->where(['id' => $votedDownAPIsArrayInt]);
 		$votedDownAPIsDataProvider = new ActiveDataProvider([
-			'query' => $votedDownAPIsQuery
+			'query' => $votedDownAPIsQuery,
+			'sort' => false,
+			'pagination' => [
+				'pageSize' => 5,
+			],
 		]);
 
 		$votedUpObjectsArray = array_filter(explode(',', $model->votes_up_objects));
 		$votedUpObjectsArrayInt = array_map('intval', $votedUpObjectsArray);
 		$votedUpObjectsQuery = Objects::find()->where(['id' => $votedUpObjectsArrayInt]);
 		$votedUpObjectsDataProvider = new ActiveDataProvider([
-			'query' => $votedUpObjectsQuery
+			'query' => $votedUpObjectsQuery,
+			'sort' => false,
+			'pagination' => [
+				'pageSize' => 5,
+			],
 		]);
 
 		$votedDownObjectsArray = array_filter(explode(',', $model->votes_down_objects));
 		$votedDownObjectsArrayInt = array_map('intval', $votedDownObjectsArray);
 		$votedDownObjectsQuery = Objects::find()->where(['id' => $votedDownObjectsArrayInt]);
 		$votedDownObjectsDataProvider = new ActiveDataProvider([
-			'query' => $votedDownObjectsQuery
+			'query' => $votedDownObjectsQuery,
+			'sort' => false,
+			'pagination' => [
+				'pageSize' => 5,
+			],
 		]);
 
 		$votedUpCommentsArray = array_filter(explode(',', $model->votes_up_comments));
 		$votedUpCommentsArrayInt = array_map('intval', $votedUpCommentsArray);
 		$votedUpCommentsQuery = Comments::find()->where(['id' => $votedUpCommentsArrayInt]);
 		$votedUpCommentsDataProvider = new ActiveDataProvider([
-			'query' => $votedUpCommentsQuery
+			'query' => $votedUpCommentsQuery,
+			'sort' => false,
+			'pagination' => [
+				'pageSize' => 5,
+			],
 		]);
 
 		$votedDownCommentsArray = array_filter(explode(',', $model->votes_down_comments));
 		$votedDownCommentsArrayInt = array_map('intval', $votedDownCommentsArray);
 		$votedDownCommentsQuery = Comments::find()->where(['id' => $votedDownCommentsArrayInt]);
 		$votedDownCommentsDataProvider = new ActiveDataProvider([
-			'query' => $votedDownCommentsQuery
+			'query' => $votedDownCommentsQuery,
+			'sort' => false,
+			'pagination' => [
+				'pageSize' => 5,
+			],
 		]);
 
-        return $this->render('index', [
-            'model' => $model,
+		$followedUsers = $model->getFollowees();
+		$followedUsersDataProvider = new ActiveDataProvider([
+			'query' => $followedUsers,
+			'sort' => false,
+			'pagination' => [
+				'pageSize' => 5,
+			],
+		]);
+
+		$followedApis = $model->getFollowingApis();
+		$followedApisDataProvider = new ActiveDataProvider([
+			'query' => $followedApis,
+			'sort' => false,
+			'pagination' => [
+				'pageSize' => 5,
+			],
+		]);
+
+		return $this->render('index', [
+			'model' => $model,
 			'votedUpAPIsDataProvider' => $votedUpAPIsDataProvider,
 			'votedDownAPIsDataProvider' => $votedDownAPIsDataProvider,
 			'votedUpObjectsDataProvider' => $votedUpObjectsDataProvider,
 			'votedDownObjectsDataProvider' => $votedDownObjectsDataProvider,
 			'votedUpCommentsDataProvider' => $votedUpCommentsDataProvider,
 			'votedDownCommentsDataProvider' => $votedDownCommentsDataProvider,
-        ]);
-    }
+			'followedUsersDataProvider' => $followedUsersDataProvider,
+			'followedApisDataProvider' => $followedApisDataProvider
+		]);
+	}
+
+	/**
+	 * Displays a User model.
+	 * @return mixed
+	 */
+	public function actionView($id)
+	{
+		$model = $this->findModel($id);
+
+		$votedUpAPIsArray = array_filter(explode(',', $model->votes_up_apis));
+		$votedUpAPIsArrayInt = array_map('intval', $votedUpAPIsArray);
+		$votedUpAPIsQuery = Apis::find()->where(['id' => $votedUpAPIsArrayInt]);
+		$votedUpAPIsDataProvider = new ActiveDataProvider([
+			'query' => $votedUpAPIsQuery,
+			'sort' => false,
+			'pagination' => [
+				'pageSize' => 5,
+			],
+		]);
+
+		$votedDownAPIsArray = array_filter(explode(',', $model->votes_down_apis));
+		$votedDownAPIsArrayInt = array_map('intval', $votedDownAPIsArray);
+		$votedDownAPIsQuery = Apis::find()->where(['id' => $votedDownAPIsArrayInt]);
+		$votedDownAPIsDataProvider = new ActiveDataProvider([
+			'query' => $votedDownAPIsQuery,
+			'sort' => false,
+			'pagination' => [
+				'pageSize' => 5,
+			],
+		]);
+
+		$votedUpObjectsArray = array_filter(explode(',', $model->votes_up_objects));
+		$votedUpObjectsArrayInt = array_map('intval', $votedUpObjectsArray);
+		$votedUpObjectsQuery = Objects::find()->where(['id' => $votedUpObjectsArrayInt]);
+		$votedUpObjectsDataProvider = new ActiveDataProvider([
+			'query' => $votedUpObjectsQuery,
+			'sort' => false,
+			'pagination' => [
+				'pageSize' => 5,
+			],
+		]);
+
+		$votedDownObjectsArray = array_filter(explode(',', $model->votes_down_objects));
+		$votedDownObjectsArrayInt = array_map('intval', $votedDownObjectsArray);
+		$votedDownObjectsQuery = Objects::find()->where(['id' => $votedDownObjectsArrayInt]);
+		$votedDownObjectsDataProvider = new ActiveDataProvider([
+			'query' => $votedDownObjectsQuery,
+			'sort' => false,
+			'pagination' => [
+				'pageSize' => 5,
+			],
+		]);
+
+		$votedUpCommentsArray = array_filter(explode(',', $model->votes_up_comments));
+		$votedUpCommentsArrayInt = array_map('intval', $votedUpCommentsArray);
+		$votedUpCommentsQuery = Comments::find()->where(['id' => $votedUpCommentsArrayInt]);
+		$votedUpCommentsDataProvider = new ActiveDataProvider([
+			'query' => $votedUpCommentsQuery,
+			'sort' => false,
+			'pagination' => [
+				'pageSize' => 5,
+			],
+		]);
+
+		$votedDownCommentsArray = array_filter(explode(',', $model->votes_down_comments));
+		$votedDownCommentsArrayInt = array_map('intval', $votedDownCommentsArray);
+		$votedDownCommentsQuery = Comments::find()->where(['id' => $votedDownCommentsArrayInt]);
+		$votedDownCommentsDataProvider = new ActiveDataProvider([
+			'query' => $votedDownCommentsQuery,
+			'sort' => false,
+			'pagination' => [
+				'pageSize' => 5,
+			],
+		]);
+
+		$followedUsers = $model->getFollowees();
+		$followedUsersDataProvider = new ActiveDataProvider([
+			'query' => $followedUsers,
+			'sort' => false,
+			'pagination' => [
+				'pageSize' => 5,
+			],
+		]);
+
+		$followedApis = $model->getFollowingApis();
+		$followedApisDataProvider = new ActiveDataProvider([
+			'query' => $followedApis,
+			'sort' => false,
+			'pagination' => [
+				'pageSize' => 5,
+			],
+		]);
+
+		return $this->render('index', [
+			'model' => $model,
+			'votedUpAPIsDataProvider' => $votedUpAPIsDataProvider,
+			'votedDownAPIsDataProvider' => $votedDownAPIsDataProvider,
+			'votedUpObjectsDataProvider' => $votedUpObjectsDataProvider,
+			'votedDownObjectsDataProvider' => $votedDownObjectsDataProvider,
+			'votedUpCommentsDataProvider' => $votedUpCommentsDataProvider,
+			'votedDownCommentsDataProvider' => $votedDownCommentsDataProvider,
+			'followedUsersDataProvider' => $followedUsersDataProvider,
+			'followedApisDataProvider' => $followedApisDataProvider
+		]);
+	}
 
 	/**
 	 * Updates an existing User Photo.
@@ -162,6 +312,38 @@ class ProfileController extends Controller
 				'model' => $model,
 			]);
 		}
+	}
+
+	/**
+	 * Follow another User.
+	 * If insertion is successful, the browser will be redirected to the 'view' page.
+	 * @param integer $id
+	 * @return mixed
+	 */
+	public function actionFollow($id, $url)
+	{
+		$myId = \Yii::$app->user->id;
+		$model = new FollowUserUser();
+		$model->follower = $myId;
+		$model->followee = $id;
+		$model->save();
+		return $this->redirect([$url]);
+	}
+
+	/**
+	 * Unfollow another User.
+	 * If deletion is successful, the browser will be redirected to the 'view' page.
+	 * @param integer $id
+	 * @return mixed
+	 */
+	public function actionUnfollow($id, $url)
+	{
+		$myId = \Yii::$app->user->id;
+		FollowUserUser::deleteAll([
+			'follower' => $myId,
+			'followee' => $id
+		]);
+		return $this->redirect([$url]);
 	}
 
 	/**
