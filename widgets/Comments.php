@@ -153,19 +153,19 @@ TAG;
 		$comment .= Html::a($authorImage, '#', ['class' => 'pull-left']);
 
 		// Make the Author Name with Date
-		$authorName = Html::tag('h4', $commentModel->createdBy->username, ['class' => 'media-heading reviews']);
+		$authorName = Html::tag('h5', $commentModel->createdBy->username, ['class' => 'media-heading reviews']);
 
 		$commentDate = TimeAgo::widget(['timestamp' => $commentModel->created_at]);
-		$commentDate = Html::tag('span', $commentDate, ['class' => 'media-date text-uppercase reviews list-inline']);
+		$commentDate = Html::tag('p', $commentDate, ['class' => 'media-date text-uppercase reviews list-inline']);
 		// Make the actual Comment
 		$commentText = Html::tag('p', $commentModel->text, ['class' => 'comment']);
 		// Make the Reply Button
 		$replyGlyph = Html::tag('span', '', ['class' => 'glyphicon glyphicon-share-alt']);
-		$replyButton = Html::a($replyGlyph . ' Reply', '#ReplyTo' . $commentModel->id, ['class' => 'btn btn-sm btn-info btn-circle text-uppercase', 'data' => ['toggle' => 'collapse']]);
+		$replyButton = Html::a($replyGlyph . ' Reply', '#ReplyTo' . $commentModel->id, ['class' => 'btn btn-sm btn-info btn-circle text-uppercase pull-right reply-btn', 'data' => ['toggle' => 'collapse']]);
 		// Make the Show Replies Button if replies do exist
 		$repliesGlyph = Html::tag('span', '', ['class' => 'glyphicon glyphicon-comment']);
 		$howManyReplies = ' ' . count($replies) . ' replies';
-		$repliesButton = Html::a($repliesGlyph . $howManyReplies, '#RepliesTo' . $commentModel->id, ['class' => 'btn btn-sm btn-warning btn-circle text-uppercase', 'data' => ['toggle' => 'collapse']]);
+		$repliesButton = Html::a($repliesGlyph . $howManyReplies, '#RepliesTo' . $commentModel->id, ['class' => 'btn btn-sm btn-warning btn-circle text-uppercase pull-right reply-btn', 'data' => ['toggle' => 'collapse']]);
 		// Make the Wrapper for all the above
 		$wellDiv = Html::tag('div', $authorName . $commentDate . $commentText . $replyButton . $repliesButton, ['class' => 'well well-lg']);
 
