@@ -147,6 +147,10 @@ else if ($followed == -1)
 				'columns' => [
 					[
 						'attribute' => 'name',
+						'value'=>function ($model, $key, $index, $widget) {
+							return Html::a($model->name, ['/apis/view', 'id' => $model->id]);
+						},
+						'format'=> 'raw',
 						'hAlign' => GridView::ALIGN_CENTER,
 						'vAlign' => GridView::ALIGN_MIDDLE
 					],

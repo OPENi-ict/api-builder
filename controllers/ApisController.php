@@ -6,6 +6,7 @@ use app\helpers\BuildSwaggerAnnotationsOnly;
 use app\helpers\FileManipulation;
 use app\models\Comments;
 use app\models\CommentsSearch;
+use app\models\FollowUserApi;
 use app\models\Objects;
 use app\models\Properties;
 use app\models\User;
@@ -80,7 +81,7 @@ class ApisController extends Controller
 	 * @param integer $propose
      * @return mixed
      */
-    public function actionView($id, $propose = 0)
+    public function actionView($id, $propose = 0, $followed = 0)
     {
 		$searchModel = new ObjectsSearch();
 		$dataProvider = $searchModel->search([
@@ -102,11 +103,19 @@ class ApisController extends Controller
 			$commentsModel->save();
 		}
 
+		$myId = \Yii::$app->user->id;
+		$doIFollow = FollowUserApi::find()->where([
+			'follower' => $myId,
+			'api' => $id
+		])->exists();
+
 		return $this->render('view', [
 			'model' => $this->findModel($id),
 			'searchModel' => $searchModel,
 			'dataProvider' => $dataProvider,
 			'propose' => $propose,
+			'followed' => $followed,
+			'doIFollow' => $doIFollow,
 			// For Comment Box
 			'commentsProvider' => $commentsProvider,
 			'repliesProvider' => $repliesProvider,
@@ -477,6 +486,38 @@ class ApisController extends Controller
 		$model->save();
 
 		return $this->redirect([$redirect]);
+	}
+
+	/**
+	 * Follow an API.
+	 * If insertion is successful, the browser will be redirected to the 'view' page.
+	 * @param integer $id
+	 * @return mixed
+	 */
+	public function actionFollow($id)
+	{
+		$myId = \Yii::$app->user->id;
+		$model = new FollowUserApi();
+		$model->follower = $myId;
+		$model->api = $id;
+		$model->save();
+		return $this->redirect(['view', 'id' => $id, 'followed' => 1]);
+	}
+
+	/**
+	 * Unfollow an API.
+	 * If deletion is successful, the browser will be redirected to the 'view' page.
+	 * @param integer $id
+	 * @return mixed
+	 */
+	public function actionUnfollow($id)
+	{
+		$myId = \Yii::$app->user->id;
+		FollowUserApi::deleteAll([
+			'follower' => $myId,
+			'api' => $id
+		]);
+		return $this->redirect(['view', 'id' => $id, 'followed' => -1]);
 	}
 
     /**

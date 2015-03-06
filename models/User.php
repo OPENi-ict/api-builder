@@ -277,7 +277,7 @@ class User extends ActiveRecord implements IdentityInterface
 
 	public function getFollowingApis()
 	{
-		return $this->hasMany(Apis::className(), ['id' => 'apis'])
+		return $this->hasMany(Apis::className(), ['id' => 'api'])
 			->via('followUserApis');
 	}
 

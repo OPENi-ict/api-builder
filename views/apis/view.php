@@ -12,18 +12,41 @@ use kartik\grid\GridView;
 /* @var $commentsProvider yii\data\ActiveDataProvider */
 /* @var $repliesProvider yii\data\ActiveDataProvider */
 /* @var $propose integer */
+/* @var $followed integer */
+/* @var $doIFollow boolean */
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Apis', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
-?>
-
-<?php if ($propose == 1)
+if ($propose == 1)
 	$this->registerJs(
 		'
 		var options =  {
 			content: "Your Proposal has been sent for approval to the Administrator", // text of the snackbar
+			style: "toast", // add a custom class to your snackbar
+			timeout: 3000 // time in milliseconds after the snackbar autohides, 0 is disabled
+		};
+
+		$.snackbar(options);'
+	);
+
+if ($followed == 1)
+	$this->registerJs(
+		'
+		var options =  {
+			content: "You now follow '.$model->name.' !", // text of the snackbar
+			style: "toast", // add a custom class to your snackbar
+			timeout: 3000 // time in milliseconds after the snackbar autohides, 0 is disabled
+		};
+
+		$.snackbar(options);'
+	);
+else if ($followed == -1)
+	$this->registerJs(
+		'
+		var options =  {
+			content: "You have unfollowed '.$model->name.'", // text of the snackbar
 			style: "toast", // add a custom class to your snackbar
 			timeout: 3000 // time in milliseconds after the snackbar autohides, 0 is disabled
 		};
@@ -79,6 +102,12 @@ $this->params['breadcrumbs'][] = $this->title;
 			<?= Html::a('Under Review', ['propose', 'id' => $model->id], ['class' => 'btn btn-info disabled']) ?>
 		<?php endif; ?>
 	<?php endif; ?>
+
+	<?php if ($doIFollow) {?>
+		<?= Html::a('Unfollow', ['unfollow', 'id' => $model->id], ['class' => 'btn btn-danger']) ?>
+	<?php } else { ?>
+		<?= Html::a('Follow Me!', ['follow', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
+	<?php } ?>
 
 	<?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
