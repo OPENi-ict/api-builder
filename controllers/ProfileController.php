@@ -157,7 +157,7 @@ class ProfileController extends Controller
 	 * Displays a User model.
 	 * @return mixed
 	 */
-	public function actionView($id)
+	public function actionView($id, $followed = 0)
 	{
 		// If I'm trying to view myself then redirect to index
 		$myId = \Yii::$app->user->id;
@@ -250,7 +250,12 @@ class ProfileController extends Controller
 			],
 		]);
 
-		return $this->render('index', [
+		$doIFollow = FollowUserUser::find()->where([
+			'follower' => $myId,
+			'followee' => $id
+		])->exists();
+
+		return $this->render('view', [
 			'model' => $model,
 			'votedUpAPIsDataProvider' => $votedUpAPIsDataProvider,
 			'votedDownAPIsDataProvider' => $votedDownAPIsDataProvider,
@@ -259,7 +264,9 @@ class ProfileController extends Controller
 			'votedUpCommentsDataProvider' => $votedUpCommentsDataProvider,
 			'votedDownCommentsDataProvider' => $votedDownCommentsDataProvider,
 			'followedUsersDataProvider' => $followedUsersDataProvider,
-			'followedApisDataProvider' => $followedApisDataProvider
+			'followedApisDataProvider' => $followedApisDataProvider,
+			'doIFollow' => $doIFollow,
+			'followed' => $followed
 		]);
 	}
 
@@ -325,14 +332,14 @@ class ProfileController extends Controller
 	 * @param integer $id
 	 * @return mixed
 	 */
-	public function actionFollow($id, $url)
+	public function actionFollow($id)
 	{
 		$myId = \Yii::$app->user->id;
 		$model = new FollowUserUser();
 		$model->follower = $myId;
 		$model->followee = $id;
 		$model->save();
-		return $this->redirect([$url]);
+		return $this->redirect(['view', 'id' => $id, 'followed' => 1]);
 	}
 
 	/**
@@ -341,14 +348,14 @@ class ProfileController extends Controller
 	 * @param integer $id
 	 * @return mixed
 	 */
-	public function actionUnfollow($id, $url)
+	public function actionUnfollow($id)
 	{
 		$myId = \Yii::$app->user->id;
 		FollowUserUser::deleteAll([
 			'follower' => $myId,
 			'followee' => $id
 		]);
-		return $this->redirect([$url]);
+		return $this->redirect(['view', 'id' => $id, 'followed' => -1]);
 	}
 
 	/**

@@ -14,6 +14,8 @@ use yii\widgets\DetailView;
 /* @var $votedDownCommentsDataProvider yii\data\ActiveDataProvider */
 /* @var $followedUsersDataProvider yii\data\ActiveDataProvider */
 /* @var $followedApisDataProvider yii\data\ActiveDataProvider */
+/* @var $doIFollow boolean */
+/* @var $followed integer */
 
 $this->title = $model->username;
 $this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
@@ -77,11 +79,42 @@ $commentColumns = [
 		'hAlign' => GridView::ALIGN_CENTER,
 		'vAlign' => GridView::ALIGN_MIDDLE
 	],
-]
+];
+
+if ($followed == 1)
+	$this->registerJs(
+		'
+		var options =  {
+			content: "You just followed '.$model->username.' !", // text of the snackbar
+			style: "toast", // add a custom class to your snackbar
+			timeout: 3000 // time in milliseconds after the snackbar autohides, 0 is disabled
+		};
+
+		$.snackbar(options);'
+	);
+else if ($followed == -1)
+	$this->registerJs(
+		'
+		var options =  {
+			content: "You just unfollowed '.$model->username.' !", // text of the snackbar
+			style: "toast", // add a custom class to your snackbar
+			timeout: 3000 // time in milliseconds after the snackbar autohides, 0 is disabled
+		};
+
+		$.snackbar(options);'
+	);
 ?>
 <div class="user-view">
 
 	<h1><?= Html::encode($this->title) ?></h1>
+
+	<p>
+		<?php if ($doIFollow) {?>
+		<?= Html::a('Unfollow', ['unfollow', 'id' => $model->id], ['class' => 'btn btn-danger']) ?>
+		<?php } else { ?>
+		<?= Html::a('Follow Me!', ['follow', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
+		<?php } ?>
+	</p>
 
 	<?= DetailView::widget([
 		'model' => $model,
