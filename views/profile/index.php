@@ -175,7 +175,7 @@ $commentColumns = [
 		</div>
 	</div>
 	<div class="row text-center">
-		<div class="col-lg-6">
+		<div class="col-xs-6">
 			<h3>Voted Up</h3>
 			<h4>APIs</h4>
 			<?= GridView::widget([
@@ -184,7 +184,7 @@ $commentColumns = [
 				'layout' => $noSummaryLayout
 			]); ?>
 		</div>
-		<div class="col-lg-6">
+		<div class="col-xs-6">
 			<h3>Voted Down</h3>
 			<h4>APIs</h4>
 			<?= GridView::widget([
@@ -196,7 +196,7 @@ $commentColumns = [
 	</div>
 
 	<div class="row text-center">
-		<div class="col-lg-6">
+		<div class="col-xs-6">
 			<h4>Objects</h4>
 			<?= GridView::widget([
 				'dataProvider' => $votedUpObjectsDataProvider,
@@ -204,7 +204,7 @@ $commentColumns = [
 				'layout' => $noSummaryLayout
 			]); ?>
 		</div>
-		<div class="col-lg-6">
+		<div class="col-xs-6">
 			<h4>Objects</h4>
 			<?= GridView::widget([
 				'dataProvider' => $votedDownObjectsDataProvider,
