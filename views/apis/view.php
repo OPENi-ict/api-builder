@@ -64,6 +64,11 @@ else if ($followed == -1)
 		</small>
 		<br/>
 		<small>
+		<?php if ($doIFollow) {?>
+			<?= Html::a('Unfollow', ['unfollow', 'id' => $model->id], ['class' => 'btn btn-danger']) ?>
+		<?php } else { ?>
+			<?= Html::a('Follow Me!', ['follow', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
+		<?php } ?>
 		<?= Html::a($model->votes_up, ['voteup', 'id' => $model->id, 'redirect' => 'view?id=' . $model->id], ['class' => 'glyphicon glyphicon-thumbs-up nounderline']) ?>
 		<?= Html::a($model->votes_down, ['votedown', 'id' => $model->id, 'redirect' => 'view?id=' . $model->id], ['class' => 'glyphicon glyphicon-thumbs-down nounderline']) ?>
 		</small>
@@ -102,12 +107,6 @@ else if ($followed == -1)
 			<?= Html::a('Under Review', ['propose', 'id' => $model->id], ['class' => 'btn btn-info disabled']) ?>
 		<?php endif; ?>
 	<?php endif; ?>
-
-	<?php if ($doIFollow) {?>
-		<?= Html::a('Unfollow', ['unfollow', 'id' => $model->id], ['class' => 'btn btn-danger']) ?>
-	<?php } else { ?>
-		<?= Html::a('Follow Me!', ['follow', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
-	<?php } ?>
 
 	<?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
