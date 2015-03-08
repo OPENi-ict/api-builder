@@ -121,5 +121,9 @@ a.desc:after {
 }
 
 table > thead > tr {
-    background-color: #009587;
+     background-color: #009587;
+     color: white;
+}
+table > thead > tr a{
+    color: white;
 }
