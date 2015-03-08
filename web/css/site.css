@@ -127,3 +127,13 @@ table > thead > tr {
 table > thead > tr a{
     color: white;
 }
+
+.follow:hover, .like:hover, .follow:focus, .like:focus {
+    outline: 0;
+    color: #0F9D58;
+}
+
+.unfollow:hover, .unlike:hover, .unfollow:focus, .unlike:focus {
+    outline: 0;
+    color: #F00;
+}

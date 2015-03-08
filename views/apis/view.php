@@ -14,6 +14,7 @@ use kartik\grid\GridView;
 /* @var $propose integer */
 /* @var $followed integer */
 /* @var $doIFollow boolean */
+/* @var $followers integer */
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Apis', 'url' => ['index']];
@@ -65,12 +66,12 @@ else if ($followed == -1)
 		<br/>
 		<small>
 		<?php if ($doIFollow) {?>
-			<?= Html::a('Unfollow', ['unfollow', 'id' => $model->id], ['class' => 'btn btn-danger']) ?>
+			<?= Html::a($followers, ['unfollow', 'id' => $model->id], ['class' => 'unfollow glyphicon glyphicon-minus nounderline', 'data' => ['toggle' => 'tooltip', 'placement' => 'right'], 'title' => 'Unfollow']) ?>
 		<?php } else { ?>
-			<?= Html::a('Follow Me!', ['follow', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
+			<?= Html::a($followers, ['follow', 'id' => $model->id], ['class' => 'follow glyphicon glyphicon-plus nounderline', 'data' => ['toggle' => 'tooltip', 'placement' => 'right'], 'title' => 'Follow me!']) ?>
 		<?php } ?>
-		<?= Html::a($model->votes_up, ['voteup', 'id' => $model->id, 'redirect' => 'view?id=' . $model->id], ['class' => 'glyphicon glyphicon-thumbs-up nounderline']) ?>
-		<?= Html::a($model->votes_down, ['votedown', 'id' => $model->id, 'redirect' => 'view?id=' . $model->id], ['class' => 'glyphicon glyphicon-thumbs-down nounderline']) ?>
+		<?= Html::a($model->votes_up, ['voteup', 'id' => $model->id, 'redirect' => 'view?id=' . $model->id], ['class' => 'like glyphicon glyphicon-thumbs-up nounderline', 'data' => ['toggle' => 'tooltip', 'placement' => 'right'], 'title' => 'Vote me Up']) ?>
+		<?= Html::a($model->votes_down, ['votedown', 'id' => $model->id, 'redirect' => 'view?id=' . $model->id], ['class' => 'unlike glyphicon glyphicon-thumbs-down nounderline', 'data' => ['toggle' => 'tooltip', 'placement' => 'right'], 'title' => 'Vote me Down']) ?>
 		</small>
 
 		<?php if ($model->name != 'core') : ?>

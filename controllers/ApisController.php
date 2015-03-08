@@ -109,6 +109,8 @@ class ApisController extends Controller
 			'api' => $id
 		])->exists();
 
+		$followers = FollowUserApi::find()->where(['api' => $id])->count();
+
 		return $this->render('view', [
 			'model' => $this->findModel($id),
 			'searchModel' => $searchModel,
@@ -116,6 +118,7 @@ class ApisController extends Controller
 			'propose' => $propose,
 			'followed' => $followed,
 			'doIFollow' => $doIFollow,
+			'followers' => $followers,
 			// For Comment Box
 			'commentsProvider' => $commentsProvider,
 			'repliesProvider' => $repliesProvider,

@@ -81,10 +81,10 @@ $this->params['breadcrumbs'][] = $this->title;
 				'label' => 'Votes',
 				'value'=>function ($model, $key, $index, $widget) {
 					return
-						Html::a($model->votes_up, ['objects/voteup', 'id' => $model->id, 'redirect' => 'index'], ['class' => 'glyphicon glyphicon-thumbs-up nounderline'])
+						Html::a($model->votes_up, ['objects/voteup', 'id' => $model->id, 'redirect' => 'index'], ['class' => 'like glyphicon glyphicon-thumbs-up nounderline', 'data' => ['toggle' => 'tooltip', 'placement' => 'right'], 'title' => 'Vote me Up'])
 						.
 						' / ' .
-						Html::a($model->votes_down, ['objects/votedown', 'id' => $model->id, 'redirect' => 'index'], ['class' => 'glyphicon glyphicon-thumbs-down nounderline']);
+						Html::a($model->votes_down, ['objects/votedown', 'id' => $model->id, 'redirect' => 'index'], ['class' => 'unlike glyphicon glyphicon-thumbs-down nounderline', 'data' => ['toggle' => 'tooltip', 'placement' => 'right'], 'title' => 'Vote me Down']);
 				},
 				'format'=>'raw',
 				'hAlign' => GridView::ALIGN_CENTER,

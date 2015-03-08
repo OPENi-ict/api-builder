@@ -16,6 +16,7 @@ use yii\widgets\DetailView;
 /* @var $followedApisDataProvider yii\data\ActiveDataProvider */
 /* @var $doIFollow boolean */
 /* @var $followed integer */
+/* @var $followers integer */
 
 $this->title = $model->username;
 $this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
@@ -108,13 +109,13 @@ else if ($followed == -1)
 
 	<h1><?= Html::encode($this->title) ?></h1>
 
-	<p>
+	<h1>
 		<?php if ($doIFollow) {?>
-		<?= Html::a('Unfollow', ['unfollow', 'id' => $model->id], ['class' => 'btn btn-danger']) ?>
+			<?= Html::a($followers, ['unfollow', 'id' => $model->id], ['class' => 'unfollow glyphicon glyphicon-minus nounderline', 'data' => ['toggle' => 'tooltip', 'placement' => 'right'], 'title' => 'Unfollow']) ?>
 		<?php } else { ?>
-		<?= Html::a('Follow Me!', ['follow', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
+			<?= Html::a($followers, ['follow', 'id' => $model->id], ['class' => 'follow glyphicon glyphicon-plus nounderline', 'data' => ['toggle' => 'tooltip', 'placement' => 'right'], 'title' => 'Follow me!']) ?>
 		<?php } ?>
-	</p>
+	</h1>
 
 	<?= DetailView::widget([
 		'model' => $model,

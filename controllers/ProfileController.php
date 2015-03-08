@@ -255,6 +255,8 @@ class ProfileController extends Controller
 			'followee' => $id
 		])->exists();
 
+		$followers = FollowUserUser::find()->where(['followee' => $id])->count();
+
 		return $this->render('view', [
 			'model' => $model,
 			'votedUpAPIsDataProvider' => $votedUpAPIsDataProvider,
@@ -266,7 +268,8 @@ class ProfileController extends Controller
 			'followedUsersDataProvider' => $followedUsersDataProvider,
 			'followedApisDataProvider' => $followedApisDataProvider,
 			'doIFollow' => $doIFollow,
-			'followed' => $followed
+			'followed' => $followed,
+			'followers' => $followers
 		]);
 	}
 
