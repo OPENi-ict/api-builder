@@ -286,6 +286,7 @@ class ProfileController extends Controller
 
 			if ($model->load(Yii::$app->request->post())) {
 				$image = UploadedFile::getInstance($model, 'photo_name');
+				$model->photo_name = $image->name;
 
 				if ($image != null) {
 					$imagePath = explode("\\", $image->tempName);
