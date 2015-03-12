@@ -54,7 +54,7 @@ AppAsset::register($this);
                 $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
             } else {
 				$menuItems[] = ['label' => 'Profile', 'url' => ['/profile/']];
-				$menuItems[] = '<li role="presentation"><a href="'. Yii::getAlias('@web') .'/profile/" class="navbar-badge-link"><span class="badge navbar-badge">'.ProfileController::getFollowingAPIsUsersNotifNum().'</span></a></li>';
+				$menuItems[] = '<li role="presentation"><a href="'. Yii::getAlias('@web') .'/profile/" class="navbar-badge-link"><span class="badge navbar-badge" data-toggle="tooltip" data-placement="bottom" title="New Notifications">'.ProfileController::getFollowingAPIsUsersNotifNum().'</span></a></li>';
 				$menuItems[] = [
                     'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
                     'url' => ['/site/logout'],
