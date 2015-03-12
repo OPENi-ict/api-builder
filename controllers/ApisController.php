@@ -104,10 +104,20 @@ class ApisController extends Controller
 		}
 
 		$myId = \Yii::$app->user->id;
-		$doIFollow = FollowUserApi::find()->where([
+
+		$followUserAPI = FollowUserApi::findOne([
 			'follower' => $myId,
 			'api' => $id
-		])->exists();
+		]);
+
+		$doIFollow = false;
+		if ($followUserAPI != null)
+		{
+			$doIFollow = true;
+
+			$followUserAPI->last_seen = date("Y-m-d H:i:s");
+			$followUserAPI->save();
+		}
 
 		$followers = FollowUserApi::find()->where(['api' => $id])->count();
 

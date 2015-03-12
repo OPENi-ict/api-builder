@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\Apis;
 use app\models\Comments;
+use app\models\FollowUserApi;
 use app\models\FollowUserUser;
 use app\models\Objects;
 use Yii;
@@ -250,10 +251,19 @@ class ProfileController extends Controller
 			],
 		]);
 
-		$doIFollow = FollowUserUser::find()->where([
+		$followUserUser = FollowUserUser::find()->where([
 			'follower' => $myId,
 			'followee' => $id
-		])->exists();
+		]);
+
+		$doIFollow = false;
+		if ($followUserUser != null)
+		{
+			$doIFollow = true;
+
+			$followUserUser->last_seen = date("Y-m-d H:i:s");
+			$followUserUser->save();
+		}
 
 		$followers = FollowUserUser::find()->where(['followee' => $id])->count();
 
