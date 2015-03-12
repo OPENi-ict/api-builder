@@ -5,6 +5,7 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 use app\widgets\Alert;
+use app\controllers\ProfileController;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
@@ -53,7 +54,8 @@ AppAsset::register($this);
                 $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
             } else {
 				$menuItems[] = ['label' => 'Profile', 'url' => ['/profile/']];
-                $menuItems[] = [
+				$menuItems[] = '<li role="presentation"><a href="'. Yii::getAlias('@web') .'/profile/" class="navbar-badge-link"><span class="badge navbar-badge">'.ProfileController::getFollowingAPIsUsersNotifNum().'</span></a></li>';
+				$menuItems[] = [
                     'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
                     'url' => ['/site/logout'],
                     'linkOptions' => ['data-method' => 'post']

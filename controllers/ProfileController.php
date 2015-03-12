@@ -432,4 +432,61 @@ class ProfileController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+	/**
+	 * Finds the Number of Notifications that should be displayed to a follower. Both for APIs and Users.
+	 * @return int
+	 */
+	public function getFollowingAPIsUsersNotifNum()
+	{
+		$myId = \Yii::$app->user->id;
+		$followUserApis = FollowUserApi::findAll([
+			'follower' => $myId
+		]);
+
+		$notifNum = 0;
+		foreach($followUserApis as $followUserApi)
+		{
+			if ($followUserApi->changed_name)
+				$notifNum++;
+			if ($followUserApi->changed_descr)
+				$notifNum++;
+			if ($followUserApi->changed_version)
+				$notifNum++;
+			if ($followUserApi->changed_upvotes)
+				$notifNum++;
+			if ($followUserApi->changed_downvotes)
+				$notifNum++;
+			if ($followUserApi->changed_proposed)
+				$notifNum++;
+			if ($followUserApi->changed_published)
+				$notifNum++;
+			if ($followUserApi->changed_privacy)
+				$notifNum++;
+			if ($followUserApi->changed_objects_number)
+				$notifNum++;
+		}
+
+		$followUserUsers = FollowUserUser::findAll([
+			'follower' => $myId
+		]);
+
+		foreach($followUserUsers as $followUserUser)
+		{
+			if ($followUserUser->changed_photo)
+				$notifNum++;
+			if ($followUserUser->changed_linkedin)
+				$notifNum++;
+			if ($followUserUser->changed_github)
+				$notifNum++;
+			if ($followUserUser->created_api)
+				$notifNum++;
+			if ($followUserUser->changed_upvotes_apis)
+				$notifNum++;
+			if ($followUserUser->changed_downvotes_apis)
+				$notifNum++;
+		}
+
+		return $notifNum;
+	}
 }
