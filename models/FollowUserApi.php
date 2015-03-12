@@ -8,6 +8,7 @@ use yii\behaviors\TimestampBehavior;
 /**
  * This is the model class for table "follow_user_api".
  *
+ * @property integer $id
  * @property integer $follower
  * @property integer $api
  * @property integer $created_at
@@ -44,7 +45,6 @@ class FollowUserApi extends \yii\db\ActiveRecord
 	{
 		return [
 			[['follower', 'api', 'created_at', 'updated_at', 'changed_name', 'changed_descr', 'changed_version', 'changed_upvotes', 'changed_downvotes', 'changed_proposed', 'changed_published', 'changed_privacy', 'changed_objects_number'], 'integer'],
-			[['created_at', 'updated_at'], 'required'],
 			[['last_seen'], 'safe'],
 			[['changed_name_old_name'], 'string', 'max' => 255]
 		];
@@ -69,6 +69,7 @@ class FollowUserApi extends \yii\db\ActiveRecord
 	public function attributeLabels()
 	{
 		return [
+			'id' => 'ID',
 			'follower' => 'Follower',
 			'api' => 'Api',
 			'created_at' => 'Created At',
