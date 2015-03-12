@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\helpers\BuildSwaggerAnnotationsOnly;
 use app\helpers\FileManipulation;
+use app\helpers\NotificationHelper;
 use app\models\Comments;
 use app\models\CommentsSearch;
 use app\models\FollowUserApi;
@@ -81,7 +82,7 @@ class ApisController extends Controller
 	 * @param integer $propose
      * @return mixed
      */
-    public function actionView($id, $propose = 0, $followed = 0)
+    public function actionView($id, $propose = false, $followed = null, $followersNotified = null)
     {
 		$searchModel = new ObjectsSearch();
 		$dataProvider = $searchModel->search([
@@ -121,12 +122,14 @@ class ApisController extends Controller
 
 		$followers = FollowUserApi::find()->where(['api' => $id])->count();
 
+		$this->view->params['followers_notified'] = $followersNotified;
+		$this->view->params['propose'] = $propose;
+		$this->view->params['followed'] = $followed;
+
 		return $this->render('view', [
 			'model' => $this->findModel($id),
 			'searchModel' => $searchModel,
 			'dataProvider' => $dataProvider,
-			'propose' => $propose,
-			'followed' => $followed,
 			'doIFollow' => $doIFollow,
 			'followers' => $followers,
 			// For Comment Box
@@ -162,10 +165,27 @@ class ApisController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+		$model = $this->findModel($id);
+
+		$oldName = $model->name;
+		$oldDescr =$model->description;
+		$oldVersion =$model->version;
+		$oldPrivacy =$model->privacy;
+
+		$change = new NotificationHelper();
+		$followersNotified = null;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+			if ($model->name != $oldName)
+				$followersNotified = $change->apiChangedName($id, $oldName);
+			if ($model->description != $oldDescr)
+				$followersNotified = $change->apiChangedDescription($id);
+			if ($model->version != $oldVersion)
+				$followersNotified = $change->apiChangedVersion($id);
+			if ($model->privacy != $oldPrivacy)
+				$followersNotified = $change->apiChangedPrivacy($id);
+
+            return $this->redirect(['view', 'id' => $model->id, 'followersNotified' => $followersNotified]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -197,6 +217,9 @@ class ApisController extends Controller
 		$api = $this->findModel($id);
 		$api->published = 1;
 		$api->save();
+
+		$change = new NotificationHelper();
+		$followersNotified = $change->apiChangedPublished($id);
 
 		$basePathPart = explode('publish', Url::canonical());
 		$basePath = $basePathPart[0] . $api->name . '/';
@@ -428,7 +451,10 @@ class ApisController extends Controller
 		$model->proposed = 1;
 		$model->save();
 
-		return $this->redirect(['view', 'id' => $id, 'propose' => 1]);
+		$change = new NotificationHelper();
+		$followersNotified = $change->apiChangedProposed($id);
+
+		return $this->redirect(['view', 'id' => $id, 'propose' => true, 'followersNotified' => $followersNotified]);
 	}
 
 	/**
@@ -462,6 +488,9 @@ class ApisController extends Controller
 
 		$model->votes_up = $model->votes_up + 1;
 		$model->save();
+
+		$change = new NotificationHelper();
+		$followersNotified = $change->apiChangedUpvotes($id);
 
 		return $this->redirect([$redirect]);
 	}
@@ -498,6 +527,9 @@ class ApisController extends Controller
 		$model->votes_down = $model->votes_down + 1;
 		$model->save();
 
+		$change = new NotificationHelper();
+		$followersNotified = $change->apiChangedDownvotes($id);
+
 		return $this->redirect([$redirect]);
 	}
 
@@ -514,7 +546,7 @@ class ApisController extends Controller
 		$model->follower = $myId;
 		$model->api = $id;
 		$model->save();
-		return $this->redirect(['view', 'id' => $id, 'followed' => 1]);
+		return $this->redirect(['view', 'id' => $id, 'followed' => true]);
 	}
 
 	/**
@@ -530,7 +562,7 @@ class ApisController extends Controller
 			'follower' => $myId,
 			'api' => $id
 		]);
-		return $this->redirect(['view', 'id' => $id, 'followed' => -1]);
+		return $this->redirect(['view', 'id' => $id, 'followed' => false]);
 	}
 
     /**

@@ -11,8 +11,6 @@ use kartik\grid\GridView;
 /* @var $commentsModel app\models\Comments */
 /* @var $commentsProvider yii\data\ActiveDataProvider */
 /* @var $repliesProvider yii\data\ActiveDataProvider */
-/* @var $propose integer */
-/* @var $followed integer */
 /* @var $doIFollow boolean */
 /* @var $followers integer */
 
@@ -20,7 +18,19 @@ $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Apis', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
-if ($propose == 1)
+if (isset($this->params['followers_notified']))
+	$this->registerJs(
+		'
+		var options =  {
+			content: "Your changes will be sent as notifications to '.$this->params['followers_notified'].' followers!", // text of the snackbar
+			style: "toast", // add a custom class to your snackbar
+			timeout: 3000 // time in milliseconds after the snackbar autohides, 0 is disabled
+		};
+
+		$.snackbar(options);'
+	);
+
+if ($this->params['propose'])
 	$this->registerJs(
 		'
 		var options =  {
@@ -32,28 +42,30 @@ if ($propose == 1)
 		$.snackbar(options);'
 	);
 
-if ($followed == 1)
-	$this->registerJs(
-		'
-		var options =  {
-			content: "You now follow '.$model->name.' !", // text of the snackbar
-			style: "toast", // add a custom class to your snackbar
-			timeout: 3000 // time in milliseconds after the snackbar autohides, 0 is disabled
-		};
+if (isset($this->params['followers_notified'])) {
+	if ($this->params['followed'])
+		$this->registerJs(
+			'
+			var options =  {
+				content: "You now follow ' . $model->name . ' !", // text of the snackbar
+				style: "toast", // add a custom class to your snackbar
+				timeout: 3000 // time in milliseconds after the snackbar autohides, 0 is disabled
+			};
 
-		$.snackbar(options);'
-	);
-else if ($followed == -1)
-	$this->registerJs(
-		'
-		var options =  {
-			content: "You have unfollowed '.$model->name.'", // text of the snackbar
-			style: "toast", // add a custom class to your snackbar
-			timeout: 3000 // time in milliseconds after the snackbar autohides, 0 is disabled
-		};
+			$.snackbar(options);'
+		);
+	else
+		$this->registerJs(
+			'
+			var options =  {
+				content: "You have unfollowed ' . $model->name . '", // text of the snackbar
+				style: "toast", // add a custom class to your snackbar
+				timeout: 3000 // time in milliseconds after the snackbar autohides, 0 is disabled
+			};
 
-		$.snackbar(options);'
-	);
+			$.snackbar(options);'
+		);
+}
 ?>
 
 <div class="apis-view">
