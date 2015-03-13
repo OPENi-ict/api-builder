@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\helpers\NotificationHelper;
 use app\models\Apis;
 use app\models\Comments;
 use app\models\FollowUserApi;
@@ -50,9 +51,10 @@ class ProfileController extends Controller
 
 	/**
 	 * Displays my User model.
+	 * @param boolean $followersNotified
 	 * @return mixed
 	 */
-	public function actionIndex()
+	public function actionIndex($followersNotified = null)
 	{
 		$id = \Yii::$app->user->id;
 		$model = $this->findModel($id);
@@ -141,6 +143,8 @@ class ProfileController extends Controller
 			],
 		]);
 
+		$this->view->params['followers_notified'] = $followersNotified;
+
 		return $this->render('index', [
 			'model' => $model,
 			'votedUpAPIsDataProvider' => $votedUpAPIsDataProvider,
@@ -156,9 +160,11 @@ class ProfileController extends Controller
 
 	/**
 	 * Displays a User model.
+	 * @param integer $id
+	 * @param boolean $followed
 	 * @return mixed
 	 */
-	public function actionView($id, $followed = 0)
+	public function actionView($id, $followed = null)
 	{
 		// If I'm trying to view myself then redirect to index
 		$myId = \Yii::$app->user->id;
@@ -262,10 +268,18 @@ class ProfileController extends Controller
 			$doIFollow = true;
 
 			$followUserUser->last_seen = date("Y-m-d H:i:s");
+			$followUserUser->changed_photo = false;
+			$followUserUser->changed_linkedin = false;
+			$followUserUser->changed_github = false;
+			$followUserUser->created_api = '';
+			$followUserUser->changed_upvotes_apis = '';
+			$followUserUser->changed_downvotes_apis = '';
 			$followUserUser->save();
 		}
 
 		$followers = FollowUserUser::find()->where(['followee' => $id])->count();
+
+		$this->view->params['followed'] = $followed;
 
 		return $this->render('view', [
 			'model' => $model,
@@ -278,7 +292,6 @@ class ProfileController extends Controller
 			'followedUsersDataProvider' => $followedUsersDataProvider,
 			'followedApisDataProvider' => $followedApisDataProvider,
 			'doIFollow' => $doIFollow,
-			'followed' => $followed,
 			'followers' => $followers
 		]);
 	}
@@ -309,8 +322,13 @@ class ProfileController extends Controller
 				else {
 					$model->removeImage($model->getImage(), true);
 				}
+
+				$change = new NotificationHelper();
+				$followersNotified = null;
+				$followersNotified = $change->apiChangedPhoto($id);
+
 				$model->save();
-				return $this->redirect(['index']);
+				return $this->redirect(['index', 'followersNotified' => $followersNotified]);
 			} else {
 				return $this->render('updatephoto', [
 					'model' => $model,
@@ -330,8 +348,19 @@ class ProfileController extends Controller
 	{
 		$model = $this->findModel($id);
 
+		$oldLinkedIn = $model->linkedin;
+		$oldGithub =$model->github;
+
+		$change = new NotificationHelper();
+		$followersNotified = null;
+
 		if ($model->load(Yii::$app->request->post()) && $model->save()) {
-			return $this->redirect(['index']);
+			if ($model->linkedin != $oldLinkedIn)
+				$followersNotified = $change->apiChangedLinkedIn($id);
+			if ($model->github != $oldGithub)
+				$followersNotified = $change->apiChangedGithub($id);
+
+			return $this->redirect(['index', 'followersNotified' => $followersNotified]);
 		} else {
 			return $this->render('update', [
 				'model' => $model,
@@ -352,7 +381,7 @@ class ProfileController extends Controller
 		$model->follower = $myId;
 		$model->followee = $id;
 		$model->save();
-		return $this->redirect(['view', 'id' => $id, 'followed' => 1]);
+		return $this->redirect(['view', 'id' => $id, 'followed' => true]);
 	}
 
 	/**
@@ -368,7 +397,7 @@ class ProfileController extends Controller
 			'follower' => $myId,
 			'followee' => $id
 		]);
-		return $this->redirect(['view', 'id' => $id, 'followed' => -1]);
+		return $this->redirect(['view', 'id' => $id, 'followed' => false]);
 	}
 
 	/**

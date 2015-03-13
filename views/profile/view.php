@@ -82,28 +82,30 @@ $commentColumns = [
 	],
 ];
 
-if ($followed == 1)
-	$this->registerJs(
-		'
-		var options =  {
-			content: "You just followed '.$model->username.' !", // text of the snackbar
-			style: "toast", // add a custom class to your snackbar
-			timeout: 3000 // time in milliseconds after the snackbar autohides, 0 is disabled
-		};
+if (isset($this->params['followed'])) {
+	if ($this->params['followed'])
+		$this->registerJs(
+			'
+			var options =  {
+				content: "You just followed '.$model->username.' !", // text of the snackbar
+				style: "toast", // add a custom class to your snackbar
+				timeout: 3000 // time in milliseconds after the snackbar autohides, 0 is disabled
+			};
 
-		$.snackbar(options);'
-	);
-else if ($followed == -1)
-	$this->registerJs(
-		'
-		var options =  {
-			content: "You just unfollowed '.$model->username.' !", // text of the snackbar
-			style: "toast", // add a custom class to your snackbar
-			timeout: 3000 // time in milliseconds after the snackbar autohides, 0 is disabled
-		};
+			$.snackbar(options);'
+		);
+	else
+		$this->registerJs(
+			'
+			var options =  {
+				content: "You just unfollowed '.$model->username.' !", // text of the snackbar
+				style: "toast", // add a custom class to your snackbar
+				timeout: 3000 // time in milliseconds after the snackbar autohides, 0 is disabled
+			};
 
-		$.snackbar(options);'
-	);
+			$.snackbar(options);'
+		);
+}
 ?>
 <div class="user-view">
 

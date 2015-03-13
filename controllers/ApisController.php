@@ -79,7 +79,9 @@ class ApisController extends Controller
     /**
      * Displays a grid containing all Objects of this API.
 	 * @param integer $id
-	 * @param integer $propose
+	 * @param boolean $propose
+	 * @param boolean $followed
+	 * @param boolean $followersNotified
      * @return mixed
      */
     public function actionView($id, $propose = false, $followed = null, $followersNotified = null)
@@ -159,7 +161,13 @@ class ApisController extends Controller
         $model = new Apis();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+
+			$myId = \Yii::$app->user->id;
+			$change = new NotificationHelper();
+			$followersNotified = null;
+			$followersNotified = $change->apiChangedCreatedApi($myId);
+
+            return $this->redirect(['view', 'id' => $model->id, 'followersNotified' => $followersNotified]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -502,6 +510,9 @@ class ApisController extends Controller
 		$change = new NotificationHelper();
 		$followersNotified = $change->apiChangedUpvotes($id);
 
+		$myId = \Yii::$app->user->id;
+		$change->apiChangedUpvotesApis($myId);
+
 		return $this->redirect([$redirect]);
 	}
 
@@ -539,6 +550,9 @@ class ApisController extends Controller
 
 		$change = new NotificationHelper();
 		$followersNotified = $change->apiChangedDownvotes($id);
+
+		$myId = \Yii::$app->user->id;
+		$change->apiChangedDownvotesApis($myId);
 
 		return $this->redirect([$redirect]);
 	}
