@@ -258,7 +258,7 @@ class ProfileController extends Controller
 			],
 		]);
 
-		$followUserUser = FollowUserUser::find()->where([
+		$followUserUser = FollowUserUser::findOne([
 			'follower' => $myId,
 			'followee' => $id
 		]);
@@ -278,7 +278,7 @@ class ProfileController extends Controller
 			$followUserUser->save();
 		}
 
-		$followers = FollowUserUser::find()->where(['followee' => $id])->count();
+		$followers = FollowUserUser::find(['followee' => $id])->count();
 
 		$this->view->params['followed'] = $followed;
 
