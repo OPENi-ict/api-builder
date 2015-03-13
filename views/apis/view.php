@@ -42,7 +42,7 @@ if ($this->params['propose'])
 		$.snackbar(options);'
 	);
 
-if (isset($this->params['followers_notified'])) {
+if (isset($this->params['followed'])) {
 	if ($this->params['followed'])
 		$this->registerJs(
 			'
