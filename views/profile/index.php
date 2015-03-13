@@ -19,6 +19,18 @@ $this->title = $model->username;
 $this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
+if (isset($this->params['followers_notified']))
+	$this->registerJs(
+		'
+		var options =  {
+			content: "Your changes will be sent as notifications to '.$this->params['followers_notified'].' followers!", // text of the snackbar
+			style: "toast", // add a custom class to your snackbar
+			timeout: 3000 // time in milliseconds after the snackbar autohides, 0 is disabled
+		};
+
+		$.snackbar(options);'
+	);
+
 $noSummaryLayout = "{items}\n{pager}";
 
 $apiColumns = [

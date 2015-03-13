@@ -2,8 +2,11 @@
 
 namespace app\controllers;
 
+use app\helpers\NotifAPIHelper;
+use app\helpers\NotifUserHelper;
 use app\models\Apis;
 use app\models\Comments;
+use app\models\FollowUserApi;
 use app\models\FollowUserUser;
 use app\models\Objects;
 use Yii;
@@ -33,7 +36,7 @@ class ProfileController extends Controller
 					],
 					[
 						'allow' => true,
-						'actions' => ['index', 'updatephoto', 'update', 'view', 'follow', 'unfollow'],
+						'actions' => ['index', 'notifications', 'clearapinotifs', 'clearusernotifs', 'updatephoto', 'update', 'view', 'follow', 'unfollow'],
 						'roles' => ['@'],
 					]
                 ],
@@ -49,9 +52,10 @@ class ProfileController extends Controller
 
 	/**
 	 * Displays my User model.
+	 * @param boolean $followersNotified
 	 * @return mixed
 	 */
-	public function actionIndex()
+	public function actionIndex($followersNotified = null)
 	{
 		$id = \Yii::$app->user->id;
 		$model = $this->findModel($id);
@@ -140,6 +144,8 @@ class ProfileController extends Controller
 			],
 		]);
 
+		$this->view->params['followers_notified'] = $followersNotified;
+
 		return $this->render('index', [
 			'model' => $model,
 			'votedUpAPIsDataProvider' => $votedUpAPIsDataProvider,
@@ -155,9 +161,11 @@ class ProfileController extends Controller
 
 	/**
 	 * Displays a User model.
+	 * @param integer $id
+	 * @param boolean $followed
 	 * @return mixed
 	 */
-	public function actionView($id, $followed = 0)
+	public function actionView($id, $followed = null)
 	{
 		// If I'm trying to view myself then redirect to index
 		$myId = \Yii::$app->user->id;
@@ -250,12 +258,29 @@ class ProfileController extends Controller
 			],
 		]);
 
-		$doIFollow = FollowUserUser::find()->where([
+		$followUserUser = FollowUserUser::find()->where([
 			'follower' => $myId,
 			'followee' => $id
-		])->exists();
+		]);
+
+		$doIFollow = false;
+		if ($followUserUser != null)
+		{
+			$doIFollow = true;
+
+			$followUserUser->last_seen = date("Y-m-d H:i:s");
+			$followUserUser->changed_photo = false;
+			$followUserUser->changed_linkedin = false;
+			$followUserUser->changed_github = false;
+			$followUserUser->created_api = null;
+			$followUserUser->changed_upvotes_apis = null;
+			$followUserUser->changed_downvotes_apis = null;
+			$followUserUser->save();
+		}
 
 		$followers = FollowUserUser::find()->where(['followee' => $id])->count();
+
+		$this->view->params['followed'] = $followed;
 
 		return $this->render('view', [
 			'model' => $model,
@@ -268,7 +293,6 @@ class ProfileController extends Controller
 			'followedUsersDataProvider' => $followedUsersDataProvider,
 			'followedApisDataProvider' => $followedApisDataProvider,
 			'doIFollow' => $doIFollow,
-			'followed' => $followed,
 			'followers' => $followers
 		]);
 	}
@@ -300,8 +324,12 @@ class ProfileController extends Controller
 				else {
 					$model->removeImage($model->getImage(), true);
 				}
+
+				$change = new NotifUserHelper();
+				$followersNotified = $change->userChangedPhoto($id);
+
 				$model->save();
-				return $this->redirect(['index']);
+				return $this->redirect(['index', 'followersNotified' => $followersNotified]);
 			} else {
 				return $this->render('updatephoto', [
 					'model' => $model,
@@ -322,7 +350,14 @@ class ProfileController extends Controller
 		$model = $this->findModel($id);
 
 		if ($model->load(Yii::$app->request->post()) && $model->save()) {
-			return $this->redirect(['index']);
+			$change = new NotifUserHelper();
+			$followersNotified = null;
+			if ($model->isAttributeChanged('linkedin'))
+				$followersNotified = $change->userChangedLinkedIn($id);
+			if ($model->isAttributeChanged('github'))
+				$followersNotified = $change->userChangedGithub($id);
+
+			return $this->redirect(['index', 'followersNotified' => $followersNotified]);
 		} else {
 			return $this->render('update', [
 				'model' => $model,
@@ -343,7 +378,7 @@ class ProfileController extends Controller
 		$model->follower = $myId;
 		$model->followee = $id;
 		$model->save();
-		return $this->redirect(['view', 'id' => $id, 'followed' => 1]);
+		return $this->redirect(['view', 'id' => $id, 'followed' => true]);
 	}
 
 	/**
@@ -359,7 +394,7 @@ class ProfileController extends Controller
 			'follower' => $myId,
 			'followee' => $id
 		]);
-		return $this->redirect(['view', 'id' => $id, 'followed' => -1]);
+		return $this->redirect(['view', 'id' => $id, 'followed' => false]);
 	}
 
 	/**
@@ -423,4 +458,93 @@ class ProfileController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+	/**
+	 * Finds the Number of Notifications that should be displayed to a follower. Both for APIs and Users.
+	 * @return int
+	 */
+	public function getFollowingAPIsUsersNotifNum()
+	{
+		$myId = \Yii::$app->user->id;
+		$followUserApis = FollowUserApi::findAll([
+			'follower' => $myId
+		]);
+
+		$notifNum = 0;
+		foreach($followUserApis as $followUserApi)
+		{
+			if ($followUserApi->changed_name)
+				$notifNum++;
+			if ($followUserApi->changed_descr)
+				$notifNum++;
+			if ($followUserApi->changed_version)
+				$notifNum++;
+			if ($followUserApi->changed_upvotes)
+				$notifNum++;
+			if ($followUserApi->changed_downvotes)
+				$notifNum++;
+			if ($followUserApi->changed_proposed)
+				$notifNum++;
+			if ($followUserApi->changed_published)
+				$notifNum++;
+			if ($followUserApi->changed_privacy)
+				$notifNum++;
+			if ($followUserApi->changed_objects_number)
+				$notifNum++;
+		}
+
+		$followUserUsers = FollowUserUser::findAll([
+			'follower' => $myId
+		]);
+
+		foreach($followUserUsers as $followUserUser)
+		{
+			if ($followUserUser->changed_photo)
+				$notifNum++;
+			if ($followUserUser->changed_linkedin)
+				$notifNum++;
+			if ($followUserUser->changed_github)
+				$notifNum++;
+			if ($followUserUser->created_api)
+				$notifNum++;
+			if ($followUserUser->changed_upvotes_apis)
+				$notifNum++;
+			if ($followUserUser->changed_downvotes_apis)
+				$notifNum++;
+		}
+
+		return $notifNum;
+	}
+
+	public function actionNotifications()
+	{
+		$myId = \Yii::$app->user->id;
+		$apiNotifications = new NotifAPIHelper();
+		$fUAModel = $apiNotifications->getAllAPIChangesForWhatIFollow($myId);
+		$userNotifications = new NotifUserHelper();
+		$fUUModel = $userNotifications->getAllUserChangesForWhatIFollow($myId);
+
+		return $this->render('notifications', [
+			'fUAModel' => $fUAModel,
+			'fUUModel' => $fUUModel
+		]);
+	}
+
+	public function actionClearapinotifs()
+	{
+		$myId = \Yii::$app->user->id;
+		$apiNotifications = new NotifAPIHelper();
+		$apiNotifications->clearAllAPIChangesIFollow($myId);
+
+		return $this->redirect(['notifications']);
+	}
+
+	public function actionClearusernotifs()
+	{
+		$myId = \Yii::$app->user->id;
+		$userNotifications = new NotifUserHelper();
+		$userNotifications->clearAllUserChangesIFollow($myId);
+
+		return $this->redirect(['notifications']);
+	}
 }
