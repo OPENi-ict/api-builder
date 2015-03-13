@@ -117,7 +117,17 @@ class ApisController extends Controller
 			$doIFollow = true;
 
 			$followUserAPI->last_seen = date("Y-m-d H:i:s");
-			$followUserAPI->save();
+			$followUserAPI->changed_name = false;
+			$followUserAPI->changed_descr = false;
+			$followUserAPI->changed_version = false;
+			$followUserAPI->changed_proposed = false;
+			$followUserAPI->changed_published = false;
+			$followUserAPI->changed_privacy = false;
+			$followUserAPI->changed_upvotes = 0;
+			$followUserAPI->changed_downvotes = 0;
+			$followUserAPI->changed_objects_number = 0;
+
+			$skata = $followUserAPI->save();
 		}
 
 		$followers = FollowUserApi::find()->where(['api' => $id])->count();
