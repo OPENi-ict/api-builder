@@ -127,7 +127,7 @@ class ApisController extends Controller
 			$followUserAPI->changed_downvotes = 0;
 			$followUserAPI->changed_objects_number = 0;
 
-			$skata = $followUserAPI->save();
+			$followUserAPI->save();
 		}
 
 		$followers = FollowUserApi::find()->where(['api' => $id])->count();

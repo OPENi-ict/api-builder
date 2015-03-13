@@ -40,7 +40,8 @@ class FollowUserUser extends \yii\db\ActiveRecord
 	public function rules()
 	{
 		return [
-			[['follower', 'followee', 'created_at', 'updated_at', 'changed_photo', 'changed_linkedin', 'changed_github'], 'integer'],
+			[['follower', 'followee', 'created_at', 'updated_at'], 'integer'],
+			[['changed_photo', 'changed_linkedin', 'changed_github'], 'boolean'],
 			[['last_seen'], 'safe'],
 			[['created_api', 'changed_upvotes_apis', 'changed_downvotes_apis'], 'string']
 		];

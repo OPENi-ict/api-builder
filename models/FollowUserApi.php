@@ -44,7 +44,8 @@ class FollowUserApi extends \yii\db\ActiveRecord
 	public function rules()
 	{
 		return [
-			[['follower', 'api', 'created_at', 'updated_at', 'changed_name', 'changed_descr', 'changed_version', 'changed_upvotes', 'changed_downvotes', 'changed_proposed', 'changed_published', 'changed_privacy', 'changed_objects_number'], 'integer'],
+			[['follower', 'api', 'created_at', 'updated_at', 'changed_upvotes', 'changed_downvotes', 'changed_objects_number'], 'integer'],
+			[['changed_name', 'changed_descr', 'changed_version', 'changed_proposed', 'changed_published', 'changed_privacy'], 'boolean'],
 			[['last_seen'], 'safe'],
 			[['changed_name_old_name'], 'string', 'max' => 255]
 		];
