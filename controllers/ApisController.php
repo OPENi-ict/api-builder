@@ -4,7 +4,8 @@ namespace app\controllers;
 
 use app\helpers\BuildSwaggerAnnotationsOnly;
 use app\helpers\FileManipulation;
-use app\helpers\NotificationHelper;
+use app\helpers\NotifUserHelper;
+use app\helpers\NotifAPIHelper;
 use app\models\Comments;
 use app\models\CommentsSearch;
 use app\models\FollowUserApi;
@@ -163,9 +164,9 @@ class ApisController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
 			$myId = \Yii::$app->user->id;
-			$change = new NotificationHelper();
+			$change = new NotifUserHelper();
 			$followersNotified = null;
-			$followersNotified = $change->apiChangedCreatedApi($myId);
+			$followersNotified = $change->userChangedCreatedApi($myId);
 
             return $this->redirect(['view', 'id' => $model->id, 'followersNotified' => $followersNotified]);
         } else {
@@ -185,22 +186,17 @@ class ApisController extends Controller
     {
 		$model = $this->findModel($id);
 
-		$oldName = $model->name;
-		$oldDescr =$model->description;
-		$oldVersion =$model->version;
-		$oldPrivacy =$model->privacy;
-
-		$change = new NotificationHelper();
-		$followersNotified = null;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-			if ($model->name != $oldName)
-				$followersNotified = $change->apiChangedName($id, $oldName);
-			if ($model->description != $oldDescr)
+			$change = new NotifAPIHelper();
+			$followersNotified = null;
+			if ($model->isAttributeChanged('name'))
+				$followersNotified = $change->apiChangedName($id, $model->getOldAttribute('name'));
+			if ($model->isAttributeChanged('description'))
 				$followersNotified = $change->apiChangedDescription($id);
-			if ($model->version != $oldVersion)
+			if ($model->isAttributeChanged('version'))
 				$followersNotified = $change->apiChangedVersion($id);
-			if ($model->privacy != $oldPrivacy)
+			if ($model->isAttributeChanged('privacy'))
 				$followersNotified = $change->apiChangedPrivacy($id);
 
             return $this->redirect(['view', 'id' => $model->id, 'followersNotified' => $followersNotified]);
@@ -236,7 +232,7 @@ class ApisController extends Controller
 		$api->published = 1;
 		$api->save();
 
-		$change = new NotificationHelper();
+		$change = new NotifAPIHelper();
 		$followersNotified = $change->apiChangedPublished($id);
 
 		$basePathPart = explode('publish', Url::canonical());
@@ -469,7 +465,7 @@ class ApisController extends Controller
 		$model->proposed = 1;
 		$model->save();
 
-		$change = new NotificationHelper();
+		$change = new NotifAPIHelper();
 		$followersNotified = $change->apiChangedProposed($id);
 
 		return $this->redirect(['view', 'id' => $id, 'propose' => true, 'followersNotified' => $followersNotified]);
@@ -507,11 +503,12 @@ class ApisController extends Controller
 		$model->votes_up = $model->votes_up + 1;
 		$model->save();
 
-		$change = new NotificationHelper();
-		$followersNotified = $change->apiChangedUpvotes($id);
+		$changeAPI = new NotifAPIHelper();
+		$followersNotified = $changeAPI->apiChangedUpvotes($id);
 
+		$changeUser = new NotifUserHelper();
 		$myId = \Yii::$app->user->id;
-		$change->apiChangedUpvotesApis($myId);
+		$changeUser->userChangedUpvotesApis($myId);
 
 		return $this->redirect([$redirect]);
 	}
@@ -548,11 +545,12 @@ class ApisController extends Controller
 		$model->votes_down = $model->votes_down + 1;
 		$model->save();
 
-		$change = new NotificationHelper();
-		$followersNotified = $change->apiChangedDownvotes($id);
+		$changeAPI = new NotifAPIHelper();
+		$followersNotified = $changeAPI->apiChangedDownvotes($id);
 
+		$changeUser = new NotifUserHelper();
 		$myId = \Yii::$app->user->id;
-		$change->apiChangedDownvotesApis($myId);
+		$changeUser->userChangedDownvotesApis($myId);
 
 		return $this->redirect([$redirect]);
 	}

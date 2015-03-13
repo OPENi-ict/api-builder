@@ -2,7 +2,7 @@
 
 namespace app\controllers;
 
-use app\helpers\NotificationHelper;
+use app\helpers\NotifUserHelper;
 use app\models\Apis;
 use app\models\Comments;
 use app\models\FollowUserApi;
@@ -323,9 +323,8 @@ class ProfileController extends Controller
 					$model->removeImage($model->getImage(), true);
 				}
 
-				$change = new NotificationHelper();
-				$followersNotified = null;
-				$followersNotified = $change->apiChangedPhoto($id);
+				$change = new NotifUserHelper();
+				$followersNotified = $change->userChangedPhoto($id);
 
 				$model->save();
 				return $this->redirect(['index', 'followersNotified' => $followersNotified]);
@@ -348,17 +347,13 @@ class ProfileController extends Controller
 	{
 		$model = $this->findModel($id);
 
-		$oldLinkedIn = $model->linkedin;
-		$oldGithub =$model->github;
-
-		$change = new NotificationHelper();
-		$followersNotified = null;
-
 		if ($model->load(Yii::$app->request->post()) && $model->save()) {
-			if ($model->linkedin != $oldLinkedIn)
-				$followersNotified = $change->apiChangedLinkedIn($id);
-			if ($model->github != $oldGithub)
-				$followersNotified = $change->apiChangedGithub($id);
+			$change = new NotifUserHelper();
+			$followersNotified = null;
+			if ($model->isAttributeChanged('linkedin'))
+				$followersNotified = $change->userChangedLinkedIn($id);
+			if ($model->isAttributeChanged('github'))
+				$followersNotified = $change->userChangedGithub($id);
 
 			return $this->redirect(['index', 'followersNotified' => $followersNotified]);
 		} else {
