@@ -2,7 +2,7 @@
 
 namespace app\controllers;
 
-use app\helpers\NotificationHelper;
+use app\helpers\NotifAPIHelper;
 use app\models\Apis;
 use app\models\Cbs;
 use app\models\Properties;
@@ -192,7 +192,7 @@ class ObjectsController extends Controller
 			$propType->type = 'string';
 			$propType->save();
 
-			$change = new NotificationHelper();
+			$change = new NotifAPIHelper();
 			$followersNotified = $change->apiChangedObjectsNumber($id);
 
             return $this->redirect(['view', 'id' => $model->id]);
@@ -288,7 +288,7 @@ class ObjectsController extends Controller
 				$prop->save();
 			}
 
-			$change = new NotificationHelper();
+			$change = new NotifAPIHelper();
 			$followersNotified = $change->apiChangedObjectsNumber($id);
 
 			return $this->redirect(['view', 'id' => $model->id]);

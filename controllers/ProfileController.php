@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\helpers\NotifAPIHelper;
 use app\helpers\NotifUserHelper;
 use app\models\Apis;
 use app\models\Comments;
@@ -35,7 +36,7 @@ class ProfileController extends Controller
 					],
 					[
 						'allow' => true,
-						'actions' => ['index', 'updatephoto', 'update', 'view', 'follow', 'unfollow'],
+						'actions' => ['index', 'notifications', 'clearapinotifs', 'clearusernotifs', 'updatephoto', 'update', 'view', 'follow', 'unfollow'],
 						'roles' => ['@'],
 					]
                 ],
@@ -271,9 +272,9 @@ class ProfileController extends Controller
 			$followUserUser->changed_photo = false;
 			$followUserUser->changed_linkedin = false;
 			$followUserUser->changed_github = false;
-			$followUserUser->created_api = '';
-			$followUserUser->changed_upvotes_apis = '';
-			$followUserUser->changed_downvotes_apis = '';
+			$followUserUser->created_api = null;
+			$followUserUser->changed_upvotes_apis = null;
+			$followUserUser->changed_downvotes_apis = null;
 			$followUserUser->save();
 		}
 
@@ -512,5 +513,37 @@ class ProfileController extends Controller
 		}
 
 		return $notifNum;
+	}
+
+	public function actionNotifications()
+	{
+		$myId = \Yii::$app->user->id;
+		$apiNotifications = new NotifAPIHelper();
+		$fUAModel = $apiNotifications->getAllAPIChangesForWhatIFollow($myId);
+		$userNotifications = new NotifUserHelper();
+		$fUUModel = $userNotifications->getAllUserChangesForWhatIFollow($myId);
+
+		return $this->render('notifications', [
+			'fUAModel' => $fUAModel,
+			'fUUModel' => $fUUModel
+		]);
+	}
+
+	public function actionClearapinotifs()
+	{
+		$myId = \Yii::$app->user->id;
+		$apiNotifications = new NotifAPIHelper();
+		$apiNotifications->clearAllAPIChangesIFollow($myId);
+
+		return $this->redirect(['notifications']);
+	}
+
+	public function actionClearusernotifs()
+	{
+		$myId = \Yii::$app->user->id;
+		$userNotifications = new NotifUserHelper();
+		$userNotifications->clearAllUserChangesIFollow($myId);
+
+		return $this->redirect(['notifications']);
 	}
 }

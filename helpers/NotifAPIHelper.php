@@ -3,6 +3,8 @@
 namespace app\helpers;
 
 use app\models\FollowUserApi;
+use yii\data\ActiveDataProvider;
+use yii\db\ActiveRecord;
 
 /**
  * NotificationHelper implements the actions that take place when updates occur in Users or APIs.
@@ -12,7 +14,7 @@ class NotifAPIHelper
 	/**
 	 * Returns ActiveRecords for FollowUserApi based on an $id
 	 * @param integer $id
-	 * @return static[] an array of ActiveRecord instances, or an empty array if nothing matches.
+	 * @return ActiveRecord[] an array of ActiveRecord instances, or an empty array if nothing matches.
 	 */
 	private function getFollowUserApis($id)
 	{
@@ -177,5 +179,66 @@ class NotifAPIHelper
 			$fUA->save();
 		}
 		return $this->getFollowUserApisNumber($id);
+	}
+
+	/**
+	 * Returns ActiveRecords for FollowUserApi based on my $id (This is what APIs I follow)
+	 * @param integer $id
+	 * @return ActiveDataProvider
+	 */
+	public function getAllAPIChangesForWhatIFollow($id)
+	{
+		$query = FollowUserApi::find();
+		$query->where([
+			'and',
+			['follower' => $id],
+			['or',
+				['changed_name' => 1],
+				['changed_descr' => 1],
+				['not', ['changed_upvotes' => 0]],
+				['not', ['changed_downvotes' => 0]],
+				['changed_proposed' => 1],
+				['changed_published' => 1],
+				['changed_privacy' => 1],
+				['not', ['changed_objects_number' => 0]],
+			]
+		]);
+
+		$dataProvider = new ActiveDataProvider([
+			'query' => $query,
+		]);
+
+		return $dataProvider;
+	}
+
+	/**
+	 * Clears Up all API-related notifications
+	 * @param integer $id
+	 */
+	public function clearAllAPIChangesIFollow($id)
+	{
+		$query = FollowUserApi::find([
+			'follower' => $id,
+			['or', [
+				'changed_name' => 1,
+				'changed_descr' => 1,
+				['not', 'changed_upvotes', 0],
+				['not', 'changed_downvotes',0],
+				'changed_proposed' => 1,
+				'changed_published' => 1,
+				'changed_privacy' => 1,
+				['not', 'changed_objects_number', 0],
+			]]
+		])->all();
+		foreach ($query as $fUA) {
+			$fUA->changed_name = 0;
+			$fUA->changed_upvotes = 0;
+			$fUA->changed_downvotes = 0;
+			$fUA->changed_proposed = 0;
+			$fUA->changed_published = 0;
+			$fUA->changed_privacy = 0;
+			$fUA->changed_objects_number = 0;
+			$fUA->update();
+		}
 	}
 }

@@ -3,6 +3,7 @@
 namespace app\helpers;
 
 use app\models\FollowUserUser;
+use yii\data\ActiveDataProvider;
 use yii\db\ActiveRecord;
 
 /**
@@ -137,5 +138,57 @@ class NotifUserHelper
 			$fUU->save();
 		}
 		return $this->getFollowUserUsersNumber($id);
+	}
+
+	/**
+	 * Returns ActiveRecords for FollowUserApi based on my $id (This is what APIs I follow)
+	 * @param integer $id
+	 * @return ActiveDataProvider
+	 */
+	public function getAllUserChangesForWhatIFollow($id)
+	{
+		$query = FollowUserUser::find([
+			'follower' => $id,
+			['or', [
+				'changed_photo' => 1,
+				'changed_linkedin' => 1,
+				'changed_github' => 1,
+				['not', 'created_api', null],
+				['not', 'changed_upvotes_apis', null],
+				['not', 'changed_downvotes_apis',null],
+			]]
+		]);
+
+		$dataProvider = new ActiveDataProvider([
+			'query' => $query,
+		]);
+
+		return $dataProvider;
+	}
+
+	/**
+	 * Clears Up all User-related notifications
+	 * @param integer $id
+	 */
+	public function clearAllUserChangesIFollow($id)
+	{
+		FollowUserUser::updateAll([
+			'changed_photo' => 0,
+			'changed_linkedin' => 0,
+			'changed_github' =>0,
+			'created_api' => null,
+			'changed_upvotes_apis' => null,
+			'changed_downvotes_apis' => null
+		],[
+			'follower' => $id,
+			['or', [
+				'changed_photo' => 1,
+				'changed_linkedin' => 1,
+				'changed_github' => 1,
+				['not', 'created_api', null],
+				['not', 'changed_upvotes_apis', null],
+				['not', 'changed_downvotes_apis',null],
+			]]
+		]);
 	}
 }
