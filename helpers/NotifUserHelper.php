@@ -147,16 +147,18 @@ class NotifUserHelper
 	 */
 	public function getAllUserChangesForWhatIFollow($id)
 	{
-		$query = FollowUserUser::find([
-			'follower' => $id,
-			['or', [
-				'changed_photo' => 1,
-				'changed_linkedin' => 1,
-				'changed_github' => 1,
-				['not', 'created_api', null],
-				['not', 'changed_upvotes_apis', null],
-				['not', 'changed_downvotes_apis',null],
-			]]
+		$query = FollowUserUser::find();
+		$query->where([
+			'and',
+			['follower' => $id],
+			['or',
+				['changed_photo' => 1],
+				['changed_linkedin' => 1],
+				['changed_github' => 1],
+				['not', ['created_api' => null]],
+				['not', ['changed_upvotes_apis' => null]],
+				['not', ['changed_downvotes_apis' => null]],
+			]
 		]);
 
 		$dataProvider = new ActiveDataProvider([
