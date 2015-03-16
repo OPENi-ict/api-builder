@@ -5,6 +5,8 @@ namespace app\controllers;
 use app\helpers\NotifAPIHelper;
 use app\helpers\NotifUserHelper;
 use app\models\Apis;
+use app\models\ApisSearch;
+use app\models\Cbs;
 use app\models\Comments;
 use app\models\FollowUserApi;
 use app\models\FollowUserUser;
@@ -31,7 +33,7 @@ class ProfileController extends Controller
                 'rules' => [
 					[
 						'allow' => true,
-						'actions' => ['admin', 'create', 'delete'],
+						'actions' => ['admin', 'create', 'delete', 'adminnotifications', 'acceptapi', 'acceptcbs'],
 						'roles' => ['admin'],
 					],
 					[
@@ -516,6 +518,31 @@ class ProfileController extends Controller
 		return $notifNum;
 	}
 
+	/**
+	 * Finds the Number of Notifications that should be displayed to an Admin. Both for proposed APIs and CBS.
+	 * @return int
+	 */
+	public function getAdminNotifNum()
+	{
+		// Count and add the APIs that are under review
+		$apis = Apis::find();
+		$apis->where(['status' => "Under Review"]);
+		$notifNum = $apis->count();
+
+		// Count and add the CBS that are still pending review
+		$cbs = Cbs::find();
+		$cbs->where(['status' => "pending"]);
+		$notifNum += $cbs->count();
+
+		// Add the usual following notification count
+		$notifNum += ProfileController::getFollowingAPIsUsersNotifNum();
+
+		return $notifNum;
+	}
+
+	/**
+	 * Display grids with all the Notifications
+	 */
 	public function actionNotifications()
 	{
 		$myId = \Yii::$app->user->id;
@@ -530,6 +557,42 @@ class ProfileController extends Controller
 		]);
 	}
 
+	/**
+	 * Display grids with all the Notifications + Administrator Notifications
+	 */
+	public function actionAdminnotifications()
+	{
+		$myId = \Yii::$app->user->id;
+		$apiNotifications = new NotifAPIHelper();
+		$fUAModel = $apiNotifications->getAllAPIChangesForWhatIFollow($myId);
+		$userNotifications = new NotifUserHelper();
+		$fUUModel = $userNotifications->getAllUserChangesForWhatIFollow($myId);
+
+		// Find the APIs that are under review
+		$apis = Apis::find();
+		$apis->where(['status' => "Under Review"]);
+		$proposedAPIsModel = new ActiveDataProvider([
+			'query' => $apis,
+		]);
+
+		// Find the CBS that are still pending review
+		$cbs = Cbs::find();
+		$cbs->where(['status' => "pending"]);
+		$proposedCBSModel = new ActiveDataProvider([
+			'query' => $cbs,
+		]);
+
+		return $this->render('adminnotifications', [
+			'fUAModel' => $fUAModel,
+			'fUUModel' => $fUUModel,
+			'proposedAPIsModel' => $proposedAPIsModel,
+			'proposedCBSModel' => $proposedCBSModel
+		]);
+	}
+
+	/**
+	 * Clear all Notifications regarding the followed APIs
+	 */
 	public function actionClearapinotifs()
 	{
 		$myId = \Yii::$app->user->id;
@@ -539,6 +602,9 @@ class ProfileController extends Controller
 		return $this->redirect(['notifications']);
 	}
 
+	/**
+	 * Clear all Notifications regarding the followed Users
+	 */
 	public function actionClearusernotifs()
 	{
 		$myId = \Yii::$app->user->id;
@@ -546,5 +612,27 @@ class ProfileController extends Controller
 		$userNotifications->clearAllUserChangesIFollow($myId);
 
 		return $this->redirect(['notifications']);
+	}
+
+	/**
+	 * Accept a particular API
+	 */
+	public function actionAcceptapi($id)
+	{
+		$api = Apis::findOne($id);
+		$api->status = "Approved";
+		$api->save();
+		$this->redirect("adminnotifications");
+	}
+
+	/**
+	 * Accept a particular CBS
+	 */
+	public function actionAcceptcbs($id)
+	{
+		$cbs = Cbs::findOne($id);
+		$cbs->status = "approved";
+		$cbs->save();
+		$this->redirect("adminnotifications");
 	}
 }
