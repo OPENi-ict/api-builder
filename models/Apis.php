@@ -19,12 +19,14 @@ use yii\behaviors\TimestampBehavior;
  * @property integer $votes_down
  * @property integer $created_at
  * @property integer $updated_at
- * @property integer $proposed
  * @property integer $published
  * @property string $privacy
+ * @property string $status
  *
  * @property User $createdBy
  * @property User $updatedBy
+ * @property Comments[] $comments
+ * @property FollowUserApi[] $followUserApis
  * @property Objects[] $objects
  */
 class Apis extends \yii\db\ActiveRecord
@@ -44,9 +46,10 @@ class Apis extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
-            [['created_by', 'updated_by', 'votes_up', 'votes_down', 'created_at', 'updated_at', 'proposed', 'published'], 'integer'],
-			[['privacy'], 'string'],
+            [['created_by', 'updated_by', 'votes_up', 'votes_down', 'created_at', 'updated_at', 'published'], 'integer'],
+			[['privacy', 'status'], 'string'],
 			[['privacy'], 'default', 'value' => 'public'],
+			[['status'], 'default', 'value' => 'Under Development'],
             [['name', 'description', 'version'], 'string', 'max' => 255],
 			[['version'], 'default', 'value' => '1.0'],
 			[['votes_up', 'votes_down'], 'default', 'value' => '0'],
@@ -83,9 +86,9 @@ class Apis extends \yii\db\ActiveRecord
 			'votes_down' => 'Votes Down',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
-			'proposed' => 'Proposed',
 			'published' => 'Published',
 			'privacy' => 'Privacy',
+			'status' => 'Status',
         ];
     }
 
@@ -105,7 +108,23 @@ class Apis extends \yii\db\ActiveRecord
         return $this->hasOne(User::className(), ['id' => 'updated_by']);
     }
 
-    /**
+	/**
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getComments()
+	{
+		return $this->hasMany(Comments::className(), ['api' => 'id']);
+	}
+
+	/**
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getFollowUserApis()
+	{
+		return $this->hasMany(FollowUserApi::className(), ['api' => 'id']);
+	}
+
+	/**
      * @return \yii\db\ActiveQuery
      */
     public function getObjects()

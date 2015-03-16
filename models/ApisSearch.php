@@ -17,8 +17,8 @@ class ApisSearch extends Apis
     public function rules()
     {
         return [
-            [['id', 'created_by', 'updated_by', 'votes_up', 'votes_down', 'created_at', 'updated_at', 'proposed', 'published'], 'integer'],
-            [['name', 'description', 'version', 'privacy'], 'safe'],
+            [['id', 'created_by', 'updated_by', 'votes_up', 'votes_down', 'created_at', 'updated_at', 'published'], 'integer'],
+            [['name', 'description', 'version', 'privacy', 'status'], 'safe'],
         ];
     }
 
@@ -66,14 +66,14 @@ class ApisSearch extends Apis
 			'votes_down' => $this->votes_down,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-			'proposed' => $this->proposed,
 			'published' => $this->published,
 		]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'description', $this->description])
             ->andFilterWhere(['like', 'version', $this->version])
-			->andFilterWhere(['like', 'privacy', $this->privacy]);
+			->andFilterWhere(['like', 'privacy', $this->privacy])
+			->andFilterWhere(['like', 'status', $this->status]);
 
         return $dataProvider;
     }

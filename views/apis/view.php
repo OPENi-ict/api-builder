@@ -100,7 +100,7 @@ if (isset($this->params['followed'])) {
 		<?php endif; ?>
 	</h1>
 
-	<?php if (($model->proposed === 1) and ($model->published === 1)) : ?>
+	<?php if (($model->status == "Under Review") and ($model->published === 1)) : ?>
 		<div class="panel panel-info">
 			<div class="panel-heading">
 				<h3 class="panel-title">Information</h3>
@@ -114,10 +114,12 @@ if (isset($this->params['followed'])) {
 	<?php if ($model->name != 'core') : ?>
 		<?= Html::a('Publish <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>', ['publish', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
 		<?= Html::a('View Swagger', ['swagger/', 'url' => $model->name], ['class' => 'btn btn-primary']) ?>
-		<?php if ($model->proposed === 0): ?>
+		<?php if ($model->status == "Under Development"): ?>
 			<?= Html::a('Propose', ['propose', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
-		<?php else : ?>
+		<?php elseif ($model->status == "Under Review") : ?>
 			<?= Html::a('Under Review', ['propose', 'id' => $model->id], ['class' => 'btn btn-info disabled']) ?>
+		<?php else : ?>
+			<?= Html::a('Approved', ['propose', 'id' => $model->id], ['class' => 'btn btn-success disabled']) ?>
 		<?php endif; ?>
 	<?php endif; ?>
 

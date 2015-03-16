@@ -30,9 +30,9 @@ use yii\widgets\ActiveForm;
 
 	<?php // $form->field($model, 'updated_at')->textInput() ?>
 
-	<?php // $form->field($model, 'proposed')->textInput() ?>
-
 	<?php // $form->field($model, 'published')->textInput() ?>
+
+	<?php // $form->field($model, 'status')->dropDownList([ 'Under Development' => 'Under Development', 'Under Review' => 'Under Review', 'Approved' => 'Approved', ], ['prompt' => '']) ?>
 
 	<?= $form->field($model, 'privacy')->dropDownList([ 'public' => 'Public', 'protected' => 'Protected', 'private' => 'Private', ]) ?>
 

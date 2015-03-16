@@ -462,7 +462,7 @@ class ApisController extends Controller
 	public function actionPropose($id)
 	{
 		$model = $this->findModel($id);
-		$model->proposed = 1;
+		$model->status = "Under Review";
 		$model->save();
 
 		$change = new NotifAPIHelper();

@@ -35,11 +35,11 @@ use yii\bootstrap\ActiveForm;
 
 	<?php // echo $form->field($model, 'updated_at') ?>
 
-	<?php // echo $form->field($model, 'proposed') ?>
-
 	<?php // echo $form->field($model, 'published') ?>
 
 	<?php // echo $form->field($model, 'privacy') ?>
+
+	<?php // echo $form->field($model, 'status') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
