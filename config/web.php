@@ -23,9 +23,6 @@ $config = [
 			'defaultRoles' => ['guest'],
 			'cache' => 'cache',   // this enables RBAC caching
 		],
-		'cache' => [
-			'class' => 'yii\caching\ApcCache',
-		],
 		'assetManager' => [
 			'class' => 'yii\web\AssetManager',
 			'appendTimestamp' => true,
