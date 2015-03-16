@@ -161,7 +161,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				'label' => 'User',
 				'value'=>function ($model, $key, $index, $widget) {
 					return
-						Html::a($model->followee0->name, ['profile/view', 'id' => $model->followee0->id]);
+						Html::a($model->followee0->username, ['profile/view', 'id' => $model->followee0->id]);
 				},
 				'format'=>'raw',
 				'hAlign' => GridView::ALIGN_CENTER,
