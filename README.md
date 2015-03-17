@@ -72,7 +72,12 @@ return [
 ];
 ```
 
+Or rename the dbSample.php with your actual data.
+
 Also check and edit the other files in the `config/` directory to customize your application.
+If your website is different than http://localhost/api-builder/ , you need to update the url property of the js file in /web/js/swagger/site.js .
+
+At last, you need to rename the /web/indexSample.php to /web/index.php for the application to work and comment out the environment lines if you are in production environment.
 
 
 TECH STACK USED FOR DEVELOPMENT - MANY THANKS!
