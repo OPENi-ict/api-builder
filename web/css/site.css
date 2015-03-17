@@ -151,3 +151,12 @@ table > thead > tr a{
     width : 50%;
     margin: auto;
 }
+
+/*
+    By mixing kartik-v and material bootstrap some elements break.
+    Here exist fixes for the select2 container.
+*/
+.input-group > .select2-container {
+    padding: 0;
+    margin-top: 20px;
+}
