@@ -29,9 +29,6 @@ config/sqlite.php
 # Swagger Files
 web/api-docs
 
-# Swagger site js
-/web/js/swagger/site.js
-
 # Dev Env
 /web/index.php
 
