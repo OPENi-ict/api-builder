@@ -1,7 +1,6 @@
 <?php
 
 use kartik\helpers\Html;
-//use kartik\widgets\Select2;
 use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
@@ -71,17 +70,12 @@ $this->title = 'API Builder';
 
     <div class="body-content text-center">
 
-		<?php
-//			echo Select2::widget([
-//				'model' => $objectsModel,
-//				'attribute' => 'name',
-//				'data' => array_merge(["" => ""], $objectsData),
-//				'options' => ['placeholder' => 'Search for Objects ...'],
-//				'pluginOptions' => [
-//					'allowClear' => true
-//				],
-//			]);
-		?>
+		<?= $this->render('_searchObjectsForm', [
+			'model' => $objectsModel,
+			'data' => $objectsData
+		]) ?>
+
+
         <div class="row text-center">
 <!--            <div class="col-lg-4">-->
 <!--                <h2>Most Used</h2>-->

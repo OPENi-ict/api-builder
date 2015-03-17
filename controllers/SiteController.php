@@ -15,6 +15,7 @@ use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\web\NotFoundHttpException;
 
 /**
  * Site controller
@@ -77,6 +78,12 @@ class SiteController extends Controller
 			->all();
 		//$data = implode(', ', $data);
 		$objectsData = array_column($objectsData, 'name');
+
+		// If this is a POST, then search has been conducted and the user is redirected to the object selected.
+		if ($nameId = Yii::$app->request->post('Objects')) {
+			$objectModel = $this->findObjectModelByName($objectsData[$nameId["name"]]);
+			return $this->redirect(['/objects/view', 'id' => $objectModel->id]);
+		}
 
 //		$resourcesUsedDataProvider = new ActiveDataProvider([
 //			'query' => $apiModel::find()->orderBy(['used' => SORT_DESC]),
@@ -206,4 +213,20 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
+
+	/**
+	 * Finds the Objects model based on its name.
+	 * If the model is not found, a 404 HTTP exception will be thrown.
+	 * @param string $name
+	 * @return Objects the loaded model
+	 * @throws NotFoundHttpException if the model cannot be found
+	 */
+	protected function findObjectModelByName($name)
+	{
+		if (($model = Objects::findOne(['name' => $name])) !== null) {
+			return $model;
+		} else {
+			throw new NotFoundHttpException('The requested page does not exist.');
+		}
+	}
 }
