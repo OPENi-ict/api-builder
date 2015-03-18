@@ -5,6 +5,7 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\SwaggerAsset;
 use app\widgets\Alert;
+use app\controllers\ProfileController;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
