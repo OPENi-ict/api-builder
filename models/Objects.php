@@ -23,7 +23,10 @@ use yii\behaviors\TimestampBehavior;
  * @property integer $votes_up
  * @property integer $votes_down
  * @property string $cbs
+ * @property integer $proposed
+ * @property string $schema_org
  *
+ * @property Comments[] $comments
  * @property Apis $api0
  * @property Objects $inherited0
  * @property Objects[] $objects
@@ -48,9 +51,9 @@ class Objects extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'privacy'], 'required'],
-            [['api', 'inherited', 'created_by', 'updated_by', 'created_at', 'updated_at', 'votes_up', 'votes_down'], 'integer'],
+            [['api', 'inherited', 'created_by', 'updated_by', 'created_at', 'updated_at', 'votes_up', 'votes_down', 'proposed'], 'integer'],
             [['privacy', 'methods', 'cbs'], 'string'],
-            [['name', 'description'], 'string', 'max' => 255],
+            [['name', 'description', 'schema_org'], 'string', 'max' => 255],
 			[['privacy'], 'default', 'value' => 'public'],
 			[['votes_up', 'votes_down'], 'default', 'value' => '0'],
 			[['name'], 'unique', 'targetClass' => '\app\models\Objects', 'message' => 'This Object name has already been taken.']
@@ -90,6 +93,8 @@ class Objects extends \yii\db\ActiveRecord
             'updated_at' => 'Updated At',
 			'votes_up' => 'Votes Up',
 			'votes_down' => 'Votes Down',
+			'proposed' => 'Proposed',
+			'schema_org' => 'schema.org',
 
 			'api0.name' => 'API Name',
 			'inherited0.name' => 'Inherited From'
@@ -143,4 +148,12 @@ class Objects extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Properties::className(), ['object' => 'id']);
     }
+
+	/**
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getComments()
+	{
+		return $this->hasMany(Comments::className(), ['object' => 'id']);
+	}
 }

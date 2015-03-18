@@ -17,8 +17,8 @@ class ObjectsSearch extends Objects
     public function rules()
     {
         return [
-            [['id', 'api', 'inherited', 'created_by', 'updated_by', 'created_at', 'updated_at', 'votes_up', 'votes_down'], 'integer'],
-            [['name', 'description', 'privacy', 'methods'], 'safe'],
+            [['id', 'api', 'inherited', 'created_by', 'updated_by', 'created_at', 'updated_at', 'votes_up', 'votes_down', 'proposed'], 'integer'],
+            [['name', 'description', 'privacy', 'methods', 'schema_org'], 'safe'],
         ];
     }
 
@@ -70,12 +70,14 @@ class ObjectsSearch extends Objects
             'updated_at' => $this->updated_at,
 			'votes_up' => $this->votes_up,
 			'votes_down' => $this->votes_down,
+			'proposed' => $this->proposed
 		]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'description', $this->description])
             ->andFilterWhere(['like', 'privacy', $this->privacy])
-            ->andFilterWhere(['like', 'methods', $this->methods]);
+            ->andFilterWhere(['like', 'methods', $this->methods])
+			->andFilterWhere(['like', 'schema_org', $this->schema_org]);
 
         return $dataProvider;
     }

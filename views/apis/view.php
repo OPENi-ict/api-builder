@@ -18,6 +18,76 @@ $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Apis', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
+$columns = [
+	['class' => 'kartik\grid\SerialColumn'],
+
+	//'id',
+	[
+		'attribute' => 'name',
+		'value'=>function ($model, $key, $index, $widget) {
+			return Html::a($model->name, ['/objects/view', 'id' => $model->id]);
+		},
+		'format'=> 'raw',
+		'hAlign' => GridView::ALIGN_CENTER,
+		'vAlign' => GridView::ALIGN_MIDDLE
+	],
+	[
+		'attribute' => 'description',
+		'hAlign' => GridView::ALIGN_CENTER,
+		'vAlign' => GridView::ALIGN_MIDDLE
+	],
+	[
+		'attribute' => '',
+		'label' => 'Votes',
+		'value'=>function ($model, $key, $index, $widget) {
+			return
+				Html::a($model->votes_up, ['objects/voteup', 'id' => $model->id], ['class' => 'glyphicon glyphicon-thumbs-up nounderline'])
+				.
+				' / ' .
+				Html::a($model->votes_down, ['objects/votedown', 'id' => $model->id], ['class' => 'glyphicon glyphicon-thumbs-down nounderline']);
+		},
+		'format'=>'raw',
+		'width' => '80px',
+		'hAlign' => GridView::ALIGN_CENTER,
+		'vAlign' => GridView::ALIGN_MIDDLE
+	],
+	[
+		'attribute' => 'createdBy.username',
+		'value'=>function ($model, $key, $index, $widget) {
+			return Html::a($model->createdBy->username, ['/profile/view', 'id' => $model->createdBy->id]);
+		},
+		'format'=> 'raw',
+		'hAlign' => GridView::ALIGN_CENTER,
+		'vAlign' => GridView::ALIGN_MIDDLE
+	],
+	[
+		'attribute' => 'created_at',
+		'format' => 'date',
+		'hAlign' => GridView::ALIGN_CENTER,
+		'vAlign' => GridView::ALIGN_MIDDLE
+	],
+	//'updatedBy.username',
+	//'updated_at:date',
+	//'proposed',
+	//'published',
+];
+
+if ($model->name == 'core') {
+	$columns[] = [
+		'attribute' => 'schema_org',
+		'value'=>function ($model, $key, $index, $widget) {
+			return Html::a($model->schema_org, 'https://schema.org/' . $model->schema_org, ['target' => '_blank']);
+		},
+		'format'=> 'raw',
+		'hAlign' => GridView::ALIGN_CENTER,
+		'vAlign' => GridView::ALIGN_MIDDLE
+	];
+	$columns[] = ['class' => 'kartik\grid\ActionColumn', 'controller' => 'objects', 'template' => '{view}'];
+}
+else {
+	$columns[] = ['class' => 'kartik\grid\ActionColumn', 'controller' => 'objects'];
+}
+
 if (isset($this->params['followers_notified']))
 	$this->registerJs(
 		'
@@ -137,61 +207,7 @@ if (isset($this->params['followed'])) {
 	<?= GridView::widget([
 		'dataProvider' => $dataProvider,
 		//'filterModel' => $searchModel,
-		'columns' => [
-			['class' => 'kartik\grid\SerialColumn'],
-
-			//'id',
-			[
-				'attribute' => 'name',
-				'value'=>function ($model, $key, $index, $widget) {
-					return Html::a($model->name, ['/objects/view', 'id' => $model->id]);
-				},
-				'format'=> 'raw',
-				'hAlign' => GridView::ALIGN_CENTER,
-				'vAlign' => GridView::ALIGN_MIDDLE
-			],
-			[
-				'attribute' => 'description',
-				'hAlign' => GridView::ALIGN_CENTER,
-				'vAlign' => GridView::ALIGN_MIDDLE
-			],
-			[
-				'attribute' => '',
-				'label' => 'Votes',
-				'value'=>function ($model, $key, $index, $widget) {
-					return
-						Html::a($model->votes_up, ['objects/voteup', 'id' => $model->id], ['class' => 'glyphicon glyphicon-thumbs-up nounderline'])
-						.
-						' / ' .
-						Html::a($model->votes_down, ['objects/votedown', 'id' => $model->id], ['class' => 'glyphicon glyphicon-thumbs-down nounderline']);
-				},
-				'format'=>'raw',
-				'width' => '80px',
-				'hAlign' => GridView::ALIGN_CENTER,
-				'vAlign' => GridView::ALIGN_MIDDLE
-			],
-			[
-				'attribute' => 'createdBy.username',
-				'value'=>function ($model, $key, $index, $widget) {
-					return Html::a($model->createdBy->username, ['/profile/view', 'id' => $model->createdBy->id]);
-				},
-				'format'=> 'raw',
-				'hAlign' => GridView::ALIGN_CENTER,
-				'vAlign' => GridView::ALIGN_MIDDLE
-			],
-			[
-				'attribute' => 'created_at',
-				'format' => 'date',
-				'hAlign' => GridView::ALIGN_CENTER,
-				'vAlign' => GridView::ALIGN_MIDDLE
-			],
-			//'updatedBy.username',
-			//'updated_at:date',
-			//'proposed',
-			//'published',
-
-			($model->name != 'core') ? ['class' => 'kartik\grid\ActionColumn', 'controller' => 'objects'] : ['class' => 'kartik\grid\ActionColumn', 'controller' => 'objects', 'template' => '{view}'],
-		],
+		'columns' => $columns,
 	]); ?>
 
 	<h3>Comments</h3>
