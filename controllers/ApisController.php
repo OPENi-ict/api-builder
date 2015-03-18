@@ -231,12 +231,13 @@ class ApisController extends Controller
 		$api = $this->findModel($id);
 		$api->published = 1;
 		$api->save();
+		$apiName = preg_replace('/\s+/', '', $api->name);
 
 		$change = new NotifAPIHelper();
 		$followersNotified = $change->apiChangedPublished($id);
 
 		$basePathPart = explode('publish', Url::canonical());
-		$basePath = $basePathPart[0] . $api->name . '/';
+		$basePath = $basePathPart[0] . $apiName . '/';
 
 		$objects = Objects::findAll(['api' => $id]);
 
@@ -427,13 +428,13 @@ class ApisController extends Controller
 		$swaggerJSON->CloseJSON();
 
 		$file = new FileManipulation();
-		$file->setFilename(ucfirst($api->name) . '/' . $api->name . '.php');
-		$file->makeDirectory(ucfirst($api->name) . '/');
+		$file->setFilename(ucfirst($apiName) . '/' . $apiName . '.php');
+		$file->makeDirectory(ucfirst($apiName) . '/');
 		$file->write_file($swaggerJSON->getSwaggerJSON());
 
 
 		// Actually Publish the API
-		$_file = Yii::getAlias('@apisDirectory') . '/' . ucfirst($api->name);
+		$_file = Yii::getAlias('@apisDirectory') . '/' . ucfirst($apiName);
 		$swagger = new Swagger($_file);
 
 		$link_parts = explode('/apis/publish', Url::canonical());
@@ -441,16 +442,16 @@ class ApisController extends Controller
 
 
 		$writeFiles = new FileManipulation();
-		$writeFiles->setFilename(ucfirst($api->name) . '/api-docs.json');
-		$writeFiles->write_file($swagger->getResourceList(array('output' => 'json', 'basePath' => $actual_link . '/api-docs/' . ucfirst($api->name))));
+		$writeFiles->setFilename(ucfirst($apiName) . '/api-docs.json');
+		$writeFiles->write_file($swagger->getResourceList(array('output' => 'json', 'basePath' => $actual_link . '/api-docs/' . ucfirst($apiName))));
 
 		foreach($swagger->registry as $api_name => $api_resource)
 		{
-			$writeFiles->setFilename(ucfirst($api->name) . '/'. $api_name);
+			$writeFiles->setFilename(ucfirst($apiName) . '/'. $api_name);
 			$writeFiles->write_file($swagger->getResource($api_name, array('output' => 'json')));
 		}
 
-		return $this->redirect(['swagger/index', 'url' => ucfirst($api->name)]);
+		return $this->redirect(['swagger/index', 'url' => ucfirst($apiName)]);
 	}
 
 	/**
