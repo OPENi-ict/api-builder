@@ -8,9 +8,18 @@ use yii\bootstrap\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model app\models\Properties */
 /* @var $form yii\widgets\ActiveForm */
-/* @var $propertyDropdownList yii\helpers\ArrayHelper | Has all the available datatypes (string, integer, etc.) and the public objects but itself to make foreign keys.*/
+/* @var $propertyDropdownList yii\helpers\ArrayHelper  Has all the available datatypes (string, integer, etc.) and the public objects but itself to make foreign keys.*/
 
-$propertyDropdownList = ArrayHelper::map( Objects::find()->where(['and', ['not in', 'id', [$model->object]], ['privacy' => 'public']])->all(), 'name', 'name' );
+// Find all the IDs of the Objects that are contained in this API so that we can populate the DropdownList below.
+$objectsOfAPI = $model->object0->api0->objects;
+$objectsIDs = [];
+foreach($objectsOfAPI as $object) {
+	// Exclude our Object as it can't be FK to itself.
+	if ($object->id != $model->object)
+		$objectsIDs[] = $object->id;
+}
+
+$propertyDropdownList = ArrayHelper::map( Objects::find()->where(['and', ['in', 'id', $objectsIDs]])->all(), 'name', 'name' );
 $propertyDropdownList = ArrayHelper::merge([
 	'integer' => 'integer',
 	'long' => 'long',
