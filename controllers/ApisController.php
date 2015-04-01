@@ -168,6 +168,12 @@ class ApisController extends Controller
 			$followersNotified = null;
 			$followersNotified = $change->userChangedCreatedApi($myId);
 
+			// Automatically follow the APIs I create
+			$followModel = new FollowUserApi();
+			$followModel->follower = $myId;
+			$followModel->api = $model->id;
+			$followModel->save();
+
             return $this->redirect(['view', 'id' => $model->id, 'followersNotified' => $followersNotified]);
         } else {
             return $this->render('create', [
