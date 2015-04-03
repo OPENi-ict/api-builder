@@ -27,11 +27,11 @@ class AppAsset extends AssetBundle
 	];
 	public $js = [
 		'js/snackbar.min.js',
-		'js/jquery.timeago.js'
 	];
     public $depends = [
         'yii\web\YiiAsset',
 		'yii\bootstrap\BootstrapAsset',
+		'yii\timeago\TimeAgoAsset',
 		'romdim\bootstrap\material\BootMaterialJsAsset'
     ];
 }
