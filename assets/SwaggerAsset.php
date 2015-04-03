@@ -26,11 +26,9 @@ class SwaggerAsset extends AssetBundle
 		'css/ripples.min.css',
 //		'css/material-wfont.min.css',
 		'css/lavish-bootstrap.css',
-		'css/snackbar.min.css',
 		'css/site.css',
 	];
 	public $js = [
-		'js/snackbar.min.js',
 		// Swagger-Specific
 		'js/swagger/shred.bundle.js',
 		'js/swagger/jquery-1.8.0.min.js',
@@ -49,6 +47,7 @@ class SwaggerAsset extends AssetBundle
 	public $depends = [
 		'yii\web\YiiAsset',
 		'yii\bootstrap\BootstrapAsset',
-		'romdim\bootstrap\material\BootMaterialJsAsset'
+		'romdim\bootstrap\material\BootMaterialJsAsset',
+		'romdim\snackbarjs\SnackbarJsNoMatAsset'
 	];
 }

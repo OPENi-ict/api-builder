@@ -32,7 +32,8 @@
         "zircote/swagger-php": "*",
         "yiidoc/yii2-timeago": "*",
         "costa-rico/yii2-images": "dev-master",
-        "romdim/yii2-bootstrap-material": "dev-master"
+        "romdim/yii2-bootstrap-material": "dev-master",
+        "romdim/yii2-snackbarjs": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

@@ -21,17 +21,18 @@ class AppAsset extends AssetBundle
 		'css/ripples.min.css',
 		'css/material-wfont.min.css',
 		'css/lavish-bootstrap.css',
-		'css/snackbar.min.css',
+//		'css/snackbar.min.css',
 		'css/site.css',
 		'css/comments.css',
 	];
 	public $js = [
-		'js/snackbar.min.js',
+//		'js/snackbar.min.js',
 	];
     public $depends = [
         'yii\web\YiiAsset',
 		'yii\bootstrap\BootstrapAsset',
 		'yii\timeago\TimeAgoAsset',
-		'romdim\bootstrap\material\BootMaterialJsAsset'
+		'romdim\bootstrap\material\BootMaterialJsAsset',
+		'romdim\snackbarjs\SnackbarJsNoMatAsset'
     ];
 }
