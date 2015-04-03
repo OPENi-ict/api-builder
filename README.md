@@ -5,6 +5,7 @@ OPENi API Builder is a web project that allows developers to add Objects
 and combine methods for use with the official [OPENi API Framework](https://github.com/OPENi-ict/api-framework).
 
 [![Latest Stable Version](https://poser.pugx.org/openi-ict/api-builder/v/stable.png)](https://packagist.org/packages/openi-ict/api-builder)
+[![Build Status](https://travis-ci.org/OPENi-ict/api-builder.svg?branch=master)](https://travis-ci.org/OPENi-ict/api-builder)
 
 
 DIRECTORY STRUCTURE
