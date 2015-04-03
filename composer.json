@@ -31,7 +31,8 @@
         "kartik-v/yii2-mpdf": "dev-master",
         "zircote/swagger-php": "*",
         "yiidoc/yii2-timeago": "dev-master",
-        "costa-rico/yii2-images": "dev-master"
+        "costa-rico/yii2-images": "dev-master",
+        "romdim/yii2-bootstrap-material": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

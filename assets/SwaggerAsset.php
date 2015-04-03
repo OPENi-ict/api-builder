@@ -30,8 +30,6 @@ class SwaggerAsset extends AssetBundle
 		'css/site.css',
 	];
 	public $js = [
-		'js/ripples.min.js',
-		'js/material.min.js',
 		'js/snackbar.min.js',
 		// Swagger-Specific
 		'js/swagger/shred.bundle.js',
@@ -51,5 +49,6 @@ class SwaggerAsset extends AssetBundle
 	public $depends = [
 		'yii\web\YiiAsset',
 		'yii\bootstrap\BootstrapAsset',
+		'romdim\bootstrap\material\BootMaterialJsAsset'
 	];
 }

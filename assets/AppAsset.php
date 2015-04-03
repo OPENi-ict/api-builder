@@ -26,13 +26,12 @@ class AppAsset extends AssetBundle
 		'css/comments.css',
 	];
 	public $js = [
-		'js/ripples.min.js',
-		'js/material.min.js',
 		'js/snackbar.min.js',
 		'js/jquery.timeago.js'
 	];
     public $depends = [
         'yii\web\YiiAsset',
-        'yii\bootstrap\BootstrapAsset',
+		'yii\bootstrap\BootstrapAsset',
+		'romdim\bootstrap\material\BootMaterialJsAsset'
     ];
 }
