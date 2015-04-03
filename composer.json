@@ -30,7 +30,7 @@
         "yiisoft/yii2-swiftmailer": "*",
         "kartik-v/yii2-mpdf": "dev-master",
         "zircote/swagger-php": "*",
-        "yiidoc/yii2-timeago": "dev-master",
+        "yiidoc/yii2-timeago": "*",
         "costa-rico/yii2-images": "dev-master",
         "romdim/yii2-bootstrap-material": "dev-master"
     },
