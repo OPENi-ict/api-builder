@@ -1,5 +1,5 @@
 {
-    "name": "OPENi-ict/api-builder",
+    "name": "openi-ict/api-builder",
     "description": "Implementation of the API Builder for OPENI",
     "keywords": ["OPENi", "API", "builder", "php", "yii2"],
     "homepage": "http://www.openi-ict.eu",
