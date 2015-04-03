@@ -1,5 +1,5 @@
 {
-    "name": "api-builder",
+    "name": "OPENi-ict/api-builder",
     "description": "Implementation of the API Builder for OPENI",
     "keywords": ["OPENi", "API", "builder", "php", "yii2"],
     "homepage": "http://www.openi-ict.eu",
@@ -14,7 +14,7 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/OPENi-ict/api-builder/issues?state=open",
+        "issues": "https://github.com/OPENi-ict/api-builder/issues",
         "source": "https://github.com/OPENi-ict/api-builder"
     },
     "minimum-stability": "stable",
