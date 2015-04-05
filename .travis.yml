@@ -17,7 +17,7 @@ php:
 #    - php: 7.0
 
 # faster builds on new travis setup not using sudo
-sudo: false
+#sudo: false
 
 # cache vendor dirs
 cache:
@@ -45,6 +45,7 @@ before_script:
 
 script:
   - |
+    cd web
     php -S localhost:8080 > /dev/null 2>&1 &
-    cd tests
+    cd ../tests
     codecept run
