@@ -40,7 +40,7 @@ install:
     cd ..
 
 before_script:
-  - mysql -e 'CREATE DATABASE api-builder;';
+  - mysql -e "create database IF NOT EXISTS api-builder;" -uroot
   - cd tests/codeception/bin && php yii migrate --interactive=0 && cd ../../..
 
 script:
