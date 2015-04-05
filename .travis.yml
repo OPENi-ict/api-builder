@@ -38,9 +38,13 @@ install:
     cd tests
     codecept build
     cd ..
+
+before_script:
+  - mysql -e 'CREATE DATABASE api-builder;';
+  - cd tests/codeception/bin && php yii migrate --interactive=0 && cd ../../..
+
 script:
   - |
-    cd web
     php -S localhost:8080 > /dev/null 2>&1 &
     cd ../tests
     codecept run
