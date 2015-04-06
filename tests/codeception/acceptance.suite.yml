@@ -12,6 +12,7 @@ class_name: AcceptanceTester
 modules:
     enabled:
         - PhpBrowser
+        - Db
 # you can use WebDriver instead of PhpBrowser to test javascript and ajax.
 # This will require you to install selenium. See http://codeception.com/docs/04-AcceptanceTests#Selenium
 # "restart" option is used by the WebDriver to start each time per test-file new session and cookies,
@@ -25,3 +26,10 @@ modules:
 #            url: http://localhost:8080
 #            browser: firefox
 #            restart: true
+        Db:
+            dsn: 'mysql:dbname=apibuilder;host=127.0.0.1'
+            user: 'root'
+            password: ''
+#            dump: 'tests/_data/dump.sql'
+#            populate: true
+#            cleanup: true
