@@ -32,6 +32,7 @@ class AppAsset extends AssetBundle
         'yii\web\YiiAsset',
 		'yii\bootstrap\BootstrapAsset',
 		'yii\timeago\TimeAgoAsset',
+//		'romdim\bootstrap\material\BootMaterialCssAsset',
 		'romdim\bootstrap\material\BootMaterialJsAsset',
 		'romdim\snackbarjs\SnackbarJsNoMatAsset'
     ];
