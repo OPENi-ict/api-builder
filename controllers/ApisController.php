@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\helpers\BuildSwaggerAnnotationsOnly;
+use app\helpers\ElasticSearchQuery;
 use app\helpers\FileManipulation;
 use app\helpers\NotifUserHelper;
 use app\helpers\NotifAPIHelper;
@@ -138,6 +139,13 @@ class ApisController extends Controller
 		$this->view->params['followers_notified'] = $followersNotified;
 		$this->view->params['propose'] = $propose;
 		$this->view->params['followed'] = $followed;
+
+        // Elastic Search Query for Recommendations
+        $esq = new ElasticSearchQuery;
+        $api = $this->findModel($id);
+        $esq->setApi($api);
+        $esq->MakeJSON();
+        $recommend = $esq->Build();
 
 		return $this->render('view', [
 			'model' => $this->findModel($id),
