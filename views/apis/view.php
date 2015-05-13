@@ -1,6 +1,7 @@
 <?php
 
 use app\widgets\Comments;
+use yii\bootstrap\Collapse;
 use yii\helpers\Html;
 use kartik\grid\GridView;
 
@@ -204,11 +205,33 @@ if (isset($this->params['followed'])) {
 		</p>
 	<?php endif; ?>
 
-	<?= GridView::widget([
-		'dataProvider' => $dataProvider,
-		//'filterModel' => $searchModel,
-		'columns' => $columns,
-	]); ?>
+    <div class="row">
+        <div class="col-md-9">
+            <?= GridView::widget([
+                'dataProvider' => $dataProvider,
+                //'filterModel' => $searchModel,
+                'columns' => $columns,
+            ]); ?>
+        </div>
+        <div class="col-md-3">
+            <?= Collapse::widget([
+                    'items' => [
+                        // equivalent to the above
+                        [
+                            'label' => 'Collapsible Group Item #1',
+                            'content' => 'Anim pariatur cliche...',
+                            // open its content by default
+                            'contentOptions' => ['class' => 'in']
+                        ],
+                        // another group item
+                        [
+                            'label' => 'Collapsible Group Item #1',
+                            'content' => 'Anim pariatur cliche...',
+                        ]
+                    ]
+                ]); ?>
+        </div>
+    </div>
 
 	<h3>Comments</h3>
 
