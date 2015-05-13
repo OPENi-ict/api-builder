@@ -85,6 +85,14 @@ $config = [
         'db' => require(__DIR__ . '/db.php'),
 		'sqlite' => require(__DIR__ . '/sqlite.php'),
 		//'db' => require(__DIR__ . '/sqlite.php'),
+
+        'elasticsearch' => [
+            'class' => 'yii\elasticsearch\Connection',
+            'nodes' => [
+                ['http_address' => '127.0.0.1:9200'],
+                // configure more hosts if you have a cluster
+            ]
+        ],
     ],
 	'modules' => [
 		'gridview' =>  [
