@@ -165,7 +165,7 @@ class ElasticSearchQuery {
                         }
                     }
                 ],
-                "minimum_number_should_match": 4
+                "minimum_number_should_match": 2
             }
         }';
     }

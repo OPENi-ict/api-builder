@@ -14,6 +14,7 @@ use kartik\grid\GridView;
 /* @var $repliesProvider yii\data\ActiveDataProvider */
 /* @var $doIFollow boolean */
 /* @var $followers integer */
+/* @var $recommend string */
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Apis', 'url' => ['index']];
@@ -73,7 +74,7 @@ $columns = [
 	//'published',
 ];
 
-if ($model->name == 'core') {
+if ($model->name === 'core') {
 	$columns[] = [
 		'attribute' => 'schema_org',
 		'value'=>function ($model, $key, $index, $widget) {
@@ -157,7 +158,7 @@ if (isset($this->params['followed'])) {
 		<?= Html::a($model->votes_down, ['votedown', 'id' => $model->id, 'redirect' => 'view?id=' . $model->id], ['class' => 'unlike glyphicon glyphicon-thumbs-down nounderline', 'data' => ['toggle' => 'tooltip', 'placement' => 'right'], 'title' => 'Vote me Down']) ?>
 		</small>
 
-		<?php if ($model->name != 'core') : ?>
+		<?php if ($model->name !== 'core') : ?>
 			<span class="pull-right">
 				<?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
 				<?= Html::a('Delete', ['delete', 'id' => $model->id], [
@@ -171,7 +172,7 @@ if (isset($this->params['followed'])) {
 		<?php endif; ?>
 	</h1>
 
-	<?php if (($model->status == "Under Review") and ($model->published === 1)) : ?>
+	<?php if (($model->status === 'Under Review') and ($model->published === 1)) : ?>
 		<div class="panel panel-info">
 			<div class="panel-heading">
 				<h3 class="panel-title">Information</h3>
@@ -182,12 +183,12 @@ if (isset($this->params['followed'])) {
 		</div>
 	<?php endif; ?>
 
-	<?php if ($model->name != 'core') : ?>
+	<?php if ($model->name !== 'core') : ?>
 		<?= Html::a('Publish <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>', ['publish', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
 		<?= Html::a('View Swagger', ['swagger/', 'url' => $model->name], ['class' => 'btn btn-primary']) ?>
-		<?php if ($model->status == "Under Development"): ?>
+		<?php if ($model->status === 'Under Development'): ?>
 			<?= Html::a('Propose', ['propose', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
-		<?php elseif ($model->status == "Under Review") : ?>
+		<?php elseif ($model->status === 'Under Review') : ?>
 			<?= Html::a('Under Review', ['propose', 'id' => $model->id], ['class' => 'btn btn-info disabled']) ?>
 		<?php else : ?>
 			<?= Html::a('Approved', ['propose', 'id' => $model->id], ['class' => 'btn btn-success disabled']) ?>
@@ -198,7 +199,7 @@ if (isset($this->params['followed'])) {
 
 	<h3>Objects</h3>
 
-	<?php if ($model->name != 'core') : ?>
+	<?php if ($model->name !== 'core') : ?>
 		<p>
 		<?= Html::a('Create Object', ['objects/create', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
 		<?= Html::a('Duplicate Object', ['objects/duplicate', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
@@ -206,30 +207,29 @@ if (isset($this->params['followed'])) {
 	<?php endif; ?>
 
     <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-10">
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,
                 //'filterModel' => $searchModel,
-                'columns' => $columns,
+                'columns' => $columns
             ]); ?>
         </div>
-        <div class="col-md-3">
-            <?= Collapse::widget([
-                    'items' => [
-                        // equivalent to the above
-                        [
-                            'label' => 'Collapsible Group Item #1',
-                            'content' => 'Anim pariatur cliche...',
-                            // open its content by default
-                            'contentOptions' => ['class' => 'in']
-                        ],
-                        // another group item
-                        [
-                            'label' => 'Collapsible Group Item #1',
-                            'content' => 'Anim pariatur cliche...',
-                        ]
-                    ]
-                ]); ?>
+        <div class="col-md-2">
+            <div class="panel panel-info recommendation-panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Recommendations</h3>
+                </div>
+                <ul class="recommendation-list list-group">
+                    <?php
+                        foreach ($recommend['hits']['hits'] as $rec)
+                        {
+                            echo '<li class="list-group-item">';
+                            echo Html::a($rec['fields']['name'][0], ['view', 'id' => $rec['_id']]);
+                            echo '</li>';
+                        }
+                    ?>
+                </ul>
+            </div>
         </div>
     </div>
 

@@ -156,7 +156,8 @@ class ApisController extends Controller
 			// For Comment Box
 			'commentsProvider' => $commentsProvider,
 			'repliesProvider' => $repliesProvider,
-			'commentsModel' => $commentsModel
+			'commentsModel' => $commentsModel,
+            'recommend' => $recommend
 		]);
     }
 
