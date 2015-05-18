@@ -202,19 +202,20 @@ if (isset($this->params['followed'])) {
 	<?php if ($model->name !== 'core') : ?>
 		<p>
 		<?= Html::a('Create Object', ['objects/create', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
-		<?= Html::a('Duplicate Object', ['objects/duplicate', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Duplicate Object', ['objects/duplicate', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Show me more', null, ['class' => 'btn btn-success pull-right', 'id' => 'trig']) ?>
 		</p>
 	<?php endif; ?>
 
     <div class="row">
-        <div class="col-md-10">
+        <div id="objects" class="col-md-12">
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,
                 //'filterModel' => $searchModel,
                 'columns' => $columns
             ]); ?>
         </div>
-        <div class="col-md-2">
+        <div id="recommendation-block" class="col-md-0">
             <div class="panel panel-info recommendation-panel">
                 <div class="panel-heading">
                     <h3 class="panel-title">Recommendations</h3>

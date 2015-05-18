@@ -18,6 +18,7 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
 	public $css = [
+        'css/animate.min.css',
 		'css/ripples.min.css',
 		'css/material-wfont.min.css',
 		'css/lavish-bootstrap.css',
@@ -27,6 +28,7 @@ class AppAsset extends AssetBundle
 	];
 	public $js = [
 //		'js/snackbar.min.js',
+        'js/reflow-objects-recommended.js'
 	];
     public $depends = [
         'yii\web\YiiAsset',
