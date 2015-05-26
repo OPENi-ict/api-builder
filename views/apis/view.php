@@ -2,8 +2,9 @@
 
 use app\widgets\Comments;
 use yii\bootstrap\Collapse;
-use yii\helpers\Html;
 use kartik\grid\GridView;
+use kartik\helpers\Html;
+use yii\web\View;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Apis */
@@ -184,7 +185,7 @@ if (isset($this->params['followed'])) {
 	<?php endif; ?>
 
 	<?php if ($model->name !== 'core') : ?>
-		<?= Html::a('Publish <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>', ['publish', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
+		<?= Html::a('Publish '.Html::icon('upload', ['aria' => ['hidden' => true]]), ['publish', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
 		<?= Html::a('View Swagger', ['swagger/', 'url' => $model->name], ['class' => 'btn btn-primary']) ?>
 		<?php if ($model->status === 'Under Development'): ?>
 			<?= Html::a('Propose', ['propose', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
@@ -215,10 +216,11 @@ if (isset($this->params['followed'])) {
                 'columns' => $columns
             ]); ?>
         </div>
-        <div id="recommendation-block" class="col-md-0">
-            <div class="panel panel-info recommendation-panel">
+        <div id="recommendation-api-block" class="col-md-0">
+            <!-- If there are no Objects then we don't need padding-top -->
+            <div class="panel panel-info recommendation-panel <?= count($dataProvider->getModels()) === 0 ? 'recommendation-panel-no-margin-top' : '' ?>">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Recommendations</h3>
+                    <h3 class="panel-title">APIs to see</h3>
                 </div>
                 <ul class="recommendation-list list-group">
                     <?php
@@ -226,12 +228,81 @@ if (isset($this->params['followed'])) {
                         {
                             echo '<li class="list-group-item">';
                             echo Html::a($rec['fields']['name'][0], ['view', 'id' => $rec['_id']]);
+                            if (array_key_exists('inner_hits', $rec)) {
+                                $show_objects_to_fork = false;
+                                foreach ($rec['inner_hits'] as $innner_hitsRec) {
+                                    if ($innner_hitsRec['hits']['total'] > 0) {
+                                        $show_objects_to_fork = true;
+                                    }
+                                }
+                                if ($show_objects_to_fork) {
+                                    echo Html::a(Html::icon('arrow-right'), '#', ['class' => 'pull-right', 'id' => str_replace(' ', '', $rec['fields']['name'][0])]);
+                                }
+                            }
                             echo '</li>';
                         }
                     ?>
                 </ul>
             </div>
         </div>
+        <?php
+            foreach ($recommend['hits']['hits'] as $key => $rec) {
+                $recDivID = 'recommendation-object-block-'.str_replace(' ','',$rec['fields']['name'][0]);
+                $show_objects_to_fork = false;
+                if (array_key_exists('inner_hits', $rec)) {
+                    foreach ($rec['inner_hits'] as $innner_hitsRec) {
+                        if ($innner_hitsRec['hits']['total'] > 0) {
+                            $show_objects_to_fork = true;
+                        }
+                    }
+                }
+                if ($show_objects_to_fork) {
+        ?>
+            <div id="<?= $recDivID ?>" class="col-md-0 object-column">
+                <!-- If it is the first Object then we don't need padding-top -->
+                <div class="panel panel-info recommendation-panel <?= $key !== 0 ? 'recommendation-panel-no-margin-top' : '' ?>">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Objects to fork</h3>
+                    </div>
+                    <ul class="recommendation-list list-group">
+        <?php
+                    foreach ($rec['inner_hits'] as $innner_hitsRec) {
+                        if ($innner_hitsRec['hits']['total'] > 0) {
+        ?>
+                                        <?php
+                                        foreach ($innner_hitsRec['hits']['hits'] as $perObjectRec) {
+                                            if (array_key_exists('_source', $perObjectRec)) {
+                                                echo '<li class="list-group-item">';
+                                                echo Html::a($perObjectRec['_source']['name'], ['/objects/view', 'id' => $perObjectRec['_source']['id']]);
+                                                echo '</li>';
+                                            }
+                                        }
+                                        ?>
+        <?php
+                        }
+                        $js_toggle = '
+                                        $("#'.str_replace(' ','',$rec['fields']['name'][0]).'").on("click", function () {
+                                            if ($(".col-md-2.object-column").not($("#'.$recDivID.'")).length) {
+                                                $(".col-md-2.object-column").not($("#'.$recDivID.'")).toggleClass("col-md-0 col-md-2");
+                                                $(".glyphicon-arrow-left").toggleClass("glyphicon-arrow-right glyphicon-arrow-left");
+                                            }
+                                            else {
+                                                $("#objects").toggleClass("col-md-9 col-md-7");
+                                            }
+                                            $("#'.$recDivID.'").toggleClass("col-md-0 col-md-2");
+                                            $("#'.$recDivID.'").toggleClass("fade");
+                                            $("#'.str_replace(' ','',$rec['fields']['name'][0]).'>span").toggleClass("glyphicon-arrow-right glyphicon-arrow-left");
+                                        });';
+                        $this->registerJs($js_toggle, View::POS_END);
+                    }
+        ?>
+                    </ul>
+                </div>
+            </div>
+        <?php
+                }
+            }
+        ?>
     </div>
 
 	<h3>Comments</h3>

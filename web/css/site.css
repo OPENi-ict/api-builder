@@ -162,7 +162,12 @@ table > thead > tr a{
 }
 
 .recommendation-panel {
-    margin-bottom: -20px;
+    margin-top: 20px;
+    /*margin-bottom: -20px;*/
+}
+
+.recommendation-panel-no-margin-top {
+    margin-top: 0;
 }
 
 .recommendation-list {
@@ -198,6 +203,7 @@ table > thead > tr a{
 
 .row .col-md-0 {
     width: 0;
+    height: 0;
     margin-right: 0;
     opacity: 0;
     transition: opacity 0.8s ease;

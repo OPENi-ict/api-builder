@@ -15,9 +15,15 @@ jQuery.fn.toggleText = function (value1, value2) {
 };
 
 $('#trig').on('click', function () {
-    $('#objects').toggleClass('col-md-12 col-md-10');
-    $('#recommendation-block').toggleClass('col-md-0 col-md-2');
-    //$('#recommendation-block').toggleClass('hidden');
-    $('#recommendation-block').toggleClass('fade');
+    if ($(".col-md-2.object-column").length) {
+        $('#objects').toggleClass('col-md-12 col-md-7');
+        $('.col-md-2.object-column').toggleClass('col-md-0 col-md-2');
+        $(".glyphicon-arrow-left").toggleClass("glyphicon-arrow-right glyphicon-arrow-left");
+    }
+    else {
+        $('#objects').toggleClass('col-md-12 col-md-9');
+    }
+    $('#recommendation-api-block').toggleClass('col-md-0 col-md-3');
+    $('#recommendation-api-block').toggleClass('fade');
     $('#trig').toggleText('Show me less', 'Show me more');
 });
