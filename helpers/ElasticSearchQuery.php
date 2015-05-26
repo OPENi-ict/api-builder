@@ -134,7 +134,7 @@ class ElasticSearchQuery {
 
             $this->query .= '
                                     ],
-                                    "minimum_number_should_match": 6
+                                    "minimum_number_should_match": 5
                                 }
                             },
                             "inner_hits": {
@@ -157,7 +157,7 @@ class ElasticSearchQuery {
                         "match": {
                             "name": {
                                 "query": "'.$this->api->name.'",
-                                "fuzziness": 10,
+                                "fuzziness": 4,
                                 "prefix_length": 0,
                                 "max_expansions": 3,
                                 "boost": 2
