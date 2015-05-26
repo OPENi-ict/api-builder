@@ -134,7 +134,7 @@ class ElasticSearchQuery {
 
             $this->query .= '
                                     ],
-                                    "minimum_number_should_match": 3
+                                    "minimum_number_should_match": 6
                                 }
                             },
                             "inner_hits": {
