@@ -10,7 +10,11 @@ use yii\bootstrap\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 /* @var $objectDropdownList yii\helpers\ArrayHelper */
 
-$objectDropdownList = ArrayHelper::map( Objects::find()->where(['privacy' => 'public'])->all(), 'id', 'name' );
+$query = Objects::find();
+$query->where(['privacy' => 'public']);
+$query->where(['not in', 'name', ['Addressmodel', 'Timemodel', 'Durationmodel', 'Frommodel', 'Locationmodel', 'Sizemodel', 'Tagsmodel', 'Applicationmodel', 'Basefilemodel', 'Organizationmodel', 'Personmodel', 'Placemodel', 'Productmodel', 'Servicemodel', 'Cartproductlist', 'Cartservicelist', 'Cart_target_id', 'Orderproductlist', 'Orderservicelist', 'Registeredapplication_user']]);
+
+$objectDropdownList = ArrayHelper::map( $query->all(), 'id', 'name' );
 ?>
 
 <div class="objects-form">
