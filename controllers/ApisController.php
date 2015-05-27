@@ -3,6 +3,8 @@
 namespace app\controllers;
 
 use app\helpers\BuildSwaggerAnnotationsOnly;
+use app\helpers\ElasticSearchDelete;
+use app\helpers\ElasticSearchPut;
 use app\helpers\ElasticSearchQuery;
 use app\helpers\FileManipulation;
 use app\helpers\NotifUserHelper;
@@ -183,6 +185,13 @@ class ApisController extends Controller
 			$followModel->api = $model->id;
 			$followModel->save();
 
+            // Elastic Search Insertion
+            $esi = new ElasticSearchPut;
+            $api = $this->findModel($model->id);
+            $esi->setApi($api);
+            $esi->MakeJSON();
+            $esi->InsertUpdate();
+
             return $this->redirect(['view', 'id' => $model->id, 'followersNotified' => $followersNotified]);
         } else {
             return $this->render('create', [
@@ -201,7 +210,6 @@ class ApisController extends Controller
     {
 		$model = $this->findModel($id);
 
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 			$change = new NotifAPIHelper();
 			$followersNotified = null;
@@ -214,10 +222,16 @@ class ApisController extends Controller
 			if ($model->isAttributeChanged('privacy'))
 				$followersNotified = $change->apiChangedPrivacy($id);
 
+            // Elastic Search Update
+            $esu = new ElasticSearchPut;
+            $esu->setApi($model);
+            $esu->MakeJSON();
+            $esu->InsertUpdate();
+
             return $this->redirect(['view', 'id' => $model->id, 'followersNotified' => $followersNotified]);
         } else {
             return $this->render('update', [
-                'model' => $model,
+                'model' => $model
             ]);
         }
     }
@@ -230,7 +244,14 @@ class ApisController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        // Delete actual model
+        $model = $this->findModel($id);
+        $model->delete();
+
+        // Elastic Search Deletion
+        $esd = new ElasticSearchDelete;
+        $esd->setId($id);
+        $esd->Delete();
 
         return $this->redirect(['index']);
     }
@@ -522,6 +543,12 @@ class ApisController extends Controller
 		$changeAPI = new NotifAPIHelper();
 		$followersNotified = $changeAPI->apiChangedUpvotes($id);
 
+        // Elastic Search Update
+        $esu = new ElasticSearchPut;
+        $esu->setApi($model);
+        $esu->MakeJSON();
+        $esu->InsertUpdate();
+
 		$changeUser = new NotifUserHelper();
 		$myId = \Yii::$app->user->id;
 		$changeUser->userChangedUpvotesApis($myId);
@@ -563,6 +590,12 @@ class ApisController extends Controller
 
 		$changeAPI = new NotifAPIHelper();
 		$followersNotified = $changeAPI->apiChangedDownvotes($id);
+
+        // Elastic Search Update
+        $esu = new ElasticSearchPut;
+        $esu->setApi($model);
+        $esu->MakeJSON();
+        $esu->InsertUpdate();
 
 		$changeUser = new NotifUserHelper();
 		$myId = \Yii::$app->user->id;

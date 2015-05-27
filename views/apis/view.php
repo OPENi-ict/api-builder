@@ -1,7 +1,6 @@
 <?php
 
 use app\widgets\Comments;
-use yii\bootstrap\Collapse;
 use kartik\grid\GridView;
 use kartik\helpers\Html;
 use yii\web\View;
@@ -91,21 +90,22 @@ else {
 	$columns[] = ['class' => 'kartik\grid\ActionColumn', 'controller' => 'objects'];
 }
 
-if (isset($this->params['followers_notified']))
-	$this->registerJs(
-		'
+if (isset($this->params['followers_notified'])) {
+    $this->registerJs(
+        '
 		var options =  {
-			content: "Your changes will be sent as notifications to '.$this->params['followers_notified'].' followers!", // text of the snackbar
+			content: "Your changes will be sent as notifications to ' . $this->params['followers_notified'] . ' followers!", // text of the snackbar
 			style: "toast", // add a custom class to your snackbar
 			timeout: 3000 // time in milliseconds after the snackbar autohides, 0 is disabled
 		};
 
 		$.snackbar(options);'
-	);
+    );
+}
 
-if ($this->params['propose'])
-	$this->registerJs(
-		'
+if ($this->params['propose']) {
+    $this->registerJs(
+        '
 		var options =  {
 			content: "Your Proposal has been sent for approval to the Administrator", // text of the snackbar
 			style: "toast", // add a custom class to your snackbar
@@ -113,12 +113,13 @@ if ($this->params['propose'])
 		};
 
 		$.snackbar(options);'
-	);
+    );
+}
 
 if (isset($this->params['followed'])) {
-	if ($this->params['followed'])
-		$this->registerJs(
-			'
+    if ($this->params['followed']) {
+        $this->registerJs(
+            '
 			var options =  {
 				content: "You now follow ' . $model->name . ' !", // text of the snackbar
 				style: "toast", // add a custom class to your snackbar
@@ -126,10 +127,11 @@ if (isset($this->params['followed'])) {
 			};
 
 			$.snackbar(options);'
-		);
-	else
-		$this->registerJs(
-			'
+        );
+    }
+	else {
+        $this->registerJs(
+            '
 			var options =  {
 				content: "You have unfollowed ' . $model->name . '", // text of the snackbar
 				style: "toast", // add a custom class to your snackbar
@@ -137,7 +139,8 @@ if (isset($this->params['followed'])) {
 			};
 
 			$.snackbar(options);'
-		);
+        );
+    }
 }
 ?>
 
@@ -166,8 +169,8 @@ if (isset($this->params['followed'])) {
 					'class' => 'btn btn-danger',
 					'data' => [
 						'confirm' => 'Are you sure you want to delete this item?',
-						'method' => 'post',
-					],
+						'method' => 'post'
+					]
 				]) ?>
 			</span>
 		<?php endif; ?>
@@ -236,7 +239,7 @@ if (isset($this->params['followed'])) {
                                     }
                                 }
                                 if ($show_objects_to_fork) {
-                                    echo Html::a(Html::icon('arrow-right'), '#', ['class' => 'pull-right', 'id' => str_replace(' ', '', $rec['fields']['name'][0])]);
+                                    echo Html::a(Html::badge(Html::icon('arrow-right')), null, ['class' => 'pull-right', 'id' => str_replace(' ', '', $rec['fields']['name'][0])]);
                                 }
                             }
                             echo '</li>';
@@ -291,7 +294,7 @@ if (isset($this->params['followed'])) {
                                             }
                                             $("#'.$recDivID.'").toggleClass("col-md-0 col-md-2");
                                             $("#'.$recDivID.'").toggleClass("fade");
-                                            $("#'.str_replace(' ','',$rec['fields']['name'][0]).'>span").toggleClass("glyphicon-arrow-right glyphicon-arrow-left");
+                                            $("#'.str_replace(' ','',$rec['fields']['name'][0]).'>span>span").toggleClass("glyphicon-arrow-right glyphicon-arrow-left");
                                         });';
                         $this->registerJs($js_toggle, View::POS_END);
                     }

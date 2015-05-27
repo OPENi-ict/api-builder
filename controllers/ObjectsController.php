@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\helpers\ElasticSearchPut;
 use app\helpers\NotifAPIHelper;
 use app\models\Apis;
 use app\models\Cbs;
@@ -85,12 +86,13 @@ class ObjectsController extends Controller
 		$dataProviderBasic = $searchModel->search([
 		]);
 
-		if ($model->api0->name != 'core') {
+		if ($model->api0->name !== 'core') {
 			$dataProviderExceptBasic->query->where(['and', ['object' => $id], ['not in', 'name', ['id', 'resource_uri', 'url', 'context_id', 'object_type', 'service']]]);
 			$dataProviderBasic->query->where(['and', ['object' => $id], ['in', 'name', ['id', 'resource_uri', 'url', 'context_id', 'object_type', 'service']]]);
 		}
-		else
-			$dataProviderBasic->query->where(['object' => $id]);
+		else {
+            $dataProviderBasic->query->where(['object' => $id]);
+        }
 
 		// Dropdown List for the methods
 		// First come the Methods for the Object
@@ -128,10 +130,12 @@ class ObjectsController extends Controller
 
 		if ($model->load(Yii::$app->request->post()))
 		{
-			if ($model->methods !== "")
-				$model->methods = implode(",", $model->methods);
-			if ($model->cbs !== "")
-				$model->cbs = implode(",", $model->cbs);
+			if ($model->methods !== '') {
+                $model->methods = implode(',', $model->methods);
+            }
+			if ($model->cbs !== '') {
+                $model->cbs = implode(',', $model->cbs);
+            }
 			$model->save();
 		}
 
@@ -195,11 +199,17 @@ class ObjectsController extends Controller
 			$change = new NotifAPIHelper();
 			$followersNotified = $change->apiChangedObjectsNumber($id);
 
+            // Elastic Search Update
+            $esu = new ElasticSearchPut;
+            $esu->setApi($model->api0);
+            $esu->MakeJSON();
+            $esu->InsertUpdate();
+
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
-				'api' => $apiModel,
+				'api' => $apiModel
             ]);
         }
     }
@@ -230,10 +240,17 @@ class ObjectsController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            // Elastic Search Update
+            $esu = new ElasticSearchPut;
+            $esu->setApi($model->api0);
+            $esu->MakeJSON();
+            $esu->InsertUpdate();
+
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
-                'model' => $model,
+                'model' => $model
             ]);
         }
     }
@@ -247,8 +264,15 @@ class ObjectsController extends Controller
     public function actionDelete($id)
     {
 		$toBeDeleted = $this->findModel($id);
-		$apiID = $toBeDeleted->api;
-		$toBeDeleted->delete();
+
+        // Elastic Search Update
+        $esu = new ElasticSearchPut;
+        $esu->setApi($toBeDeleted->api0);
+        $esu->MakeJSON();
+        $esu->InsertUpdate();
+
+        $apiID = $toBeDeleted->api;
+        $toBeDeleted->delete();
 
         return $this->redirect(['apis/view', 'id' => $apiID]);
     }
@@ -263,7 +287,6 @@ class ObjectsController extends Controller
 	public function actionDuplicate($id)
 	{
 		$model = new Objects();
-
 		$apiModel = $this->findAPIModel($id);
 
 		if ($model->load(Yii::$app->request->post()) && $model->inherited != '')
@@ -275,23 +298,29 @@ class ObjectsController extends Controller
 			$model->privacy = $parentModel->privacy;
 			$model->methods = $parentModel->methods;
 			$model->cbs = $parentModel->cbs;
-			$model->save();
+            if ($model->save()) {
+                $properties = Properties::findAll(['object' => $parentModel->id]);
+                foreach ($properties as $property)
+                {
+                    $prop = new Properties();
+                    $prop->name = $property->name;
+                    $prop->description = $property->description;
+                    $prop->type = $property->type;
+                    $prop->object = $model->id;
+                    $prop->save();
+                }
 
-			$properties = Properties::findAll(['object' => $parentModel->id]);
-			foreach ($properties as $property)
-			{
-				$prop = new Properties();
-				$prop->name = $property->name;
-				$prop->description = $property->description;
-				$prop->type = $property->type;
-				$prop->object = $model->id;
-				$prop->save();
-			}
+                $change = new NotifAPIHelper();
+                $followersNotified = $change->apiChangedObjectsNumber($id);
 
-			$change = new NotifAPIHelper();
-			$followersNotified = $change->apiChangedObjectsNumber($id);
+                // Elastic Search Update
+                $esu = new ElasticSearchPut;
+                $esu->setApi($apiModel);
+                $esu->MakeJSON();
+                $esu->InsertUpdate();
 
-			return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
 		}
 		return $this->render('duplicate', [
 			'model' => $model,
@@ -315,17 +344,18 @@ class ObjectsController extends Controller
 		$votes_up = explode(',', $curUser->votes_up_objects);
 		$votes_down = explode(',', $curUser->votes_down_objects);
 
-		if (in_array($id, $votes_up))
-			return $this->redirect([$redirect]);
+		if (in_array($id, $votes_up)) {
+            return $this->redirect([$redirect]);
+        }
 
 		if (($key = array_search($id, $votes_down)) !== false) {
 			unset($votes_down[$key]);
 			$model->votes_down = $model->votes_down - 1;
-			$curUser->votes_down_objects = implode(",", $votes_down);
+			$curUser->votes_down_objects = implode(',', $votes_down);
 		}
 
 		$votes_up[] = $id;
-		$curUser->votes_up_objects = implode(",", $votes_up);
+		$curUser->votes_up_objects = implode(',', $votes_up);
 		$curUser->save();
 
 		$model->votes_up = $model->votes_up + 1;
@@ -350,17 +380,18 @@ class ObjectsController extends Controller
 		$votes_up = explode(',', $curUser->votes_up_objects);
 		$votes_down = explode(',', $curUser->votes_down_objects);
 
-		if (in_array($id, $votes_down))
-			return $this->redirect([$redirect]);
+		if (in_array($id, $votes_down)) {
+            return $this->redirect([$redirect]);
+        }
 
 		if (($key = array_search($id, $votes_up)) !== false) {
 			unset($votes_up[$key]);
 			$model->votes_up = $model->votes_up - 1;
-			$curUser->votes_up_objects = implode(",", $votes_up);
+			$curUser->votes_up_objects = implode(',', $votes_up);
 		}
 
 		$votes_down[] = $id;
-		$curUser->votes_down_objects = implode(",", $votes_down);
+		$curUser->votes_down_objects = implode(',', $votes_down);
 		$curUser->save();
 
 		$model->votes_down = $model->votes_down + 1;

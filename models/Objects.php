@@ -56,7 +56,7 @@ class Objects extends \yii\db\ActiveRecord
             [['name', 'description', 'schema_org'], 'string', 'max' => 255],
 			[['privacy'], 'default', 'value' => 'public'],
 			[['votes_up', 'votes_down'], 'default', 'value' => '0'],
-			[['name'], 'unique', 'targetClass' => '\app\models\Objects', 'message' => 'This Object name has already been taken.']
+			[['name'], 'unique', 'targetAttribute' => ['api', 'name'], 'message' => 'This Object name has already been taken.']
         ];
     }
 

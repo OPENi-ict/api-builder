@@ -8,8 +8,8 @@
 
 namespace app\helpers;
 
-use yii\elasticsearch\Command;
 use app\models\Apis;
+use yii\elasticsearch\Connection;
 
 /**
  * Class ElasticSearchPut
@@ -39,49 +39,49 @@ class ElasticSearchPut {
      */
     public function MakeJSON()
     {
+        $this->query = '';
         $this->query = '{
             "_id": '.$this->api->id.',
-            "name": '.$this->api->name.',
-            "description": '.$this->api->description.',
+            "name": "'.$this->api->name.'",
+            "description": "'.$this->api->description.'",
             "votes_up": '.$this->api->votes_up.',
             "votes_down": '.$this->api->votes_down.',
-            "privacy": '.$this->api->privacy.',
-            "status": '.$this->api->status;
+            "privacy": "'.$this->api->privacy.'",
+            "status": "'.$this->api->status.'"';
 
         if ( count($this->api->objects) > 0 ) {
-            $this->query = ',
+            $this->query .= ',
                 "objects": [';
             foreach ($this->api->objects as $object) {
-                $this->query = ',
+                $this->query .= '
                 {
                     "id": '.$object->id.',
-                    "name": '.$object->name.',
-                    "description": '.$object->description.'
-                ';
+                    "name": "'.$object->name.'",
+                    "description": "'.$object->description.'"';
 
                 if ( count($object->properties) > 0 ) {
-                    $this->query = ',
+                    $this->query .= ',
                         "properties": [';
                     foreach ($object->properties as $property) {
-                        $this->query = '
+                        $this->query .= '
                         {
-                            "name": '.$property->name.',
-                            "type": '.$property->type.',
+                            "name": "'.$property->name.'",
+                            "type": "'.$property->type.'"
                         },';
                     }
                     $this->query = rtrim($this->query, ',');
-                    $this->query = '
+                    $this->query .= '
                         ]';
                 }
 
-                $this->query = '
+                $this->query .= '
                     },';
             }
             $this->query = rtrim($this->query, ',');
-            $this->query = '
+            $this->query .= '
                 ]';
         }
-        $this->query = '
+        $this->query .= '
             }';
     }
 
@@ -91,13 +91,10 @@ class ElasticSearchPut {
     public function InsertUpdate()
     {
         // Remove all new lines etc. from the json to make it valid
-        $this->query = json_decode($this->query);
+        $this->query = str_replace(array('\n','\r'), '', $this->query);
 
-        $command = new Command();
+        $connection = new Connection();
+        $command = $connection->createCommand();
         $command->insert('api-builder', 'api', $this->query, $this->api->id);
-        // build and execute the query
-        //$command = $query->createCommand();
-        //$rows = $command->search(); // this way you get the raw output of elasticsearch.
-        //return $rows;
     }
 }

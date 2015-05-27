@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\helpers\ElasticSearchPut;
 use app\models\Apis;
 use app\models\Objects;
 use Yii;
@@ -80,6 +81,13 @@ class PropertiesController extends Controller
 		$model->object = $id;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            // Elastic Search Update
+            $esu = new ElasticSearchPut;
+            $esu->setApi($apiModel);
+            $esu->MakeJSON();
+            $esu->InsertUpdate();
+
             return $this->redirect(['objects/view', 'id' => $id]);
         } else {
             return $this->render('create', [
@@ -103,6 +111,13 @@ class PropertiesController extends Controller
 		$apiModel = $this->findAPIModel($objectModel->api);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            // Elastic Search Update
+            $esu = new ElasticSearchPut;
+            $esu->setApi($apiModel);
+            $esu->MakeJSON();
+            $esu->InsertUpdate();
+
 			return $this->redirect(['objects/view', 'id' => $objectModel->id]);
         } else {
             return $this->render('update', [
@@ -121,7 +136,17 @@ class PropertiesController extends Controller
      */
     public function actionDelete($id)
     {
+        $objectModel = $this->findObjectModel($id);
+        $apiModel = $this->findAPIModel($objectModel->api);
+
         $this->findModel($id)->delete();
+
+        // Elastic Search Update
+        $esu = new ElasticSearchPut;
+        $esu->setApi($apiModel);
+        $esu->MakeJSON();
+        $esu->InsertUpdate();
+
 
         return $this->redirect(['index']);
     }
@@ -137,18 +162,27 @@ class PropertiesController extends Controller
 		$model = new Properties();
 
 		$objectModel = $this->findObjectModel($id);
+        $apiModel = $this->findAPIModel($objectModel->api);
 
 		if ($model->load(Yii::$app->request->post()) && $model->inherited != '')
 		{
 			$parentModel = $this->findModel($model->inherited);
 			$model->inherited = $parentModel->id;
-			$model->api = $id;
+			$model->object = $id;
 			$model->name = $parentModel->name . '_for_' . $objectModel->name;
 			$model->description = $parentModel->description;
 			$model->privacy = $parentModel->privacy;
 			$model->methods = $parentModel->methods;
-			if ($model->save())
-				return $this->redirect(['view', 'id' => $model->id]);
+			if ($model->save()) {
+
+                // Elastic Search Update
+                $esu = new ElasticSearchPut;
+                $esu->setApi($apiModel);
+                $esu->MakeJSON();
+                $esu->InsertUpdate();
+
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
 		}
 		return $this->render('duplicate', [
 			'model' => $model,
