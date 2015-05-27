@@ -134,7 +134,7 @@ curl -XPUT 'http://127.0.0.1:9200/api-builder/_settings' -d
 ```
 
 ```
-curl -XPUT 'http://127.0.0.1:9200/[index_name]/api/_mapping' -d 
+curl -XPUT 'http://127.0.0.1:9200/api-builder/api/_mapping' -d 
 '{
     "api": {
         "properties": {
