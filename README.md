@@ -46,6 +46,9 @@ Run a command prompt in that directory and type:
 composer install
 ~~~
 
+**NOTE:** If you do not have [Composer](http://getcomposer.org/), you may install
+it by following the instructions at [getcomposer.org](http://getcomposer.org/doc/00-intro.md#installation-nix).
+
 This will fetch all the required packages and save them in your vendor folder.
 
 You can then access the application through the following URL:
@@ -54,8 +57,7 @@ You can then access the application through the following URL:
 http://localhost/api-builder/web/
 ~~~
 
-**NOTE:** If you do not have [Composer](http://getcomposer.org/), you may install
-it by following the instructions at [getcomposer.org](http://getcomposer.org/doc/00-intro.md#installation-nix).
+**NOTE:** For having recommendation features in the API views, [Elasticsearch](https://www.elastic.co/products/elasticsearch) should be installed from [here](https://www.elastic.co/products/elasticsearch). 
 
 
 CONFIGURATION
@@ -82,6 +84,92 @@ If your website is different than http://localhost/api-builder/ , you need to up
 
 At last, you need to rename the /web/indexSample.php to /web/index.php for the application to work and comment out the environment lines if you are in production environment.
 
+### Elasticsearch
+
+This request should be made to create the 'api-builder' index:
+
+```
+curl -XPUT http://127.0.0.1:9200/api-builder
+```
+
+Recommended setting setup:
+
+```
+curl -XPUT 'http://127.0.0.1:9200/api-builder/_settings' -d 
+'{
+    "settings": {
+        "index": {
+            "analysis": {
+                "filter": {
+                    "stem_filter": {
+                        "type": "stemmer",
+                        "name": "english"
+                    },
+                    "low_filter": {
+                        "type": "lowercase"
+                    },
+                    "synonym_filter": {
+                        "type": "synonym",
+                        "synonyms_path": "analysis/synonyms.txt"
+                    }
+                },
+                "analyzer": {
+                    "analyzer": {
+                        "type": "custom",
+                        "tokenizer": "standard",
+                        "filter": [
+                            "low_filter",
+                            "stem_filter",
+                            "synonym_filter"
+                        ],
+                        "char_filter": [
+                            "html_strip"
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}'
+```
+
+```
+curl -XPUT 'http://127.0.0.1:9200/[index_name]/api/_mapping' -d 
+'{
+    "api": {
+        "properties": {
+            "objects": {
+                "type": "nested",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "index": "not_analyzed"
+                    },
+                    "description": {
+                        "type": "string",
+                        "index": "analyzed",
+                        "analyzer": "analyzer"
+                    },
+                    "properties": {
+                        "type": "nested",
+                        "properties": {
+                            "name": {
+                                "type": "string",
+                                "index": "not_analyzed"
+                            },
+                            "type": {
+                                "type": "string",
+                                "index": "not_analyzed"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}'
+```
+
 
 TECH STACK USED FOR DEVELOPMENT - MANY THANKS!
 ---------------------------------------------
@@ -95,3 +183,5 @@ TECH STACK USED FOR DEVELOPMENT - MANY THANKS!
 [bootstrap-material-design](https://github.com/FezVrasta/bootstrap-material-design/)
 
 [Krajee Yii Extensions](http://demos.krajee.com/)
+
+[Elasticsearch](https://www.elastic.co/products/elasticsearch)
