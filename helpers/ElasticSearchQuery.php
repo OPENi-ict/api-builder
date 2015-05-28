@@ -41,6 +41,7 @@ class ElasticSearchQuery {
     {
         $this->query = '{
             "bool": {
+                "must_not": { "ids": {"values": ["'.$this->api->id.'"]} },
                 "should": [';
 
         foreach($this->api->objects as $object)
