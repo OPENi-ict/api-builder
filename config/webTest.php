@@ -82,7 +82,7 @@ $config = [
                 ],
             ],
         ],
-        'db' => require(__DIR__ . '/db.php'),
+        'db' => require(__DIR__ . '/dbTest.php'),
         //'sqlite' => require(__DIR__ . '/sqlite.php'),
         //'db' => require(__DIR__ . '/sqlite.php'),
 
