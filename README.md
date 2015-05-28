@@ -43,6 +43,7 @@ into a directory named `api-builder` that is directly under the Web root.
 
 Run a command prompt in that directory and type:
 ~~~
+composer global require "fxp/composer-asset-plugin:1.0.0"
 composer install
 ~~~
 
