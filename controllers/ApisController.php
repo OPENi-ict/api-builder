@@ -272,7 +272,12 @@ class ApisController extends Controller
 		$change = new NotifAPIHelper();
 		$followersNotified = $change->apiChangedPublished($id);
 
-		$basePathPart = explode('publish', Url::canonical());
+        $basePathPart = Url::canonical();
+
+        $basePathPart = explode('swagger', $basePathPart);
+        $basePathPart = explode('hydra', $basePathPart[0]);
+        $basePathPart = explode('raml', $basePathPart[0]);
+        $basePathPart = explode('wadl', $basePathPart[0]);
 		$basePath = $basePathPart[0] . $apiName . '/';
 
 		$objects = Objects::findAll(['api' => $id]);
@@ -482,13 +487,11 @@ class ApisController extends Controller
 		$_file = Yii::getAlias('@apisDirectory') . '/' . ucfirst($apiName);
 		$swagger = new Swagger($_file);
 
-		$link_parts = explode('/apis/publish', Url::canonical());
-		$actual_link = $link_parts[0];
-
+        $basePathPart = explode('/apis/', $basePathPart[0]);
 
 		$writeFiles = new FileManipulation();
 		$writeFiles->setFilename(ucfirst($apiName) . '/api-docs.json');
-		$writeFiles->write_file($swagger->getResourceList(array('output' => 'json', 'basePath' => $actual_link . '/api-docs/' . ucfirst($apiName))));
+		$writeFiles->write_file($swagger->getResourceList(array('output' => 'json', 'basePath' => $basePathPart[0] . '/api-docs/' . ucfirst($apiName))));
 
 		foreach($swagger->registry as $api_name => $api_resource)
 		{
