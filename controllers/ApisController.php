@@ -511,8 +511,18 @@ class ApisController extends Controller
     public function actionHydra($id)
     {
         $apiName = $this->actionPublish($id);
+
+        $basePathPart = Url::canonical();
+
+        $basePathPart = explode('swagger', $basePathPart);
+        $basePathPart = explode('hydra', $basePathPart[0]);
+        $basePathPart = explode('raml', $basePathPart[0]);
+        $basePathPart = explode('wadl', $basePathPart[0]);
+        $basePathPart = explode('/apis/', $basePathPart[0]);
+        $basePathPart[0] .= '/api-docs/';
+
         $url = 'http://imagine.epu.ntua.gr:2015/transform/?location=';
-        $url .= 'http://api-builder.tools.epu.ntua.gr/web/api-docs/'.$apiName.'/api-docs.json';
+        $url .= $basePathPart[0].$apiName.'/api-docs.json';
         $url .= '&original_format=swagger&to_format=hydra';
         return $this->redirect($url);
     }
@@ -520,8 +530,18 @@ class ApisController extends Controller
     public function actionRaml($id)
     {
         $apiName = $this->actionPublish($id);
+
+        $basePathPart = Url::canonical();
+
+        $basePathPart = explode('swagger', $basePathPart);
+        $basePathPart = explode('hydra', $basePathPart[0]);
+        $basePathPart = explode('raml', $basePathPart[0]);
+        $basePathPart = explode('wadl', $basePathPart[0]);
+        $basePathPart = explode('/apis/', $basePathPart[0]);
+        $basePathPart[0] .= '/api-docs/';
+
         $url = 'http://imagine.epu.ntua.gr:2015/transform/?location=';
-        $url .= 'http://api-builder.tools.epu.ntua.gr/web/api-docs/'.$apiName.'/api-docs.json';
+        $url .= $basePathPart[0].$apiName.'/api-docs.json';
         $url .= '&original_format=swagger&to_format=raml';
         return $this->redirect($url);
     }
@@ -529,8 +549,18 @@ class ApisController extends Controller
     public function actionWadl($id)
     {
         $apiName = $this->actionPublish($id);
+
+        $basePathPart = Url::canonical();
+
+        $basePathPart = explode('swagger', $basePathPart);
+        $basePathPart = explode('hydra', $basePathPart[0]);
+        $basePathPart = explode('raml', $basePathPart[0]);
+        $basePathPart = explode('wadl', $basePathPart[0]);
+        $basePathPart = explode('/apis/', $basePathPart[0]);
+        $basePathPart[0] .= '/api-docs/';
+
         $url = 'http://imagine.epu.ntua.gr:2015/transform/?location=';
-        $url .= 'http://api-builder.tools.epu.ntua.gr/web/api-docs/'.$apiName.'/api-docs.json';
+        $url .= $basePathPart[0].$apiName.'/api-docs.json';
         $url .= '&original_format=swagger&to_format=wadl';
         return $this->redirect($url);
     }
