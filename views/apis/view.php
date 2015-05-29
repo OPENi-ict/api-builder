@@ -3,6 +3,7 @@
 use app\widgets\Comments;
 use kartik\grid\GridView;
 use kartik\helpers\Html;
+use yii\bootstrap\ButtonDropdown;
 use yii\web\View;
 
 /* @var $this yii\web\View */
@@ -192,15 +193,21 @@ if (isset($this->params['followed'])) {
 	<?php endif; ?>
 
 	<?php if ($model->name !== 'core') : ?>
-		<?= Html::a('Publish '.Html::icon('upload', ['aria' => ['hidden' => true]]), ['publish', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
-		<?= Html::a('View Swagger', ['swagger/', 'url' => $model->name], ['class' => 'btn btn-primary']) ?>
-		<?php if ($model->status === 'Under Development'): ?>
-			<?= Html::a('Propose', ['propose', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
-		<?php elseif ($model->status === 'Under Review') : ?>
-			<?= Html::a('Under Review', ['propose', 'id' => $model->id], ['class' => 'btn btn-info disabled']) ?>
-		<?php else : ?>
-			<?= Html::a('Approved', ['propose', 'id' => $model->id], ['class' => 'btn btn-success disabled']) ?>
-		<?php endif; ?>
+        <?php if ($model->status === 'Under Development'): ?>
+            <?= Html::a('Propose', ['propose', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
+        <?php elseif ($model->status === 'Under Review') : ?>
+            <?= Html::a('Under Review', ['propose', 'id' => $model->id], ['class' => 'btn btn-info disabled']) ?>
+        <?php else : ?>
+            <?= Html::a('Approved', ['propose', 'id' => $model->id], ['class' => 'btn btn-success disabled']) ?>
+        <?php endif; ?>
+        <?php if ($model->published === 1) : ?>
+            <?= Html::a(Html::img('@web/images/standards/swagger.png', ['height' => '20px', 'width' => '61px']), ['swagger', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a(Html::img('@web/images/standards/hydra-cg.svg', ['height' => '20px', 'width' => '61px']), ['hydra', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a(Html::img('@web/images/standards/raml-logo.jpg', ['height' => '20px', 'width' => '61px']), ['raml', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a('&nbsp;&nbsp;WADL&nbsp;&nbsp;', ['swagger/', 'url' => str_replace(' ', '', $model->name)], ['class' => 'btn btn-primary', 'height' => '20px', 'width' => '61px']) ?>
+        <?php else : ?>
+            <?= Html::a('Publish '.Html::icon('upload', ['aria' => ['hidden' => true]]), ['publish', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
+        <?php endif; ?>
 	<?php endif; ?>
 
 	<?php // echo $this->render('_search', ['model' => $searchModel]); ?>

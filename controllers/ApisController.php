@@ -290,7 +290,16 @@ class ApisController extends Controller
 
 				foreach ($object->methods as $methodName) {
 					// $methodParts[method_name, path]
-					$methodParts = explode(' ', $methodName);
+					$tempMethodParts = explode(' ', $methodName);
+                    foreach ($tempMethodParts as $key => $methodPart) {
+                        if ($key === 0) {
+                            $methodParts[$key] = $methodPart;
+                            $methodParts[1] = '';
+                        }
+                        else {
+                            $methodParts[1] .= $methodPart;
+                        }
+                    }
 					$upper_method = strtoupper($methodParts[0]);
 
 					// $pathParts = [object, ({id}, connection)]
@@ -487,8 +496,41 @@ class ApisController extends Controller
 			$writeFiles->write_file($swagger->getResource($api_name, array('output' => 'json')));
 		}
 
-		return $this->redirect(['swagger/index', 'url' => ucfirst($apiName)]);
+		return $apiName;
 	}
+
+    public function actionSwagger($id)
+    {
+        $apiName = $this->actionPublish($id);
+        return $this->redirect(['swagger/index', 'url' => ucfirst($apiName)]);
+    }
+
+    public function actionHydra($id)
+    {
+        $apiName = $this->actionPublish($id);
+        $url = 'http://imagine.epu.ntua.gr:2015/transform/?location=';
+        $url .= 'http://api-builder.tools.epu.ntua.gr/web/api-docs/'.$apiName.'/api-docs.json';
+        $url .= '&original_format=swagger&to_format=hydra';
+        return $this->redirect($url);
+    }
+
+    public function actionRaml($id)
+    {
+        $apiName = $this->actionPublish($id);
+        $url = 'http://imagine.epu.ntua.gr:2015/transform/?location=';
+        $url .= 'http://api-builder.tools.epu.ntua.gr/web/api-docs/'.$apiName.'/api-docs.json';
+        $url .= '&original_format=swagger&to_format=raml';
+        return $this->redirect($url);
+    }
+
+    public function actionWadl($id)
+    {
+        $apiName = $this->actionPublish($id);
+        $url = 'http://imagine.epu.ntua.gr:2015/transform/?location=';
+        $url .= 'http://api-builder.tools.epu.ntua.gr/web/api-docs/'.$apiName.'/api-docs.json';
+        $url .= '&original_format=swagger&to_format=wadl';
+        return $this->redirect($url);
+    }
 
 	/**
 	 * Proposes an API to the developers.
