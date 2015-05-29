@@ -41,7 +41,10 @@ class ElasticSearchQuery {
     {
         $this->query = '{
             "bool": {
-                "must_not": { "ids": {"values": ["'.$this->api->id.'"]} },
+                "must_not": [
+                    {"match": {"privacy": "private" } },
+                    {"match": {"_id": "'.$this->api->id.'" } }
+                ],
                 "should": [';
 
         foreach($this->api->objects as $object)
@@ -58,16 +61,19 @@ class ElasticSearchQuery {
                                             "match": {
                                                 "objects.name": {
                                                     "query": "'.$object->name.'",
-                                                    "fuzziness": 10,
+                                                    "fuzziness": "AUTO",
                                                     "prefix_length": 0,
-                                                    "max_expansions": 3,
-                                                    "boost": 1.2
+                                                    "max_expansions": 20,
+                                                    "boost": 1.5
                                                 }
                                             }
                                         },
                                         {
                                             "match": {
-                                                "objects.description": "'.$object->description.'"
+                                                "objects.description": {
+                                                    "query": "'.$object->description.'",
+                                                    "boost": 1.5
+                                                }
                                             }
                                         },';
             foreach($object->properties as $property)
@@ -93,9 +99,9 @@ class ElasticSearchQuery {
                                                             "fuzzy": {
                                                                 "objects.properties.name": {
                                                                     "value": "'.$property->name.'",
-                                                                    "fuzziness": 10,
+                                                                    "fuzziness": "AUTO",
                                                                     "prefix_length": 0,
-                                                                    "max_expansions": 5
+                                                                    "max_expansions": 20
                                                                 }
                                                             }
                                                         },
@@ -133,16 +139,53 @@ class ElasticSearchQuery {
             // Remove the last comma if exists so as to have a valid json
             $this->query = rtrim($this->query, ',');
 
+            switch (count($object->properties)) {
+                case 4:
+                case 5:
+                    $minimum_should_match_objects = 5;
+                    break;
+                case 6:
+                case 7:
+                case 8:
+                    $minimum_should_match_objects = 6;
+                    break;
+                case 9:
+                case 10:
+                    $minimum_should_match_objects = 7;
+                    break;
+                default:
+                    $minimum_should_match_objects = 8;
+            }
+
             $this->query .= '
                                     ],
-                                    "minimum_number_should_match": 5
+                                    "minimum_number_should_match": '.$minimum_should_match_objects.'
                                 }
                             },
                             "inner_hits": {
-                                "name": "'.$object->name.'"
+                                "name": "'.$object->name.'",
+                                "size": 5
                             }
                         }
                     },';
+        }
+
+        switch (count($this->api->objects)) {
+            case 0:
+            case 1:
+                $minimum_should_match_api = 1;
+                break;
+            case 2:
+            case 3:
+                $minimum_should_match_api = 2;
+                break;
+            case 4:
+            case 5:
+            case 6:
+                $minimum_should_match_api = 3;
+                break;
+            default:
+                $minimum_should_match_api = 4;
         }
 
         $this->query .= '
@@ -158,15 +201,15 @@ class ElasticSearchQuery {
                         "match": {
                             "name": {
                                 "query": "'.$this->api->name.'",
-                                "fuzziness": 4,
+                                "fuzziness": "AUTO",
                                 "prefix_length": 0,
-                                "max_expansions": 3,
+                                "max_expansions": 10,
                                 "boost": 2
                             }
                         }
                     }
                 ],
-                "minimum_number_should_match": 2
+                "minimum_number_should_match": '.$minimum_should_match_api.'
             }
         }';
     }
@@ -182,6 +225,7 @@ class ElasticSearchQuery {
         $query = new Query;
         $query->fields(['name'])
             ->from('api-builder', 'api')
+            ->highlight([])
             ->limit(5)
             ->query($this->query);
         // build and execute the query
