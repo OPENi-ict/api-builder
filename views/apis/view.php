@@ -146,26 +146,30 @@ if (isset($this->params['followed'])) {
 
 <div class="apis-view">
 
-	<h1>
-		<?= Html::encode($this->title) ?>
-		<small>
-			<?= Html::encode($model->description) ?>
-		</small>
-		<br/>
-		<small>
-		<?php if ($doIFollow) {?>
-			<?= Html::a($followers, ['unfollow', 'id' => $model->id], ['class' => 'unfollow glyphicon glyphicon-star nounderline', 'data' => ['toggle' => 'tooltip', 'placement' => 'right'], 'title' => 'Unfollow']) ?>
-		<?php } else { ?>
-			<?= Html::a($followers, ['follow', 'id' => $model->id], ['class' => 'follow glyphicon glyphicon-star-empty nounderline', 'data' => ['toggle' => 'tooltip', 'placement' => 'right'], 'title' => 'Follow me!']) ?>
-		<?php } ?>
-		<?= Html::a($model->votes_up, ['voteup', 'id' => $model->id, 'redirect' => 'view?id=' . $model->id], ['class' => 'like glyphicon glyphicon-thumbs-up nounderline', 'data' => ['toggle' => 'tooltip', 'placement' => 'right'], 'title' => 'Vote me Up']) ?>
-		<?= Html::a($model->votes_down, ['votedown', 'id' => $model->id, 'redirect' => 'view?id=' . $model->id], ['class' => 'unlike glyphicon glyphicon-thumbs-down nounderline', 'data' => ['toggle' => 'tooltip', 'placement' => 'right'], 'title' => 'Vote me Down']) ?>
-		</small>
+    <div class="row">
+        <h1 class="col-md-3 text-center">
+            <?= Html::encode($this->title) ?>
+            <br />
+            <small>
+                <?php if ($doIFollow) {?>
+                    <?= Html::a($followers, ['unfollow', 'id' => $model->id], ['class' => 'unfollow glyphicon glyphicon-star nounderline', 'data' => ['toggle' => 'tooltip', 'placement' => 'right'], 'title' => 'Unfollow']) ?>
+                <?php } else { ?>
+                    <?= Html::a($followers, ['follow', 'id' => $model->id], ['class' => 'follow glyphicon glyphicon-star-empty nounderline', 'data' => ['toggle' => 'tooltip', 'placement' => 'right'], 'title' => 'Follow me!']) ?>
+                <?php } ?>
+                <?= Html::a($model->votes_up, ['voteup', 'id' => $model->id, 'redirect' => 'view?id=' . $model->id], ['class' => 'like glyphicon glyphicon-thumbs-up nounderline', 'data' => ['toggle' => 'tooltip', 'placement' => 'right'], 'title' => 'Vote me Up']) ?>
+                <?= Html::a($model->votes_down, ['votedown', 'id' => $model->id, 'redirect' => 'view?id=' . $model->id], ['class' => 'unlike glyphicon glyphicon-thumbs-down nounderline', 'data' => ['toggle' => 'tooltip', 'placement' => 'right'], 'title' => 'Vote me Down']) ?>
+            </small>
+        </h1>
+        <h3 class="col-md-9 text-center">
+            <?= Html::encode($model->description) ?>
+        </h3>
+    </div>
+    <h3>
 
 		<?php if ($model->name !== 'core') : ?>
 			<span class="pull-right">
-				<?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-				<?= Html::a('Delete', ['delete', 'id' => $model->id], [
+				<?= Html::a(Html::icon('pencil', ['data' => ['toggle' => 'tooltip', 'placement' => 'right'], 'title' => 'Update']), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+				<?= Html::a(Html::icon('trash', ['data' => ['toggle' => 'tooltip', 'placement' => 'right'], 'title' => 'Delete']), ['delete', 'id' => $model->id], [
 					'class' => 'btn btn-danger',
 					'data' => [
 						'confirm' => 'Are you sure you want to delete this item?',
@@ -174,7 +178,7 @@ if (isset($this->params['followed'])) {
 				]) ?>
 			</span>
 		<?php endif; ?>
-	</h1>
+	</h3>
 
 	<?php if (($model->status === 'Under Review') and ($model->published === 1)) : ?>
 		<div class="panel panel-info">
