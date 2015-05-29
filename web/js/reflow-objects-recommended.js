@@ -25,5 +25,5 @@ $('#trig').on('click', function () {
     }
     $('#recommendation-api-block').toggleClass('col-md-0 col-md-3');
     $('#recommendation-api-block').toggleClass('fade');
-    $('#trig').toggleText('Show me less', 'Show me more');
+    $('#trig>span').toggleClass('glyphicon-option-vertical glyphicon-option-horizontal');
 });

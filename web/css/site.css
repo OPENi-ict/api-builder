@@ -217,3 +217,7 @@ table > thead > tr a{
     -moz-transition: opacity 0.8s ease;
     -webkit-transition: opacity 0.8s ease;
 }
+
+.img-standards {
+    padding: 0;
+}

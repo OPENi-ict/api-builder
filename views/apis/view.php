@@ -147,7 +147,7 @@ if (isset($this->params['followed'])) {
 
 <div class="apis-view">
 
-    <div class="row">
+    <div class="row well">
         <h1 class="col-md-3 text-center">
             <?= Html::encode($this->title) ?>
             <br />
@@ -165,21 +165,38 @@ if (isset($this->params['followed'])) {
             <?= Html::encode($model->description) ?>
         </h3>
     </div>
-    <h3>
 
-		<?php if ($model->name !== 'core') : ?>
-			<span class="pull-right">
-				<?= Html::a(Html::icon('pencil', ['data' => ['toggle' => 'tooltip', 'placement' => 'right'], 'title' => 'Update']), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-				<?= Html::a(Html::icon('trash', ['data' => ['toggle' => 'tooltip', 'placement' => 'right'], 'title' => 'Delete']), ['delete', 'id' => $model->id], [
-					'class' => 'btn btn-danger',
-					'data' => [
-						'confirm' => 'Are you sure you want to delete this item?',
-						'method' => 'post'
-					]
-				]) ?>
-			</span>
-		<?php endif; ?>
-	</h3>
+    <div class="row">
+        <h1 class="col-md-3 text-center">
+            <small>
+                <?php if ($model->name !== 'core') : ?>
+                    <?php if ($model->status === 'Under Development'): ?>
+                        <?= Html::a(Html::icon('bullhorn', ['data' => ['toggle' => 'tooltip', 'placement' => 'right'], 'title' => 'Propose']), ['propose', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
+                    <?php elseif ($model->status === 'Under Review') : ?>
+                        <?= Html::a(Html::icon('flash', ['data' => ['toggle' => 'tooltip', 'placement' => 'right'], 'title' => 'Under Review']), ['propose', 'id' => $model->id], ['class' => 'btn btn-info disabled']) ?>
+                    <?php else : ?>
+                        <?= Html::a(Html::icon('ok', ['data' => ['toggle' => 'tooltip', 'placement' => 'right'], 'title' => 'Approved']), ['propose', 'id' => $model->id], ['class' => 'btn btn-success disabled']) ?>
+                    <?php endif; ?>
+                    <?= Html::a(Html::icon('pencil', ['data' => ['toggle' => 'tooltip', 'placement' => 'right'], 'title' => 'Update']), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+                    <?= Html::a(Html::icon('trash', ['data' => ['toggle' => 'tooltip', 'placement' => 'right'], 'title' => 'Delete']), ['delete', 'id' => $model->id], [
+                        'class' => 'btn btn-danger',
+                        'data' => [
+                            'confirm' => 'Are you sure you want to delete this item?',
+                            'method' => 'post'
+                        ]
+                    ]) ?>
+                <?php endif; ?>
+            </small>
+        </h1>
+        <h1 class="col-md-9 text-center">
+            <?php if ($model->name !== 'core') : ?>
+                <?= Html::a(Html::img('@web/images/standards/swagger.png', ['height' => '34px', 'width' => '94px']), ['swagger', 'id' => $model->id], ['class' => 'btn btn-primary img-standards']) ?>
+                <?= Html::a(Html::img('@web/images/standards/hydra-cg.svg', ['height' => '20px', 'width' => '70px']), ['hydra', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+                <?= Html::a(Html::img('@web/images/standards/raml-logo.jpg', ['height' => '34px', 'width' => '94px']), ['raml', 'id' => $model->id], ['class' => 'btn btn-primary img-standards']) ?>
+                <?= Html::a('&nbsp;&nbsp;&nbsp;WADL&nbsp;&nbsp;&nbsp;', ['swagger/', 'url' => str_replace(' ', '', $model->name)], ['class' => 'btn btn-primary', 'height' => '34px', 'width' => '94px']) ?>
+            <?php endif; ?>
+        </h1>
+    </div>
 
 	<?php if (($model->status === 'Under Review') and ($model->published === 1)) : ?>
 		<div class="panel panel-info">
@@ -192,33 +209,13 @@ if (isset($this->params['followed'])) {
 		</div>
 	<?php endif; ?>
 
-	<?php if ($model->name !== 'core') : ?>
-        <?php if ($model->status === 'Under Development'): ?>
-            <?= Html::a('Propose', ['propose', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
-        <?php elseif ($model->status === 'Under Review') : ?>
-            <?= Html::a('Under Review', ['propose', 'id' => $model->id], ['class' => 'btn btn-info disabled']) ?>
-        <?php else : ?>
-            <?= Html::a('Approved', ['propose', 'id' => $model->id], ['class' => 'btn btn-success disabled']) ?>
-        <?php endif; ?>
-        <?php if ($model->published === 1) : ?>
-            <?= Html::a(Html::img('@web/images/standards/swagger.png', ['height' => '20px', 'width' => '61px']), ['swagger', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-            <?= Html::a(Html::img('@web/images/standards/hydra-cg.svg', ['height' => '20px', 'width' => '61px']), ['hydra', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-            <?= Html::a(Html::img('@web/images/standards/raml-logo.jpg', ['height' => '20px', 'width' => '61px']), ['raml', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-            <?= Html::a('&nbsp;&nbsp;WADL&nbsp;&nbsp;', ['swagger/', 'url' => str_replace(' ', '', $model->name)], ['class' => 'btn btn-primary', 'height' => '20px', 'width' => '61px']) ?>
-        <?php else : ?>
-            <?= Html::a('Publish '.Html::icon('upload', ['aria' => ['hidden' => true]]), ['publish', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
-        <?php endif; ?>
-	<?php endif; ?>
-
-	<?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
 	<h3>Objects</h3>
 
 	<?php if ($model->name !== 'core') : ?>
 		<p>
-		<?= Html::a('Create Object', ['objects/create', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
-        <?= Html::a('Duplicate Object', ['objects/duplicate', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
-        <?= Html::a('Show me more', null, ['class' => 'btn btn-success pull-right', 'id' => 'trig']) ?>
+		<?= Html::a(Html::icon('plus', ['data' => ['toggle' => 'tooltip', 'placement' => 'right'], 'title' => 'Create Object']), ['objects/create', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Html::icon('duplicate', ['data' => ['toggle' => 'tooltip', 'placement' => 'right'], 'title' => 'Duplicate Object']), ['objects/duplicate', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Html::icon('option-vertical', ['data' => ['toggle' => 'tooltip', 'placement' => 'right'], 'title' => 'Show me more']), null, ['class' => 'btn btn-success pull-right', 'id' => 'trig']) ?>
 		</p>
 	<?php endif; ?>
 
@@ -250,7 +247,7 @@ if (isset($this->params['followed'])) {
                                     }
                                 }
                                 if ($show_objects_to_fork) {
-                                    echo Html::a(Html::badge(Html::icon('arrow-right')), null, ['class' => 'pull-right', 'id' => str_replace(' ', '', $rec['fields']['name'][0])]);
+                                    echo Html::a(Html::badge(Html::icon('chevron-right', ['class' => 'badge-success'])), null, ['class' => 'pull-right', 'id' => str_replace(' ', '', $rec['fields']['name'][0])]);
                                 }
                             }
                             echo '</li>';
@@ -305,7 +302,7 @@ if (isset($this->params['followed'])) {
                                             }
                                             $("#'.$recDivID.'").toggleClass("col-md-0 col-md-2");
                                             $("#'.$recDivID.'").toggleClass("fade");
-                                            $("#'.str_replace(' ','',$rec['fields']['name'][0]).'>span>span").toggleClass("glyphicon-arrow-right glyphicon-arrow-left");
+                                            $("#'.str_replace(' ','',$rec['fields']['name'][0]).'>span>span").toggleClass("glyphicon-chevron-right glyphicon-chevron-left");
                                         });';
                         $this->registerJs($js_toggle, View::POS_END);
                     }
