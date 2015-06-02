@@ -10,6 +10,7 @@ namespace app\helpers;
 
 use app\models\Apis;
 use yii\elasticsearch\Connection;
+use yii\helpers\Html;
 
 /**
  * Class ElasticSearchPut
@@ -42,8 +43,8 @@ class ElasticSearchPut {
         $this->query = '';
         $this->query = '{
             "_id": '.$this->api->id.',
-            "name": "'.$this->api->name.'",
-            "description": "'.$this->api->description.'",
+            "name": "'.Html::encode($this->api->name).'",
+            "description": "'.Html::encode($this->api->description).'",
             "votes_up": '.$this->api->votes_up.',
             "votes_down": '.$this->api->votes_down.',
             "privacy": "'.$this->api->privacy.'",
@@ -56,8 +57,8 @@ class ElasticSearchPut {
                 $this->query .= '
                 {
                     "id": '.$object->id.',
-                    "name": "'.$object->name.'",
-                    "description": "'.$object->description.'"';
+                    "name": "'.Html::encode($object->name).'",
+                    "description": "'.Html::encode($object->description).'"';
 
                 if ( count($object->properties) > 0 ) {
                     $this->query .= ',
@@ -65,7 +66,7 @@ class ElasticSearchPut {
                     foreach ($object->properties as $property) {
                         $this->query .= '
                         {
-                            "name": "'.$property->name.'",
+                            "name": "'.Html::encode($property->name).'",
                             "type": "'.$property->type.'"
                         },';
                     }
