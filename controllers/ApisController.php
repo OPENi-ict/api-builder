@@ -39,17 +39,22 @@ class ApisController extends Controller
 				'rules' => [
 					[
 						'allow' => true,
-						'roles' => ['@'],
+						'roles' => ['@']
 					],
-				],
+                    [
+                        'allow' => true,
+                        'actions' => ['swagger', 'hydra', 'raml', 'wadl'],
+                        'roles' => ['?']
+                    ]
+				]
 			],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
 					'view' => ['get', 'post'],
-                    'delete' => ['post'],
-                ],
-            ],
+                    'delete' => ['post']
+                ]
+            ]
         ];
     }
 
