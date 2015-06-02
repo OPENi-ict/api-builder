@@ -530,32 +530,10 @@ class ApisController extends Controller
         $url = 'http://imagine.epu.ntua.gr:2015/transform/?location=';
         $url .= $basePathPart[0].$apiName.'/api-docs.json';
         $url .= '&original_format=swagger&to_format=hydra';
-//        $data = $this->redirect($url);
 
         $response = Yii::$app->getResponse();
-        $response->sendContentAsFile('testing', 'testing.txt', [
-            'mimeType' => 'text/plain',
-            'inline' => true,
-        ]);
+        $response->sendContentAsFile(readfile($url), 'hydra.n3');
         Yii::$app->end();
-
-        Yii::$app->response->sendContentAsFile(readfile($url), 'hydra.n3');
-        Yii::$app->response->sendFile('hydra')->send();
-
-//        $data = ;
-
-//        $name = 'hydra';
-//        $fh = fopen($name, 'w');
-//        fwrite($fh, $data);
-//        fclose($fh);
-//
-//        header('Cache-Control: public');
-//        header('Content-Description: File Transfer');
-//        header('Content-Length: '. filesize($name).';');
-//        header('Content-Disposition: attachment; filename='.$name);
-//        header('Content-Type: application/octet-stream;');
-//        header('Content-Transfer-Encoding: binary');
-//        readfile($name);
     }
 
     public function actionRaml($id)
@@ -574,7 +552,10 @@ class ApisController extends Controller
         $url = 'http://imagine.epu.ntua.gr:2015/transform/?location=';
         $url .= $basePathPart[0].$apiName.'/api-docs.json';
         $url .= '&original_format=swagger&to_format=raml';
-        return $this->redirect($url);
+
+        $response = Yii::$app->getResponse();
+        $response->sendContentAsFile(readfile($url), 'raml.yml');
+        Yii::$app->end();
     }
 
     public function actionBlueprint($id)
@@ -593,7 +574,10 @@ class ApisController extends Controller
         $url = 'http://imagine.epu.ntua.gr:2015/transform/?location=';
         $url .= $basePathPart[0].$apiName.'/api-docs.json';
         $url .= '&original_format=swagger&to_format=blueprint';
-        return $this->redirect($url);
+
+        $response = Yii::$app->getResponse();
+        $response->sendContentAsFile(readfile($url), 'blueprint.md');
+        Yii::$app->end();
     }
 
     public function actionWadl($id)
@@ -612,7 +596,10 @@ class ApisController extends Controller
         $url = 'http://imagine.epu.ntua.gr:2015/transform/?location=';
         $url .= $basePathPart[0].$apiName.'/api-docs.json';
         $url .= '&original_format=swagger&to_format=wadl';
-        return $this->redirect($url);
+
+        $response = Yii::$app->getResponse();
+        $response->sendContentAsFile(readfile($url), 'wadl.xml');
+        Yii::$app->end();
     }
 
 	/**

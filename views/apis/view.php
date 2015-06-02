@@ -199,10 +199,10 @@ foreach ($recommend['hits']['hits'] as $rec)
         <h1 class="col-md-9 text-center">
             <?php if ($model->name !== 'core') : ?>
                 <?= Html::a(Html::img('@web/images/standards/swagger.png', ['height' => '34px', 'width' => '94px']), ['swagger', 'id' => $model->id], ['class' => 'btn btn-primary img-standards']) ?>
-                <?= Html::a(Html::img('@web/images/standards/hydra-cg.svg', ['height' => '20px', 'width' => '70px']), ['hydra', 'id' => $model->id], ['class' => 'btn btn-primary', 'target' => '_blank']) ?>
-                <?= Html::a(Html::img('@web/images/standards/raml-logo.jpg', ['height' => '34px', 'width' => '94px']), ['raml', 'id' => $model->id], ['class' => 'btn btn-primary img-standards', 'target' => '_blank']) ?>
-                <?= Html::a(Html::img('@web/images/standards/api-blueprint.jpg', ['height' => '34px', 'width' => '100px']), ['blueprint', 'id' => $model->id], ['class' => 'btn btn-primary img-standards', 'target' => '_blank']) ?>
-                <?= Html::a('&nbsp;&nbsp;&nbsp;WADL&nbsp;&nbsp;&nbsp;', ['swagger/', 'url' => str_replace(' ', '', $model->name)], ['class' => 'btn btn-primary', 'height' => '34px', 'width' => '94px', 'target' => '_blank']) ?>
+                <?= Html::a(Html::img('@web/images/standards/hydra-cg.svg', ['height' => '20px', 'width' => '70px']), ['hydra', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+                <?= Html::a(Html::img('@web/images/standards/raml-logo.jpg', ['height' => '34px', 'width' => '94px']), ['raml', 'id' => $model->id], ['class' => 'btn btn-primary img-standards']) ?>
+                <?= Html::a(Html::img('@web/images/standards/api-blueprint.jpg', ['height' => '34px', 'width' => '100px']), ['blueprint', 'id' => $model->id], ['class' => 'btn btn-primary img-standards']) ?>
+                <?= Html::a('&nbsp;&nbsp;&nbsp;WADL&nbsp;&nbsp;&nbsp;', ['swagger/', 'url' => str_replace(' ', '', $model->name)], ['class' => 'btn btn-primary', 'height' => '34px', 'width' => '94px']) ?>
             <?php endif; ?>
         </h1>
     </div>
