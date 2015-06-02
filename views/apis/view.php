@@ -3,7 +3,6 @@
 use app\widgets\Comments;
 use kartik\grid\GridView;
 use kartik\helpers\Html;
-use yii\bootstrap\ButtonDropdown;
 use yii\web\View;
 
 /* @var $this yii\web\View */
