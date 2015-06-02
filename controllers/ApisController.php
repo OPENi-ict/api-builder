@@ -25,6 +25,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use Swagger\Swagger;
+use yii\web\Request;
 
 /**
  * ApisController implements the CRUD actions for Apis model.
@@ -529,7 +530,9 @@ class ApisController extends Controller
         $url = 'http://imagine.epu.ntua.gr:2015/transform/?location=';
         $url .= $basePathPart[0].$apiName.'/api-docs.json';
         $url .= '&original_format=swagger&to_format=hydra';
-        $data = $this->redirect($url);
+//        $data = $this->redirect($url);
+
+        $data = readfile($url);
 
         $name = 'hydra';
         $fh = fopen($name, 'w');
