@@ -143,6 +143,15 @@ if (isset($this->params['followed'])) {
         );
     }
 }
+
+// Are there things to recommend or not? If not, do not show anything for its UI.
+$showRecommendation = false;
+foreach ($recommend['hits']['hits'] as $rec)
+{
+    if (array_key_exists('inner_hits', $rec)) {
+        $showRecommendation = true;
+    }
+}
 ?>
 
 <div class="apis-view">
@@ -215,7 +224,9 @@ if (isset($this->params['followed'])) {
 		<p>
 		<?= Html::a(Html::icon('plus', ['data' => ['toggle' => 'tooltip', 'placement' => 'right'], 'title' => 'Create Object']), ['objects/create', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
         <?= Html::a(Html::icon('duplicate', ['data' => ['toggle' => 'tooltip', 'placement' => 'right'], 'title' => 'Duplicate Object']), ['objects/duplicate', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
-        <?= Html::a(Html::icon('option-vertical', ['data' => ['toggle' => 'tooltip', 'placement' => 'right'], 'title' => 'Show me more']), null, ['class' => 'btn btn-success pull-right', 'id' => 'trig']) ?>
+        <?php if ($showRecommendation) : ?>
+            <?= Html::a(Html::icon('option-vertical', ['data' => ['toggle' => 'tooltip', 'placement' => 'right'], 'title' => 'Show me more']), null, ['class' => 'btn btn-success pull-right', 'id' => 'trig']) ?>
+        <?php endif; ?>
 		</p>
 	<?php endif; ?>
 
@@ -227,6 +238,7 @@ if (isset($this->params['followed'])) {
                 'columns' => $columns
             ]); ?>
         </div>
+        <?php if ($showRecommendation) : ?>
         <div id="recommendation-api-block" class="col-md-0">
             <!-- If there are no Objects then we don't need padding-top -->
             <div class="panel panel-info recommendation-panel <?= count($dataProvider->getModels()) === 0 ? 'recommendation-panel-no-margin-top' : '' ?>">
@@ -312,6 +324,7 @@ if (isset($this->params['followed'])) {
             }
         }
         ?>
+        <?php endif; ?>
     </div>
 
 	<h3>Comments</h3>
