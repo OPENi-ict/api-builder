@@ -296,9 +296,9 @@ foreach ($recommend['hits']['hits'] as $rec)
                     </div>
                     <ul class="recommendation-list list-group">
         <?php
-                    foreach ($objectsToShowNoDupsNames as $key => $objectName) {
+                    foreach ($objectsToShowNoDupsNames as $objectsKey => $objectName) {
                         echo '<li class="list-group-item">';
-                        echo Html::a($objectName, ['/objects/view', 'id' => $objectsToShowNoDupsIds[$key]]);
+                        echo Html::a($objectName, ['/objects/view', 'id' => $objectsToShowNoDupsIds[$objectsKey]]);
                         echo '</li>';
                         $js_toggle = '
                                         $("#'.str_replace(' ','',$rec['fields']['name'][0]).'").on("click", function () {
