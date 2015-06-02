@@ -259,15 +259,23 @@ if (isset($this->params['followed'])) {
         <?php
             foreach ($recommend['hits']['hits'] as $key => $rec) {
                 $recDivID = 'recommendation-object-block-'.str_replace(' ','',$rec['fields']['name'][0]);
-                $show_objects_to_fork = false;
                 if (array_key_exists('inner_hits', $rec)) {
+                    $objectsToShowNoDupsNames = [];
+                    $objectsToShowNoDupsIds = [];
                     foreach ($rec['inner_hits'] as $innner_hitsRec) {
                         if ($innner_hitsRec['hits']['total'] > 0) {
-                            $show_objects_to_fork = true;
+                            foreach ($innner_hitsRec['hits']['hits'] as $perObjectRec) {
+                                if (array_key_exists('_source', $perObjectRec)) {
+                                    if (!in_array($perObjectRec['_source']['name'], $objectsToShowNoDupsNames)) {
+                                        $objectsToShowNoDupsNames[] = $perObjectRec['_source']['name'];
+                                        $objectsToShowNoDupsIds[] = $perObjectRec['_source']['id'];
+                                    }
+                                }
+                            }
                         }
                     }
                 }
-                if ($show_objects_to_fork) {
+                if (count($objectsToShowNoDupsNames) > 0) {
         ?>
             <div id="<?= $recDivID ?>" class="col-md-0 object-column">
                 <!-- If it is the first Object then we don't need padding-top -->
@@ -277,25 +285,15 @@ if (isset($this->params['followed'])) {
                     </div>
                     <ul class="recommendation-list list-group">
         <?php
-                    foreach ($rec['inner_hits'] as $innner_hitsRec) {
-                        if ($innner_hitsRec['hits']['total'] > 0) {
-        ?>
-                                        <?php
-                                        foreach ($innner_hitsRec['hits']['hits'] as $perObjectRec) {
-                                            if (array_key_exists('_source', $perObjectRec)) {
-                                                echo '<li class="list-group-item">';
-                                                echo Html::a($perObjectRec['_source']['name'], ['/objects/view', 'id' => $perObjectRec['_source']['id']]);
-                                                echo '</li>';
-                                            }
-                                        }
-                                        ?>
-        <?php
-                        }
+                    foreach ($objectsToShowNoDupsNames as $key => $objectName) {
+                        echo '<li class="list-group-item">';
+                        echo Html::a($objectName, ['/objects/view', 'id' => $objectsToShowNoDupsIds[$key]]);
+                        echo '</li>';
                         $js_toggle = '
                                         $("#'.str_replace(' ','',$rec['fields']['name'][0]).'").on("click", function () {
                                             if ($(".col-md-2.object-column").not($("#'.$recDivID.'")).length) {
                                                 $(".col-md-2.object-column").not($("#'.$recDivID.'")).toggleClass("col-md-0 col-md-2");
-                                                $(".glyphicon-arrow-left").toggleClass("glyphicon-arrow-right glyphicon-arrow-left");
+                                                $(".glyphicon-chevron-left").toggleClass("glyphicon-chevron-right glyphicon-chevron-left");
                                             }
                                             else {
                                                 $("#objects").toggleClass("col-md-9 col-md-7");

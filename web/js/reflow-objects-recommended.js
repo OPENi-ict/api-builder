@@ -18,7 +18,7 @@ $('#trig').on('click', function () {
     if ($(".col-md-2.object-column").length) {
         $('#objects').toggleClass('col-md-12 col-md-7');
         $('.col-md-2.object-column').toggleClass('col-md-0 col-md-2');
-        $(".glyphicon-arrow-left").toggleClass("glyphicon-arrow-right glyphicon-arrow-left");
+        $(".glyphicon-chevron-left").toggleClass("glyphicon-chevron-right glyphicon-chevron-left");
     }
     else {
         $('#objects').toggleClass('col-md-12 col-md-9');
