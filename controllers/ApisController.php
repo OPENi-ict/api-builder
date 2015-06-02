@@ -532,20 +532,22 @@ class ApisController extends Controller
         $url .= '&original_format=swagger&to_format=hydra';
 //        $data = $this->redirect($url);
 
-        $data = readfile($url);
+        Yii::$app->response->sendContentAsFile(readfile($url), 'hydra.n3');
 
-        $name = 'hydra';
-        $fh = fopen($name, 'w');
-        fwrite($fh, $data);
-        fclose($fh);
+//        $data = ;
 
-        header('Cache-Control: public');
-        header('Content-Description: File Transfer');
-        header('Content-Length: '. filesize($name).';');
-        header('Content-Disposition: attachment; filename='.$name);
-        header('Content-Type: application/octet-stream;');
-        header('Content-Transfer-Encoding: binary');
-        readfile($name);
+//        $name = 'hydra';
+//        $fh = fopen($name, 'w');
+//        fwrite($fh, $data);
+//        fclose($fh);
+//
+//        header('Cache-Control: public');
+//        header('Content-Description: File Transfer');
+//        header('Content-Length: '. filesize($name).';');
+//        header('Content-Disposition: attachment; filename='.$name);
+//        header('Content-Type: application/octet-stream;');
+//        header('Content-Transfer-Encoding: binary');
+//        readfile($name);
     }
 
     public function actionRaml($id)
