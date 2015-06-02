@@ -43,7 +43,7 @@ class ApisController extends Controller
 					],
                     [
                         'allow' => true,
-                        'actions' => ['swagger', 'hydra', 'raml', 'wadl'],
+                        'actions' => ['swagger', 'hydra', 'raml', 'blueprint', 'wadl'],
                         'roles' => ['?']
                     ]
 				]
@@ -548,6 +548,25 @@ class ApisController extends Controller
         $url = 'http://imagine.epu.ntua.gr:2015/transform/?location=';
         $url .= $basePathPart[0].$apiName.'/api-docs.json';
         $url .= '&original_format=swagger&to_format=raml';
+        return $this->redirect($url);
+    }
+
+    public function actionBlueprint($id)
+    {
+        $apiName = $this->actionPublish($id);
+
+        $basePathPart = Url::canonical();
+
+        $basePathPart = explode('swagger', $basePathPart);
+        $basePathPart = explode('hydra', $basePathPart[0]);
+        $basePathPart = explode('raml', $basePathPart[0]);
+        $basePathPart = explode('wadl', $basePathPart[0]);
+        $basePathPart = explode('/apis/', $basePathPart[0]);
+        $basePathPart[0] .= '/api-docs/';
+
+        $url = 'http://imagine.epu.ntua.gr:2015/transform/?location=';
+        $url .= $basePathPart[0].$apiName.'/api-docs.json';
+        $url .= '&original_format=swagger&to_format=blueprint';
         return $this->redirect($url);
     }
 
