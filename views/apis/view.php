@@ -274,8 +274,7 @@ if (isset($this->params['followed'])) {
                             }
                         }
                     }
-                }
-                if (count($objectsToShowNoDupsNames) > 0) {
+                    if (count($objectsToShowNoDupsNames) > 0) {
         ?>
             <div id="<?= $recDivID ?>" class="col-md-0 object-column">
                 <!-- If it is the first Object then we don't need padding-top -->
@@ -304,6 +303,7 @@ if (isset($this->params['followed'])) {
                                         });';
                         $this->registerJs($js_toggle, View::POS_END);
                     }
+                }
         ?>
                     </ul>
                 </div>
