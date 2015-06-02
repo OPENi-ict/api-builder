@@ -303,7 +303,6 @@ if (isset($this->params['followed'])) {
                                         });';
                         $this->registerJs($js_toggle, View::POS_END);
                     }
-                }
         ?>
                     </ul>
                 </div>
@@ -311,6 +310,7 @@ if (isset($this->params['followed'])) {
         <?php
                 }
             }
+        }
         ?>
     </div>
 
