@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			[
 				'attribute' => 'name',
 				'value'=>function ($model, $key, $index, $widget) {
-					return Html::a($model->name, ['view', 'id' => $model->id]);
+					return Html::a($model->name, ['apis/view', 'id' => $model->id]);
 				},
 				'format'=> 'raw',
 				'hAlign' => GridView::ALIGN_CENTER,
