@@ -532,8 +532,7 @@ class ApisController extends Controller
         $url .= '&original_format=swagger&to_format=hydra';
 //        $data = $this->redirect($url);
 
-        Yii::$app->response->sendContentAsFile(readfile($url), 'hydra.n3');
-        Yii::$app->response->send();
+        Yii::$app->response->sendContentAsFile(readfile($url), 'hydra.n3')->send();
 
 //        $data = ;
 
