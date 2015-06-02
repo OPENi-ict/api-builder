@@ -532,7 +532,7 @@ class ApisController extends Controller
         $url .= '&original_format=swagger&to_format=hydra';
 
         $response = Yii::$app->getResponse();
-        $response->sendContentAsFile(readfile($url), 'hydra.n3');
+        $response->sendContentAsFile(file_get_contents($url), 'hydra.n3');
         Yii::$app->end();
     }
 
@@ -554,7 +554,7 @@ class ApisController extends Controller
         $url .= '&original_format=swagger&to_format=raml';
 
         $response = Yii::$app->getResponse();
-        $response->sendContentAsFile(readfile($url), 'raml.yml');
+        $response->sendContentAsFile(file_get_contents($url), 'raml.yml');
         Yii::$app->end();
     }
 
@@ -576,7 +576,7 @@ class ApisController extends Controller
         $url .= '&original_format=swagger&to_format=blueprint';
 
         $response = Yii::$app->getResponse();
-        $response->sendContentAsFile(readfile($url), 'blueprint.md');
+        $response->sendContentAsFile(file_get_contents($url), 'blueprint.md');
         Yii::$app->end();
     }
 
@@ -598,7 +598,7 @@ class ApisController extends Controller
         $url .= '&original_format=swagger&to_format=wadl';
 
         $response = Yii::$app->getResponse();
-        $response->sendContentAsFile(readfile($url), 'wadl.xml');
+        $response->sendContentAsFile(file_get_contents($url), 'wadl.xml');
         Yii::$app->end();
     }
 
