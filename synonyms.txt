@@ -1,0 +1,7 @@
+﻿manage => handle
+project, task => assign
+food, eat, restaurant, bistrot => tavern
+well being, sanity => health
+manage,management => handl
+wall street => stock
+heart rate, heart beat => pulse

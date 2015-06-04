@@ -38,7 +38,7 @@ Additional packages required are marked in the composer.json file.
 INSTALLATION
 ------------
 
-Download and extract the zipped master source code from [api-builder](https://github.com/OPENi-ict/api-builder/archive/master.zip)
+Download the latest [release](https://github.com/OPENi-ict/api-builder/releases/) or the zipped master source code from [api-builder](https://github.com/OPENi-ict/api-builder/archive/master.zip)
 into a directory named `api-builder` that is directly under the Web root.
 
 Run a command prompt in that directory and type:
@@ -91,6 +91,7 @@ This request should be made to create the 'api-builder' index:
 
 ```
 curl -XPUT http://127.0.0.1:9200/api-builder
+curl -XPOST http://127.0.0.1:9200/api-builder/_close
 ```
 
 Recommended setting setup:
@@ -98,77 +99,92 @@ Recommended setting setup:
 ```
 curl -XPUT 'http://127.0.0.1:9200/api-builder/_settings' -d 
 '{
-    "settings": {
-        "index": {
-            "analysis": {
-                "filter": {
-                    "stem_filter": {
-                        "type": "stemmer",
-                        "name": "english"
-                    },
-                    "low_filter": {
-                        "type": "lowercase"
-                    },
-                    "synonym_filter": {
-                        "type": "synonym",
-                        "synonyms_path": "analysis/synonyms.txt"
-                    }
-                },
-                "analyzer": {
-                    "analyzer": {
-                        "type": "custom",
-                        "tokenizer": "standard",
-                        "filter": [
-                            "low_filter",
-                            "stem_filter",
-                            "synonym_filter"
-                        ],
-                        "char_filter": [
-                            "html_strip"
-                        ]
-                    }
-                }
-            }
-        }
-    }
-}'
+     "settings": {
+         "index": {
+             "analysis": {
+                 "filter": {
+                     "stem_filter": {
+                         "type": "stemmer",
+                         "name": "english"
+                     },
+                     "low_filter": {
+                         "type": "lowercase"
+                     },
+                     "synonym_filter": {
+                         "type": "synonym",
+                         "synonyms_path": "analysis/synonyms.txt"
+                     },
+                     "stop_filter": {
+                         "type": "stop",
+                         "stopwords_path": "analysis/stopwords.txt"
+                     }
+                 },
+                 "analyzer": {
+                     "analyzer": {
+                         "type": "custom",
+                         "tokenizer": "standard",
+                         "filter": [
+                             "low_filter",
+                             "synonym_filter",
+                             "stop_filter",
+                             "stem_filter"
+                         ],
+                         "char_filter": [
+                             "html_strip"
+                         ]
+                     }
+                 }
+             }
+         }
+     }
+ }'
 ```
+
+**NOTE:** This of course implies that you have a synonyms and stopwords texts in your elasticsearch/config/analysis/ folder.
+Samples can be found at the root folder of the project.
+
 
 ```
 curl -XPUT 'http://127.0.0.1:9200/api-builder/api/_mapping' -d 
-'{
-    "api": {
-        "properties": {
-            "objects": {
-                "type": "nested",
-                "properties": {
-                    "name": {
-                        "type": "string",
-                        "index": "not_analyzed"
-                    },
-                    "description": {
-                        "type": "string",
-                        "index": "analyzed",
-                        "analyzer": "analyzer"
-                    },
-                    "properties": {
-                        "type": "nested",
-                        "properties": {
-                            "name": {
-                                "type": "string",
-                                "index": "not_analyzed"
-                            },
-                            "type": {
-                                "type": "string",
-                                "index": "not_analyzed"
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-}'
+'{ 
+     "api": { 
+         "properties": { 
+             "objects": { 
+                 "type": "nested", 
+                 "properties": { 
+                     "name": { 
+                         "type": "string", 
+                         "index": "analyzed", 
+                         "analyzer": "analyzer"
+                     }, 
+                     "description": { 
+                         "type": "string", 
+                         "index": "analyzed", 
+                         "analyzer": "analyzer" 
+                     }, 
+                     "properties": { 
+                         "type": "nested", 
+                         "properties": { 
+                             "name": { 
+                                 "type": "string", 
+                                 "index": "analyzed", 
+                         "analyzer": "analyzer"
+                             }, 
+                             "type": { 
+                                 "type": "string", 
+                                 "index": "not_analyzed" 
+                             } 
+                         } 
+                     } 
+                 } 
+             } 
+         } 
+     } 
+ }'
+ ```
+ 
+ ```
+ curl -XPOST http://127.0.0.1:9200/api-builder/_open
 ```
 
 
