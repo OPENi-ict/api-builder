@@ -33,7 +33,7 @@
         "yiidoc/yii2-timeago": "~2.0",
         "costa-rico/yii2-images": "~1.0",
         "romdim/yii2-bootstrap-material": "dev-material-version-0-2-2",
-        "romdim/yii2-snackbarjs": "~0.1",
+        "romdim/yii2-snackbarjs": "dev-master",
         "yiisoft/yii2-elasticsearch": "~2.0.0"
     },
     "require-dev": {
