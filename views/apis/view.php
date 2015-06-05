@@ -145,11 +145,9 @@ if (isset($this->params['followed'])) {
 
 // Are there things to recommend or not? If not, do not show anything for its UI.
 $showRecommendation = false;
-foreach ($recommend['hits']['hits'] as $rec)
+if (count($recommend['hits']['hits']) > 0)
 {
-    if (array_key_exists('inner_hits', $rec)) {
-        $showRecommendation = true;
-    }
+    $showRecommendation = true;
 }
 ?>
 
