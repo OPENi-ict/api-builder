@@ -16,13 +16,22 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?php if ($message !== '') : ?>
+    <?php if($message === 'Overwrite already existing API?') : ?>
         <div class="panel panel-danger">
             <div class="panel-heading">
-                <h3 class="panel-title">Overwrite previous version</h3>
+                <h3 class="panel-title"><?= $message ?></h3>
             </div>
             <div class="panel-body">
                 There is already an API with same name uploaded by you. Are you sure you want to overwrite it?
+            </div>
+        </div>
+    <?php elseif($message === 'This API name is already taken. Another one should be provided!') : ?>
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                <h3 class="panel-title">Please Rename API</h3>
+            </div>
+            <div class="panel-body">
+                <?= $message ?>
             </div>
         </div>
     <?php endif; ?>

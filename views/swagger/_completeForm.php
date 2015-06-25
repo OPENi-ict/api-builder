@@ -53,7 +53,13 @@ use yii\widgets\ActiveForm;
     ]); ?>
 
     <div class="form-group">
-        <?= Html::submitButton($message === '' ? 'Create' : 'Overwrite', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-warning']) ?>
+        <?= Html::submitButton($message === '' ? 'Create' : 'Overwrite', [
+            'class' => $message === '' ? 'btn btn-success' : 'btn btn-warning',
+            'data' => $message === '' ? [] : [
+                'confirm' => 'Are you sure you want to overwrite this item?',
+                'method' => 'post',
+            ]
+        ]) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
