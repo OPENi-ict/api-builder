@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use yii\behaviors\BlameableBehavior;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "api_from_swagger".
@@ -13,7 +15,10 @@ use Yii;
  * @property string $version
  * @property string $privacy
  * @property string $swagger_url
+ * @property integer $created_by
+ * @property integer $created_at
  *
+ * @property User $createdBy
  * @property ObjectFromSwagger[] $objectFromSwaggers
  */
 class ApiFromSwagger extends \yii\db\ActiveRecord
@@ -33,10 +38,28 @@ class ApiFromSwagger extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'version', 'privacy', 'swagger_url'], 'string', 'max' => 255],
+            [['created_by', 'created_at'], 'integer'],
             [['description'], 'string'],
             [['privacy'], 'default', 'value' => 'public'],
             [['swagger_url'], 'required'],
             ['swagger_url', 'filter', 'filter' => 'trim']
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+                'updatedAtAttribute' => false,
+            ],
+            [
+                'class' => BlameableBehavior::className(),
+                'updatedByAttribute' => false,
+            ],
         ];
     }
 
@@ -52,6 +75,9 @@ class ApiFromSwagger extends \yii\db\ActiveRecord
             'version' => 'Version',
             'privacy' => 'Privacy',
             'swagger_url' => 'Swagger Url',
+            'created_by' => 'Created By ID',
+            'createdBy.username' => 'Created By',
+            'created_at' => 'Created At',
         ];
     }
 
@@ -61,5 +87,13 @@ class ApiFromSwagger extends \yii\db\ActiveRecord
     public function getObjectFromSwaggers()
     {
         return $this->hasMany(ObjectFromSwagger::className(), ['api_from_swagger' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCreatedBy()
+    {
+        return $this->hasOne(User::className(), ['id' => 'created_by']);
     }
 }

@@ -30,10 +30,15 @@ class m150623_142742_api_from_swagger extends Migration
             'version' => Schema::TYPE_STRING,
             'privacy' => Schema::TYPE_STRING,
             'swagger_url' => Schema::TYPE_STRING,
+            'created_by' => Schema::TYPE_INTEGER,
+            'created_at' => Schema::TYPE_INTEGER . ' NOT NULL',
         ], $tableOptions);
 
         // An API can have multiple Objects
         $this->addForeignKey('fk_apis_objects_swagger', '{{%object_from_swagger}}', 'api_from_swagger', '{{%api_from_swagger}}', 'id', 'CASCADE', 'SET NULL');
+
+        // Created By
+        $this->addForeignKey('fk_api_from_swagger_user_created', '{{%api_from_swagger}}', 'created_by', '{{%user}}', 'id', 'CASCADE', 'SET NULL');
     }
     
     public function safeDown()
