@@ -108,6 +108,8 @@ class BuildFromSwagger {
             }
         }
 
+        $this->swaggerAPI->swagger_url = $this->url;
+
         $this->swaggerAPI->save();
     }
 
@@ -171,12 +173,14 @@ class BuildFromSwagger {
 
     /**
      * Build the API based on input & swagger
+     *
+     * @return boolean
      */
     public function BuildAPI()
     {
         $this->api = new Apis();
 
-        $this->api->name = $this->swaggerAPI->namee;
+        $this->api->name = $this->swaggerAPI->name;
         $this->api->description = $this->swaggerAPI->description;
         $this->api->version = $this->swaggerAPI->version;
         $this->api->privacy = $this->swaggerAPI->privacy;
@@ -185,34 +189,160 @@ class BuildFromSwagger {
     }
 
     /**
+     * Fetch the API's ID
+     *
+     * @return integer
+     */
+    public function getAPIId()
+    {
+        return $this->api->id;
+    }
+
+    /**
+     * Build a new Object
+     *
+     * @param string $titleFromKey
+     * @param object $value
+     *
+     * @return boolean
+     */
+    public function BuildObject($titleFromKey, $value)
+    {
+        $object = new Objects();
+        $object->name = property_exists($value, 'title') ? $value->title : $titleFromKey;
+        $object->description = property_exists($value, 'description') ? $value->description : '';
+        $object->api = $this->api->id;
+        $object->privacy = $this->api->privacy;
+        if ($object->save()) {
+            if (property_exists($value, 'properties')) {
+                return $this->BuildProperties($value->properties, $object->id);
+            }
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    /**
      * Build the Objects based on input & swagger
      *
-     * @return mixed
+     * @return boolean
      */
     public function BuildObjects()
     {
         // Create all Objects
         foreach ($this->resource->definitions as $keyObject => $valueObject) {
-            $object = new Objects();
-            $object->name = property_exists($valueObject, 'title') ? $valueObject->title : $keyObject;
-            $object->description = property_exists($valueObject, 'description') ? $valueObject->description : '';
-            $object->api = $this->api->id;
-            $object->privacy = $this->api->privacy;
-            if ($object->save()) {
-                if (property_exists($valueObject, 'properties')) {
-                    $this->BuildProperties($valueObject->properties, $object->id);
-                }
-            }
-            else {
+            // Try to Build the Object with its Parameter, if something goes wrong return false
+            if (!$this->BuildObject($keyObject, $valueObject)) {
                 return false;
             }
         }
 
         // Elastic Search Creation
         $esu = new ElasticSearchPut;
-        $esu->setApi($this->api->id);
+        $esu->setApi($this->api);
         $esu->MakeJSON();
         $esu->InsertUpdate();
+
+        return true;
+    }
+
+    /**
+     * Build a Property
+     *
+     * @param string $name
+     * @param object $value
+     * @param integer $objectId
+     *
+     * @return boolean
+     */
+    private function BuildProperty($name, $value, $objectId)
+    {
+        $property = new Properties();
+        $property->name = $name;
+        $property->description = property_exists($value, 'description') ? $value->description : '';
+        $property->object = $objectId;
+
+        // Check if there is a type definition, cases have been based on https://github.com/swagger-api/swagger-spec/blob/master/versions/2.0.md#dataTypeFormat
+        // There is also a possibility for an array type, which is a 1-* reference for another Object
+        // Another case is that of $ref as an 1-1 reference to another Object
+        if (property_exists($value, 'type')) {
+            switch ($value->type) {
+                case 'integer':
+                    if (property_exists($value, 'format')) {
+                        switch ($value->format) {
+                            case 'int32':
+                                $property->type = 'integer';
+                                break;
+                            case 'int64':
+                                $property->type = 'long';
+                                break;
+                        }
+                    }
+                    break;
+                case 'number':
+                    if (property_exists($value, 'format')) {
+                        switch ($value->format) {
+                            case 'float':
+                                $property->type = 'float';
+                                break;
+                            case 'double':
+                                $property->type = 'double';
+                                break;
+                        }
+                    }
+                    break;
+                case 'string':
+                    $property->type = 'string';
+                    if (property_exists($value, 'format')) {
+                        switch ($value->format) {
+                            case 'byte':
+                                $property->type = 'byte';
+                                break;
+                            case 'date':
+                                $property->type = 'date';
+                                break;
+                            case 'date-time':
+                                $property->type = 'dateTime';
+                                break;
+                            case 'password':
+                                $property->type = 'password';
+                                break;
+                        }
+                        $property->type = 'byte';
+                    }
+                    break;
+                case 'boolean':
+                    $property->type = 'boolean';
+                    break;
+                case 'array':
+                    if (property_exists($value, 'items')) {
+                        $items = $value->items;
+                        if (property_exists($items, '$ref')) {
+                            // Get the last item out of the array produced from the $ref string exploded at '/', with capitalized first letter
+                            $property->type = '[' . ucfirst(end(explode('/', $items->{'$ref'}))) . ']';
+                        }
+                        elseif (property_exists($items, 'type')) {
+                            if (property_exists($items, 'xml') and property_exists($items->xml, 'name')) {
+                                $property->type = '[' . $items->xml->name . ' (' . $items->type . ')]';
+                            }
+                            else {
+                                $property->type = '[' . $items->type . ']';
+                            }
+                        }
+                    }
+                    break;
+                default:
+                    $property->type = 'string';
+            }
+        }
+        if (property_exists($value,  '$ref')) {
+            // Get the last item out of the array produced from the $ref string exploded at '/', with capitalized first letter
+            $property->type = ucfirst(end(explode('/', $value->{'$ref'})));
+        }
+
+        return $property->save();
     }
 
     /**
@@ -226,83 +356,11 @@ class BuildFromSwagger {
     private function BuildProperties($properties, $objectId)
     {
         foreach ($properties as $keyProperty => $valueProperty) {
-            $property = new Properties();
-            $property->name = $keyProperty;
-            $property->description = property_exists($valueProperty, 'description') ? $valueProperty->description : '';
-            $property->object = $objectId;
-
-            // Check if there is a type definition, cases have been based on https://github.com/swagger-api/swagger-spec/blob/master/versions/2.0.md#dataTypeFormat
-            // There is also a possibility for an array type, which is a 1-* reference for another Object
-            // Another case is that of $ref as an 1-1 reference to another Object
-            if (property_exists($valueProperty, 'type')) {
-                switch ($valueProperty->type) {
-                    case 'integer':
-                        if (property_exists($valueProperty, 'format')) {
-                            switch ($valueProperty->format) {
-                                case 'int32':
-                                    $property->type = 'integer';
-                                    break;
-                                case 'int64':
-                                    $property->type = 'long';
-                                    break;
-                            }
-                        }
-                        break;
-                    case 'number':
-                        if (property_exists($valueProperty, 'format')) {
-                            switch ($valueProperty->format) {
-                                case 'float':
-                                    $property->type = 'float';
-                                    break;
-                                case 'double':
-                                    $property->type = 'double';
-                                    break;
-                            }
-                        }
-                        break;
-                    case 'string':
-                        $property->type = 'string';
-                        if (property_exists($valueProperty, 'format')) {
-                            switch ($valueProperty->format) {
-                                case 'byte':
-                                    $property->type = 'byte';
-                                    break;
-                                case 'date':
-                                    $property->type = 'date';
-                                    break;
-                                case 'date-time':
-                                    $property->type = 'dateTime';
-                                    break;
-                                case 'password':
-                                    $property->type = 'password';
-                                    break;
-                            }
-                            $property->type = 'byte';
-                        }
-                        break;
-                    case 'boolean':
-                        $property->type = 'boolean';
-                        break;
-                    case 'array':
-                        if (property_exists($valueProperty, 'items')) {
-                            if (property_exists($valueProperty->items, '$ref'){
-                                // Get the last item out of the array produced from the $ref string exploded at '/', with capitalized first letter
-                                $property->type = ucfirst(end(explode('/', $valueProperty->items->$ref)));
-                            }
-                            elif (property_exists($valueProperty->items, 'type'){
-                                
-                            }
-                        }
-                        break;
-                    default:
-                        $property->type = 'string';
-                }
-            }
-            if (property_exists($valueProperty, '$ref')) {
-                // Get the last item out of the array produced from the $ref string exploded at '/', with capitalized first letter
-                $property->type = ucfirst(end(explode('/', $valueProperty->$ref)));
+            if (!$this->BuildProperty($keyProperty, $valueProperty, $objectId)) {
+                return false;
             }
         }
+        return true;
     }
 
     /**

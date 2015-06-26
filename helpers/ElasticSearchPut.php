@@ -28,7 +28,7 @@ class ElasticSearchPut {
     private $query;
 
     /**
-     * @param mixed $api
+     * @param Apis $api
      */
     public function setApi($api)
     {

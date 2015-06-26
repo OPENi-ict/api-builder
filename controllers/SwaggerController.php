@@ -67,26 +67,33 @@ class SwaggerController extends Controller
             'query' => $query
         ]);
 
+        // Check if there is already another API with the same name, that has not be created by me
+        $alreadyTakenName = Apis::find();
+        $alreadyTakenName->joinWith(['createdBy']);
+        $alreadyTakenName->where(['name' => $swaggerAPI->name]);
+        $alreadyTakenName->where(['not', 'created_by' => $myId]);
+
         if ($swaggerAPI->load(Yii::$app->request->post()) && $swaggerAPI->save()) {
-            if (Apis::find()->where(['name' => $swaggerAPI->name, ['not', ['created_by' => $myId]]])->one() === null) {
+            if ($alreadyTakenName->one() === null) {
                 $buildFromSwagger = new BuildFromSwagger();
                 $buildFromSwagger->setSwaggerAPI($swaggerId);
                 if ($buildFromSwagger->BuildAPI()) {
-
+                    // Build all the Objects
+                    $buildFromSwagger->BuildObjects();
 
                     // Notify users who follow me!
                     $myId = \Yii::$app->user->id;
                     $change = new NotifUserHelper();
                     $followersNotified = $change->userChangedCreatedApi($myId);
 
-                    return $this->redirect(['view', 'id' => $model->id, 'followersNotified' => $followersNotified]);
+                    return $this->redirect(['apis/view', 'id' => $buildFromSwagger->getAPIId(), 'followersNotified' => $followersNotified]);
                 }
             }
         }
 
         // Check if there is already an API with same version by me. If there is, display a message.
         $message = Apis::find()->where(['name' => $swaggerAPI->name, 'created_by' => $myId])->one() === null ? '' : 'Overwrite already existing API?';
-        $message = Apis::find()->where(['name' => $swaggerAPI->name, ['not', ['created_by' => $myId]]])->one() === null ? $message : 'This API name is already taken. Another one should be provided!';
+        $message = $alreadyTakenName->one() === null ? $message : 'This API name is already taken. Another one should be provided!';
 
         return $this->render('createapi', [
             'model' => $swaggerAPI,
