@@ -3,7 +3,6 @@
 namespace app\controllers;
 
 use app\helpers\BuildFromSwagger;
-use app\helpers\FetchSwagger;
 use app\helpers\NotifUserHelper;
 use app\models\ApiFromSwagger;
 use app\models\Apis;
