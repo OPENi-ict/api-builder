@@ -47,10 +47,10 @@ class Apis extends \yii\db\ActiveRecord
         return [
             [['name'], 'required'],
             [['created_by', 'updated_by', 'votes_up', 'votes_down', 'created_at', 'updated_at', 'published'], 'integer'],
-			[['privacy', 'status'], 'string'],
+			[['privacy', 'status', 'description'], 'string'],
 			[['privacy'], 'default', 'value' => 'public'],
 			[['status'], 'default', 'value' => 'Under Development'],
-            [['name', 'description', 'version'], 'string', 'max' => 255],
+            [['name', 'version'], 'string', 'max' => 255],
 			[['version'], 'default', 'value' => '1.0'],
 			[['votes_up', 'votes_down', 'published'], 'default', 'value' => '0'],
 			[['name'], 'unique', 'targetClass' => '\app\models\Apis', 'message' => 'This API name has already been taken.']
