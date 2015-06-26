@@ -127,36 +127,48 @@ class BuildFromSwagger {
      */
     public function buildSwaggerObjects()
     {
-        if (property_exists($this->resource, 'paths')) {
-            foreach ($this->resource->paths as $pathKey => $pathValue) {
-                $swaggerObject = new ObjectFromSwagger;
-                $swaggerObject->api_from_swagger = $this->getSwaggerAPIId();
-                $swaggerObject->name = substr($pathKey, 1);
-                $swaggerObject->methods = '';
-
-                foreach ($pathValue as $operationKey => $operationValue) {
-                    // If there is a tag connected to this object, keep its description.
-                    if (property_exists($operationValue, 'tags') and property_exists($this->resource, 'tags')) {
-                        foreach ($this->resource->tags as $tag) {
-                            if (property_exists($tag, 'name') and property_exists($tag, 'description') and ($tag->name === $operationValue->tags[0])) {
-                                $swaggerObject->description = $tag->description;
-                            }
-                        }
-                    }
-                    // Keep track of the methods used. Only: get, post, put, delete. No: $ref, options, head, patch, parameters
-                    switch ($operationKey) {
-                        case 'get':
-                        case 'post':
-                        case 'put':
-                        case 'delete':
-                            $swaggerObject->methods .= $operationKey . ' ';
-                            break;
-                    }
-                }
-
-                $swaggerObject->save();
+        // Show all Objects brought from definition
+        if (property_exists($this->resource, 'definitions')) {
+            foreach ($this->resource->definitions as $keyObject => $valueObject) {
+                // Get each Object with its name and description
+                $object = new ObjectFromSwagger();
+                $object->api_from_swagger = $this->getSwaggerAPIId();
+                $object->name = property_exists($valueObject, 'title') ? $valueObject->title : $keyObject;
+                $object->description = property_exists($valueObject, 'description') ? $valueObject->description : '';
+                $object->methods = '';
+                $object->save();
             }
         }
+//        if (property_exists($this->resource, 'paths')) {
+//            foreach ($this->resource->paths as $pathKey => $pathValue) {
+//                $swaggerObject = new ObjectFromSwagger;
+//                $swaggerObject->api_from_swagger = $this->getSwaggerAPIId();
+//                $swaggerObject->name = substr($pathKey, 1);
+//                $swaggerObject->methods = '';
+//
+//                foreach ($pathValue as $operationKey => $operationValue) {
+//                    // If there is a tag connected to this object, keep its description.
+//                    if (property_exists($operationValue, 'tags') and property_exists($this->resource, 'tags')) {
+//                        foreach ($this->resource->tags as $tag) {
+//                            if (property_exists($tag, 'name') and property_exists($tag, 'description') and ($tag->name === $operationValue->tags[0])) {
+//                                $swaggerObject->description = $tag->description;
+//                            }
+//                        }
+//                    }
+//                    // Keep track of the methods used. Only: get, post, put, delete. No: $ref, options, head, patch, parameters
+//                    switch ($operationKey) {
+//                        case 'get':
+//                        case 'post':
+//                        case 'put':
+//                        case 'delete':
+//                            $swaggerObject->methods .= $operationKey . ' ';
+//                            break;
+//                    }
+//                }
+//
+//                $swaggerObject->save();
+//            }
+//        }
     }
 
     /**

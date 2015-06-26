@@ -26,7 +26,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'privacy')->dropDownList([ 'public' => 'Public', 'protected' => 'Protected', 'private' => 'Private', ]) ?>
 
-    <?= $form->field($model, 'swagger_url')->hiddenInput() ?>
+    <?= $form->field($model, 'swagger_url')->hiddenInput()->label(false) ?>
 
     <h2>Objects</h2>
 
@@ -44,11 +44,11 @@ use yii\widgets\ActiveForm;
                 'hAlign' => GridView::ALIGN_CENTER,
                 'vAlign' => GridView::ALIGN_MIDDLE
             ],
-            [
-                'attribute' => 'methods',
-                'hAlign' => GridView::ALIGN_CENTER,
-                'vAlign' => GridView::ALIGN_MIDDLE
-            ]
+//            [
+//                'attribute' => 'methods',
+//                'hAlign' => GridView::ALIGN_CENTER,
+//                'vAlign' => GridView::ALIGN_MIDDLE
+//            ]
         ],
     ]); ?>
 
