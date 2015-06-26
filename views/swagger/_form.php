@@ -49,7 +49,7 @@ use yii\widgets\ActiveForm;
     <?php // $form->field($model, 'swagger_version')->dropDownList([ '1.1' => '1.1', '1.2' => '1.2', '2.0' => '2.0']) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Create', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Read', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
