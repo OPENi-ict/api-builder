@@ -80,6 +80,12 @@ return [
 
 Or rename the dbSample.php with your actual data.
 
+Then, open a terminal and run 
+```
+yii migrate
+```
+to make all the tables in the database.
+
 Also check and edit the other files in the `config/` directory to customize your application.
 If your website is different than http://localhost/api-builder/ , you need to update the url property of the js file in /web/js/swagger/site.js .
 
