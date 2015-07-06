@@ -144,4 +144,10 @@ class Apis extends \yii\db\ActiveRecord
     {
         return $this->hasMany(ObjectCbs::className(), ['cbs' => 'id']);
     }
+
+    public function getCbsSelected()
+    {
+        return $this->hasMany(User::className(), ['id' => 'cbs'])
+            ->via('objectCbs');
+    }
 }

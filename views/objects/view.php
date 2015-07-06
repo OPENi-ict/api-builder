@@ -8,6 +8,7 @@ use kartik\grid\GridView;
 /* @var $searchModel app\models\PropertiesSearch */
 /* @var $dataProviderBasic yii\data\ActiveDataProvider */
 /* @var $dataProviderExceptBasic yii\data\ActiveDataProvider */
+/* @var $objectCbsDataProvider yii\data\ActiveDataProvider */
 /* @var $methodDropdownList array */
 /* @var $cbsDropdownList array */
 /* @var $propose integer */
@@ -18,9 +19,9 @@ $this->params['breadcrumbs'][] = ['label' => $model->api0->name, 'url' => ['apis
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<?php if ($propose == 1)
-	$this->registerJs(
-		'
+<?php if ($propose == 1) {
+    $this->registerJs(
+        '
 		var options =  {
 			content: "Your Proposal has been sent for approval to the Administrator", // text of the snackbar
 			style: "toast", // add a custom class to your snackbar
@@ -28,7 +29,8 @@ $this->params['breadcrumbs'][] = $this->title;
 		};
 
 		$.snackbar(options);'
-	);
+    );
+}
 ?>
 
 <div class="objects-view">
@@ -44,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			<?= Html::a($model->votes_down, ['votedown', 'id' => $model->id, 'redirect' => 'view?id=' . $model->id], ['class' => 'unlike glyphicon glyphicon-thumbs-down nounderline', 'data' => ['toggle' => 'tooltip', 'placement' => 'right'], 'title' => 'Vote me Down']) ?>
 		</small>
 
-		<?php if ($model->api0->name != 'core') : ?>
+		<?php if ($model->api0->name !== 'core') : ?>
 			<span class="pull-right">
 				<?php if ($model->proposed === 0): ?>
 					<?= Html::a('Propose', ['propose', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
@@ -115,7 +117,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		],
 	]); ?>
 
-	<?php if ($model->api0->name != 'core') : ?>
+	<?php if ($model->api0->name !== 'core') : ?>
 		<p>
 			<?= Html::a('Create Property', ['properties/create', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
 		</p>

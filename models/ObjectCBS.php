@@ -3,12 +3,16 @@
 namespace app\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "object_cbs".
  *
+ * @property integer $id
  * @property integer $object
  * @property integer $cbs
+ * @property integer $created_at
+ * @property integer $updated_at
  *
  * @property Apis $cbs0
  * @property Objects $object0
@@ -29,7 +33,19 @@ class ObjectCBS extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['object', 'cbs'], 'integer']
+            [['object', 'cbs', 'created_at', 'updated_at'], 'integer'],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className()
+            ]
         ];
     }
 
@@ -41,6 +57,9 @@ class ObjectCBS extends \yii\db\ActiveRecord
         return [
             'object' => 'Object',
             'cbs' => 'Cbs',
+            'id' => 'ID',
+            'created_at' => 'Created At',
+            'updated_at' => 'Updated At'
         ];
     }
 

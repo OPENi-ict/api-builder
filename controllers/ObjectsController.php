@@ -6,12 +6,14 @@ use app\helpers\ElasticSearchPut;
 use app\helpers\NotifAPIHelper;
 use app\models\Apis;
 use app\models\Cbs;
+use app\models\ObjectCBS;
 use app\models\Properties;
 use app\models\PropertiesSearch;
 use app\models\User;
 use Yii;
 use app\models\Objects;
 use app\models\ObjectsSearch;
+use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
@@ -120,7 +122,7 @@ class ObjectsController extends Controller
 		};
 
 		$cbsDropdownList = [];
-		$cbss = Cbs::find()->select('name')->where(['status' => 'approved'])->all();
+		$cbss = Apis::find()->select('name')->where(['cbs' => 1, 'status' => 'Approved'])->all();
 		foreach ($cbss as $cbs)
 		{
 			$cbsDropdownList= ArrayHelper::merge($cbsDropdownList, [
@@ -128,10 +130,21 @@ class ObjectsController extends Controller
 			]);
 		}
 
+        $objectCbs = $model->getObjectCbs();
+        $objectCbsDataProvider = new ActiveDataProvider([
+            'query' => $objectCbs,
+            'sort' => false,
+            'pagination' => false
+        ]);
+
 		if ($model->load(Yii::$app->request->post()))
 		{
 			if ($model->methods !== '') {
                 $model->methods = implode(',', $model->methods);
+            }
+            $objectCbss = ObjectCBS::findAll(['object' => $model->id]);
+            foreach ($objectCbss as $objectCbs) {
+
             }
 			if ($model->cbs !== '') {
                 $model->cbs = implode(',', $model->cbs);
@@ -149,6 +162,7 @@ class ObjectsController extends Controller
 			'dataProviderBasic' => $dataProviderBasic,
 			'methodDropdownList' => $methodDropdownList,
 			'cbsDropdownList' => $cbsDropdownList,
+            'objectCbsDataProvider' => $objectCbsDataProvider,
 			'propose' => $propose
 		]);
 	}
