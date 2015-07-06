@@ -2,14 +2,13 @@
 
 namespace app\controllers;
 
+use app\models\Apis;
+use app\models\ApisSearch;
 use Yii;
-use app\models\Cbs;
-use app\models\CbsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
-use yii\web\User;
 
 /**
  * CbsController implements the CRUD actions for Cbs model.
@@ -43,8 +42,9 @@ class CbsController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new CbsSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $searchModel = new ApisSearch();
+        $queryParams = array_merge(['ApisSearch' => ['cbs' => 1]], Yii::$app->request->getQueryParams());
+        $dataProvider = $searchModel->search($queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -71,7 +71,7 @@ class CbsController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Cbs();
+        $model = new Apis();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -91,7 +91,7 @@ class CbsController extends Controller
 	public function actionPropose($id)
 	{
 		$model = $this->findModel($id);
-		$new = new Cbs();
+		$new = new Apis();
 
 		if ($new->load(Yii::$app->request->post())) {
 			if (($new->version != $model->version) or ($new->url != $model->url))
@@ -146,12 +146,12 @@ class CbsController extends Controller
      * Finds the Cbs model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Cbs the loaded model
+     * @return Apis the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Cbs::findOne($id)) !== null) {
+        if (($model = Apis::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

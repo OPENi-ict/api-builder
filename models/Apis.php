@@ -136,7 +136,7 @@ class Apis extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Objects::className(), ['api' => 'id']);
     }
-    
+
     /**
      * @return \yii\db\ActiveQuery
      */

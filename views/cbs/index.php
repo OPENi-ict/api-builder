@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\CbsSearch */
+/* @var $searchModel app\models\ApisSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Cloud Based Services (CBS)';

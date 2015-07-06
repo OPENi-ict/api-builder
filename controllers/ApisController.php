@@ -66,7 +66,8 @@ class ApisController extends Controller
     public function actionIndex()
     {
         $searchModel = new ApisSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $queryParams = array_merge(['ApisSearch' => ['cbs' => 0]], Yii::$app->request->getQueryParams());
+        $dataProvider = $searchModel->search($queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,

@@ -4,7 +4,7 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Cbs */
+/* @var $model app\models\Apis */
 
 $this->title = 'Create Cbs';
 $this->params['breadcrumbs'][] = ['label' => 'Cbs', 'url' => ['index']];

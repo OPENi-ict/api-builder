@@ -67,6 +67,7 @@ class ApisSearch extends Apis
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
 			'published' => $this->published,
+            'cbs' => $this->cbs
 		]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
