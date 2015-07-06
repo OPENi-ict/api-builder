@@ -16,15 +16,4 @@ class m150626_125235_api_desc_text extends Migration
         // Change description of APIs table to STRINGy from TEXT
         $this->alterColumn('{{%apis}}', 'description', Schema::TYPE_STRING);
     }
-    
-    /*
-    // Use safeUp/safeDown to run migration code within a transaction
-    public function safeUp()
-    {
-    }
-    
-    public function safeDown()
-    {
-    }
-    */
 }

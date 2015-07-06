@@ -7,7 +7,7 @@ class m141106_132611_roles extends Migration
 {
     public function safeUp()
     {
-		$tableOptions="";
+        $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
 
 		if ($this->db->driverName === 'mysql') {
 			// http://stackoverflow.com/questions/766809/whats-the-difference-between-utf8-general-ci-and-utf8-unicode-ci

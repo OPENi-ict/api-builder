@@ -17,8 +17,8 @@ class ApisSearch extends Apis
     public function rules()
     {
         return [
-            [['id', 'created_by', 'updated_by', 'votes_up', 'votes_down', 'created_at', 'updated_at', 'published'], 'integer'],
-            [['name', 'description', 'version', 'privacy', 'status'], 'safe'],
+            [['id', 'created_by', 'updated_by', 'votes_up', 'votes_down', 'created_at', 'updated_at', 'published', 'cbs'], 'integer'],
+            [['name', 'description', 'version', 'privacy', 'status', 'url'], 'safe'],
         ];
     }
 
