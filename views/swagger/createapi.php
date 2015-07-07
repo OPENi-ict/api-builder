@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <h3 class="panel-title">Graph API</h3>
         </div>
         <div class="panel-body">
-            <p>Please have in mind that by reading a swagger file, not all methods are implemented as the API Builder is based on Graph APIs. So, actions as methods are as an example not recognized.</p>
+            <p>Please have in mind that by reading a swagger file, not all methods are implemented, as the API Builder is based on Graph APIs. So, actions like methods are for example not recognized.</p>
         </div>
     </div>
 
