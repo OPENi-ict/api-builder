@@ -1,6 +1,6 @@
 <?php
 
-use yii\helpers\Html;
+use kartik\helpers\Html;
 use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
@@ -16,8 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-		<?= Html::a('Create CBS', ['create'], ['class' => 'btn btn-success']) ?>
-		<?php // Html::a('Propose New Version', ['propose'], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(Html::icon('plus', ['data' => ['toggle' => 'tooltip', 'placement' => 'right'], 'title' => 'Create CBS']), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -82,7 +81,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			],
             //'created_by',
 
-			['class' => 'kartik\grid\ActionColumn', 'controller' => 'cbs', 'template' => '{view}'],
+//			['class' => 'kartik\grid\ActionColumn', 'controller' => 'cbs', 'template' => '{view}'],
 
 			[
 				'attribute' => '',

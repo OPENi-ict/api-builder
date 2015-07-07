@@ -1,6 +1,6 @@
 <?php
 
-use yii\helpers\Html;
+use kartik\helpers\Html;
 use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
@@ -14,10 +14,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <p>
-        <?= Html::a('Create Objects', ['create', 'id' => 1], ['class' => 'btn btn-success']) ?>
-    </p>
 
 	<?= GridView::widget([
 		'tableOptions' => ['class' => 'text-center'],

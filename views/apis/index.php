@@ -1,7 +1,6 @@
 <?php
 
-use yii\helpers\Html;
-//use yii\grid\GridView;
+use kartik\helpers\Html;
 use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
@@ -17,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Apis', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Html::icon('plus', ['data' => ['toggle' => 'tooltip', 'placement' => 'right'], 'title' => 'Create Apis']), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
