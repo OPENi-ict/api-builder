@@ -16,7 +16,9 @@ use yii\widgets\ActiveForm;
 
 	<?= $form->field($model, 'description')->textInput(['maxlength' => 255, 'placeholder' => 'The best API in the world!']) ?>
 
-	<?= $form->field($model, 'version')->textInput(['maxlength' => 255, 'placeholder' => '1.0']) ?>
+    <?= $form->field($model, 'version')->textInput(['maxlength' => 255, 'placeholder' => '1.0']) ?>
+
+    <?= $form->field($model, 'cbs')->hiddenInput() ?>
 
 	<?php // $form->field($model, 'created_by')->textInput() ?>
 

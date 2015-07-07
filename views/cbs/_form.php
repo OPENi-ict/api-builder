@@ -20,6 +20,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'url')->textInput(['maxlength' => 255, 'placeholder' => 'http://dev.cbs.org']) ?>
 
+    <?= $form->field($model, 'cbs')->hiddenInput() ?>
+
     <?php // $form->field($model, 'status')->dropDownList([ 'approved' => 'Approved', 'pending' => 'Pending', ], ['prompt' => '']) ?>
 
     <?php // $form->field($model, 'created_by')->textInput() ?>

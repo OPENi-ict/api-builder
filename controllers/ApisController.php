@@ -179,6 +179,7 @@ class ApisController extends Controller
     {
         $model = new Apis();
 
+        $model->cbs = 0;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
 			$myId = \Yii::$app->user->id;

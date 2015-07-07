@@ -72,7 +72,7 @@ class CbsController extends Controller
     public function actionCreate()
     {
         $model = new Apis();
-
+        $model->cbs = 1;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
