@@ -27,16 +27,18 @@ class SwaggerController extends Controller
      * Reads a Swagger Json and creates a new Apis model.
      * If reading is successful, the browser will be redirected to the 'createapi' page.
      *
+     * @param boolean $cbs
+     *
      * @return mixed
      */
-    public function actionRead()
+    public function actionRead($cbs = false)
     {
         $swaggerAPI = new ApiFromSwagger;
         if ($swaggerAPI->load(Yii::$app->request->post())) {
             $buildFromSwagger = new BuildFromSwagger();
             $buildFromSwagger->setUrl($swaggerAPI->swagger_url);
             $buildFromSwagger->setResource();
-            $buildFromSwagger->buildSwaggerAPI();
+            $buildFromSwagger->buildSwaggerAPI($cbs);
             $buildFromSwagger->buildSwaggerObjects();
 
             return $this->redirect(['createapi', 'swaggerId' => $buildFromSwagger->getSwaggerAPIId()]);

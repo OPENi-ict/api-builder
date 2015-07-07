@@ -91,8 +91,9 @@ class BuildFromSwagger {
 
     /**
      * Builds the ApiFromSwagger Model
+     * @param boolean $cbs
      */
-    public function buildSwaggerAPI()
+    public function buildSwaggerAPI($cbs)
     {
         $this->swaggerAPI = new ApiFromSwagger;
 
@@ -109,6 +110,15 @@ class BuildFromSwagger {
         }
 
         $this->swaggerAPI->swagger_url = $this->url;
+
+        if (property_exists($this->resource, 'host')) {
+            $this->swaggerAPI->host_url = $this->resource->host;
+            if (property_exists($this->resource, 'basePath')) {
+                $this->swaggerAPI->host_url .= $this->resource->basePath;
+            }
+        }
+
+        $this->swaggerAPI->cbs = $cbs;
 
         $this->swaggerAPI->save();
     }
@@ -196,6 +206,9 @@ class BuildFromSwagger {
         $this->api->description = $this->swaggerAPI->description;
         $this->api->version = $this->swaggerAPI->version;
         $this->api->privacy = $this->swaggerAPI->privacy;
+        $this->api->cbs = $this->swaggerAPI->cbs;
+        // If there is a host url read from swagger, use it, otherwise use the swagger url
+        $this->api->url = $this->swaggerAPI->host_url !== null ? $this->swaggerAPI->host_url : $this->swaggerAPI->swagger_url;
 
         return $this->api->save();
     }

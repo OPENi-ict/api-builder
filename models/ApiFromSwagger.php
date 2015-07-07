@@ -15,8 +15,10 @@ use yii\behaviors\TimestampBehavior;
  * @property string $version
  * @property string $privacy
  * @property string $swagger_url
+ * @property string $host_url
  * @property integer $created_by
  * @property integer $created_at
+ * @property boolean $cbs
  *
  * @property User $createdBy
  * @property ObjectFromSwagger[] $objectFromSwaggers
@@ -37,12 +39,13 @@ class ApiFromSwagger extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'version', 'privacy', 'swagger_url'], 'string', 'max' => 255],
+            [['name', 'version', 'privacy', 'swagger_url', 'host_url'], 'string', 'max' => 255],
             [['created_by', 'created_at'], 'integer'],
             [['description'], 'string'],
             [['privacy'], 'default', 'value' => 'public'],
             [['swagger_url'], 'required'],
-            ['swagger_url', 'filter', 'filter' => 'trim']
+            ['swagger_url', 'filter', 'filter' => 'trim'],
+            ['cbs', 'boolean']
         ];
     }
 

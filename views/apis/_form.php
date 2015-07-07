@@ -18,7 +18,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'version')->textInput(['maxlength' => 255, 'placeholder' => '1.0']) ?>
 
-    <?= $form->field($model, 'cbs')->hiddenInput() ?>
+    <?= $form->field($model, 'cbs')->hiddenInput()->label(false) ?>
 
 	<?php // $form->field($model, 'created_by')->textInput() ?>
 

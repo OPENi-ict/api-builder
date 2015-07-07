@@ -17,6 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a(Html::icon('plus', ['data' => ['toggle' => 'tooltip', 'placement' => 'right'], 'title' => 'Create CBS']), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Read From Swagger', ['swagger/read', 'cbs' => true], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
