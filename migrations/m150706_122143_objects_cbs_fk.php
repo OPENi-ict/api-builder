@@ -5,8 +5,12 @@ use yii\db\Migration;
 
 class m150706_122143_objects_cbs_fk extends Migration
 {
-    public function up()
+    public function safeUp()
     {
+        $this->addColumn('{{%object_cbs}}', 'id', Schema::TYPE_PK);
+        $this->addColumn('{{%object_cbs}}', 'created_at', Schema::TYPE_INTEGER . ' NOT NULL');
+        $this->addColumn('{{%object_cbs}}', 'updated_at', Schema::TYPE_INTEGER . ' NOT NULL');
+
         $query = \app\models\Objects::find();
         $query->where(['not', ['cbs' => null]]);
         $dataProvider = new \yii\data\ActiveDataProvider([
@@ -21,7 +25,7 @@ class m150706_122143_objects_cbs_fk extends Migration
                 $cbs = \app\models\Apis::findOne(['name' => $cbsName]);
 
                 if ($cbs) {
-                    $objectsCBS = new \app\models\ObjectsCBS();
+                    $objectsCBS = new \app\models\ObjectCBS();
                     $objectsCBS->object = $objects->id;
                     $objectsCBS->cbs = $cbs->id;
                     $objectsCBS->save();
@@ -33,8 +37,12 @@ class m150706_122143_objects_cbs_fk extends Migration
         $this->dropColumn('{{%objects}}', 'cbs');
     }
 
-    public function down()
+    public function safeDown()
     {
+        $this->dropColumn('{{%object_cbs}}', 'id');
+        $this->dropColumn('{{%object_cbs}}', 'created_at');
+        $this->dropColumn('{{%object_cbs}}', 'updated_at');
+
         // ATTENTION
         // Not easy to structure the reverse function and won't need it most likely. If there is a need, I will come back!
 

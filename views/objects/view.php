@@ -8,7 +8,6 @@ use kartik\grid\GridView;
 /* @var $searchModel app\models\PropertiesSearch */
 /* @var $dataProviderBasic yii\data\ActiveDataProvider */
 /* @var $dataProviderExceptBasic yii\data\ActiveDataProvider */
-/* @var $objectCbsDataProvider yii\data\ActiveDataProvider */
 /* @var $methodDropdownList array */
 /* @var $cbsDropdownList array */
 /* @var $propose integer */

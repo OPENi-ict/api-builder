@@ -19,7 +19,7 @@ use yii\bootstrap\ActiveForm;
 		$methodDropdownList
 	) ?>
 
-	<?= $form->field($model, 'cbs')->label('Cloud Based Services', ['class' => 'h3'])->checkboxList(
+	<?= $form->field($model, 'selectedCbs')->label('Cloud Based Services', ['class' => 'h3'])->checkboxList(
 		$cbsDropdownList
 	) ?>
 

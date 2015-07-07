@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "objects".
@@ -36,6 +37,8 @@ use yii\behaviors\TimestampBehavior;
  */
 class Objects extends \yii\db\ActiveRecord
 {
+    public $selectedCbs = [];
+
     /**
      * @inheritdoc
      */
@@ -56,7 +59,12 @@ class Objects extends \yii\db\ActiveRecord
             [['name', 'description', 'schema_org'], 'string', 'max' => 255],
 			[['privacy'], 'default', 'value' => 'public'],
 			[['votes_up', 'votes_down'], 'default', 'value' => '0'],
-			[['name'], 'unique', 'targetAttribute' => ['api', 'name'], 'message' => 'This Object name has already been taken.']
+			[['name'], 'unique', 'targetAttribute' => ['api', 'name'], 'message' => 'This Object name has already been taken.'],
+            ['selectedCbs',function ($attribute, $params) {
+                if(!is_array($this->selectedCbs)){
+                    $this->addError('selectedCbs','Selected Cbs is not array!');
+                }
+            }]
         ];
     }
 
@@ -162,5 +170,14 @@ class Objects extends \yii\db\ActiveRecord
     public function getObjectCbs()
     {
         return $this->hasMany(ObjectCbs::className(), ['object' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCbs()
+    {
+        return $this->hasMany(Apis::className(), ['id' => 'cbs'])
+            ->via('objectCbs');
     }
 }

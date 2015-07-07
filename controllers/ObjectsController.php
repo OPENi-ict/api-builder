@@ -121,39 +121,32 @@ class ObjectsController extends Controller
 			]);
 		};
 
-		$cbsDropdownList = [];
-		$cbss = Apis::find()->select('name')->where(['cbs' => 1, 'status' => 'Approved'])->all();
-		foreach ($cbss as $cbs)
-		{
-			$cbsDropdownList= ArrayHelper::merge($cbsDropdownList, [
-				$cbs->name => $cbs->name
-			]);
-		}
-
-        $objectCbs = $model->getObjectCbs();
-        $objectCbsDataProvider = new ActiveDataProvider([
-            'query' => $objectCbs,
-            'sort' => false,
-            'pagination' => false
-        ]);
+        // Retrieve all CBS from APIs
+        $cbsDropdownList = ArrayHelper::map( Apis::find()->select(['id', 'name'])->where(['cbs' => 1, 'status' => 'Approved'])->asArray()->all(), 'id', 'name');
 
 		if ($model->load(Yii::$app->request->post()))
 		{
 			if ($model->methods !== '') {
                 $model->methods = implode(',', $model->methods);
             }
-            $objectCbss = ObjectCBS::findAll(['object' => $model->id]);
-            foreach ($objectCbss as $objectCbs) {
 
-            }
-			if ($model->cbs !== '') {
-                $model->cbs = implode(',', $model->cbs);
+            // Delete all instances of this object from the junction table and then save as new all the selected ones.
+            ObjectCBS::deleteAll(['object' => $model->id]);
+            foreach($model->selectedCbs as $objCbsId) {
+                $objectCbs = new ObjectCBS();
+                $objectCbs->cbs = $objCbsId;
+                $objectCbs->object = $model->id;
+                $objectCbs->save();
             }
 			$model->save();
 		}
 
 		$model->methods = explode(',', $model->methods);
-		$model->cbs = explode(',', $model->cbs);
+
+        $model->selectedCbs = \yii\helpers\ArrayHelper::getColumn(
+            $model->getCbs()->asArray()->all(),
+            'id'
+        );
 
 		return $this->render('view', [
 			'model' => $model,
@@ -162,7 +155,6 @@ class ObjectsController extends Controller
 			'dataProviderBasic' => $dataProviderBasic,
 			'methodDropdownList' => $methodDropdownList,
 			'cbsDropdownList' => $cbsDropdownList,
-            'objectCbsDataProvider' => $objectCbsDataProvider,
 			'propose' => $propose
 		]);
 	}
