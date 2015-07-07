@@ -36,6 +36,15 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     <?php endif; ?>
 
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">Graph API</h3>
+        </div>
+        <div class="panel-body">
+            <p>Please have in mind that by reading a swagger file, not all methods are implemented as the API Builder is based on Graph APIs. So, actions as methods are as an example not recognized.</p>
+        </div>
+    </div>
+
     <?= $this->render('_completeForm', [
         'model' => $model,
         'dataProvider' => $dataProvider,
