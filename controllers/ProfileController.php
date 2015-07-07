@@ -525,13 +525,11 @@ class ProfileController extends Controller
 	public function getAdminNotifNum()
 	{
 		// Count and add the APIs that are under review
-		$apis = Apis::find();
-		$apis->where(['status' => "Under Review"]);
+		$apis = Apis::find()->where(['cbs' => 0, 'status' => 'Under Review']);
 		$notifNum = $apis->count();
 
 		// Count and add the CBS that are still pending review
-		$cbs = Cbs::find();
-		$cbs->where(['status' => "pending"]);
+        $cbs = Apis::find()->where(['cbs' => 1, 'status' => 'pending']);
 		$notifNum += $cbs->count();
 
 		// Add the usual following notification count
@@ -569,15 +567,13 @@ class ProfileController extends Controller
 		$fUUModel = $userNotifications->getAllUserChangesForWhatIFollow($myId);
 
 		// Find the APIs that are under review
-		$apis = Apis::find();
-		$apis->where(['status' => "Under Review"]);
+        $apis = Apis::find()->where(['cbs' => 0, 'status' => 'Under Review']);
 		$proposedAPIsModel = new ActiveDataProvider([
 			'query' => $apis,
 		]);
 
 		// Find the CBS that are still pending review
-		$cbs = Cbs::find();
-		$cbs->where(['status' => "pending"]);
+        $cbs = Apis::find()->where(['cbs' => 1, 'status' => 'Under Review']);
 		$proposedCBSModel = new ActiveDataProvider([
 			'query' => $cbs,
 		]);
@@ -620,9 +616,9 @@ class ProfileController extends Controller
 	public function actionAcceptapi($id)
 	{
 		$api = Apis::findOne($id);
-		$api->status = "Approved";
+		$api->status = 'Approved';
 		$api->save();
-		$this->redirect("adminnotifications");
+		$this->redirect('adminnotifications');
 	}
 
 	/**
@@ -630,9 +626,9 @@ class ProfileController extends Controller
 	 */
 	public function actionAcceptcbs($id)
 	{
-		$cbs = Cbs::findOne($id);
-		$cbs->status = "approved";
+		$cbs = Apis::findOne($id);
+		$cbs->status = 'Approved';
 		$cbs->save();
-		$this->redirect("adminnotifications");
+		$this->redirect('adminnotifications');
 	}
 }

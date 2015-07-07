@@ -73,6 +73,7 @@ class CbsController extends Controller
     {
         $model = new Apis();
         $model->cbs = 1;
+        $model->status = 'Under Review';
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
