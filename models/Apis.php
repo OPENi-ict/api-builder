@@ -56,7 +56,8 @@ class Apis extends \yii\db\ActiveRecord
             [['name', 'version', 'url'], 'string', 'max' => 255],
 			[['version'], 'default', 'value' => '1.0'],
 			[['votes_up', 'votes_down', 'published'], 'default', 'value' => '0'],
-			[['name'], 'unique', 'targetClass' => '\app\models\Apis', 'message' => 'This API name has already been taken.']
+            [['name', 'version'], 'unique', 'targetAttribute' => ['name', 'version'], 'message' => 'This API name in this version has already been taken.']
+//			[['name'], 'unique', 'targetClass' => '\app\models\Apis', 'message' => 'This API name has already been taken.']
         ];
     }
 
