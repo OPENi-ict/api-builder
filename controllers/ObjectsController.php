@@ -305,8 +305,20 @@ class ObjectsController extends Controller
 			$model->description = $parentModel->description;
 			$model->privacy = $parentModel->privacy;
 			$model->methods = $parentModel->methods;
-			$model->cbs = $parentModel->cbs;
+
             if ($model->save()) {
+
+                // Link all CBS that the parent model had
+                $cbss = ObjectCBS::find()->where(['object' => $model->inherited]);
+                if ($cbss) {
+                    foreach ($cbss as $cbs) {
+                        $objectCbs = new ObjectCBS();
+                        $objectCbs->object = $model->id;
+                        $objectCbs->cbs = $cbs->cbs;
+                        $objectCbs->save();
+                    }
+                }
+
                 $properties = Properties::findAll(['object' => $parentModel->id]);
                 foreach ($properties as $property)
                 {
