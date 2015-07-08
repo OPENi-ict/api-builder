@@ -129,16 +129,18 @@ class ObjectsController extends Controller
 			if ($model->methods !== '') {
                 $model->methods = implode(',', $model->methods);
             }
+            $model->save();
 
             // Delete all instances of this object from the junction table and then save as new all the selected ones.
             ObjectCBS::deleteAll(['object' => $model->id]);
-            foreach($model->selectedCbs as $objCbsId) {
-                $objectCbs = new ObjectCBS();
-                $objectCbs->cbs = $objCbsId;
-                $objectCbs->object = $model->id;
-                $objectCbs->save();
+            if ($model->selectedCbs) {
+                foreach ($model->selectedCbs as $objCbsId) {
+                    $objectCbs = new ObjectCBS();
+                    $objectCbs->cbs = $objCbsId;
+                    $objectCbs->object = $model->id;
+                    $objectCbs->save();
+                }
             }
-			$model->save();
 		}
 
 		$model->methods = explode(',', $model->methods);
