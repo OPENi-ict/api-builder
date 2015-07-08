@@ -174,6 +174,18 @@ class NotifUserHelper
 	 */
 	public function clearAllUserChangesIFollow($id)
 	{
+        $change = [
+            'and',
+            'follower' => $id,
+            ['or',
+                    'changed_photo' => 1,
+                    'changed_linkedin' => 1,
+                    'changed_github' => 1,
+                    ['not', ['created_api' => null]],
+                    ['not', ['changed_upvotes_apis' => null]],
+                    ['not', ['changed_downvotes_apis' => null]]
+            ]
+        ];
 		FollowUserUser::updateAll([
 			'changed_photo' => 0,
 			'changed_linkedin' => 0,
@@ -181,16 +193,6 @@ class NotifUserHelper
 			'created_api' => null,
 			'changed_upvotes_apis' => null,
 			'changed_downvotes_apis' => null
-		],[
-			'follower' => $id,
-			['or', [
-				'changed_photo' => 1,
-				'changed_linkedin' => 1,
-				'changed_github' => 1,
-				['not', 'created_api', null],
-				['not', 'changed_upvotes_apis', null],
-				['not', 'changed_downvotes_apis',null],
-			]]
-		]);
+		], $change);
 	}
 }
