@@ -24,7 +24,9 @@ use yii\behaviors\TimestampBehavior;
  * @property string $status
  * @property integer $cbs
  * @property string $url
+ * @property integer $category
  *
+ * @property Categories $category0
  * @property User $createdBy
  * @property User $updatedBy
  * @property Comments[] $comments
@@ -49,13 +51,14 @@ class Apis extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
-            [['created_by', 'updated_by', 'votes_up', 'votes_down', 'created_at', 'updated_at', 'published', 'cbs'], 'integer'],
+            [['created_by', 'updated_by', 'votes_up', 'votes_down', 'created_at', 'updated_at', 'published', 'cbs', 'category'], 'integer'],
 			[['privacy', 'status', 'description'], 'string'],
 			[['privacy'], 'default', 'value' => 'public'],
 			[['status'], 'default', 'value' => 'Under Development'],
             [['name', 'version', 'url'], 'string', 'max' => 255],
 			[['version'], 'default', 'value' => '1.0'],
-			[['votes_up', 'votes_down', 'published'], 'default', 'value' => '0'],
+            [['votes_up', 'votes_down', 'published'], 'default', 'value' => '0'],
+            [['category'], 'default', 'value' => '1'],
             [['name', 'version'], 'unique', 'targetAttribute' => ['name', 'version'], 'message' => 'This API name in this version has already been taken.']
 //			[['name'], 'unique', 'targetClass' => '\app\models\Apis', 'message' => 'This API name has already been taken.']
         ];
@@ -95,6 +98,7 @@ class Apis extends \yii\db\ActiveRecord
 			'status' => 'Status',
             'cbs' => 'Cbs',
             'url' => 'Url',
+            'category' => 'Category',
         ];
     }
 
@@ -146,9 +150,20 @@ class Apis extends \yii\db\ActiveRecord
         return $this->hasMany(ObjectCbs::className(), ['cbs' => 'id']);
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getCbsSelected()
     {
         return $this->hasMany(User::className(), ['id' => 'cbs'])
             ->via('objectCbs');
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCategory0()
+    {
+        return $this->hasOne(Categories::className(), ['id' => 'category']);
     }
 }

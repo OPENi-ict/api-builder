@@ -9,6 +9,7 @@ use app\helpers\ElasticSearchQuery;
 use app\helpers\FileManipulation;
 use app\helpers\NotifUserHelper;
 use app\helpers\NotifAPIHelper;
+use app\models\Categories;
 use app\models\Comments;
 use app\models\CommentsSearch;
 use app\models\FollowUserApi;
@@ -20,6 +21,7 @@ use app\models\Apis;
 use app\models\ApisSearch;
 use app\models\ObjectsSearch;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -38,6 +40,16 @@ class ApisController extends Controller
 			'access' => [
 				'class' => AccessControl::className(),
 				'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['adminview'],
+                        'roles' => ['admin'],
+                    ],
+                    [
+                        'allow' => false,
+                        'actions' => ['adminview'],
+                        'roles' => ['@'],
+                    ],
 					[
 						'allow' => true,
 						'roles' => ['@']
@@ -72,20 +84,71 @@ class ApisController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'category' => null
         ]);
     }
 
-	/**
-	 * Displays a single Apis model.
-	 * @param integer $id
-	 * @return mixed
-	 */
-	public function actionAdminview($id)
-	{
-		return $this->render('adminView', [
-			'model' => $this->findModel($id),
-		]);
-	}
+    /**
+     * Lists all Apis models that fit in a Category.
+     * @param integer $categoryId
+     * @return mixed
+     */
+    public function actionIndexbycategory($categoryId)
+    {
+        $searchModel = new ApisSearch();
+        $queryParams = array_merge(['ApisSearch' => ['cbs' => 0, 'category' => $categoryId]], Yii::$app->request->getQueryParams());
+        $dataProvider = $searchModel->search($queryParams);
+
+        $category = Categories::findOne($categoryId);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'category' => $category
+        ]);
+    }
+
+    /**
+     * Show Categories of APIs
+     * @return mixed
+     */
+    public function actionCategories()
+    {
+        return $this->render('categories');
+    }
+
+    /**
+     * Displays a single Apis model.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionAdminview($id)
+    {
+        return $this->render('adminView', [
+            'model' => $this->findModel($id),
+        ]);
+    }
+
+    /**
+     * Choose a Category for an API.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionChoosecategory($id)
+    {
+        $model = $this->findModel($id);
+        $categories = Categories::find()->asArray()->all();
+        $categoriesList = ArrayHelper::map($categories, 'id', 'name');
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect('index');
+        }
+
+        return $this->render('chooseCategory', [
+            'model' =>$model ,
+            'categoriesList' => $categoriesList
+        ]);
+    }
 
     /**
      * Displays a grid containing all Objects of this API.
@@ -125,11 +188,11 @@ class ApisController extends Controller
 		]);
 
 		$doIFollow = false;
-		if ($followUserAPI != null)
+		if ($followUserAPI)
 		{
 			$doIFollow = true;
 
-			$followUserAPI->last_seen = date("Y-m-d H:i:s");
+			$followUserAPI->last_seen = date('Y-m-d H:i:s');
 			$followUserAPI->changed_name = false;
 			$followUserAPI->changed_descr = false;
 			$followUserAPI->changed_version = false;
@@ -221,14 +284,18 @@ class ApisController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 			$change = new NotifAPIHelper();
 			$followersNotified = null;
-			if ($model->isAttributeChanged('name'))
-				$followersNotified = $change->apiChangedName($id, $model->getOldAttribute('name'));
-			if ($model->isAttributeChanged('description'))
-				$followersNotified = $change->apiChangedDescription($id);
-			if ($model->isAttributeChanged('version'))
-				$followersNotified = $change->apiChangedVersion($id);
-			if ($model->isAttributeChanged('privacy'))
-				$followersNotified = $change->apiChangedPrivacy($id);
+			if ($model->isAttributeChanged('name')) {
+                $followersNotified = $change->apiChangedName($id, $model->getOldAttribute('name'));
+            }
+			if ($model->isAttributeChanged('description')) {
+                $followersNotified = $change->apiChangedDescription($id);
+            }
+			if ($model->isAttributeChanged('version')) {
+                $followersNotified = $change->apiChangedVersion($id);
+            }
+			if ($model->isAttributeChanged('privacy')) {
+                $followersNotified = $change->apiChangedPrivacy($id);
+            }
 
             // Elastic Search Update
             $esu = new ElasticSearchPut;
@@ -298,7 +365,7 @@ class ApisController extends Controller
 			$object->methods = explode(',', $object->methods);
 
 			// If this Resource has Methods
-			if ($object->methods != [""]) {
+			if ($object->methods !== ['']) {
 				$swaggerJSON->BuildResource($api->version, '1.2', $basePath, $object->name);
 
 				foreach ($object->methods as $methodName) {
@@ -386,10 +453,12 @@ class ApisController extends Controller
 
 					$swaggerJSON->BuildOperation($upper_method, $summary, '', $returnType, $nickname);
 
-					if ($numOfPathParts > 1)
-						$swaggerJSON->BuildParameter('id', 'Primary key of resource', true, 'integer', 'body');
-					if ($upper_method == 'POST' or $upper_method == 'PUT')
-						$swaggerJSON->BuildParameter($pathParts[0], 'Model of resource', true, $pathParts[0] . '_post_put', 'query');
+					if ($numOfPathParts > 1) {
+                        $swaggerJSON->BuildParameter('id', 'Primary key of resource', true, 'integer', 'body');
+                    }
+					if ($upper_method === 'POST' or $upper_method === 'PUT') {
+                        $swaggerJSON->BuildParameter($pathParts[0], 'Model of resource', true, $pathParts[0] . '_post_put', 'query');
+                    }
 
 					$swaggerJSON->CloseOperation();
 
@@ -447,7 +516,7 @@ class ApisController extends Controller
 				// $pathParts[0] . '_post_put'
 				$swaggerJSON->BuildModel($object->name . '_post_put');
 				foreach ($properties as $property) {
-					if ($property->name != 'id') {
+					if ($property->name !== 'id') {
 						if ($property->type === 'byte') {
 							$swaggerJSON->BuildProperty($property->name, $property->description, 'string', '', 'byte');
 						}
@@ -613,7 +682,7 @@ class ApisController extends Controller
 	public function actionPropose($id)
 	{
 		$model = $this->findModel($id);
-		$model->status = "Under Review";
+		$model->status = 'Under Review';
 		$model->save();
 
 		$change = new NotifAPIHelper();
@@ -638,17 +707,18 @@ class ApisController extends Controller
 		$votes_up = explode(',', $curUser->votes_up_apis);
 		$votes_down = explode(',', $curUser->votes_down_apis);
 
-		if (in_array($id, $votes_up))
-			return $this->redirect([$redirect]);
+		if (in_array($id, $votes_up, null)) {
+            return $this->redirect([$redirect]);
+        }
 
-		if (($key = array_search($id, $votes_down)) !== false) {
+		if (($key = array_search($id, $votes_down, null)) !== false) {
 			unset($votes_down[$key]);
 			$model->votes_down = $model->votes_down - 1;
-			$curUser->votes_down_apis = implode(",", $votes_down);
+			$curUser->votes_down_apis = implode(',', $votes_down);
 		}
 
 		$votes_up[] = $id;
-		$curUser->votes_up_apis = implode(",", $votes_up);
+		$curUser->votes_up_apis = implode(',', $votes_up);
 		$curUser->save();
 
 		$model->votes_up = $model->votes_up + 1;
@@ -686,17 +756,18 @@ class ApisController extends Controller
 		$votes_up = explode(',', $curUser->votes_up_apis);
 		$votes_down = explode(',', $curUser->votes_down_apis);
 
-		if (in_array($id, $votes_down))
-			return $this->redirect([$redirect]);
+		if (in_array($id, $votes_down, null)) {
+            return $this->redirect([$redirect]);
+        }
 
-		if (($key = array_search($id, $votes_up)) !== false) {
+		if (($key = array_search($id, $votes_up, null)) !== false) {
 			unset($votes_up[$key]);
 			$model->votes_up = $model->votes_up - 1;
-			$curUser->votes_up_apis = implode(",", $votes_up);
+			$curUser->votes_up_apis = implode(',', $votes_up);
 		}
 
 		$votes_down[] = $id;
-		$curUser->votes_down_apis = implode(",", $votes_down);
+		$curUser->votes_down_apis = implode(',', $votes_down);
 		$curUser->save();
 
 		$model->votes_down = $model->votes_down + 1;
@@ -734,21 +805,21 @@ class ApisController extends Controller
 		return $this->redirect(['view', 'id' => $id, 'followed' => true]);
 	}
 
-	/**
-	 * Unfollow an API.
-	 * If deletion is successful, the browser will be redirected to the 'view' page.
-	 * @param integer $id
-	 * @return mixed
-	 */
-	public function actionUnfollow($id)
-	{
-		$myId = \Yii::$app->user->id;
-		FollowUserApi::deleteAll([
-			'follower' => $myId,
-			'api' => $id
-		]);
-		return $this->redirect(['view', 'id' => $id, 'followed' => false]);
-	}
+    /**
+     * Unfollow an API.
+     * If deletion is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionUnfollow($id)
+    {
+        $myId = \Yii::$app->user->id;
+        FollowUserApi::deleteAll([
+            'follower' => $myId,
+            'api' => $id
+        ]);
+        return $this->redirect(['view', 'id' => $id, 'followed' => false]);
+    }
 
     /**
      * Finds the Apis model based on its primary key value.

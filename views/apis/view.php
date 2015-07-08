@@ -191,6 +191,12 @@ if (count($recommend['hits']['hits']) > 0)
                             'method' => 'post'
                         ]
                     ]) ?>
+
+                    <!-- If admin then show choose Category page -->
+                    <?php if (\Yii::$app->user->id === \app\models\User::findByUsername('admin')->id): ?>
+                        <?= Html::a('Choose Category', ['choosecategory', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
+                    <?php endif; ?>
+
                 <?php endif; ?>
             </small>
         </h1>

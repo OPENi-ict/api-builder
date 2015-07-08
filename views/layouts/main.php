@@ -35,8 +35,9 @@ AppAsset::register($this);
                 ],
             ]);
             $menuItems = [
-                ['label' => 'Home', 'url' => ['/site/index']],
-				['label' => 'APIs', 'url' => ['/apis/']],
+                ['label' => 'Home', 'url' => ['/']],
+                ['label' => 'Categories', 'url' => ['/categories/']],
+                ['label' => 'APIs', 'url' => ['/apis/']],
                 ['label' => 'Objects', 'url' => ['/objects/']],
                 ['label' => 'CBS', 'url' => ['/cbs/']],
 				['label' => 'Swagger', 'url' => ['/swagger']],

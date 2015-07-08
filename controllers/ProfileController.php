@@ -5,8 +5,6 @@ namespace app\controllers;
 use app\helpers\NotifAPIHelper;
 use app\helpers\NotifUserHelper;
 use app\models\Apis;
-use app\models\ApisSearch;
-use app\models\Cbs;
 use app\models\Comments;
 use app\models\FollowUserApi;
 use app\models\FollowUserUser;
