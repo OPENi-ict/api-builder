@@ -17,7 +17,7 @@ class m150708_101303_categories_apis extends Migration
 			'id' => Schema::TYPE_PK,
 			'name' => Schema::TYPE_STRING . ' NOT NULL',
 			'description' => Schema::TYPE_TEXT,
-            'photo_name', Schema::TYPE_TEXT,
+            'photo_name' => Schema::TYPE_TEXT,
 			'created_by' => Schema::TYPE_INTEGER,
 			'created_at' => Schema::TYPE_INTEGER . ' NOT NULL',
 		], $tableOptions);
