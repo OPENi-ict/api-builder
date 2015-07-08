@@ -309,7 +309,7 @@ class ObjectsController extends Controller
             if ($model->save()) {
 
                 // Link all CBS that the parent model had
-                $cbss = ObjectCBS::find()->where(['object' => $model->inherited]);
+                $cbss = ObjectCBS::find()->where(['object' => $model->inherited])->all();
                 if ($cbss) {
                     foreach ($cbss as $cbs) {
                         $objectCbs = new ObjectCBS();
