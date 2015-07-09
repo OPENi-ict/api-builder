@@ -59,7 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				'attribute' => 'status',
 				'value'=>function ($model, $key, $index, $widget) {
 					return
-						$model->status;
+						$model->status === 'Approved' ? '<span class="text-success">approved</span>' : '<span class="text-warning">'.$model->status.'</span>';
 				},
 				'format'=>'raw',
 				'hAlign' => GridView::ALIGN_CENTER,
