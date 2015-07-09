@@ -207,6 +207,7 @@ class BuildFromSwagger {
         $this->api->version = $this->swaggerAPI->version;
         $this->api->privacy = $this->swaggerAPI->privacy;
         $this->api->cbs = $this->swaggerAPI->cbs;
+        $this->api->status = 'Under Development';
         // If there is a host url read from swagger, use it, otherwise use the swagger url
         $this->api->url = $this->swaggerAPI->host_url !== null ? $this->swaggerAPI->host_url : $this->swaggerAPI->swagger_url;
 
