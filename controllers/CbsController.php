@@ -98,11 +98,12 @@ class CbsController extends Controller
 			if (($new->version != $model->version) or ($new->url != $model->url))
 			{
 				$new->name = $model->name . '_v' . $new->version . '_by_' . \app\models\User::findIdentity(Yii::$app->getUser()->getId())->username;
+                $new->cbs = 1;
 				$new->description = $model->description;
 				$new->status = 'pending';
 
 				$new->save();
-				return $this->redirect(['view', 'id' => $new->id]);
+				return $this->redirect(['index']);
 			}
 		}
 
